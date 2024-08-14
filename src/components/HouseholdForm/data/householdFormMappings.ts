@@ -5,6 +5,7 @@ import {
     HouseholdSpaceHeatingEnum, 
     HouseholdWaterHeatingEnum, 
     VehicleFuelTypeEnum,
+
      } from '../../../shared/api/household-calculator-client';
 
 
@@ -71,3 +72,48 @@ export const vehicleMapping: { [key in VehicleFuelTypeEnum]: string } = {
     DIESEL: 'Diesel'
 };
 
+// -----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+// // ------------------- Default values -------------------
+
+
+
+// export const defaultValues: Household = {
+//     location: HouseholdLocationEnum.AucklandCentral,
+//     occupancy: 2,
+//     spaceHeating: HouseholdSpaceHeatingEnum.DontKnow,
+//     waterHeating: HouseholdWaterHeatingEnum.DontKnow,
+//     cooktop: HouseholdCooktopEnum.DontKnow,
+//     vehicles: [
+//         {
+//             fuelType: VehicleFuelTypeEnum.Hybrid,
+//             kmsPerWeek: 0,
+//             switchToEV: false
+//         },
+//         {
+//             fuelType: VehicleFuelTypeEnum.Petrol,
+//             kmsPerWeek: 0,
+//             switchToEV: false
+//         }
+//     ],
+//     solar: {
+//         hasSolar: false,
+//         size: 7,
+//         installSolar: false
+//     },
+//     battery: {
+//         hasBattery: false,
+//         capacity: 0
+//     }
+// };

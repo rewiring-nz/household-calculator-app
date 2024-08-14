@@ -1,12 +1,13 @@
-.formContainer {
+/* .formContainer {
   display: flex;
   flex-wrap: wrap;
+  gap: 1rem; */
   /* flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%; */
-}
+/* } */
 
 /* .form {
   display: flex;
@@ -17,13 +18,19 @@
   height: 100%;
 } */
 
-.formBox {
+/* .formBox {
   display: grid;
   align-items: center;
   justify-content: center;
   margin: auto;
-}
-
+  min-width: 300px;
+} */
+/* 
 textarea {
     resize: none;
   }
+
+
+  FormControl {
+    margin: 1rem;
+  } */
