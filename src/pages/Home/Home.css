@@ -1,0 +1,23 @@
+.Home {
+    text-align: left;
+    background-color: #FDFAF1;
+  }
+  
+  .Home-logo {
+    max-width: 38vw;
+    margin-bottom: 1.1rem;
+    pointer-events: none;
+  }
+    
+  .Home-header {
+    background-color: #FDFAF1;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+  }
+  
+  
