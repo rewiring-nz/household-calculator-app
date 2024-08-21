@@ -168,8 +168,12 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
   }));
 
   export const HalfWidthFormBox = styled(FormBox)(({ theme }: { theme: Theme }) => ({
-    flexBasis: 'calc(50% - 2rem)', // 2 columns on medium and up screens
-    maxWidth: 'calc(50% - 2rem)'
+    flexBasis: '100%',
+    maxWidth: '100%',
+    [theme.breakpoints.up('sm')]: {
+      flexBasis: 'calc(50% - 2rem)', // 2 columns on medium and up screens
+      maxWidth: 'calc(50% - 2rem)'
+    }
   }));
 
 // export default FormBox;
