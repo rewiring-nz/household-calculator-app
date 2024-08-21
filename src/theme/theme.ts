@@ -25,13 +25,22 @@ const theme = createTheme({
             fontWeight: 600,
             lineHeight: '1.2rem',
             margin: '0.9rem 0',
-            letterSpacing: '0.02rem'
+            letterSpacing: '0.02rem',
+            color: '#3A3A3A'
         },
         h4: {
             fontFamily: 'Rubik, Roboto, sans-serif',
             fontSize: '0.75rem',
             fontWeight: 700,
-            lineHeight: '0.94rem'
+            lineHeight: '0.94rem',
+            letterSpacing: '.04rem'
+        },
+        h5: {
+            fontFamily: 'Poppins, Roboto, sans-serif',
+            fontSize: '1rem',
+            fontWeight: 600,
+            lineHeight: '0.75rem',
+            letterSpacing: '.04rem'
         },
         subtitle1: {
             fontFamily: 'Poppins, Roboto, sans-serif',
@@ -58,6 +67,12 @@ const theme = createTheme({
             fontWeight: 500,
             lineHeight: '1.22rem'
         },
+        caption: {
+            fontFamily: 'Poppins, Roboto, sans-serif',
+            fontSize: '0.75rem',
+            fontWeight: 400,
+            lineHeight: '0.94rem'
+        },
     },
     palette: {
         primary: {
@@ -83,8 +98,8 @@ const theme = createTheme({
         },
         text: {
             primary: '#000000', //'#2E2E2E', //#3A3A3A
-            secondary: '#3A3A3A', 
-            disabled: '#9e9e9e'
+            secondary: '#2E2E2E',  //'#3A3A3A', //#AAAAAA
+            disabled: '#9e9e9e' // #BCBCBC
         },
         background: {
             default: '#FDFAF1',  // #527570
@@ -99,7 +114,20 @@ const theme = createTheme({
         //     disabledBackground: '#e0e0e0' 
         // },
     },  
-    spacing: 8, // Default spacing unit
+    spacing: 8, 
+    shape: {
+        borderRadius: 8
+    },
+    components: {
+        MuiButton: {
+          styleOverrides: {
+            root: {
+                borderRadius: '0.25rem'
+            },
+          },
+        }
+    }
+        
 });
 
 export default theme;

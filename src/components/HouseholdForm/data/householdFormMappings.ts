@@ -48,8 +48,8 @@ export const spaceHeatingMapping: { [key in HouseholdSpaceHeatingEnum]: string }
 };
 
 export const waterHeatingMapping: { [key in HouseholdWaterHeatingEnum]: string } = {
-    ELECTRIC_RESISTANCE: 'Electric resistance water heating',
-    ELECTRIC_HEAT_PUMP: 'Heat pump water heating',
+    ELECTRIC_RESISTANCE: 'Electric resistance',
+    ELECTRIC_HEAT_PUMP: 'Heat pump',
     GAS: 'Gas',
     LPG: 'LPG',
     SOLAR: 'Solar',

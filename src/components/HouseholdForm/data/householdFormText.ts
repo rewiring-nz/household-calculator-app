@@ -14,7 +14,7 @@ import {
 //     vehicleMapping,
 //      } from './householdFormMappings';
 // import { FormText } from './interfaces';
-import { FormState, Option, OptionNumber, OptionYesNo } from './interfaces';
+import { HouseholdFormState, Option, OptionNumber, OptionYesNo, UsageOptions, UsageType, VehicleOptions } from './interfaces';
 
 
 
@@ -52,7 +52,7 @@ export const locationMapping: { [key in HouseholdLocationEnum]: string } = {
 console.log('householdFormText locationMapping:', locationMapping);
 
 export const spaceHeatingMapping: { [key in HouseholdSpaceHeatingEnum]: string } = {
-    [HouseholdSpaceHeatingEnum.ElectricResistance]: 'Electric resistance heating',
+    [HouseholdSpaceHeatingEnum.ElectricResistance]: 'Electric resistance',
     [HouseholdSpaceHeatingEnum.ElectricHeatPump]: 'Heat pump',
     [HouseholdSpaceHeatingEnum.Wood]: 'Wood',
     [HouseholdSpaceHeatingEnum.Gas]: 'Gas',
@@ -61,8 +61,8 @@ export const spaceHeatingMapping: { [key in HouseholdSpaceHeatingEnum]: string }
 };
 
 export const waterHeatingMapping: { [key in HouseholdWaterHeatingEnum]: string } = {
-    [HouseholdWaterHeatingEnum.ElectricResistance]: 'Electric resistance water heating',
-    [HouseholdWaterHeatingEnum.ElectricHeatPump]: 'Heat pump water heating',
+    [HouseholdWaterHeatingEnum.ElectricResistance]: 'Electric resistance',
+    [HouseholdWaterHeatingEnum.ElectricHeatPump]: 'Heat pump',
     [HouseholdWaterHeatingEnum.Gas]: 'Gas',
     [HouseholdWaterHeatingEnum.Lpg]: 'LPG',
     [HouseholdWaterHeatingEnum.Solar]: 'Solar',
@@ -141,13 +141,18 @@ export const cooktopOptions = Object.entries(cooktopMapping).map(([key, value]) 
 })) as Option[];
 
 
-export const vehicleOptions = {
-    amount: Array.from(Array(5).keys()).map((amount) => (
-        { value: amount + 1, text: amount.toString() })
+export const vehicleOptions: VehicleOptions = {
+    amount: Array.from(Array(6).keys()).map((amount) => (
+        { value: amount, text: amount.toString() })
         ) as OptionNumber[],
     fuelType: Object.entries(vehicleMapping).map(([key, value]) => (
         {value: key as VehicleFuelTypeEnum, text: value}
         )) as Option[],
+    usageOptionsList: [
+        { type: 'Low', value: 80, unit: '<100 km/wk' },
+        { type: 'Medium', value: 200, unit: '100-300 km/wk' },
+        { type: 'High', value: 500, unit: '300+ km/wk' }
+    ]
 }
 
 
@@ -156,8 +161,9 @@ export const solarOptions = {
         { value: false, text: 'No' },
         { value: true, text: 'Yes' }
         ] as OptionYesNo[],
-    size: Array.from(Array(20).keys()).map((size) => (
-        { value: size, text: size.toString() + ' kWh' })
+    sizeList: Array.from(Array(20).keys()).map((size) => (
+        { value: size, text: size.toString() + ' kW' })
+        // { value: size, text: size.toString() })
     ) as OptionNumber[]
 }
 
@@ -166,8 +172,9 @@ export const batteryOptions = {
         { value: false, text: 'No' },
         { value: true, text: 'Yes' }
         ] as  OptionYesNo[],
-    capacity: Array.from(Array(20).keys()).map((size) => (
+    capacityList: Array.from(Array(20).keys()).map((size) => (
         { value: size, text: size.toString() + ' kWh' })
+        // { value: size, text: size.toString() })
     ) as OptionNumber[]
 };
 
@@ -188,36 +195,52 @@ console.log('householdFormText batteryOptions:', batteryOptions);
 
 
 
-// ------------------- Default values -------------------
-
+// ------------------- Default State -------------------
+// Initial values for the form, todo: update defaults from API
 // export const defaultValues: Household = {
-export const defaultValues: FormState = {
+export const defaultValues: HouseholdFormState = {
     location: HouseholdLocationEnum.AucklandNorth,
     occupancy: 2,
-    spaceHeating: HouseholdSpaceHeatingEnum.DontKnow,
-    waterHeating: HouseholdWaterHeatingEnum.DontKnow,
-    cooktop: HouseholdCooktopEnum.DontKnow,
+    spaceHeating: HouseholdSpaceHeatingEnum.Wood,
+    waterHeating: HouseholdWaterHeatingEnum.Gas,
+    cooktop: HouseholdCooktopEnum.Gas,
     numberOfVehicles: 2,
-    vehicles: [
+    // vehicles: [
+    //     {
+    //         fuelType: VehicleFuelTypeEnum.Hybrid,
+    //         kmsPerWeek: 150,
+    //         switchToEV: true
+    //     },
+    //     {
+    //         fuelType: VehicleFuelTypeEnum.Petrol,
+    //         kmsPerWeek: 200,
+    //         switchToEV: true
+    //     }
+    // ],
+    vehicleObjs: [
         {
+            id: 1,
             fuelType: VehicleFuelTypeEnum.Hybrid,
-            kmsPerWeek: 0,
-            switchToEV: false
+            // usage: vehicleOptions.usageOptions[1]
+            usageType: ('Medium' as UsageType),
         },
         {
+            id: 2,
             fuelType: VehicleFuelTypeEnum.Petrol,
-            kmsPerWeek: 0,
-            switchToEV: false
+            // usage: vehicleOptions.usageOptions[0]
+            usageType: ('Low' as UsageType),
         }
     ],
     solar: {
         hasSolar: false,
-        size: 7,
-        installSolar: false
+        size: 3,
+        installSolar: false,
+        unit: 'kW'
     },
     battery: {
         hasBattery: false,
-        capacity: 0
+        capacity: 10,
+        unit: 'kWh'
     }
 };
 
@@ -227,9 +250,13 @@ export const defaultValues: FormState = {
 
 
 
+
+
+
+
 // -------------------- Tooltip Text --------------------
 
-export const tooltipText = {
+const tooltipText = {
     location: 'Select the region where you live.',
     occupancy: 'Select the number of people living in your household.',
     spaceHeating: 'Select the main type of heating used in your home.',
@@ -248,6 +275,94 @@ export const tooltipText = {
         capacity: 'Select the capacity of your battery.'
     }
 };
+// -----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---------------------------------------------------
+
+// -------------------- Form Text --------------------
+
+export interface FormText {
+    options: {
+        location: typeof locationOptions;
+        occupancy: typeof occupancyOptions;
+        spaceHeating: typeof spaceHeatingOptions;
+        waterHeating: typeof waterHeatingOptions;
+        cooktop: typeof cooktopOptions;
+        vehicle: typeof vehicleOptions;
+        solar: typeof solarOptions;
+        battery: typeof batteryOptions;
+    };
+    defaultValues: HouseholdFormState;
+    tooltipText: typeof tooltipText;
+}
+
+
+export const formText: FormText = {
+    options: {
+        location: locationOptions,
+        occupancy: occupancyOptions,
+        spaceHeating: spaceHeatingOptions,
+        waterHeating: waterHeatingOptions,
+        cooktop: cooktopOptions,
+        vehicle: vehicleOptions,
+        solar: solarOptions,
+        battery: batteryOptions
+    },
+    defaultValues: defaultValues,
+    tooltipText: tooltipText
+};
+
+// -----------------------------------------------------
+
+
+
+// -----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -3,7 +3,8 @@ import { Box, PopperProps, Theme } from "@mui/material";
 // import { theme } from "../../theme/theme";
 
 export const ResetButton = styled('button')(({ theme }: { theme: Theme }) => ({
-    margin: '1.8rem 0 0.8rem 0',
+    justifyContent: 'flex-end',  
+    margin: '1rem 0 0.8rem 0',
     display: 'flex',
     backgroundColor: 'transparent',
     border: 'none',
@@ -18,10 +19,64 @@ export const ResetButton = styled('button')(({ theme }: { theme: Theme }) => ({
     }
   }));
 
+
+
 export const FormContainer = styled(Box)(({ theme }: { theme: Theme }) => ({
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '2.4rem'
+    gap: '2.4rem',
+    justifyContent: 'space-between',
+}));
+
+export const FormSection = styled(Box)(( { theme }: { theme: Theme }) => ({
+    margin: '0.5rem 0',
+    display: 'flex',
+    flexDirection: 'column',
+    // gap: '1rem'
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+        flexDirection: 'row',
+        gap: '1rem',
+        // flexWrap: 'wrap',
+        // '& > *': {
+        //     flexBasis: 'calc(50% - 0.5rem)', // Adjust the width of each child element
+        //     maxWidth: 'calc(50% - 0.5rem)', // Ensure it doesn't exceed 50% width
+        // }
+    }
+}));
+
+export const FormVehicle = styled(Box)(({ theme }: { theme: Theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+    // '& .MuiFormControl-root': {
+    //     width: '100%',
+    //     flexBasis: '100%'
+    // },
+    '& .MuiFormLabel-root': {
+        color: theme.palette.text.primary,
+        '&.Mui-focused': {
+            color: theme.palette.text.primary,
+        },
+        '&.Mui-active': {
+            color: theme.palette.text.primary,
+        }
+    },
+    '& .MuiSelect-select': {
+        backgroundColor: theme.palette.background.paper,
+        color: theme.palette.text.primary,
+        fontWeight: '500',
+    },
+    '& .MuiFormGroup-root': {
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    '& .MuiButtonBase-root': {
+        color: theme.palette.text.secondary,
+        '&.Mui-checked': {
+            color: theme.palette.text.secondary
+        }
+    }
 }));
 
 export const tooltipPoppers: PopperProps = {
@@ -38,29 +93,32 @@ export const tooltipPoppers: PopperProps = {
 
 
 
-const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
+export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
     backgroundColor: theme.palette.background.default,  
+    // display: 'flex',
     flexGrow: 1,
     flexBasis: '100%',
-    [theme.breakpoints.up('sm')]: {
-      flexBasis: 'calc(100% / 2) - 1rem', // 2 columns on medium and up screens
-      maxWidth: 'calc(100% / 2) - 1rem'
-    },
+    maxWidth: '100%',
+    // [theme.breakpoints.up('sm')]: {
+    //   flexBasis: 'calc(100% / 2) - 1rem', // 2 columns on medium and up screens
+    //   maxWidth: 'calc(100% / 2) - 1rem'
+    // },
     '& > .MuiBox-root': {
-      display: 'flex',
+      // display: 'flex',
       width: '100%', 
       flexBasis: '100%', // Full width on small screens
-      [theme.breakpoints.up('sm')]: {
-        flexBasis: 'calc(100% / 2) - 10px', // 2 columns on medium and up screens
-        maxWidth: 'calc(100% / 2) - 10px'
-      }
+      // [theme.breakpoints.up('sm')]: {
+      //   flexBasis: 'calc(100% / 2) - 10px', // 2 columns on medium and up screens
+      //   maxWidth: 'calc(100% / 2) - 10px'
+      // }
     },
     '& .MuiDivider-root': {
         // borderColor: theme.palette.divider, #d7d5cd
         borderBottomWidth: '0.1rem'
     },
-    '& .MuiFormControl-root': {
-      width: '100%',
+    // '& .MuiFormControl-root': {
+    '& .fullFormControl': {
+      // width: '100%',
       flexBasis: '100%', // Full width on small screens
       // [theme.breakpoints.up('sm')]: {
       //   flexBasis: 'calc(100% / 2)', // 2 columns on medium and up screens
@@ -79,7 +137,8 @@ const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
         // border: `0.19rem solid ${theme.palette.divider}`,
         // borderWidth: '2px'
     },
-    '& .MuiFormLabel-root': {
+    // '& .MuiFormLabel-root': {
+    '& .mainLabels': {
         margin: '0.8rem 0',
         color: theme.palette.text.primary,
         '&.Mui-focused': {
@@ -108,4 +167,9 @@ const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
     }      
   }));
 
-export default FormBox;
+  export const HalfWidthFormBox = styled(FormBox)(({ theme }: { theme: Theme }) => ({
+    flexBasis: 'calc(50% - 2rem)', // 2 columns on medium and up screens
+    maxWidth: 'calc(50% - 2rem)'
+  }));
+
+// export default FormBox;
