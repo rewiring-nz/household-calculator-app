@@ -349,8 +349,8 @@ const HouseholdForm: React.FC = () => {
               error={!!errors.spaceHeating}>
           <Box display="flex" alignItems="center">
             <FormLabel className='mainLabels'>House heating</FormLabel>            
-            <Tooltip title={tooltipText.spaceHeating} placement="right">
-            {/* <Tooltip title={tooltipText.spaceHeating} placement="right" PopperProps={tooltipPoppers}> */}
+            <Tooltip title={tooltipText.spaceHeating} placement="top">
+            {/* <Tooltip title={tooltipText.spaceHeating} placement="top" PopperProps={tooltipPoppers}> */}
               {/* <SvgIcon component={questionIcon as React.ElementType}> */}
               <img src={questionIcon} className="tooltip-logo" alt="logo" />
             </Tooltip>
@@ -379,7 +379,7 @@ const HouseholdForm: React.FC = () => {
               error={!!errors.waterHeating}>
           <Box display="flex" alignItems="center">
             <FormLabel className='mainLabels'>Water heating</FormLabel>
-            <Tooltip title={tooltipText.waterHeating} placement="right">
+            <Tooltip title={tooltipText.waterHeating} placement="top">
               <img src={questionIcon} className="tooltip-logo" alt="logo" />
             </Tooltip>
           </Box>
@@ -406,7 +406,7 @@ const HouseholdForm: React.FC = () => {
               error={!!errors.cooktop}>
           <Box display="flex" alignItems="center">            
             <FormLabel className='mainLabels'>Cooktop</FormLabel>
-            <Tooltip title={tooltipText.cooktop} placement="right">
+            <Tooltip title={tooltipText.cooktop} placement="top">
               <img src={questionIcon} className="tooltip-logo" alt="logo" />
             </Tooltip>
           </Box>
@@ -457,7 +457,7 @@ const HouseholdForm: React.FC = () => {
               error={!!errors.solar}>
             <Box display="flex" alignItems="center">                        
               <FormLabel className='mainLabels'>Do you have solar panels?</FormLabel>
-              <Tooltip title={tooltipText.solar.hasSolar} placement="right">
+              <Tooltip title={tooltipText.solar.hasSolar} placement="top">
                 <img src={questionIcon} className="tooltip-logo" alt="logo" />
               </Tooltip>
             </Box>
@@ -485,7 +485,7 @@ const HouseholdForm: React.FC = () => {
               error={!!errors.solar}>
             <Box display="flex" alignItems="center">            
               <FormLabel className='mainLabels'>What size?</FormLabel>            
-              <Tooltip title={tooltipText.solar.size} placement="right">
+              <Tooltip title={tooltipText.solar.size} placement="top">
                 <img src={questionIcon} className="tooltip-logo" alt="logo" />
               </Tooltip>
             </Box>
@@ -532,7 +532,7 @@ const HouseholdForm: React.FC = () => {
               error={!!errors.battery}>
           <Box display="flex" alignItems="center">            
             <FormLabel className='mainLabels'>Do you have a battery?</FormLabel>            
-            <Tooltip title={tooltipText.battery.hasBattery} placement="right">
+            <Tooltip title={tooltipText.battery.hasBattery} placement="top">
               <img src={questionIcon} className="tooltip-logo" alt="logo" />
             </Tooltip>
           </Box>
@@ -560,7 +560,8 @@ const HouseholdForm: React.FC = () => {
               error={!!errors.battery}>
           <Box display="flex" alignItems="center">            
             <FormLabel className='mainLabels'>What size?</FormLabel>            
-            <Tooltip title={tooltipText.battery.capacity} placement="right" PopperProps={tooltipPoppers}>
+            {/* <Tooltip title={tooltipText.battery.capacity} placement="top" PopperProps={tooltipPoppers}> */}
+            <Tooltip title={tooltipText.battery.capacity} placement="top">
               <img src={questionIcon} className="tooltip-logo" alt="logo" />
             </Tooltip>
           </Box>

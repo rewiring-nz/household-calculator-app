@@ -9,6 +9,7 @@ import { FDivider } from 'src/pages/Home/Home.styles';
 import heatpump from '../../assets/images/heatpump.png'; 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { UpfrontCost } from 'src/shared/api/household-calculator-client';
+import MailchimpForm from '../MailChimpForm/MailChimpForm';
 
 
 
@@ -19,33 +20,33 @@ interface Email {
 
 
 
-const EmailForm = styled('form')(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.5rem',
-    '& .MuiInputBase-root': {
-        color: theme.palette.text.disabled,
-        backgroundColor: theme.palette.background.paper
-    },
-    [theme.breakpoints.up('sm')]: {
-        flexDirection: 'row',
-        gap: '1rem'
-    },
-    '& .MuiFormControl-root': {
-        flexBasis: '100%',
-        [theme.breakpoints.up('sm')]: {
-            flexBasis: '66%'
-        }
-    },
-    '& .MuiButtonBase-root': {
-        flexBasis: '100%',
-        fontFamily: theme.typography,
-        [theme.breakpoints.up('sm')]: {
-            flexBasis: '33%',
-            margin: '0 auto'
-        }
-    }
-}));
+// const EmailForm = styled('form')(({ theme }) => ({
+//     display: 'flex',
+//     flexDirection: 'column',
+//     gap: '0.5rem',
+//     '& .MuiInputBase-root': {
+//         color: theme.palette.text.disabled,
+//         backgroundColor: theme.palette.background.paper
+//     },
+//     [theme.breakpoints.up('sm')]: {
+//         flexDirection: 'row',
+//         gap: '1rem'
+//     },
+//     '& .MuiFormControl-root': {
+//         flexBasis: '100%',
+//         [theme.breakpoints.up('sm')]: {
+//             flexBasis: '66%'
+//         }
+//     },
+//     '& .MuiButtonBase-root': {
+//         flexBasis: '100%',
+//         fontFamily: theme.typography,
+//         [theme.breakpoints.up('sm')]: {
+//             flexBasis: '33%',
+//             margin: '0 auto'
+//         }
+//     }
+// }));
 
 
 
@@ -218,43 +219,9 @@ const HouseholdSavings: React.FC = () => {
 
 
 
-                {/* <form onSubmit={handleSubmit(onSubmit)}  */}
-                <EmailForm onSubmit={handleSubmit(onSubmit)}>
-                    {/* <FormControl error={!!errors.email}> */}
-                    <FormControl>
-                        {/* <InputLabel htmlFor="email">name@example.com</InputLabel> */}
-                        {/* <Input 
-                            id="email" 
-                            {...register("email")}                                                   
-                            placeholder="name@example.com"/> */}
-                        <TextField 
-                            id="email" 
-                            // label="Outlined" 
-                            {...register("email")}                                                   
-                            placeholder="name@example.com"
-                            variant="outlined" />
-                        {/* <FormHelperText id="email">We'll never share your email.</FormHelperText> */}
-                    </FormControl>
-                    
-                    <Button variant="outlined" type="submit"
-                        sx={{
-                            textTransform: 'initial',
-                            margin: '.7rem 0',
-                            color: "info"
-                            }}
-                        >
-                        <Typography 
-                            variant="h3" 
-                            sx={{ 
-                                color: theme.palette.secondary.contrastText,
-                                borderWidth: '0.1rem'
-                            }}
-                            >
-                            Submit
-                        </Typography>                        
-                    </Button>
-                </EmailForm>
+               
 
+                <MailchimpForm theme={theme} />
 
 
             </Box>

@@ -52,34 +52,34 @@ export const locationMapping: { [key in HouseholdLocationEnum]: string } = {
 console.log('householdFormText locationMapping:', locationMapping);
 
 export const spaceHeatingMapping: { [key in HouseholdSpaceHeatingEnum]: string } = {
-    [HouseholdSpaceHeatingEnum.ElectricResistance]: 'Electric resistance',
-    [HouseholdSpaceHeatingEnum.ElectricHeatPump]: 'Heat pump',
-    [HouseholdSpaceHeatingEnum.Wood]: 'Wood',
-    [HouseholdSpaceHeatingEnum.Gas]: 'Gas',
-    [HouseholdSpaceHeatingEnum.Lpg]: 'LPG',
+    [HouseholdSpaceHeatingEnum.ElectricResistance]: 'Electric resistive heaters (e.g. oil column, fan, wall)',
+    [HouseholdSpaceHeatingEnum.ElectricHeatPump]: 'Heat pump(s)',
+    [HouseholdSpaceHeatingEnum.Wood]: 'Wood fire',
+    [HouseholdSpaceHeatingEnum.Gas]: 'Piped/ducted gas heater',
+    [HouseholdSpaceHeatingEnum.Lpg]: 'Bottled LPG heater',
     [HouseholdSpaceHeatingEnum.DontKnow]: 'Not sure'
 };
 
 export const waterHeatingMapping: { [key in HouseholdWaterHeatingEnum]: string } = {
-    [HouseholdWaterHeatingEnum.ElectricResistance]: 'Electric resistance',
+    [HouseholdWaterHeatingEnum.ElectricResistance]: 'Electric resistive',
     [HouseholdWaterHeatingEnum.ElectricHeatPump]: 'Heat pump',
-    [HouseholdWaterHeatingEnum.Gas]: 'Gas',
-    [HouseholdWaterHeatingEnum.Lpg]: 'LPG',
+    [HouseholdWaterHeatingEnum.Gas]: 'Piped/ducted gas',
+    [HouseholdWaterHeatingEnum.Lpg]: 'Bottled LPG',
     [HouseholdWaterHeatingEnum.Solar]: 'Solar',
     [HouseholdWaterHeatingEnum.DontKnow]: 'Not sure'
 };
 
 export const cooktopMapping: { [key in HouseholdCooktopEnum]: string } = {
-    [HouseholdCooktopEnum.ElectricResistance]: 'Electric resistance/Ceramic',
-    [HouseholdCooktopEnum.Gas]: 'Gas',
-    [HouseholdCooktopEnum.Lpg]: 'LPG',
+    [HouseholdCooktopEnum.ElectricResistance]: 'Electric resistive/Ceramic',
+    [HouseholdCooktopEnum.Gas]: 'Piped/ducted gas',
+    [HouseholdCooktopEnum.Lpg]: 'Bottled LPG',
     [HouseholdCooktopEnum.ElectricHeatPump]: 'Induction', // NB error in api, needs updating to Induction
     [HouseholdCooktopEnum.DontKnow]: 'Not sure'
 };
 
 export const vehicleMapping: { [key in VehicleFuelTypeEnum]: string } = {
     [VehicleFuelTypeEnum.Electric]: 'Electric',
-    [VehicleFuelTypeEnum.PlugInHybrid]: 'Plug-in hybrid',
+    [VehicleFuelTypeEnum.PlugInHybrid]: 'Plug-in Hybrid',
     [VehicleFuelTypeEnum.Hybrid]: 'Hybrid',
     [VehicleFuelTypeEnum.Petrol]: 'Petrol',
     [VehicleFuelTypeEnum.Diesel]: 'Diesel'
@@ -122,15 +122,23 @@ const getOccupancyString = (occupancy: number): string => {
     }
 };
 
-export const occupancyOptions = Array.from(Array(15).keys()).map((occupancy) => (
-    { value: occupancy, text: getOccupancyString(occupancy) })) as OptionNumber[];
+export const occupancyOptions = Array.from(Array(20).keys()).map((occupancy) => (    
+    { value: (occupancy + 1), text: getOccupancyString((occupancy + 1)) })) as OptionNumber[];
 
 export const spaceHeatingOptions = Object.entries(spaceHeatingMapping).map(([key, value]) => ({
     value: key as HouseholdSpaceHeatingEnum,
     text: value
 })) as Option[];
     
-export const waterHeatingOptions = Object.entries(waterHeatingMapping).map(([key, value]) => ({
+
+const waterHeatingMap_noSolar = { // Temp work around until API is updated
+    [HouseholdWaterHeatingEnum.ElectricResistance]: 'Electric resistive',
+    [HouseholdWaterHeatingEnum.ElectricHeatPump]: 'Heat pump',
+    [HouseholdWaterHeatingEnum.Gas]: 'Piped/ducted gas',
+    [HouseholdWaterHeatingEnum.Lpg]: 'Bottled LPG',
+    [HouseholdWaterHeatingEnum.DontKnow]: 'Not sure'
+};
+export const waterHeatingOptions = Object.entries(waterHeatingMap_noSolar).map(([key, value]) => ({
     value: key as HouseholdWaterHeatingEnum,
     text: value
 })) as Option[];
@@ -200,7 +208,7 @@ console.log('householdFormText batteryOptions:', batteryOptions);
 // export const defaultValues: Household = {
 export const defaultValues: HouseholdFormState = {
     location: HouseholdLocationEnum.AucklandNorth,
-    occupancy: 2,
+    occupancy: 3,
     spaceHeating: HouseholdSpaceHeatingEnum.Wood,
     waterHeating: HouseholdWaterHeatingEnum.Gas,
     cooktop: HouseholdCooktopEnum.Gas,
@@ -233,13 +241,13 @@ export const defaultValues: HouseholdFormState = {
     ],
     solar: {
         hasSolar: false,
-        size: 3,
+        size: 7,
         installSolar: false,
         unit: 'kW'
     },
     battery: {
         hasBattery: false,
-        capacity: 10,
+        capacity: 7,
         unit: 'kWh'
     }
 };
@@ -257,23 +265,23 @@ export const defaultValues: HouseholdFormState = {
 // -------------------- Tooltip Text --------------------
 
 const tooltipText = {
-    location: 'Select the region where you live.',
-    occupancy: 'Select the number of people living in your household.',
-    spaceHeating: 'Select the main type of heating used in your home.',
-    waterHeating: 'Select the main type of water heating used in your home.',
-    cooktop: 'Select the main type of cooktop used in your home.',
-    vehicle: {
-        amount: 'Select the number of vehicles in your household.',
-        fuelType: 'Select the fuel type of your vehicle(s).',
-    },
+    // location: 'Select the region where you live.',
+    // occupancy: 'Select the number of people living in your household.',
+    spaceHeating: 'If you have multiple ways of heating your house, pick the one that you use the most.',
+    waterHeating: 'How your hot water tank is heated.',
+    cooktop: 'If you have multiple cooktops, pick the one that you use the most.',
     solar: {
-        hasSolar: 'Select whether you have solar panels installed.',
-        size: 'Select the size of your solar panel system.',
+        hasSolar: 'If you have any solar panels in use (whether on roof or ground), select Yes. If you don’t have solar yet, select whether you would like to calculate your savings based on getting solar.',
+        size: 'The total capacity of your solar panel system. 9 kW is the average in Australia and enough for 2 EVs, 7 kW is enough for 1 EV.',
     },
     battery: {
-        hasBattery: 'Select whether you have a battery installed.',
-        capacity: 'Select the capacity of your battery.'
+        hasBattery: 'If you have a home battery, select Yes. If you don’t have a battery yet, select whether you would like to calculate your savings based on getting one.',
+        capacity: 'The total capacity of your home battery system. A Tesla Powerwall is 5 kW.'
     }
+    // vehicle: {
+    //     amount: 'Select the number of vehicles in your household.',
+    //     fuelType: 'Select the fuel type of your vehicle(s).',
+    // }
 };
 // -----------------------------------------------------
 
