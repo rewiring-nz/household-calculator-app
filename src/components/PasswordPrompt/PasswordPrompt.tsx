@@ -7,11 +7,11 @@ const PasswordPrompt: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const env = process.env.REACT_APP_ENV;
     const password = 'Iwantsolar'; //process.env.REACT_APP_PASSWORD;
 
-    console.log('Environment:', env); // Debugging line
-    console.log('Password:', password); // Debugging line
+    // console.log('Environment:', env); // Debugging line
+    // console.log('Password:', password); // Debugging line
 
     if (env !== 'dev') {
-      console.log('Prompting for password'); // Debugging line
+    //   console.log('Prompting for password'); // Debugging line
       const enteredPassword = window.prompt('Please enter the password to access this site:');
       console.log('Entered Password:', enteredPassword); // Debugging line
       if (enteredPassword === password) {
