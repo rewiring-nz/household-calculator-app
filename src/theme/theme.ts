@@ -36,42 +36,42 @@ const theme = createTheme({
             letterSpacing: '.04rem'
         },
         h5: {
-            fontFamily: 'Poppins, Roboto, sans-serif',
+            fontFamily: 'Rubik, Roboto, sans-serif',
             fontSize: '1rem',
             fontWeight: 600,
             lineHeight: '0.75rem',
             letterSpacing: '.04rem'
         },
         subtitle1: {
-            fontFamily: 'Poppins, Roboto, sans-serif',
+            fontFamily: 'Rubik, Roboto, sans-serif',
             fontSize: '1.25rem', // 16 * 1.25 = 20px
             fontWeight: 400,
             lineHeight: '1.63rem',
             margin: '0.5rem 0 1rem 0'
         },
         subtitle2: {
-            fontFamily: 'Poppins, Roboto, sans-serif',
+            fontFamily: 'Rubik, Roboto, sans-serif',
             fontSize: '1.125rem', // 18px
             fontWeight: 400,
             lineHeight: '1.69rem'
         },
         body1: {
-            fontFamily: 'Poppins, Roboto, sans-serif',
+            fontFamily: 'Rubik, Roboto, sans-serif',
             fontSize: '1rem',
             fontWeight: 400,
             lineHeight: '1.69rem'
         },
         body2: {
-            fontFamily: 'Poppins, Roboto, sans-serif',
+            fontFamily: 'Rubik, Roboto, sans-serif',
             fontSize: '0.94rem', // ~15px
             fontWeight: 500,
             lineHeight: '1.22rem'
         },
         caption: {
-            fontFamily: 'Poppins, Roboto, sans-serif',
+            fontFamily: 'Rubik, Roboto, sans-serif',
             fontSize: '0.75rem',
             fontWeight: 400,
-            lineHeight: '0.94rem'
+            // lineHeight: '0.94rem'
         },
     },
     palette: {
@@ -106,13 +106,19 @@ const theme = createTheme({
             paper: '#ffffff'            
         },
         divider: '#d7d5cd',
-        // action: {
-        //     active: '#6200ea',
-        //     hover: '#9d46ff',
-        //     selected: '#6200ea',
-        //     disabled: '#9e9e9e',
-        //     disabledBackground: '#e0e0e0' 
-        // },
+        action: {
+            // active: '#6200ea',
+            // hover: '#9d46ff',
+            // selected: '#6200ea',
+            // disabled: '#9e9e9e',
+            disabledBackground: '#CCCCCC',
+            // focus: '#6200ea',
+            // hoverOpacity: 0.08,
+            // disabledOpacity: 0.38,
+            // focusOpacity: 0.12,
+
+
+        },
     },  
     spacing: 8, 
     shape: {

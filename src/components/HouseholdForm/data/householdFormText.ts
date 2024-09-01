@@ -157,9 +157,9 @@ export const vehicleOptions: VehicleOptions = {
         {value: key as VehicleFuelTypeEnum, text: value}
         )) as Option[],
     usageOptionsList: [
-        { type: 'Low', value: 80, unit: '<100 km/wk' },
+        { type: 'Low', value: 50, unit: '<100 km/wk' },
         { type: 'Medium', value: 200, unit: '100-300 km/wk' },
-        { type: 'High', value: 500, unit: '300+ km/wk' }
+        { type: 'High', value: 400, unit: '300+ km/wk' }
     ]
 }
 
@@ -242,12 +242,15 @@ export const defaultValues: HouseholdFormState = {
     solar: {
         hasSolar: false,
         size: 7,
-        installSolar: false,
+        // installSolar: true,
+        dontWantSolar: false,
         unit: 'kW'
     },
     battery: {
         hasBattery: false,
         capacity: 7,
+        // installBattery: true,
+        dontWantBattery: false,
         unit: 'kWh'
     }
 };
@@ -264,25 +267,38 @@ export const defaultValues: HouseholdFormState = {
 
 // -------------------- Tooltip Text --------------------
 
-const tooltipText = {
-    // location: 'Select the region where you live.',
-    // occupancy: 'Select the number of people living in your household.',
+// const tooltipText = {
+//     // location: 'Select the region where you live.',
+//     // occupancy: 'Select the number of people living in your household.',
+//     spaceHeating: 'If you have multiple ways of heating your house, pick the one that you use the most.',
+//     waterHeating: 'How your hot water tank is heated.',
+//     cooktop: 'If you have multiple cooktops, pick the one that you use the most.',
+//     solar: {
+//         hasSolar: 'If you have any solar panels in use (whether on roof or ground), select Yes. If you don’t have solar yet, select whether you would like to calculate your savings based on getting solar.',
+//         size: 'The total capacity of your solar panel system. 9 kW is the average in Australia and enough for 2 EVs, 7 kW is enough for 1 EV.',
+//     },
+//     battery: {
+//         hasBattery: 'If you have a home battery, select Yes. If you don’t have a battery yet, select whether you would like to calculate your savings based on getting one.',
+//         capacity: 'The total capacity of your home battery system. A Tesla Powerwall is 5 kW.'
+//     }
+//     // vehicle: {
+//     //     amount: 'Select the number of vehicles in your household.',
+//     //     fuelType: 'Select the fuel type of your vehicle(s).',
+//     // }
+// };
+// const tooltipText = {
+const tooltipText: Record<string, string> = {
     spaceHeating: 'If you have multiple ways of heating your house, pick the one that you use the most.',
     waterHeating: 'How your hot water tank is heated.',
     cooktop: 'If you have multiple cooktops, pick the one that you use the most.',
-    solar: {
-        hasSolar: 'If you have any solar panels in use (whether on roof or ground), select Yes. If you don’t have solar yet, select whether you would like to calculate your savings based on getting solar.',
-        size: 'The total capacity of your solar panel system. 9 kW is the average in Australia and enough for 2 EVs, 7 kW is enough for 1 EV.',
-    },
-    battery: {
-        hasBattery: 'If you have a home battery, select Yes. If you don’t have a battery yet, select whether you would like to calculate your savings based on getting one.',
-        capacity: 'The total capacity of your home battery system. A Tesla Powerwall is 5 kW.'
-    }
-    // vehicle: {
-    //     amount: 'Select the number of vehicles in your household.',
-    //     fuelType: 'Select the fuel type of your vehicle(s).',
-    // }
+    hasSolar: 'If you have any solar panels in use (whether on roof or ground), select Yes. If you don’t have solar yet, select whether you would like to calculate your savings based on getting solar.',
+    solarSize: 'The total capacity of your solar panel system. 9 kW is the average in Australia and enough for 2 EVs, 7 kW is enough for 1 EV.',
+    hasBattery: 'If you have a home battery, select Yes. If you don’t have a battery yet, select whether you would like to calculate your savings based on getting one.',
+    batteryCapacity: 'The total capacity of your home battery system. A Tesla Powerwall is 5 kW.',
+    vehicleNumber: "Just count the number of vehicles that you use reasonably regularly."
 };
+
+export default tooltipText;
 // -----------------------------------------------------
 
 

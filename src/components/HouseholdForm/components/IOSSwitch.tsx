@@ -31,7 +31,7 @@ export const IOSSwitch = styled(Switch)(({ theme }: { theme: Theme }) => ({
     },
     '&.Mui-focusVisible .MuiSwitch-thumb': {
       color: theme.palette.primary.main,
-      border: '6px solid #fff',
+      border: '6px solid #CCCCCC',
     },
     '&.Mui-disabled .MuiSwitch-thumb': {
       color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[600],
@@ -45,13 +45,13 @@ export const IOSSwitch = styled(Switch)(({ theme }: { theme: Theme }) => ({
     boxSizing: 'border-box',
     width: 22,
     height: 22,
-    backgroundColor: theme.palette.grey[400], // Set the thumb color when unchecked
+    backgroundColor: theme.palette.common.white // theme.palette.grey[400], // Set the thumb color when unchecked
   },
   '& .MuiSwitch-track': {
     borderRadius: 26 / 2,
     // backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
     // backgroundColor: theme.palette.grey[300],
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.action.disabledBackground, // '#CCCCCC', // theme.palette.background.paper,
     opacity: 1,
     transition: theme.transitions.create(['background-color'], {
       duration: 500,

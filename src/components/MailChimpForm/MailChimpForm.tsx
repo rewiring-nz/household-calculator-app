@@ -1,11 +1,23 @@
 import { Button, FormControl, styled, TextField, Typography } from '@mui/material';
 import MailchimpSubscribe from 'react-mailchimp-subscribe';
-
+import { EmailFormFields } from '../../shared/types/EmailFormFields';
 
 
 // URL to your Mailchimp subscription form
 // const url = "https://YOUR_MAILCHIMP_URL";
-const url = "https://rewiring.us17.list-manage.com/subscribe/post?u=1a7e35f66dab6e6bdb3f3e5bf&amp;id=8f847003a3&amp;f_id=00d1e7e3f0";
+// const url = "https://rewiring.us17.list-manage.com/subscribe/post?u=1a7e35f66dab6e6bdb3f3e5bf&amp;id=8f847003a3&amp;f_id=00d1e7e3f0";
+const url = "https://rewiring.us17.list-manage.com/subscribe/post?u=1a7e35f66dab6e6bdb3f3e5bf&amp;id=8f847003a3&amp;f_id=00d1e7e3f0&TAG=household-calculator";
+// This one uses JSONP
+// const url = "https://rewiring.us17.list-manage.com/subscribe/post-json?u=1a7e35f66dab6e6bdb3f3e5bf&id=8f847003a3&c=?";
+// const baseUrl = "https://rewiring.us17.list-manage.com/subscribe/post-json";
+// const u = '1a7e35f66dab6e6bdb3f3e5bf';
+// const id = '8f847003a3';
+// const tag = "household-calculator";
+
+
+
+
+
 
 
 
@@ -37,11 +49,13 @@ const EmailForm = styled('form')(({ theme }) => ({
     }
 }));
 
+// to do add tag
 
 const MailchimpForm = ({ theme }: { theme: any }) => (
     
     <MailchimpSubscribe
     url={url}
+    // url={baseUrl}
     render={({ subscribe, status, message }) => (
         <div className="MailchimpForm">
             <EmailForm 
@@ -50,8 +64,20 @@ const MailchimpForm = ({ theme }: { theme: any }) => (
                     const form = e.target as HTMLFormElement;
                     const email = form.elements.namedItem('email') as HTMLInputElement;
                     subscribe({ EMAIL: email.value });
+                    // subscribe({ 
+                    //     EMAIL: email.value,
+                    //     TAG: tag
+                    //  } as EmailFormFields);
+                    // const url = `${baseUrl}?u=${u}&id=${id}&EMAIL=${encodeURIComponent(email.value)}&TAG=${tag}&c=?`;
+                        // subscribe({ 
+                        //     EMAIL: email.value,
+                        //     TAG: tag,
+                        //     u: u,
+                        //     id: id
+                        // } as EmailFormFields);
                 }}
             >
+
                 <FormControl>
                     <TextField 
                         id="email" 
@@ -60,6 +86,10 @@ const MailchimpForm = ({ theme }: { theme: any }) => (
                         variant="outlined" 
                     />
                 </FormControl>
+
+                {/* <input type="hidden" name="u" value={u} />
+                <input type="hidden" name="id" value={id} />
+                <input type="hidden" name="TAG" value={tag} /> */}
                 
                 <Button variant="outlined" type="submit"
                     sx={{

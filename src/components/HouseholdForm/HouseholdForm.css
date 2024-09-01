@@ -34,3 +34,22 @@ textarea {
   FormControl {
     margin: 1rem;
   } */
+
+
+
+.tooltip-logo {
+  cursor: pointer;
+}
+
+/* dialog {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid #000;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+} */

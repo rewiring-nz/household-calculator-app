@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { Box, Divider, FormControl, FormControlLabel, FormHelperText, FormLabel, Input, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Tooltip, Typography, useTheme } from '@mui/material';
+import { Box, Divider, FormControl, FormControlLabel, FormHelperText, FormLabel, Input, InputAdornment, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Tooltip, Typography, useTheme, Checkbox } from '@mui/material';
 import './HouseholdForm.css';
 // import logo from '../../assets/logos/RewiringAotearoa_logo.svg';
 import { Battery, Household, Solar, Vehicle, VehicleFuelTypeEnum } from '../../shared/api/household-calculator-client';
@@ -29,6 +29,10 @@ import { FormBox, HalfWidthFormBox, FormContainer, FormSection, ResetButton, too
 import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
 import { FDivider } from 'src/pages/Home/Home.styles';
 import VehicleBox from './components/HouseholdVehicle';
+import TooltipModal from './components/TooltipDialog';
+import TooltipDialog from './components/TooltipDialog';
+import HouseholdTooltip from './components/HouseholdTooltip';
+import { HouseRadio, HouseCheck } from './components/HouseCheckRadio';
 
 
 // const formBox = {
@@ -49,33 +53,53 @@ const HouseholdForm: React.FC = () => {
   const savingsData = getSavingsData();
 
   
+  const defaultFormData = formText.defaultValues;
 
-  const defaultValues = formText.defaultValues;
+
+  // ------------- Tooltip -------------------
   const tooltipText = formText.tooltipText;
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [openTooltips, setOpenTooltips] = useState<Record<string, boolean>>({});
+
+  const handleOpenTooltip = (tooltipKey: string) => (event: React.MouseEvent<HTMLImageElement>) => {
+    setOpenTooltips((prevState) => ({ ...prevState, [tooltipKey]: true }));
+    setDialogOpen(true);
+  };
+
+  const handleCloseTooltip = (tooltipKey: string) => () => {
+      setOpenTooltips((prevState) => ({ ...prevState, [tooltipKey]: false }));
+      setDialogOpen(false);
+  };
+  // -----------------------------------------
 
 
   // To do: Move completely to data service?
   const merged_defaultFormValues: HouseholdFormState = {
-    location: householdData?.location ?? defaultValues.location,
-    occupancy: householdData?.occupancy ?? defaultValues.occupancy,
-    spaceHeating: householdData?.spaceHeating ?? defaultValues.spaceHeating,
-    waterHeating: householdData?.waterHeating ?? defaultValues.waterHeating,
-    cooktop: householdData?.cooktop ?? defaultValues.cooktop,
-    numberOfVehicles: householdData?.vehicles?.length ?? defaultValues.vehicleObjs.length,
-    // vehicles: householdData?.vehicles ?? defaultValues.vehicleObjs,
-    vehicleObjs: defaultValues.vehicleObjs,
+    location: householdData?.location ?? defaultFormData.location,
+    occupancy: householdData?.occupancy ?? defaultFormData.occupancy,
+    spaceHeating: householdData?.spaceHeating ?? defaultFormData.spaceHeating,
+    waterHeating: householdData?.waterHeating ?? defaultFormData.waterHeating,
+    cooktop: householdData?.cooktop ?? defaultFormData.cooktop,
+    numberOfVehicles: householdData?.vehicles?.length ?? defaultFormData.vehicleObjs.length,  
+    vehicleObjs: defaultFormData.vehicleObjs,
     solar: { 
-      hasSolar: householdData?.solar?.hasSolar ?? defaultValues.solar.hasSolar,
-      size: householdData?.solar?.size ?? defaultValues.solar.size,
-      installSolar: householdData?.solar?.installSolar ?? defaultValues.solar.installSolar
+      hasSolar: householdData?.solar?.hasSolar ?? defaultFormData.solar.hasSolar,
+      size: householdData?.solar?.size ?? defaultFormData.solar.size,
+      dontWantSolar: householdData?.solar?.installSolar === undefined 
+        ? defaultFormData.solar.dontWantSolar 
+        : !householdData.solar.installSolar
     },
     battery: {
-      hasBattery: householdData?.battery?.hasBattery ?? defaultValues.battery.hasBattery,
-      capacity: householdData?.battery?.capacity ?? defaultValues.battery.capacity
+      hasBattery: householdData?.battery?.hasBattery ?? defaultFormData.battery.hasBattery,
+      capacity: householdData?.battery?.capacity ?? defaultFormData.battery.capacity,
+      dontWantBattery: householdData?.battery?.installBattery === undefined 
+        ? defaultFormData.battery.dontWantBattery 
+        : !householdData.battery.installBattery
     }
   };
 
-  // const { register, handleSubmit, watch, control, formState: { errors }, reset } = useForm<Household>({
+  
+
   const { register, handleSubmit, watch, control, formState: { errors }, reset, setValue } = useForm<HouseholdFormState>({
     defaultValues: merged_defaultFormValues,
   });
@@ -92,11 +116,17 @@ const HouseholdForm: React.FC = () => {
     console.log('HouseholdForm useEffect savingsData:', savingsData);
     console.log('HouseholdForm useEffect loadingData:', loadingData);
  }, [householdData, savingsData, loadingData]);
-//  }, [householdData, loadingData]);
 // -------------------------------------------------------------------
 
  
  
+
+
+
+
+
+
+
  
  
  
@@ -105,13 +135,12 @@ const HouseholdForm: React.FC = () => {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    // name: 'vehicles',
     name: 'vehicleObjs',
   });
    
   const numberOfVehicles = watch('numberOfVehicles');
 
-  React.useEffect(() => {
+  useEffect(() => {
     const currentLength = fields.length;
     const fuelTypes = Object.values(VehicleFuelTypeEnum);
 
@@ -142,6 +171,12 @@ const HouseholdForm: React.FC = () => {
       setValue('numberOfVehicles', numberOfVehicles - 1);
     }
   };
+
+
+  // This is used with onBlur to stop the form updating while the user is typing
+  const [numVehicles, setNumVehicles] = useState('2');
+  const [batteryCapacity, setBatteryCapacity] = useState<number | string>(defaultFormData.battery.capacity);
+  const [solarSize, setSolarSize] = useState<number | string>(defaultFormData.solar.size);
   // -------------------------------------------------------------------
 
 
@@ -151,9 +186,12 @@ const HouseholdForm: React.FC = () => {
 
 
 
+
+
+
   // ----------------- Watch for changes in the form -------------------
-  React.useEffect(() => {
-    const subscription = watch((value , { name, type }) => {
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) => {
       console.log('HouseholdForm watch value:', value);
       console.log('HouseholdForm watch name:', name);
       console.log('HouseholdForm watch type:', type);
@@ -161,25 +199,32 @@ const HouseholdForm: React.FC = () => {
 
       if(value) {        
 
-        let householdDataOut: Household = {
-          location: value.location || defaultValues.location,
-          occupancy: value.occupancy || defaultValues.occupancy,
-          spaceHeating: value.spaceHeating || defaultValues.spaceHeating,
-          waterHeating: value.waterHeating || defaultValues.waterHeating,
-          cooktop: value.cooktop || defaultValues.cooktop,
-          // vehicles: (value.vehicles || defaultValues.vehicles) as Vehicle[],
-          vehicles: (value.vehicleObjs || defaultValues.vehicleObjs)
+        const householdDataOut: Household = {
+          location: value.location ?? defaultFormData.location,
+          occupancy: value.occupancy ?? defaultFormData.occupancy,
+          spaceHeating: value.spaceHeating ?? defaultFormData.spaceHeating,
+          waterHeating: value.waterHeating ?? defaultFormData.waterHeating,
+          cooktop: value.cooktop ?? defaultFormData.cooktop,
+          vehicles: (value.vehicleObjs ?? defaultFormData.vehicleObjs)
             .filter((vehicle): vehicle is VehicleObject => vehicle !== undefined)
-              .map((vehicle: VehicleObject) => {
-                return {
-                  fuelType: vehicle.fuelType,
-                  usage: formText.options.vehicle.usageOptionsList.find(option => 
-                    option.type === vehicle.usageType ) 
-                    ||  { type: 'Medium', value: 200, unit: '100-300 km/wk' }
-                }
-              }) as Vehicle[],
-          solar: (value.solar || defaultValues.solar) as Solar,
-          battery: (value.battery || defaultValues.battery) as Battery
+            .map((vehicle: VehicleObject) => {
+              return {
+                fuelType: vehicle.fuelType,
+                usage: formText.options.vehicle.usageOptionsList.find(option => 
+                  option.type === vehicle.usageType ) 
+                  ?? { type: 'Medium', value: 200, unit: '100-300 km/wk' }
+              }
+            }) as Vehicle[],
+          solar: {
+            hasSolar: value.solar?.hasSolar ?? defaultFormData.solar.hasSolar,
+            size: value.solar?.size ?? defaultFormData.solar.size,
+            installSolar: (value.solar?.dontWantSolar ?? defaultFormData.solar.dontWantSolar) ? false : true
+          },
+          battery: {
+            hasBattery: value.battery?.hasBattery ?? defaultFormData.battery.hasBattery,
+            capacity: value.battery?.capacity ?? defaultFormData.battery.capacity,
+            installBattery: (value.battery?.dontWantBattery ?? defaultFormData.battery.dontWantBattery) ? false : true
+          }
         };
         console.log('HouseholdForm watch householdDataOut:', householdDataOut);
         
@@ -191,7 +236,7 @@ const HouseholdForm: React.FC = () => {
 
     });
     return () => subscription.unsubscribe();
-  }, [watch, updateHouseholdData]);
+  }, [watch, updateHouseholdData, defaultFormData]);
 // -------------------------------------------------------------------
 
 
@@ -203,10 +248,6 @@ const HouseholdForm: React.FC = () => {
       console.log('HouseholdForm onSubmit formData:', formData);
     };
   
-
-
-
-
 
 
 
@@ -349,11 +390,42 @@ const HouseholdForm: React.FC = () => {
               error={!!errors.spaceHeating}>
           <Box display="flex" alignItems="center">
             <FormLabel className='mainLabels'>House heating</FormLabel>            
-            <Tooltip title={tooltipText.spaceHeating} placement="top">
-            {/* <Tooltip title={tooltipText.spaceHeating} placement="top" PopperProps={tooltipPoppers}> */}
-              {/* <SvgIcon component={questionIcon as React.ElementType}> */}
+            {/* <Tooltip title={tooltipText.spaceHeating} placement="top">
               <img src={questionIcon} className="tooltip-logo" alt="logo" />
-            </Tooltip>
+            </Tooltip> */}
+            <HouseholdTooltip 
+              title={tooltipText.spaceHeating} 
+              placement="top"
+              open={openTooltips.spaceHeating} 
+              // open={openTooltips === 'spaceHeating'}
+              onClose={handleCloseTooltip('spaceHeating')}
+              // disableHoverListener
+              // disableFocusListener
+              // disableTouchListener
+              >              
+              <img
+                  src={questionIcon}
+                  className="tooltip-logo"
+                  alt="logo"
+                  onClick={handleOpenTooltip('spaceHeating')}
+              />
+            </HouseholdTooltip>
+             {/* <Box className="TooltipBox" >
+              <img
+                  src={questionIcon}
+                  className="tooltip-logo"
+                  alt="logo"
+                  onClick={handleOpenTooltip('spaceHeating')}
+              />
+              <TooltipDialog
+                  open={openTooltips.spaceHeating}
+                  // open={dialogOpen}
+                  handleClose={handleCloseTooltip('spaceHeating')}
+                  text={tooltipText.spaceHeating}
+                  // mouseX={mousePosition.x}
+                  // mouseY={mousePosition.y}
+              />              
+            </Box>   */}
           </Box>
 
           <Select
@@ -379,9 +451,34 @@ const HouseholdForm: React.FC = () => {
               error={!!errors.waterHeating}>
           <Box display="flex" alignItems="center">
             <FormLabel className='mainLabels'>Water heating</FormLabel>
-            <Tooltip title={tooltipText.waterHeating} placement="top">
-              <img src={questionIcon} className="tooltip-logo" alt="logo" />
-            </Tooltip>
+            <HouseholdTooltip 
+              title={tooltipText.waterHeating} 
+              placement="top"
+              open={openTooltips.waterHeating} 
+              onClose={handleCloseTooltip('waterHeating')}
+              >              
+              <img
+                  src={questionIcon}
+                  className="tooltip-logo"
+                  alt="logo"
+                  onClick={handleOpenTooltip('waterHeating')}
+              />
+            </HouseholdTooltip>
+            {/* <Box className="TooltipBox" >
+              <img
+                  src={questionIcon}
+                  className="tooltip-logo"
+                  alt="logo"
+                  onClick={handleOpenTooltip('waterHeating')}
+              />
+              <TooltipDialog
+                  open={openTooltips.waterHeating}
+                  handleClose={handleCloseTooltip('waterHeating')}
+                  text={tooltipText.waterHeating}                  
+                  // mouseX={mousePosition.x}
+                  // mouseY={mousePosition.y}
+              />              
+            </Box>   */}
           </Box>
           
           <Select 
@@ -406,9 +503,34 @@ const HouseholdForm: React.FC = () => {
               error={!!errors.cooktop}>
           <Box display="flex" alignItems="center">            
             <FormLabel className='mainLabels'>Cooktop</FormLabel>
-            <Tooltip title={tooltipText.cooktop} placement="top">
-              <img src={questionIcon} className="tooltip-logo" alt="logo" />
-            </Tooltip>
+            <HouseholdTooltip 
+              title={tooltipText.cooktop} 
+              placement="top"
+              open={openTooltips.cooktop} 
+              onClose={handleCloseTooltip('cooktop')}
+              >              
+              <img
+                  src={questionIcon}
+                  className="tooltip-logo"
+                  alt="logo"
+                  onClick={handleOpenTooltip('cooktop')}
+              />
+            </HouseholdTooltip>
+            {/* <Box className="TooltipBox" >
+              <img
+                  src={questionIcon}
+                  className="tooltip-logo"
+                  alt="logo"
+                  onClick={handleOpenTooltip('cooktop')}
+              />
+              <TooltipDialog
+                  open={openTooltips.cooktop}
+                  handleClose={handleCloseTooltip('cooktop')}
+                  text={tooltipText.cooktop}
+                  // mouseX={mousePosition.x}
+                  // mouseY={mousePosition.y}
+              />              
+            </Box>   */}
           </Box>
           <Select
             labelId="cooktop-label"
@@ -443,24 +565,72 @@ const HouseholdForm: React.FC = () => {
 
 
 
+
+
       
       <HalfWidthFormBox theme={theme} className='halfWidthFormBox'>
         <FDivider />
 
+
+
+
+
+
+
         <Typography variant="h3">Solar</Typography>
 
 
+
+
+
           <FormSection theme={theme} className='formSection'>
-        
-          <FormControl 
-              className="fullFormControl"
-              error={!!errors.solar}>
             <Box display="flex" alignItems="center">                        
               <FormLabel className='mainLabels'>Do you have solar panels?</FormLabel>
-              <Tooltip title={tooltipText.solar.hasSolar} placement="top">
-                <img src={questionIcon} className="tooltip-logo" alt="logo" />
-              </Tooltip>
+              <HouseholdTooltip 
+              title={tooltipText.hasSolar} 
+              placement="top"
+              open={openTooltips.hasSolar} 
+              onClose={handleCloseTooltip('hasSolar')}
+              >              
+              <img
+                  src={questionIcon}
+                  className="tooltip-logo"
+                  alt="logo"
+                  onClick={handleOpenTooltip('hasSolar')}
+              />
+            </HouseholdTooltip>
+              {/* <Box className="TooltipBox" >
+                <img
+                    src={questionIcon}
+                    className="tooltip-logo"
+                    alt="logo"
+                    onClick={handleOpenTooltip('hasSolar')}
+                />
+                <TooltipDialog
+                    open={openTooltips.hasSolar}
+                    handleClose={handleCloseTooltip('hasSolar')}
+                    text={tooltipText.hasSolar}
+                    // mouseX={mousePosition.x}
+                    // mouseY={mousePosition.y}
+                />              
+              </Box>   */}
             </Box>
+          </FormSection>
+
+
+
+
+
+
+
+
+
+
+          <FormSection theme={theme} className='formSection'>
+          <Box>
+          {/* <FormControl 
+              className="fullFormControl"
+              error={!!errors.solar}>
             <Controller
               name="solar.hasSolar"
               control={control}
@@ -468,15 +638,56 @@ const HouseholdForm: React.FC = () => {
               render={({ field }) => (
                 <RadioGroup
                   {...field}
-                >
-                  {/* {solarOptions.hasSolar.map((option: OptionYesNo) => ( */}
-                  {formText.options.solar.hasSolar.map((option: OptionYesNo) => (
+                >                 
+                 {formText.options.solar.hasSolar.map((option: OptionYesNo) => (
                     <FormControlLabel key={option.text} value={option.value} control={<Radio />} label={option.text} />
                   ))}
                 </RadioGroup>
               )}
             />
+          </FormControl> */}
+          <FormControl 
+                  className="fullFormControl"
+                  error={!!errors.solar}>          
+                <Controller
+                  name="solar.hasSolar"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <RadioGroup
+                      {...field}
+                    >
+                    {formText.options.solar.hasSolar.map((option: OptionYesNo) => (
+                      <FormControlLabel 
+                        key={option.text} 
+                        value={option.value} 
+                        control={
+                          <HouseRadio />
+                          } label={option.text} />
+                      ))}
+                    </RadioGroup>
+                  )}
+                />
+                {errors.solar && <FormHelperText>This field is required</FormHelperText>}
+              </FormControl>
+
+          <FormControl>
+            <Controller
+              // name="solar.installSolar"
+              name="solar.dontWantSolar"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <FormControlLabel
+                  control={<HouseCheck {...field}/>}
+                  label="I don’t want solar"
+                />
+              )}
+            />
+            {errors.solar && <FormHelperText>This field is required</FormHelperText>}
           </FormControl>
+          
+          </Box>
         </FormSection>
 
         <FormSection theme={theme} className='formSection'>
@@ -485,23 +696,54 @@ const HouseholdForm: React.FC = () => {
               error={!!errors.solar}>
             <Box display="flex" alignItems="center">            
               <FormLabel className='mainLabels'>What size?</FormLabel>            
-              <Tooltip title={tooltipText.solar.size} placement="top">
-                <img src={questionIcon} className="tooltip-logo" alt="logo" />
-              </Tooltip>
+              <Box className="TooltipBox" >
+                <img
+                    src={questionIcon}
+                    className="tooltip-logo"
+                    alt="logo"
+                    onClick={handleOpenTooltip('solarSize')}
+                />
+                <TooltipDialog
+                    open={openTooltips.solarSize}
+                    handleClose={handleCloseTooltip('solarSize')}
+                    text={tooltipText.solarSize}
+                />              
+              </Box>  
             </Box>
-            <Select
-              labelId="solarSize-label"
-              id="solarSize"
-              value={watchAllFields.solar?.size}
-              {...register('solar.size', { required: true })}
-            >
-              {/* {solarOptions.sizeList.map((option: OptionNumber, i: number) => ( */}
-              {formText.options.solar.sizeList.map((option: OptionNumber, i: number) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.text}
-                </MenuItem>
-              ))}
-            </Select>
+
+
+            <Controller
+                name="solar.size"
+                control={control}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <TextField
+                    id="outlined-number"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    value={solarSize}
+                    // value={numVehicles || value}
+                    onChange={(e) => {
+                      setSolarSize(e.target.value);
+                      // onChange(e);
+                    }}
+                    onBlur={() => {
+                      onChange({ target: { value: solarSize } });
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        onChange({ target: { value: solarSize } });
+                      }
+                    }}
+                    inputRef={ref}
+                    InputProps={{ 
+                      endAdornment: <InputAdornment position="end">{formText.defaultValues.solar.unit}</InputAdornment>,
+                      inputProps: { style: { textAlign: 'right' } }
+                    }}
+                  />
+                )}
+              />
             {errors.solar && <FormHelperText>This field is required</FormHelperText>} 
           </FormControl>
         </FormSection>
@@ -524,35 +766,131 @@ const HouseholdForm: React.FC = () => {
       <HalfWidthFormBox theme={theme} className='halfWidthFormBox'>
         <FDivider />
 
+
+
+
+
         <Typography variant="h3">Battery</Typography>
 
+
+
+
+
+
+
         <FormSection theme={theme} className='formSection'>
-        <FormControl 
-              className="fullFormControl"
-              error={!!errors.battery}>
           <Box display="flex" alignItems="center">            
             <FormLabel className='mainLabels'>Do you have a battery?</FormLabel>            
-            <Tooltip title={tooltipText.battery.hasBattery} placement="top">
-              <img src={questionIcon} className="tooltip-logo" alt="logo" />
-            </Tooltip>
+            <HouseholdTooltip 
+              title={tooltipText.hasBattery} 
+              placement="top"
+              open={openTooltips.hasBattery} 
+              onClose={handleCloseTooltip('hasBattery')}
+              >              
+              <img
+                  src={questionIcon}
+                  className="tooltip-logo"
+                  alt="logo"
+                  onClick={handleOpenTooltip('hasBattery')}
+              />
+            </HouseholdTooltip>
+            {/* <Box className="TooltipBox" >
+              <img
+                  src={questionIcon}
+                  className="tooltip-logo"
+                  alt="logo"
+                  onClick={handleOpenTooltip('hasBattery')}
+              />
+              <TooltipDialog
+                  open={openTooltips.hasBattery}
+                  handleClose={handleCloseTooltip('hasBattery')}
+                  text={tooltipText.hasBattery}
+              />              
+            </Box>   */}
           </Box>
-          <Controller
-            name="battery.hasBattery"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <RadioGroup
-                {...field}
-              >
-                {/* {batteryOptions.hasBattery.map((option: OptionYesNo) => ( */}
-                {formText.options.battery.hasBattery.map((option: OptionYesNo) => (
-                  <FormControlLabel key={option.text} value={option.value} control={<Radio />} label={option.text} />
-                ))}
-              </RadioGroup>
-            )}
-          />
-        </FormControl>
+          </FormSection>
+
+
+
+
+
+
+
+
+
+
+
+
+          <FormSection theme={theme} className='formSection'>
+            <Box>
+
+
+
+              <FormControl 
+                  className="fullFormControl"
+                  error={!!errors.battery}>          
+                <Controller
+                  name="battery.hasBattery"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <RadioGroup
+                      {...field}
+                    >
+                    {formText.options.battery.hasBattery.map((option: OptionYesNo) => (
+                      <FormControlLabel 
+                        key={option.text} 
+                        value={option.value} 
+                        control={
+                          <HouseRadio />
+                          } label={option.text} />
+                      ))}
+                    </RadioGroup>
+                  )}
+                />
+                {errors.battery && <FormHelperText>This field is required</FormHelperText>}
+              </FormControl>
+
+
+
+
+
+
+
+
+
+            <FormControl>
+              <Controller
+                // name="battery.installBattery"
+                name="battery.dontWantBattery"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <FormControlLabel
+                    control={<HouseCheck {...field} />}
+                    // control={<HouseCheck {...field} checked={!field.value} />}
+                    label="I don't want a battery"
+                  />
+                )}
+              />
+              {errors.battery && <FormHelperText>This field is required</FormHelperText>}
+            </FormControl>
+
+
+
+          </Box>        
         </FormSection>
+
+
+
+
+
+
+
+
+
+
+
 
         <FormSection theme={theme} className='formSection'>
         <FormControl 
@@ -560,29 +898,67 @@ const HouseholdForm: React.FC = () => {
               error={!!errors.battery}>
           <Box display="flex" alignItems="center">            
             <FormLabel className='mainLabels'>What size?</FormLabel>            
-            {/* <Tooltip title={tooltipText.battery.capacity} placement="top" PopperProps={tooltipPoppers}> */}
-            <Tooltip title={tooltipText.battery.capacity} placement="top">
-              <img src={questionIcon} className="tooltip-logo" alt="logo" />
-            </Tooltip>
+            <Box className="TooltipBox" >
+              <img
+                  src={questionIcon}
+                  className="tooltip-logo"
+                  alt="logo"
+                  onClick={handleOpenTooltip('batteryCapacity')}
+              />
+              <TooltipDialog
+                  open={openTooltips.batteryCapacity}
+                  handleClose={handleCloseTooltip('batteryCapacity')}
+                  text={tooltipText.batteryCapacity}
+                  // mouseX={mousePosition.x}
+                  // mouseY={mousePosition.y}
+              />              
+            </Box>  
           </Box>
-          <Select
+          {/* <Select
             labelId="batterySize-label"
             id="batterySize"
             value={watchAllFields.battery?.capacity}
             {...register('battery.capacity', { required: true })}
           >
-            {/* {batteryOptions.capacity.map((option: OptionNumber, i: number) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.text}
-              </MenuItem>
-            ))} */}
-            {/* {batteryOptions.capacityList.map((option: OptionNumber, i: number) => ( */}
             {formText.options.battery.capacityList.map((option: OptionNumber, i: number) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.text}
               </MenuItem>
             ))}
-          </Select>
+          </Select> */}
+
+          <Controller
+                name="battery.capacity"
+                control={control}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <TextField
+                    id="outlined-number"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    value={batteryCapacity}
+                    // value={numVehicles || value}
+                    onChange={(e) => {
+                      setBatteryCapacity(e.target.value);
+                      // onChange(e);
+                    }}
+                    onBlur={() => {
+                      onChange({ target: { value: batteryCapacity } });
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        onChange({ target: { value: batteryCapacity } });
+                      }
+                    }}
+                    inputRef={ref}
+                    InputProps={{ 
+                      endAdornment: <InputAdornment position="end">{formText.defaultValues.battery.unit}</InputAdornment>,
+                      inputProps: { style: { textAlign: 'right' } }
+                    }}
+                  />
+                )}
+              />
           {errors.battery && <FormHelperText>This field is required</FormHelperText>}
         </FormControl>
         </FormSection>
@@ -616,7 +992,7 @@ const HouseholdForm: React.FC = () => {
               className="fullFormControl"
               error={!!errors.vehicleObjs}>
               <FormLabel className='mainLabels'>Number of vehicles</FormLabel>
-              {/* <Controller
+              <Controller
                 name="numberOfVehicles"
                 control={control}
                 render={({ field }) => (
@@ -631,21 +1007,46 @@ const HouseholdForm: React.FC = () => {
                 ))}
               </Select>
                 )}
-              /> */}
+              />
               {/* <Input type="number" {...register('numberOfVehicles', { required: true })} /> */}
-              <TextField
-                  id="outlined-number"
-                  // label="Number"
-                  type="number"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...register('numberOfVehicles', { required: true })}
-                />
+              {/* <Controller
+                name="numberOfVehicles"
+                control={control}
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <TextField
+                    id="outlined-number"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    value={numVehicles}
+                    // value={numVehicles || value}
+                    onChange={(e) => {
+                      setNumVehicles(e.target.value);
+                      // onChange(e);
+                    }}
+                    onBlur={() => {
+                      onChange({ target: { value: numVehicles } });
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        onChange({ target: { value: numVehicles } });
+                      }
+                    }}
+                    inputRef={ref}
+                  />
+                )}
+              /> */}
               {errors.vehicleObjs && <FormHelperText>This field is required</FormHelperText>}
             </FormControl>
             </FormSection>
-
+          
+                   {/* type="number"
+                   InputLabelProps={{
+                     shrink: true,
+                  }}
+                   {...register('numberOfVehicles', { required: true })}
+                 /> */}
 {/* 
 
             <FormSection theme={theme} className='formSection'>

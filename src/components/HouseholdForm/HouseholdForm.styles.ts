@@ -133,9 +133,23 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
         marginRight: '0.5rem',
     },
     '& .MuiInputBase-root': {
-        // borderRadius: '0.44rem',
-        // border: `0.19rem solid ${theme.palette.divider}`,
-        // borderWidth: '2px'
+      // borderRadius: '0.44rem',
+      // border: `0.19rem solid ${theme.palette.divider}`,
+      // borderWidth: '2px'            
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+      fontWeight: '500',
+      '& input[type=number]': {
+      '-moz-appearance': 'textfield', // Firefox
+      '&::-webkit-outer-spin-button': {
+        '-webkit-appearance': 'none', // Chrome, Safari, Edge, Opera
+        margin: 0,
+      },
+      '&::-webkit-inner-spin-button': {
+        '-webkit-appearance': 'none', // Chrome, Safari, Edge, Opera
+        margin: 0,
+      },
+    },
     },
     // '& .MuiFormLabel-root': {
     '& .mainLabels': {

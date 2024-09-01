@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { defaultHouseholdData, defaultSavingsData } from 'src/assets/data/householdDefaults';
 import { Household, HouseholdCooktopEnum, HouseholdLocationEnum, HouseholdSpaceHeatingEnum, HouseholdWaterHeatingEnum, Savings, VehicleFuelTypeEnum } from 'src/shared/api/household-calculator-client';
 
 // const householdAPI_URL = 'https://household-model.onrender.com/savings';
@@ -6,80 +7,53 @@ import { Household, HouseholdCooktopEnum, HouseholdLocationEnum, HouseholdSpaceH
 // const householdSavingsAPI_URL = 'http://localhost:3001/savings';
 const householdSavingsAPI_URL = 'https://household-model.onrender.com/savings';
 
-const defaultHouseholdData = {
-    location: HouseholdLocationEnum.AucklandNorth,
-    occupancy: 2,
-    spaceHeating: HouseholdSpaceHeatingEnum.DontKnow,
-    waterHeating: HouseholdWaterHeatingEnum.DontKnow,
-    cooktop: HouseholdCooktopEnum.DontKnow,
-    vehicles: [
-        {
-            fuelType: VehicleFuelTypeEnum.Hybrid,
-            kmsPerWeek: 0,
-            switchToEV: false
-        },
-        {
-            fuelType: VehicleFuelTypeEnum.Petrol,
-            kmsPerWeek: 0,
-            switchToEV: false
-        }
-    ],
-    solar: {
-        hasSolar: false,
-        size: 7,
-        installSolar: false
-    },
-    battery: {
-        hasBattery: false,
-        capacity: 0
-    }
-};
 
-const dummySavingsData: Savings = {
-    "emissions": {
-        "perWeek": {
-            "before": 500.5,
-            "after": 100.1,
-            "difference": 401.4
-        },
-        "perYear": {
-            "before": 500.5,
-            "after": 100.1,
-            "difference": 400.4
-        },
-        "overLifetime": {
-            "before": 500.5,
-            "after": 100.1,
-            "difference": 400.4
-        },
-        "operationalLifetime": 15
-    },
-    "opex": {
-        "perWeek": {
-            "before": 500.5,
-            "after": 100.1,
-            "difference": 402.4
-        },
-        "perYear": {
-            "before": 500.5,
-            "after": 100.1,
-            "difference": 400.4
-        },
-        "overLifetime": {
-            "before": 500.5,
-            "after": 100.1,
-            "difference": 400.4
-        },
-        "operationalLifetime": 15
-    },
-    "upfrontCost": {
-        "solar": 0,
-        "battery": 0,
-        "cooktop": 0,
-        "waterHeating": 0,
-        "spaceHeating": 0
-    }
-}
+
+// const dummySavingsData: Savings = {
+//     "emissions": {
+//         "perWeek": {
+//             "before": 500.5,
+//             "after": 100.1,
+//             "difference": 401.4
+//         },
+//         "perYear": {
+//             "before": 500.5,
+//             "after": 100.1,
+//             "difference": 400.4
+//         },
+//         "overLifetime": {
+//             "before": 500.5,
+//             "after": 100.1,
+//             "difference": 400.4
+//         },
+//         "operationalLifetime": 15
+//     },
+//     "opex": {
+//         "perWeek": {
+//             "before": 500.5,
+//             "after": 100.1,
+//             "difference": 402.4
+//         },
+//         "perYear": {
+//             "before": 500.5,
+//             "after": 100.1,
+//             "difference": 400.4
+//         },
+//         "overLifetime": {
+//             "before": 500.5,
+//             "after": 100.1,
+//             "difference": 400.4
+//         },
+//         "operationalLifetime": 15
+//     },
+//     "upfrontCost": {
+//         "solar": 0,
+//         "battery": 0,
+//         "cooktop": 0,
+//         "waterHeating": 0,
+//         "spaceHeating": 0
+//     }
+// }
 
 
 // export const  getHouseholdData = async (): Promise<Household> => {
@@ -115,7 +89,7 @@ export const getDefaultSavingsData = async (): Promise<Savings> => {
         // const response = await axios.get(`${householdAPI_URL}/defaults`);
         // if (!response.data) {
             console.log('HouseholdDataService no data, returning dummySavingsData');
-            return dummySavingsData;
+            return defaultSavingsData;
         // }
         // return response.data;
     } catch (error) {
@@ -153,12 +127,12 @@ const postHouseholdData = async (data: Household): Promise<Savings> => {
         });
         console.log('HouseholdDataService postHouseholdData response:', response.data);
         if (!response.data) {
-            return dummySavingsData;
+            return defaultSavingsData;
         }
         return response.data;
     } catch (error) {
         console.error(error);
-        return dummySavingsData;
+        return defaultSavingsData;
         // throw error;
     }
 };

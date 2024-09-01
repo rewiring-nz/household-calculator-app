@@ -1,4 +1,39 @@
-import { Savings } from "src/shared/api/household-calculator-client";
+import { Household, Savings, HouseholdCooktopEnum, HouseholdLocationEnum, HouseholdSpaceHeatingEnum, HouseholdWaterHeatingEnum, VehicleFuelTypeEnum } from 'src/shared/api/household-calculator-client';
+
+
+
+export const defaultHouseholdData: Household = {
+    location: HouseholdLocationEnum.AucklandNorth,
+    occupancy: 2,
+    spaceHeating: HouseholdSpaceHeatingEnum.DontKnow,
+    waterHeating: HouseholdWaterHeatingEnum.DontKnow,
+    cooktop: HouseholdCooktopEnum.DontKnow,
+    vehicles: [
+        {
+            fuelType: VehicleFuelTypeEnum.Hybrid,
+            kmsPerWeek: 0,
+            switchToEV: false
+        },
+        {
+            fuelType: VehicleFuelTypeEnum.Petrol,
+            kmsPerWeek: 0,
+            switchToEV: false
+        }
+    ],
+    solar: {
+        hasSolar: false,
+        size: 7,
+        installSolar: true
+        // dontWantSolar: false
+    },
+    battery: {
+        hasBattery: false,
+        capacity: 0,
+        installBattery: true
+        // dontWantBattery: false
+    }
+};
+
 
 export const defaultSavingsData: Savings = {
     "emissions": {

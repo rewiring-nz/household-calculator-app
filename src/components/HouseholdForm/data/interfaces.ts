@@ -46,12 +46,15 @@ export interface HouseholdFormState {
     solar: {
         hasSolar: boolean;
         size: number;
-        installSolar?: boolean;
+        // installSolar?: boolean;
+        dontWantSolar: boolean; // if true, then installSolar is false. Question logic different, gets changed before POST request.
         unit?: string;
     };
     battery: {
         hasBattery: boolean;
         capacity: number;
+        // installBattery: boolean;
+        dontWantBattery: boolean; // if true, then installBattery is false. Question logic different, gets changed before POST request.
         unit?: string;
     };
 }

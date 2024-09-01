@@ -20,8 +20,8 @@ interface VehicleBoxProps extends VehicleObject {
 const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageOptionsList, index, register, errors, onDelete, defaultType }) => {
     const theme = useTheme();
     const { setValue } = useForm();
-    console.log("VehicleBox usageOptionsList:", usageOptionsList);
-    console.log("VehicleBox defaultType:", defaultType);
+    // console.log("VehicleBox usageOptionsList:", usageOptionsList);
+    // console.log("VehicleBox defaultType:", defaultType);
 
     const [selectedUsageName, setSelectedUsageName] = useState<string | undefined>(undefined);
     // const usageMap = new Map<string, Usage>(usageOptions.map((option: Usage) => [option.name, option]));

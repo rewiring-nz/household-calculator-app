@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Button, Divider, FormControl, FormHelperText, Input, InputLabel, styled, TextField, Typography, useTheme } from '@mui/material';
+import { Box, Button, Divider, FormControl, FormHelperText, Input, InputLabel, styled, TextField, Typography, useTheme, Link, Tooltip } from '@mui/material';
 // import useHouseholdData from 'src/hooks/useHouseholdData';
 // import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
 import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
@@ -9,8 +9,9 @@ import { FDivider } from 'src/pages/Home/Home.styles';
 import heatpump from '../../assets/images/heatpump.png'; 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { UpfrontCost } from 'src/shared/api/household-calculator-client';
+import { Link as RouterLink } from 'react-router-dom';
+import { HouseLink } from './HouseholdSavings.styles';
 import MailchimpForm from '../MailChimpForm/MailChimpForm';
-
 
 
 interface Email {
@@ -62,16 +63,21 @@ interface Email {
 const HouseholdSavings: React.FC = () => {
     const theme = useTheme();
     
-    const { householdData, updateHouseholdData, getSavingsData, loadingData, errorData } = useHouseholdData();
+    // const { householdData, updateHouseholdData, getSavingsData, loadingData, errorData } = useHouseholdData();
+    const { 
+        updateHouseholdData, 
+        getSavingsData, 
+        loadingData, 
+        errorData 
+    } = useHouseholdData();
+
     const savingsData = getSavingsData();
     
     useEffect(() => {
-        console.log("HouseholdSavings useEffect householdData:", householdData);
+        // console.log("HouseholdSavings useEffect householdData:", householdData);
         console.log("HouseholdSavings useEffect savingsData:", savingsData);
         console.log("HouseholdSavings useEffect loadingData:", loadingData);
-        // console.log("HouseholdSavings useEffect errorData:", errorData);
-    // }, [ householdData, savingsData, loadingData, errorData]);
-    }, [ householdData, updateHouseholdData, savingsData, loadingData ]);
+    }, [updateHouseholdData, savingsData, loadingData ]);
 
 
     const { register, handleSubmit } = useForm<Email>();
@@ -121,6 +127,32 @@ const HouseholdSavings: React.FC = () => {
                 }}>
                 <Typography variant="h1">Your Savings</Typography>
                 <Typography variant="subtitle2">By switching to electric appliances and installing solar panels, we estimate you could save:</Typography>
+                <Typography variant="subtitle2"
+                    sx={{
+                        color: theme.palette.secondary.contrastText
+                    }}
+                    >
+                    {/* <Link href="#"tertiary"secondary"> */}
+                    {/* <HouseLink component={RouterLink} to="/methodology" className="link" theme={theme}>
+                        How did we calculate this?
+                    </HouseLink> */}
+                    <Tooltip title="Methodology" arrow>
+                        <Link 
+                            component={RouterLink} 
+                            to="/methodology"
+                            sx={{
+                                color: '#2D62FF',
+                                textDecoration: 'none',
+                                '&:hover': {
+                                    textDecoration: 'underline',
+                                },
+                            }}
+                            >
+                            How did we calculate this?
+                        </Link>
+                    </Tooltip>
+                </Typography>
+                
             </Box>
 
 

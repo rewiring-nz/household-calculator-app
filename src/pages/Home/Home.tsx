@@ -35,9 +35,10 @@ const Home: React.FC = () => {
           padding: '1rem',
           backgroundColor: theme.palette.background.default, 
           [theme.breakpoints.up('md')]: {
-            overflowY: 'auto',
+            // overflowY: 'auto', // Enable independent scrolling
+            padding: '1rem 1rem 20rem 1rem',
             width: '60vw'
-          }      
+          }
         }}
         >
         <img src={logo} className="Home-logo" alt="logo" />
@@ -54,8 +55,19 @@ const Home: React.FC = () => {
           padding: '1rem',
           backgroundColor: theme.palette.background.default,
           [theme.breakpoints.up('md')]: {
-            overflowY: 'auto', // Enable independent scrolling
-            maxWidth: '33vw'
+            // overflowY: 'auto', // Enable independent scrolling
+            // maxWidth:  '38vw' // '33vw'
+            '@media (min-aspect-ratio: 1/1)': {
+              maxWidth: '33vw'
+            },
+            '@media (max-aspect-ratio: 1/1)': {
+              maxWidth: '38vw'
+            }
+          },
+          [theme.breakpoints.up('xl')]: {
+            maxWidth: '30vw',
+            display: 'flex',
+            alignItems: 'center',
           }
         }}
       >
