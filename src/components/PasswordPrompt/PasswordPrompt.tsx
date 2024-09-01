@@ -5,7 +5,7 @@ const PasswordPrompt: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
   useEffect(() => {
     const env = process.env.REACT_APP_ENV;
-    const password = process.env.REACT_APP_PASSWORD;
+    const password = 'Iwantsolar'; //process.env.REACT_APP_PASSWORD;
 
     console.log('Environment:', env); // Debugging line
     console.log('Password:', password); // Debugging line
