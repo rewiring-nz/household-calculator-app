@@ -1,6 +1,6 @@
 import { Button, FormControl, styled, TextField, Typography } from '@mui/material';
 import MailchimpSubscribe from 'react-mailchimp-subscribe';
-import { EmailFormFields } from '../../shared/types/EmailFormFields';
+import { EmailFormFields } from '../../shared/interfaces/EmailFormFields';
 
 
 // URL to your Mailchimp subscription form
