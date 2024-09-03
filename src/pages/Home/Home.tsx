@@ -68,11 +68,11 @@ const Home: React.FC = () => {
               maxWidth: '38vw'
             }
           },
-          [theme.breakpoints.up('xl')]: {
-            maxWidth: '30vw',
-            display: 'flex',
-            alignItems: 'center',
-          }
+          // [theme.breakpoints.up('xl')]: { // Currently gets push up and heading is lost on narrow screens
+          //   maxWidth: '30vw',
+          //   display: 'flex',
+          //   alignItems: 'center',
+          // }
         }}
       >
         {/* <HouseholdSavings /> */}
