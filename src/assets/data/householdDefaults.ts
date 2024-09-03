@@ -35,7 +35,7 @@ export const defaultHouseholdData: Household = {
     },
     battery: {
         hasBattery: false,
-        capacity: 7,
+        capacity: 10,
         installBattery: true
     }
 };

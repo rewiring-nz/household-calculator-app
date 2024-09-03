@@ -229,7 +229,7 @@ export const defaultFormState: HouseholdFormState = {
     },
     battery: {
         hasBattery: false,
-        capacity: 7,
+        capacity: 10,
         installBattery: true,
         // dontWantBattery: false,
         unit: 'kWh'
