@@ -1,8 +1,8 @@
 import { Box, FormControl, FormHelperText, IconButton, MenuItem, Select, Typography, useTheme, Accordion, AccordionSummary, AccordionDetails, Switch, FormLabel  } from '@mui/material';
 import { VehicleObject, Option, UsageOptions, UsageType } from '../data/interfaces';
 import deleteIcon from 'src/assets/icons/x-window.svg';
-import { FDivider } from 'src/pages/Home/Home.styles';
-import { IOSSwitch } from './IOSSwitch';
+import { FDivider } from 'src/shared/styles/FDivider';
+import { HouseSwitch } from './HouseSwitch';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -37,7 +37,8 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
             sx={{
                 padding: '1rem 1rem',
                 borderWidth: '1px', //'0.1rem', // 1.6px
-                borderRadius: '0.25rem',
+                // borderRadius: '0.5rem', // 0.5rem = 8 '0.25rem',
+                borderRadius: theme.shape.borderRadius + 'px',
                 borderStyle: 'solid',
                 borderColor: theme.palette.primary.dark,
             }}
@@ -215,7 +216,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                                     }}
                                     >Switch to EV</FormLabel>
                                 {/* <Switch  defaultChecked size="small" /> */}
-                                <IOSSwitch  defaultChecked size="small" theme={theme} />
+                                <HouseSwitch  defaultChecked size="small" theme={theme} />
                             </FormControl>
                         </Box>
 

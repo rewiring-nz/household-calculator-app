@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, PopperProps, Theme } from "@mui/material";
+import { Box, PopperProps, Theme, FormLabel } from "@mui/material";
 // import { theme } from "../../theme/theme";
 
 export const ResetButton = styled('button')(({ theme }: { theme: Theme }) => ({
@@ -19,7 +19,27 @@ export const ResetButton = styled('button')(({ theme }: { theme: Theme }) => ({
     }
   }));
 
+  // export const FormQuestionLabel = styled(FormLabel)(({ theme }: { theme: Theme }) => ({
+  export const FormQuestionLabel = styled(FormLabel)(() => ({
+    margin: '0.3rem 0'
+}));
 
+export const SwitchLabel = styled(FormLabel)(({ theme }: { theme: Theme }) => ({
+  display: 'inline-block',
+  whiteSpace: 'nowrap',
+  marginRight: '0.8rem',
+  textDecoration: 'none',
+  color: theme.palette.text.primary,
+  '&:hover': {
+    color: theme.palette.text.primary,
+  },
+  '&.Mui-focused': {
+    color: theme.palette.text.primary,
+  },
+  '&.Mui-active': {
+    color: theme.palette.text.primary,
+  }
+}));
 
 export const FormContainer = styled(Box)(({ theme }: { theme: Theme }) => ({
     display: 'flex',
@@ -29,7 +49,7 @@ export const FormContainer = styled(Box)(({ theme }: { theme: Theme }) => ({
 }));
 
 export const FormSection = styled(Box)(( { theme }: { theme: Theme }) => ({
-    margin: '0.5rem 0',
+    margin: '0.2rem 0',
     display: 'flex',
     flexDirection: 'column',
     // gap: '1rem'
@@ -118,6 +138,7 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
     },
     // '& .MuiFormControl-root': {
     '& .fullFormControl': {
+      margin: '0',
       // width: '100%',
       flexBasis: '100%', // Full width on small screens
       // [theme.breakpoints.up('sm')]: {
@@ -152,16 +173,16 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
     },
     },
     // '& .MuiFormLabel-root': {
-    '& .mainLabels': {
-        margin: '0.8rem 0',
-        color: theme.palette.text.primary,
-        '&.Mui-focused': {
-            color: theme.palette.text.primary,
-        },
-        '&.Mui-active': {
-            color: theme.palette.text.primary,
-        }
-    },
+    // '& .mainLabels': {
+    //     margin: '0.8rem 0',
+    //     color: theme.palette.text.primary,
+    //     '&.Mui-focused': {
+    //         color: theme.palette.text.primary,
+    //     },
+    //     '&.Mui-active': {
+    //         color: theme.palette.text.primary,
+    //     }
+    // },
     '& .MuiSelect-select': {
       backgroundColor: theme.palette.background.paper,
       color: theme.palette.text.primary,

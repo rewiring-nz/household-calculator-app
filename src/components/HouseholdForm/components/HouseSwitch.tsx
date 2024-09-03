@@ -3,9 +3,9 @@ import { Switch, SwitchProps } from '@mui/material';
 import { Theme } from "@mui/material";
 
 
-// export const IOSSwitch = styled((props: SwitchProps) => <Switch {...props} />)(({ theme }: { theme: Theme }) => ({
+// export const HouseSwitch = styled((props: SwitchProps) => <Switch {...props} />)(({ theme }: { theme: Theme }) => ({
 
-export const IOSSwitch = styled(Switch)(({ theme }: { theme: Theme }) => ({
+export const HouseSwitch = styled(Switch)(({ theme }: { theme: Theme }) => ({
   width: 42,
   height: 26,
   padding: 0,
@@ -30,7 +30,7 @@ export const IOSSwitch = styled(Switch)(({ theme }: { theme: Theme }) => ({
       },
     },
     '&.Mui-focusVisible .MuiSwitch-thumb': {
-      color: theme.palette.primary.main,
+      color: theme.palette.text.primary,
       border: '6px solid #CCCCCC',
     },
     '&.Mui-disabled .MuiSwitch-thumb': {
@@ -43,8 +43,10 @@ export const IOSSwitch = styled(Switch)(({ theme }: { theme: Theme }) => ({
   },
   '& .MuiSwitch-thumb': {
     boxSizing: 'border-box',
-    width: 22,
-    height: 22,
+    width: 18, // 22,
+    height: 18, // 22,
+    margin: 2,
+    boxShadow: 'none',
     backgroundColor: theme.palette.common.white // theme.palette.grey[400], // Set the thumb color when unchecked
   },
   '& .MuiSwitch-track': {

@@ -1,60 +1,62 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { Box, Divider, FormControl, FormControlLabel, FormHelperText, FormLabel, Input, InputAdornment, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Tooltip, Typography, useTheme, Checkbox } from '@mui/material';
+
+
+
+// ----------------- Styles & Material-UI -------------------
+import { Box, FormControl, FormControlLabel, FormHelperText, FormLabel, Input, InputAdornment, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Tooltip, Typography, useTheme, Checkbox } from '@mui/material';
 import './HouseholdForm.css';
-// import logo from '../../assets/logos/RewiringAotearoa_logo.svg';
-import { Battery, Household, Solar, Vehicle, VehicleFuelTypeEnum } from '../../shared/api/household-calculator-client';
-// import { Household, HouseholdCooktopEnum, HouseholdLocationEnum, HouseholdSpaceHeatingEnum, HouseholdWaterHeatingEnum } from '@generated/household-calculator-client';
-// import { SavingsApi } from '@generated/household-calculator-client';
-// import { formText } from './data/householdFormText';
-import { 
-  locationOptions,
-  occupancyOptions,
-  spaceHeatingOptions,
-  waterHeatingOptions,
-  cooktopOptions,
-  vehicleOptions,
-  solarOptions,
-  batteryOptions,  
-  // defaultValues,
-  // tooltipText
-  formText
- } from './data/householdFormText';
+import { FDivider } from 'src/shared/styles/FDivider';
+
+// ----------------- Models & Interfaces -------------------
+import { Household, Vehicle, VehicleFuelTypeEnum } from '../../shared/api/openapi-client';
 import { HouseholdFormState, Option, OptionNumber, OptionYesNo, UsageType, VehicleObject } from './data/interfaces';
+
+
+// ----------------- Data -------------------
+import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
+import { formText } from './data/householdFormText';
+
+
+// ----------------- Icons -------------------
 import questionIcon from '../../assets/icons/question.svg';
 import resetIcon from '../../assets/icons/carbon-reset.svg';
-import { FormBox, HalfWidthFormBox, FormContainer, FormSection, ResetButton, tooltipPoppers } from './HouseholdForm.styles';
-// import { IFormState } from 'src/shared/interfaces/IFormState';
 
-import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
-import { FDivider } from 'src/pages/Home/Home.styles';
+
+// ----------------- Components -------------------
+import { FormQuestionLabel, FormBox, HalfWidthFormBox, FormContainer, FormSection, ResetButton, tooltipPoppers, SwitchLabel } from './HouseholdForm.styles';
 import VehicleBox from './components/HouseholdVehicle';
 import TooltipModal from './components/TooltipDialog';
 import TooltipDialog from './components/TooltipDialog';
 import HouseholdTooltip from './components/HouseholdTooltip';
 import { HouseRadio, HouseCheck } from './components/HouseCheckRadio';
+import { HouseSwitch } from './components/HouseSwitch';
 
 
-// const formBox = {
-//     display: 'grid',
-//     align-items: 'center',
-//     justify-content: 'center',
-//     margin: 'auto',
-//     min-width: '300px'
-//   }
+interface HouseholdFormProps {
+  householdData: Household;
+  updateHouseholdData: (data: Household) => void;
+}
 
 
 
 
-const HouseholdForm: React.FC = () => {
+const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHouseholdData }) => {
   const theme = useTheme();
   
-  const { householdData, updateHouseholdData, getSavingsData, loadingData, errorData } = useHouseholdData();
-  const savingsData = getSavingsData();
+  // const { 
+  //   householdData, 
+  //   updateHouseholdData, 
+  //   savingsData,
+  //   getSavingsData, 
+  //   loadingData, 
+  //   errorData 
+  // } = useHouseholdData();
+  
+  // const savingsData = getSavingsData();
 
   
-  const defaultFormData = formText.defaultValues;
-
+  const defaultFormData = formText.defaultFormState
 
   // ------------- Tooltip -------------------
   const tooltipText = formText.tooltipText;
@@ -83,18 +85,20 @@ const HouseholdForm: React.FC = () => {
     numberOfVehicles: householdData?.vehicles?.length ?? defaultFormData.vehicleObjs.length,  
     vehicleObjs: defaultFormData.vehicleObjs,
     solar: { 
-      hasSolar: householdData?.solar?.hasSolar ?? defaultFormData.solar.hasSolar,
+      hasSolar: Boolean(householdData?.solar?.hasSolar ?? defaultFormData.solar.hasSolar),
       size: householdData?.solar?.size ?? defaultFormData.solar.size,
-      dontWantSolar: householdData?.solar?.installSolar === undefined 
-        ? defaultFormData.solar.dontWantSolar 
-        : !householdData.solar.installSolar
+      installSolar: householdData?.solar?.installSolar ?? defaultFormData.solar.installSolar,
+      // dontWantSolar: householdData?.solar?.installSolar === undefined 
+      //   ? defaultFormData.solar.dontWantSolar 
+      //   : !householdData.solar.installSolar
     },
     battery: {
-      hasBattery: householdData?.battery?.hasBattery ?? defaultFormData.battery.hasBattery,
+      hasBattery: Boolean(householdData?.battery?.hasBattery ?? defaultFormData.battery.hasBattery),
       capacity: householdData?.battery?.capacity ?? defaultFormData.battery.capacity,
-      dontWantBattery: householdData?.battery?.installBattery === undefined 
-        ? defaultFormData.battery.dontWantBattery 
-        : !householdData.battery.installBattery
+      installBattery: householdData?.battery?.installBattery ?? defaultFormData.battery.installBattery,
+      // dontWantBattery: householdData?.battery?.installBattery === undefined 
+      //   ? defaultFormData.battery.dontWantBattery 
+      //   : !householdData.battery.installBattery
     }
   };
 
@@ -106,16 +110,67 @@ const HouseholdForm: React.FC = () => {
 
   const watchAllFields: HouseholdFormState = watch();
  
-  
+  // const hasSolar = watch('solar.hasSolar');
+  // const hasBattery = watch('battery.hasBattery');
+  // const [showSolarToggle, setShowSolarToggle] = useState(true);
+  // const [showBatteryToggle, setShowBatteryToggle] = useState(true);
+  const [disableSolarToggle, setDisableSolarToggle] = useState(false);
+  const [disableBatteryToggle, setDisableBatteryToggle] = useState(false);
+
+  const watchHasSolar = watch('solar.hasSolar');
+  const watchHasBattery = watch('battery.hasBattery');
+
+  // solar state
+  useEffect(() => {
+    console.log('HouseholdForm useEffect watchHasSolar:', watchHasSolar);
+    // setShowSolarToggle(!(watchHasSolar ?? true));
+    if(watchHasSolar) {
+      // setShowSolarToggle(false);
+      setDisableSolarToggle(true);
+      setValue('solar.installSolar', false);
+    } else {
+      // const showSolar = showSolarToggle;
+      // setShowSolarToggle(true);   
+      setDisableSolarToggle(false);   
+      // if (showSolar !== showSolarToggle) {
+        // setValue('solar.installSolar', true);
+      // }
+    }
+  // }, [watchHasSolar, setValue, showSolarToggle]);
+  }, [watchHasSolar, setValue, disableSolarToggle]);
+// -------------------------------------------------------------------
+
+
+
+  // battery state
+  useEffect(() => {
+    console.log('HouseholdForm useEffect watchHasBattery:', watchHasBattery);
+    // setShowBatteryToggle(!(watchHasBattery ?? true));
+    if(watchHasBattery) {
+      // setShowBatteryToggle(false);
+      setDisableBatteryToggle(true);
+      setValue('battery.installBattery', false);
+    } else {
+      // const showBattery = showBatteryToggle;
+      // setShowBatteryToggle(true);
+      setDisableBatteryToggle(false);
+      // if (showBattery !== showBatteryToggle) {
+        // setValue('battery.installBattery', true);
+      // }
+    }
+  // }, [watchHasBattery, setValue, showBatteryToggle]);
+  }, [watchHasBattery, setValue, disableBatteryToggle]);
+// ----------------------------------------------------------------
+
 
 
   
   // ----------------- useHouseholdData useEffect -------------------
  React.useEffect(() => {
     console.log('HouseholdForm useEffect householdData:', householdData);
-    console.log('HouseholdForm useEffect savingsData:', savingsData);
-    console.log('HouseholdForm useEffect loadingData:', loadingData);
- }, [householdData, savingsData, loadingData]);
+    // console.log('HouseholdForm useEffect savingsData:', savingsData);
+    // console.log('HouseholdForm useEffect loadingData:', loadingData);
+ }, [householdData]);
 // -------------------------------------------------------------------
 
  
@@ -152,7 +207,8 @@ const HouseholdForm: React.FC = () => {
         append({ 
           id: (i + 1), 
           fuelType: fuelTypes[i % fuelTypes.length], 
-          usageType: 'Medium' as UsageType
+          usageType: 'Medium' as UsageType,
+          switchToEV: true
         });
       }
     } else {
@@ -160,7 +216,12 @@ const HouseholdForm: React.FC = () => {
         remove(i - 1);
       }
     }
+
+    
+    
   }, [numberOfVehicles, append, remove, fields.length]);
+
+
 
   const handleVehicleDelete = (index: number) => {
     remove(index);
@@ -196,36 +257,59 @@ const HouseholdForm: React.FC = () => {
       console.log('HouseholdForm watch name:', name);
       console.log('HouseholdForm watch type:', type);
 
-
+      // setShowSolarToggle(!(value.solar?.hasSolar ?? defaultFormData.solar.hasSolar));
+      // setShowBatteryToggle(!(value.battery?.hasBattery ?? defaultFormData.battery.hasBattery));
+      // console.log('HouseholdForm watch showSolarToggle:', showSolarToggle);
+      // console.log('HouseholdForm watch showBatteryToggle:', showBatteryToggle);
+      
+      
       if(value) {        
+        const formValue = value as HouseholdFormState;
 
         const householdDataOut: Household = {
-          location: value.location ?? defaultFormData.location,
-          occupancy: value.occupancy ?? defaultFormData.occupancy,
-          spaceHeating: value.spaceHeating ?? defaultFormData.spaceHeating,
-          waterHeating: value.waterHeating ?? defaultFormData.waterHeating,
-          cooktop: value.cooktop ?? defaultFormData.cooktop,
-          vehicles: (value.vehicleObjs ?? defaultFormData.vehicleObjs)
+          location: formValue.location ?? defaultFormData.location,
+          occupancy: formValue.occupancy ?? defaultFormData.occupancy,
+          spaceHeating: formValue.spaceHeating ?? defaultFormData.spaceHeating,
+          waterHeating: formValue.waterHeating ?? defaultFormData.waterHeating,
+          cooktop: formValue.cooktop ?? defaultFormData.cooktop,
+          vehicles: (formValue.vehicleObjs ?? defaultFormData.vehicleObjs)
             .filter((vehicle): vehicle is VehicleObject => vehicle !== undefined)
             .map((vehicle: VehicleObject) => {
-              return {
+              let vehicleOut: Vehicle = {
                 fuelType: vehicle.fuelType,
-                usage: formText.options.vehicle.usageOptionsList.find(option => 
-                  option.type === vehicle.usageType ) 
-                  ?? { type: 'Medium', value: 200, unit: '100-300 km/wk' }
-              }
-            }) as Vehicle[],
+                kmsPerWeek: formText.options.vehicle.usageOptionsList.find(option => 
+                  option.type === vehicle.usageType )?.value ?? 200,
+                switchToEV: vehicle.switchToEV ?? false,
+              };
+              return vehicleOut;
+              // return {
+                // fuelType: vehicle.fuelType,
+                // usage: formText.options.vehicle.usageOptionsList.find(option => 
+                //   option.type === vehicle.usageType ) 
+                //   ?? { type: 'Medium', formValue: 200, unit: '100-300 km/wk' }
+              // }
+            }),
           solar: {
-            hasSolar: value.solar?.hasSolar ?? defaultFormData.solar.hasSolar,
-            size: value.solar?.size ?? defaultFormData.solar.size,
-            installSolar: (value.solar?.dontWantSolar ?? defaultFormData.solar.dontWantSolar) ? false : true
+            hasSolar: Boolean(formValue.solar?.hasSolar ?? defaultFormData.solar.hasSolar),
+            size: formValue.solar?.size ?? defaultFormData.solar.size,
+            installSolar: formValue.solar?.installSolar ?? defaultFormData.solar.installSolar
+            // installSolar: (formValue.solar?.dontWantSolar ?? defaultFormData.solar.dontWantSolar) ? false : true
           },
           battery: {
-            hasBattery: value.battery?.hasBattery ?? defaultFormData.battery.hasBattery,
-            capacity: value.battery?.capacity ?? defaultFormData.battery.capacity,
-            installBattery: (value.battery?.dontWantBattery ?? defaultFormData.battery.dontWantBattery) ? false : true
+            hasBattery: Boolean(formValue.battery?.hasBattery ?? defaultFormData.battery.hasBattery),
+            capacity: formValue.battery?.capacity ?? defaultFormData.battery.capacity,
+            installBattery: formValue.battery?.installBattery ?? defaultFormData.battery.installBattery
+            // installBattery: (formValue.battery?.dontWantBattery ?? defaultFormData.battery.dontWantBattery) ? false : true
           }
         };
+
+        if (formValue.solar?.hasSolar && householdDataOut.solar) {
+          householdDataOut.solar.installSolar = null;
+        }
+        if (formValue.battery.hasBattery && householdDataOut.battery) {
+          householdDataOut.battery.installBattery = null;
+        }
+
         console.log('HouseholdForm watch householdDataOut:', householdDataOut);
         
         updateHouseholdData(householdDataOut);
@@ -585,7 +669,10 @@ const HouseholdForm: React.FC = () => {
 
           <FormSection theme={theme} className='formSection'>
             <Box display="flex" alignItems="center">                        
-              <FormLabel className='mainLabels'>Do you have solar panels?</FormLabel>
+              {/* <FormLabel className='mainLabels'>Do you have solar panels?</FormLabel> */}
+              <FormQuestionLabel className='FormQuestionLabel'>
+                Do you have solar panels?
+              </FormQuestionLabel>
               <HouseholdTooltip 
               title={tooltipText.hasSolar} 
               placement="top"
@@ -647,50 +734,105 @@ const HouseholdForm: React.FC = () => {
             />
           </FormControl> */}
           <FormControl 
-                  className="fullFormControl"
-                  error={!!errors.solar}>          
-                <Controller
-                  name="solar.hasSolar"
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <RadioGroup
-                      {...field}
-                    >
-                    {formText.options.solar.hasSolar.map((option: OptionYesNo) => (
-                      <FormControlLabel 
-                        key={option.text} 
-                        value={option.value} 
-                        control={
-                          <HouseRadio />
-                          } label={option.text} />
-                      ))}
-                    </RadioGroup>
-                  )}
-                />
-                {errors.solar && <FormHelperText>This field is required</FormHelperText>}
-              </FormControl>
-
-          <FormControl>
+              className="fullFormControl"
+              error={!!errors.solar}>          
             <Controller
-              // name="solar.installSolar"
-              name="solar.dontWantSolar"
+              name="solar.hasSolar"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <RadioGroup
+                  {...field}
+                  onChange={(e) => {
+                    const value: boolean = e.target.value === 'true';
+                    field.onChange(value);
+                  }}
+                >
+                {formText.options.solar.hasSolar.map((option: OptionYesNo) => (
+                  <FormControlLabel 
+                    key={option.text} 
+                    value={option.value} 
+                    control={
+                      // <HouseRadio />
+                      <Radio />
+                      } label={option.text} />
+                  ))}
+                </RadioGroup>
+              )}
+            />
+            {errors.solar && <FormHelperText>This field is required</FormHelperText>}
+          </FormControl>
+
+          {/* <FormControl>
+            <Controller
+              name="solar.installSolar"
+              // name="solar.dontWantSolar"
               control={control}
               rules={{ required: true }}
               render={({ field }) => (
                 <FormControlLabel
                   control={<HouseCheck {...field}/>}
-                  label="I don’t want solar"
+                  label="I'd like solar"
                 />
               )}
             />
             {errors.solar && <FormHelperText>This field is required</FormHelperText>}
-          </FormControl>
+          </FormControl> */}
           
           </Box>
         </FormSection>
 
+
+
+
+
+
+
+        {/* {showSolarToggle && ( */}
         <FormSection theme={theme} className='formSection'>
+            <FormControl className="fullFormControl"
+              error={!!errors.solar}
+              sx={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  opacity: disableSolarToggle ? 0.5 : 1, // Grey out when disabled
+              }}
+              >
+             <SwitchLabel className="installSolar-label" theme={theme}>
+                I'd like solar
+              </SwitchLabel>
+              <Controller
+                name="solar.installSolar"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <HouseSwitch 
+                    {...field} 
+                    defaultChecked 
+                    size="small" 
+                    theme={theme} 
+                    disabled={disableSolarToggle}
+                    />
+                )}
+              />
+            </FormControl>
+        </FormSection>
+      {/* )} */}
+
+
+
+
+
+
+
+
+
+        
+        <FormSection theme={theme} className='formSection-2'
+          sx={{
+            margin: '1.3rem 0 0.8rem 0'
+          }}
+          >
           <FormControl 
               className="fullFormControl"
               error={!!errors.solar}>
@@ -738,7 +880,7 @@ const HouseholdForm: React.FC = () => {
                     }}
                     inputRef={ref}
                     InputProps={{ 
-                      endAdornment: <InputAdornment position="end">{formText.defaultValues.solar.unit}</InputAdornment>,
+                      endAdornment: <InputAdornment position="end">{formText.defaultFormState.solar.unit}</InputAdornment>,
                       inputProps: { style: { textAlign: 'right' } }
                     }}
                   />
@@ -780,7 +922,10 @@ const HouseholdForm: React.FC = () => {
 
         <FormSection theme={theme} className='formSection'>
           <Box display="flex" alignItems="center">            
-            <FormLabel className='mainLabels'>Do you have a battery?</FormLabel>            
+              {/* <FormLabel className='mainLabels'>Do you have a battery?</FormLabel> */}
+            <FormQuestionLabel className='FormQuestionLabel'>
+              Do you have a battery?
+            </FormQuestionLabel>
             <HouseholdTooltip 
               title={tooltipText.hasBattery} 
               placement="top"
@@ -810,22 +955,8 @@ const HouseholdForm: React.FC = () => {
           </Box>
           </FormSection>
 
-
-
-
-
-
-
-
-
-
-
-
           <FormSection theme={theme} className='formSection'>
             <Box>
-
-
-
               <FormControl 
                   className="fullFormControl"
                   error={!!errors.battery}>          
@@ -836,13 +967,18 @@ const HouseholdForm: React.FC = () => {
                   render={({ field }) => (
                     <RadioGroup
                       {...field}
+                      onChange={(e) => {
+                        const value: boolean = e.target.value === 'true';
+                        field.onChange(value);
+                      }}
                     >
                     {formText.options.battery.hasBattery.map((option: OptionYesNo) => (
                       <FormControlLabel 
                         key={option.text} 
                         value={option.value} 
                         control={
-                          <HouseRadio />
+                          // <HouseRadio />
+                          <Radio />
                           } label={option.text} />
                       ))}
                     </RadioGroup>
@@ -850,49 +986,62 @@ const HouseholdForm: React.FC = () => {
                 />
                 {errors.battery && <FormHelperText>This field is required</FormHelperText>}
               </FormControl>
-
-
-
-
-
-
-
-
-
-            <FormControl>
-              <Controller
-                // name="battery.installBattery"
-                name="battery.dontWantBattery"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <FormControlLabel
-                    control={<HouseCheck {...field} />}
-                    // control={<HouseCheck {...field} checked={!field.value} />}
-                    label="I don't want a battery"
-                  />
-                )}
-              />
-              {errors.battery && <FormHelperText>This field is required</FormHelperText>}
-            </FormControl>
-
-
-
           </Box>        
         </FormSection>
 
 
-
-
-
-
-
-
-
-
-
-
+        {/* {watchAllFields.vehicleObjs?.map((vehicle: any, index: number) => ( */}
+        {/* {!(watchAllFields.battery?.hasBattery) && ( */}
+      {/* {showBatteryToggle && ( */}
         <FormSection theme={theme} className='formSection'>
+          {/* <Box>         */}
+            <FormControl className="fullFormControl"
+              error={!!errors.battery}
+              sx={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  // margin: '0.4rem 0 0.8rem 0'
+                  opacity: disableBatteryToggle ? 0.5 : 1, // Grey out when disabled
+              }}
+              >
+             <SwitchLabel className="installBattery-label" theme={theme}>
+                I'd like a battery
+              </SwitchLabel>
+              <Controller
+                name="battery.installBattery"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  // <HouseSwitch {...field} />
+                  <HouseSwitch
+                    {...field} 
+                    defaultChecked 
+                    size="small" 
+                    theme={theme}
+                    disabled={disableBatteryToggle}
+                    />
+                )}
+              />
+            </FormControl>
+          {/* </Box>         */}
+        </FormSection>
+      {/* )} */}
+
+
+
+
+
+
+
+
+
+
+
+
+        <FormSection theme={theme} className='formSection-2'          sx={{
+            margin: '1.3rem 0 0.8rem 0'
+          }}
+          >
         <FormControl 
               className="fullFormControl"
               error={!!errors.battery}>
@@ -934,14 +1083,12 @@ const HouseholdForm: React.FC = () => {
                   <TextField
                     id="outlined-number"
                     type="number"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
+                    inputMode="numeric"
                     value={batteryCapacity}
                     // value={numVehicles || value}
                     onChange={(e) => {
-                      setBatteryCapacity(e.target.value);
-                      // onChange(e);
+                      const numericValue = parseFloat(e.target.value);
+                      setBatteryCapacity(numericValue);
                     }}
                     onBlur={() => {
                       onChange({ target: { value: batteryCapacity } });
@@ -953,8 +1100,11 @@ const HouseholdForm: React.FC = () => {
                     }}
                     inputRef={ref}
                     InputProps={{ 
-                      endAdornment: <InputAdornment position="end">{formText.defaultValues.battery.unit}</InputAdornment>,
-                      inputProps: { style: { textAlign: 'right' } }
+                      endAdornment: <InputAdornment position="end">{formText.defaultFormState.battery.unit}</InputAdornment>,
+                      inputProps: { 
+                        style: { textAlign: 'right' },
+                        pattern: "[0-9]*" 
+                      }
                     }}
                   />
                 )}
@@ -1090,7 +1240,7 @@ const HouseholdForm: React.FC = () => {
                 }}
                 >
                 
-                {watchAllFields.vehicleObjs?.map((vehicle: any, index: number) => (                  
+                {watchAllFields.vehicleObjs?.map((vehicle: any, index: number) => (
                   <VehicleBox key={`Car-${index}`} 
                     index={index} 
                     {...vehicle} 

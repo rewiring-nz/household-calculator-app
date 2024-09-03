@@ -1,12 +1,12 @@
 import React from 'react';
 import logo from '../../assets/logos/RewiringAotearoa_logo.svg';
-import HouseholdForm from '../../components/HouseholdForm/HouseholdForm';
 import { useTheme } from '@mui/material/styles';
-import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import HouseholdForm from '../../components/HouseholdForm/HouseholdForm';
 import HouseholdSavings from '../../components/HouseholdSavings/HouseholdSavings';
-import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
+import { Box, Typography } from '@mui/material';
+import useHouseholdData from 'src/hooks/useHouseholdData/useHouseholdData';
 
- 
+
 
 
 const Home: React.FC = () => {
@@ -14,8 +14,10 @@ const Home: React.FC = () => {
   // const { savingsData } = useHouseholdData();
   
   // React.useEffect(() => {
-  //   console.log("Home useEffect savingsData:", savingsData);
-  // }, [savingsData]);
+    //   console.log("Home useEffect savingsData:", savingsData);
+    // }, [savingsData]);
+    
+    const { householdData, updateHouseholdData, savingsData, loadingData, errorData } = useHouseholdData();
 
   return (
     <Box className="Home"
@@ -46,7 +48,9 @@ const Home: React.FC = () => {
         <Typography variant="h1">How much could you save by going electric?</Typography>
         <Typography variant="subtitle1">Enter your household information to find out</Typography>
 
-        <HouseholdForm/>
+        {/* <HouseholdForm/> */}
+        {/* <HouseholdForm householdData={householdData} updateHouseholdData={updateHouseholdData} /> */}
+        {householdData && <HouseholdForm householdData={householdData} updateHouseholdData={updateHouseholdData} />}
       </Box>    
       
       <Box className="Home-savings"
@@ -71,7 +75,8 @@ const Home: React.FC = () => {
           }
         }}
       >
-        <HouseholdSavings />
+        {/* <HouseholdSavings /> */}
+        <HouseholdSavings savingsData={savingsData} loadingData={loadingData} />
       </Box>
       
     </Box>

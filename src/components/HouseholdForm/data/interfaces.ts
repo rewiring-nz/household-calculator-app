@@ -1,4 +1,11 @@
-import { HouseholdCooktopEnum, HouseholdLocationEnum, HouseholdSpaceHeatingEnum, HouseholdWaterHeatingEnum, Vehicle, VehicleFuelTypeEnum } from "../../../shared/api/household-calculator-client";
+import {
+    LocationEnum,
+    SpaceHeatingEnum,
+    WaterHeatingEnum,
+    CooktopEnum,
+    VehicleFuelTypeEnum,
+} from "../../../shared/api/openapi-client";
+     
 
 
 
@@ -31,30 +38,31 @@ export interface VehicleObject {
     fuelType: VehicleFuelTypeEnum;
     // usage: Usage
     usageType: UsageType;
+    switchToEV: boolean;
 }
 
 
 export interface HouseholdFormState {
-    location: HouseholdLocationEnum;
+    location: LocationEnum;
     occupancy: number;
-    spaceHeating: HouseholdSpaceHeatingEnum;
-    waterHeating: HouseholdWaterHeatingEnum;
-    cooktop: HouseholdCooktopEnum;
+    spaceHeating: SpaceHeatingEnum;
+    waterHeating: WaterHeatingEnum;
+    cooktop: CooktopEnum;
     numberOfVehicles: number;
     // vehicles: Vehicle[];
     vehicleObjs: VehicleObject[];
     solar: {
         hasSolar: boolean;
         size: number;
-        // installSolar?: boolean;
-        dontWantSolar: boolean; // if true, then installSolar is false. Question logic different, gets changed before POST request.
+        installSolar: boolean | null;
+        // dontWantSolar: boolean; // if true, then installSolar is false. Question logic different, gets changed before POST request.
         unit?: string;
     };
     battery: {
         hasBattery: boolean;
         capacity: number;
-        // installBattery: boolean;
-        dontWantBattery: boolean; // if true, then installBattery is false. Question logic different, gets changed before POST request.
+        installBattery: boolean | null;
+        // dontWantBattery: boolean; // if true, then installBattery is false. Question logic different, gets changed before POST request.
         unit?: string;
     };
 }
@@ -63,28 +71,22 @@ export interface HouseholdFormState {
 
 
 
-
-
-
-// export interface FormText {
-//     location: StringInput;
-//     occupancy: NumberInput;
-//     spaceHeating: StringInput;
-//     waterHeating: StringInput;
-//     cooktop: StringInput;
-//     vehicle: {
-//         amount: NumberInput;
-//         fuelType: vehicleInput;
+// See householdFormText.ts
+// export interface FormText { 
+//     options: {
+//         location: typeof locationOptions;
+//         occupancy: typeof occupancyOptions;
+//         spaceHeating: typeof spaceHeatingOptions;
+//         waterHeating: typeof waterHeatingOptions;
+//         cooktop: typeof cooktopOptions;
+//         vehicle: typeof vehicleOptions;
+//         solar: typeof solarOptions;
+//         battery: typeof batteryOptions;
 //     };
-//     solar: {
-//         haveSolar: YesNoInput;
-//         solarSize: NumberInput;
-//     };
-//     battery: {
-//         haveBattery: YesNoInput;
-//         batterySize: NumberInput;
-//     };
+//     defaultValues: HouseholdFormState;
+//     tooltipText: typeof tooltipText;
 // }
+
 
 interface StringInput {
     options: string[];
@@ -107,7 +109,7 @@ interface YesNoInput {
 }
 
 export interface Option {
-    value: HouseholdLocationEnum | HouseholdSpaceHeatingEnum | HouseholdWaterHeatingEnum | HouseholdCooktopEnum | VehicleFuelTypeEnum;
+    value: LocationEnum | SpaceHeatingEnum | WaterHeatingEnum | CooktopEnum | VehicleFuelTypeEnum;
     text: string;
 }
 

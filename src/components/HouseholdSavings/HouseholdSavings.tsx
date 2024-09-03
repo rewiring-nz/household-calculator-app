@@ -1,96 +1,89 @@
-import React, { useEffect } from 'react';
-import { Box, Button, Divider, FormControl, FormHelperText, Input, InputLabel, styled, TextField, Typography, useTheme, Link, Tooltip } from '@mui/material';
-// import useHouseholdData from 'src/hooks/useHouseholdData';
-// import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
-import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
-import ResultBox from './ResultBox';
-// import { Savings } from 'src/shared/api/household-calculator-client';
-import { FDivider } from 'src/pages/Home/Home.styles';
-import heatpump from '../../assets/images/heatpump.png'; 
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { UpfrontCost } from 'src/shared/api/household-calculator-client';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { HouseLink } from './HouseholdSavings.styles';
 import MailchimpForm from '../MailChimpForm/MailChimpForm';
 
 
-interface Email {
-    email: string;
+// ----------------- Data -------------------
+// import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
+// Now passed as props
+
+// ----------------- Styles & Material UI -------------------
+import { Box, Button, Typography, useTheme, Link, Tooltip } from '@mui/material';
+import { FDivider } from 'src/shared/styles/FDivider';
+// import { HouseLink } from './HouseholdSavings.styles';
+
+// ----------------- Components -------------------
+import ResultBox from './ResultBox';
+
+// ----------------- Images -------------------
+import heatpump from '../../assets/images/heatpump.png'; 
+
+
+// ----------------- Models & Interfaces -------------------
+import { Savings, UpfrontCost } from '../../shared/api/openapi-client';
+import { electricVehicleURL } from 'src/shared/links';
+
+
+
+
+
+
+
+
+interface SavingsProps {
+    savingsData: Savings;
+    loadingData: boolean;
 }
 
 
 
 
-// const EmailForm = styled('form')(({ theme }) => ({
-//     display: 'flex',
-//     flexDirection: 'column',
-//     gap: '0.5rem',
-//     '& .MuiInputBase-root': {
-//         color: theme.palette.text.disabled,
-//         backgroundColor: theme.palette.background.paper
-//     },
-//     [theme.breakpoints.up('sm')]: {
-//         flexDirection: 'row',
-//         gap: '1rem'
-//     },
-//     '& .MuiFormControl-root': {
-//         flexBasis: '100%',
-//         [theme.breakpoints.up('sm')]: {
-//             flexBasis: '66%'
-//         }
-//     },
-//     '& .MuiButtonBase-root': {
-//         flexBasis: '100%',
-//         fontFamily: theme.typography,
-//         [theme.breakpoints.up('sm')]: {
-//             flexBasis: '33%',
-//             margin: '0 auto'
-//         }
-//     }
-// }));
-
-
-
-
-
-
-
-
-
-
-
-// const HouseholdSavings: React.FC<Savings> = ( savingsData ) => {
-const HouseholdSavings: React.FC = () => {
+const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData }) => {
     const theme = useTheme();
     
-    // const { householdData, updateHouseholdData, getSavingsData, loadingData, errorData } = useHouseholdData();
-    const { 
-        updateHouseholdData, 
-        getSavingsData, 
-        loadingData, 
-        errorData 
-    } = useHouseholdData();
+    // const { 
+    //     householdData,
+    //     getSavingsData,
+    //     savingsData,
+    //     loadingData,
+    //     errorData
+    // } = useHouseholdData();
 
-    const savingsData = getSavingsData();
-    
+    // const savings = getSavingsData();
+    // const [savings, setSavings] = useState(getSavingsData());
+    const [upfrontCostTotal, setUpfrontCostTotal] = useState('0');
+
     useEffect(() => {
+        console.log("HouseholdSavings useEffect triggered");
+        // console.log("HouseholdSavings Previous savingsData:", savings);
+        // console.log("HouseholdSavings New savingsData:", savingsData);
         // console.log("HouseholdSavings useEffect householdData:", householdData);
+
+        // setSavings(savingsData);
+        const total = savingsData?.upfrontCost ? Object.values(savingsData.upfrontCost).reduce((acc, val) => acc + val, 0) : 0;
+        const totalString = `$${Number(total.toFixed(2)).toLocaleString('en-NZ')}`;
+        setUpfrontCostTotal(totalString);
+
+        // console.log("HouseholdSavings useEffect savings:", savings);
         console.log("HouseholdSavings useEffect savingsData:", savingsData);
+        console.log("HouseholdSavings useEffect upfrontCostTotal:", total);
         console.log("HouseholdSavings useEffect loadingData:", loadingData);
-    }, [updateHouseholdData, savingsData, loadingData ]);
+    }, [ savingsData, loadingData ]);
 
 
-    const { register, handleSubmit } = useForm<Email>();
-    const onSubmit: SubmitHandler<Email> = (data) => console.log('HouseholdSavings: ', data);
+    // const { register, handleSubmit } = useForm<Email>();
+    // const onSubmit: SubmitHandler<Email> = (data) => console.log('HouseholdSavings: ', data);
 
+    // const formatNZD = (value: number | undefined) => {
+    //     if (value === undefined) return '';
+    //     return `$${value.toLocaleString('en-NZ')}`;
+    // };
 
-    const formatNZD = (value: number | undefined | UpfrontCost) => {
-        if (value === undefined) return '';
-        if (typeof value === 'number') return `$${value.toLocaleString('en-NZ')}`;
-        if (typeof value === 'object') {
-            const total = Object.values(value).reduce((acc, val) => acc + val, 0);
-            return `$${total.toLocaleString('en-NZ')}`;
-        }
+    const getApplianceCost = (upfrontCost: UpfrontCost | undefined): number => {
+        const spaceHeating = upfrontCost?.spaceHeating || 0;
+        const waterHeating = upfrontCost?.waterHeating || 0;
+        const cooktop = upfrontCost?.cooktop || 0;
+        return spaceHeating + waterHeating + cooktop;        
     };
     
     return (
@@ -165,16 +158,35 @@ const HouseholdSavings: React.FC = () => {
                 }}
                 >
 
-                <ResultBox label="Energy Bill" heading={`$${savingsData?.opex?.perWeek?.difference} per week`} />
+                <ResultBox 
+                    label="Energy Bill" 
+                    heading={`$${savingsData?.opex?.perWeek?.difference} per week`} 
+                    />
 
                 <FDivider />
                 
-                <ResultBox label="Co2 Emissions" heading={`${savingsData?.emissions?.perWeek?.difference} % of emissions`} />
+                <ResultBox 
+                    label="Co2 Emissions" 
+                    heading={`${savingsData?.emissions?.perWeek?.difference} % of emissions`} 
+                    />
                 
                 <FDivider />
 
-                {/* <ResultBox label="" heading={`$${savingsData?.upfrontCost?.spaceHeating} total`} /> */}
-                <ResultBox label="" heading={`${formatNZD(savingsData?.upfrontCost)} total`} />
+                
+                {/* <ResultBox label="" heading={`${formatNZD(savings?.upfrontCost)} total`} /> */}
+                <ResultBox 
+                    label="Upfront Cost*" 
+                    // heading={`$${upfrontCostTotal.toLocaleString('en-NZ')}`} 
+                    heading={upfrontCostTotal} 
+                    bulletPoints={[
+                        { label: 'Appliances (total)', value: getApplianceCost(savingsData?.upfrontCost) },                        
+                        { label: 'Solar', value: savingsData?.upfrontCost?.solar },
+                        { label: 'Battery', value: savingsData?.upfrontCost?.battery },
+                    ]}
+                    paragraph="*Vehicle costs excluded due to large price range." 
+                    linkText="Learn more here"
+                    linkURL={electricVehicleURL}
+                    />            
 
             </Box>
 
