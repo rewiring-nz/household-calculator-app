@@ -27,7 +27,11 @@ const Home: React.FC = () => {
     };
 
   return (
-    <Box className="Home">
+    <Box className="Home"
+      sx={{
+        maxWidth: '90rem', // '1440px',
+        margin: 'auto'
+      }}>
 
     <Box className="Home-content"
       sx={{
@@ -79,7 +83,7 @@ const Home: React.FC = () => {
       
       <Box className="Home-savings"
         sx={{
-          flex: 1,
+          // flex: 1,
           padding: '1rem',
           backgroundColor: theme.palette.background.default,
           [theme.breakpoints.up('md')]: {
@@ -87,10 +91,12 @@ const Home: React.FC = () => {
             // overflowY: 'auto', // Enable independent scrolling
             // maxWidth:  '38vw' // '33vw'
             '@media (min-aspect-ratio: 1/1)': {
-              maxWidth: '33vw'
+              // maxWidth: '33vw'
+              width: 'min(480px, 33%)'
             },
             '@media (max-aspect-ratio: 1/1)': {
-              maxWidth: '38vw'
+              // maxWidth: '38vw'
+              width: 'min(480px, 38%)'
             }
           },
           // [theme.breakpoints.up('xl')]: { // Currently gets push up and heading is lost on narrow screens

@@ -127,19 +127,8 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                 sx={{
                     padding: '1.25rem',
                     backgroundColor: theme.palette.primary.main,
-                    // margin: '1rem',
-                    // borderRadius: '0.5rem',
                     borderRadius: 1,
-                    minWidth: '28vw',
                     position: 'relative',
-                    // width: '100%',
-                    // [theme.breakpoints.up('md')]: {
-                    //     minWidth: '33vw'
-                    //     // position: 'fixed',
-                    //     // top: 0,
-                    //     // right: 0,
-                    //     // maxWidth: '33vw'
-                    // }
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -210,6 +199,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                 <ResultBox 
                     label="Co2 Emissions" 
                     heading={`${(savingsData?.emissions?.perWeek?.difference || 0) *-1} % of emissions`} 
+                    paragraph={`on energy bills. That’s $750 per year.`}
                     />
                 
                 <FDivider />
