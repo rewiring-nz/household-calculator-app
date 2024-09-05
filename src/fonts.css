@@ -2,13 +2,13 @@
 @font-face {
     font-family: 'Rubik';
     src: url('./assets/fonts/Rubik/Rubik-VariableFont_wght.ttf') format('truetype');
-    font-weight: 400 700;
+    font-weight: 400 500 600 700;
     font-style: normal;
 }
 
 
 
-@font-face {
+/* @font-face {
     font-family: 'Poppins';
     src: url('./assets/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
     font-weight: 400;
@@ -27,5 +27,5 @@
     src: url('./assets/fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
-}
+} */
 

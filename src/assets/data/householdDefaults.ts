@@ -46,17 +46,17 @@ export const defaultSavingsData: Savings = {
         "perWeek": {
             "before": 500.5,
             "after": 100.1,
-            "difference": 401.4
+            "difference": -55.98
         },
         "perYear": {
             "before": 500.5,
             "after": 100.1,
-            "difference": 400.4
+            "difference": -400.4
         },
         "overLifetime": {
             "before": 500.5,
             "after": 100.1,
-            "difference": 400.4
+            "difference": -400.4
         },
         "operationalLifetime": 15
     },
@@ -64,25 +64,25 @@ export const defaultSavingsData: Savings = {
         "perWeek": {
             "before": 500.5,
             "after": 100.1,
-            "difference": 402.4
+            "difference": -33.84
         },
         "perYear": {
             "before": 500.5,
             "after": 100.1,
-            "difference": 400.4
+            "difference": -400.4
         },
         "overLifetime": {
             "before": 500.5,
             "after": 100.1,
-            "difference": 400.4
+            "difference": -400.4
         },
         "operationalLifetime": 15
     },
     "upfrontCost": {
-        "solar": 0,
-        "battery": 0,
-        "cooktop": 0,
-        "waterHeating": 0,
-        "spaceHeating": 0
+        "solar": 15944.44,
+        "battery": 10000,
+        "cooktop": 2695,
+        "waterHeating": 6999,
+        "spaceHeating": 3778
     }
 }

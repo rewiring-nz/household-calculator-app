@@ -85,7 +85,7 @@ const theme = createTheme({
             main: '#527570'
         },
         error: {
-            main: '#b00020'
+            main: '#EB5757' // '#b00020'
         },
         warning: {
             main: '#e97840' // '#ff9800'
@@ -107,12 +107,12 @@ const theme = createTheme({
         },
         divider: '#d7d5cd',
         action: {
-            // active: '#6200ea',
+            // active: '#2D62FF',
             // hover: '#9d46ff',
-            // selected: '#6200ea',
+            // selected: '#2D62FF', //'#6200ea',
             // disabled: '#9e9e9e',
             disabledBackground: '#CCCCCC',
-            // focus: '#6200ea',
+            focus: '#2D62FF',
             // hoverOpacity: 0.08,
             // disabledOpacity: 0.38,
             // focusOpacity: 0.12,
@@ -131,9 +131,65 @@ const theme = createTheme({
                 borderRadius: '0.25rem'
             },
           },
-        }
-    }
-        
+        },
+        MuiFormControl: {
+            styleOverrides: {
+                root: {
+                    '& .MuiInputBase-root': {
+                        // color: '#192D30',
+                        color: '#222222', 
+                        // color: '#2E2E2E', 
+                        // '&:hover:not(.Mui-disabled):before': {
+                        //     borderColor: '#2D62FF', 
+                        // },
+                        // '&.Mui-focused:before': {
+                        //     borderColor: '#2D62FF', 
+                        // },
+                        // '&.Mui-focused': {
+                        //     color: '#000000', 
+                        //     // borderColor: '#2D62FF',
+                        // },
+                    },
+                    '& .MuiFormLabel-root': {
+                        color: '#2E2E2E', 
+                        // color: '#222222', 
+                        // '&.Mui-focused:before': {
+                        //     color: '#2E2E2E', 
+                        // },
+                        '&.Mui-focused': {
+                            color: '#000000', 
+                        },
+                    },
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderColor: '#D0D0D0',
+                        },
+                        '&:hover fieldset': {
+                            // borderColor: '#2D62FF',
+                            borderColor: '#000000',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: '#2D62FF',
+                        },
+                    },
+                    '& .MuiSelect-select': {
+                        '&:focus': {
+                            // color: '#2D62FF', 
+                        },
+                    },
+                },
+            },
+        },
+    },
+    breakpoints: {
+        values: {
+          xs: 0,
+          sm: 600,
+          md: 960,
+          lg: 1280,
+          xl: 1920,
+        },
+      }        
 });
 
 export default theme;

@@ -32,7 +32,7 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
     return (
         <Box
             sx={{
-                padding: '1rem',
+                padding: '1rem 0',
                 margin: '1rem 0'
             }}
         >

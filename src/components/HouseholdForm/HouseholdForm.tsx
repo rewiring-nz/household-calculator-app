@@ -4,33 +4,35 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 
 
 // ----------------- Styles & Material-UI -------------------
-import { Box, FormControl, FormControlLabel, FormHelperText, FormLabel, Input, InputAdornment, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Tooltip, Typography, useTheme, Checkbox } from '@mui/material';
+import { Box, FormControl, FormControlLabel, FormHelperText, FormLabel, Input, InputAdornment, InputLabel, Radio, RadioGroup, Select, TextField, Tooltip, Typography, useTheme, Checkbox } from '@mui/material';
+// import { ReactComponent as TickIcon } from 'src/assets/icons/tick.svg';
 import './HouseholdForm.css';
 import { FDivider } from 'src/shared/styles/FDivider';
 
 // ----------------- Models & Interfaces -------------------
-import { Household, Vehicle, VehicleFuelTypeEnum } from '../../shared/api/openapi-client';
+import { CooktopEnum, Household, LocationEnum, SpaceHeatingEnum, Vehicle, VehicleFuelTypeEnum, WaterHeatingEnum } from '../../shared/api/openapi-client';
 import { HouseholdFormState, Option, OptionNumber, OptionYesNo, UsageType, VehicleObject } from './data/interfaces';
 
 
 // ----------------- Data -------------------
 import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
-import { formText } from './data/householdFormText';
+import { formText, LocationOptionType } from './data/householdForm.text';
 
 
 // ----------------- Icons -------------------
 import questionIcon from '../../assets/icons/question.svg';
 import resetIcon from '../../assets/icons/carbon-reset.svg';
-
+import { ReactComponent as chevronDown} from '../../assets/icons/chevron-down.svg';
 
 // ----------------- Components -------------------
-import { FormQuestionLabel, FormBox, HalfWidthFormBox, FormContainer, FormSection, ResetButton, tooltipPoppers, SwitchLabel } from './HouseholdForm.styles';
+import { FormQuestionLabel, FormBox, HalfWidthFormBox, FormContainer, FormSection, ResetButton, tooltipPoppers, SwitchLabel, HouseSelect, HouseInputAdornment } from './HouseholdForm.styles';
 import VehicleBox from './components/HouseholdVehicle';
 import TooltipModal from './components/TooltipDialog';
 import TooltipDialog from './components/TooltipDialog';
 import HouseholdTooltip from './components/HouseholdTooltip';
 import { HouseRadio, HouseCheck } from './components/HouseCheckRadio';
 import { HouseSwitch } from './components/HouseSwitch';
+import HouseMenuItem from './components/HouseMenuItem';
 
 
 interface HouseholdFormProps {
@@ -365,10 +367,15 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
       <Box 
         sx={{
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'row',
+          justifyContent: 'flex-end'
         }}
         >
-        <ResetButton theme={theme} type="button" onClick={() => reset()}>
+        <ResetButton theme={theme} type="button" onClick={() => reset()}
+          sx={{
+            width: 'fit-content',
+          }}
+          >
           <img src={resetIcon} className="Home-logo" alt="logo" />
           <Typography variant="body2">Reset</Typography>
         </ResetButton>
@@ -393,27 +400,29 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
               className="fullFormControl"
               error={!!errors.location}>
           <FormLabel className='mainLabels'>Location</FormLabel>
-                  <Select
-                    // {...field}
-                    labelId="location-label"
-                    id="location"
-                    value={watchAllFields.location}
-                    {...register('location', { required: true })}
-                    // defaultValue={defaultValues.location}
+            <HouseSelect
+              // {...field}
+              IconComponent={chevronDown}
+              labelId="location-label"
+              id="location"
+              value={watchAllFields.location}
+              {...register('location', { required: true })}
+              >
+                
+                {formText.options.location.map((option: Option<LocationEnum>) => (
+                  <HouseMenuItem 
+                    theme={theme} 
+                    key={option.value} 
+                    value={option.value}
+                    selected={watchAllFields.location === option.value}
+                    // open={openTooltips.location}
+                    onClick={() => setValue('location', option.value)}
                     >
-            {/* {formText.location.options.map((option: string, i: number) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))} */}
-                {/* {locationOptions.map((option: Option, i: number) => ( */}
-                {formText.options.location.map((option: Option, i: number) => (
-                  <MenuItem key={option.value} value={option.value}>
                     {option.text}
-                  </MenuItem>
+                  </HouseMenuItem>
                 ))}
 
-          </Select>
+          </HouseSelect>
            {/* )}
           /> */}
           {errors.location && <FormHelperText>This field is required</FormHelperText>}
@@ -425,7 +434,8 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
               className="fullFormControl"
               error={!!errors.occupancy}>
           <FormLabel className='mainLabels'>Number of occupants</FormLabel>
-          <Select 
+          <HouseSelect
+            IconComponent={chevronDown}
             labelId="occupancy-label"
             id="occupancy"
             value={watchAllFields.occupancy}
@@ -434,11 +444,16 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
           >
             {/* {occupancyOptions.map((option: OptionNumber) => ( */}
             {formText.options.occupancy.map((option: OptionNumber) => (
-              <MenuItem key={option.value} value={option.value}>
+              <HouseMenuItem 
+                theme={theme} 
+                key={option.value} 
+                value={option.value}
+                selected={watchAllFields.occupancy === option.value}              
+                >
                 {option.text}
-              </MenuItem>
+              </HouseMenuItem>
             ))}
-          </Select>
+          </HouseSelect>
           {errors.occupancy && <FormHelperText>This field is required</FormHelperText>}
         </FormControl>
         </FormSection>
@@ -512,20 +527,25 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
             </Box>   */}
           </Box>
 
-          <Select
+          <HouseSelect
+            IconComponent={chevronDown}
             labelId="spaceHeating-label"
             id="spaceHeating"
             value={watchAllFields.spaceHeating}
             {...register('spaceHeating', { required: true })}
             // defaultValue={spaceHeatingOptions.default}
-          >
-            {/* {spaceHeatingOptions.map((option: Option, i: number) => ( */}
-            {formText.options.spaceHeating.map((option: Option, i: number) => (
-              <MenuItem key={option.value} value={option.value}>
+            >
+            {formText.options.spaceHeating.map((option: Option<SpaceHeatingEnum>) => (
+              <HouseMenuItem 
+                theme={theme} 
+                key={option.value} 
+                value={option.value}
+                selected={watchAllFields.spaceHeating === option.value}              
+                >
                 {option.text}
-              </MenuItem>
+              </HouseMenuItem>
             ))}
-          </Select>
+          </HouseSelect>
           {errors.spaceHeating && <FormHelperText>This field is required</FormHelperText>}
         </FormControl>
         
@@ -565,19 +585,25 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
             </Box>   */}
           </Box>
           
-          <Select 
+          <HouseSelect
+            IconComponent={chevronDown} 
             labelId="waterHeating-label"
             id="waterHeating"
             value={watchAllFields.waterHeating}
             {...register('waterHeating', { required: true })}            
           >
             {/* {waterHeatingOptions.map((option: Option, i: number) => ( */}
-            {formText.options.waterHeating.map((option: Option, i: number) => (
-              <MenuItem key={option.value} value={option.value}>
+            {formText.options.waterHeating.map((option: Option<WaterHeatingEnum>) => (
+              <HouseMenuItem 
+                theme={theme} 
+                key={option.value} 
+                value={option.value}
+                selected={watchAllFields.waterHeating === option.value}              
+                >
                 {option.text}
-              </MenuItem>
+              </HouseMenuItem>
             ))}
-          </Select>
+          </HouseSelect>
           {errors.waterHeating && <FormHelperText>This field is required</FormHelperText>}
         </FormControl>
 
@@ -616,19 +642,25 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
               />              
             </Box>   */}
           </Box>
-          <Select
+          <HouseSelect
+            IconComponent={chevronDown}
             labelId="cooktop-label"
             id="cooktop"
             value={watchAllFields.cooktop}
             {...register('cooktop', { required: true })}
           >
             {/* {cooktopOptions.map((option: Option, i: number) => ( */}
-            {formText.options.cooktop.map((option: Option, i: number) => (
-              <MenuItem key={option.value} value={option.value}>
+            {formText.options.cooktop.map((option: Option<CooktopEnum>) => (
+              <HouseMenuItem 
+                theme={theme} 
+                key={option.value} 
+                value={option.value}
+                selected={watchAllFields.cooktop === option.value}
+                >
                 {option.text}
-              </MenuItem>
+              </HouseMenuItem>
             ))}
-          </Select>
+          </HouseSelect>
           {errors.cooktop && <FormHelperText>This field is required</FormHelperText>}
         </FormControl>
         </FormSection>
@@ -652,6 +684,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
       
+      <FormSection theme={theme} className='formSection'>
       <HalfWidthFormBox theme={theme} className='halfWidthFormBox'>
         <FDivider />
 
@@ -865,10 +898,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                       shrink: true,
                     }}
                     value={solarSize}
-                    // value={numVehicles || value}
                     onChange={(e) => {
-                      setSolarSize(e.target.value);
-                      // onChange(e);
+                      const numericValue = parseFloat(e.target.value);
+                      setSolarSize(numericValue);
                     }}
                     onBlur={() => {
                       onChange({ target: { value: solarSize } });
@@ -880,7 +912,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                     }}
                     inputRef={ref}
                     InputProps={{ 
-                      endAdornment: <InputAdornment position="end">{formText.defaultFormState.solar.unit}</InputAdornment>,
+                      endAdornment: <HouseInputAdornment position="end">{formText.defaultFormState.solar.unit}</HouseInputAdornment>,
                       inputProps: { style: { textAlign: 'right' } }
                     }}
                   />
@@ -1027,6 +1059,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         </FormSection>
       {/* )} */}
 
+        
 
 
 
@@ -1070,9 +1103,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
             {...register('battery.capacity', { required: true })}
           >
             {formText.options.battery.capacityList.map((option: OptionNumber, i: number) => (
-              <MenuItem key={option.value} value={option.value}>
+              <StyledMenuItem key={option.value} value={option.value}>
                 {option.text}
-              </MenuItem>
+              </StyledMenuItem>
             ))}
           </Select> */}
 
@@ -1100,7 +1133,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                     }}
                     inputRef={ref}
                     InputProps={{ 
-                      endAdornment: <InputAdornment position="end">{formText.defaultFormState.battery.unit}</InputAdornment>,
+                      endAdornment: 
+                        <HouseInputAdornment position="end">
+                          {formText.defaultFormState.battery.unit}</HouseInputAdornment>,
                       inputProps: { 
                         style: { textAlign: 'right' },
                         pattern: "[0-9]*" 
@@ -1118,7 +1153,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
-        {/* </FormSection> */}
+        </FormSection>
 
 
 
@@ -1127,8 +1162,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
+        {/* Transport section */}
 
-
+        <FormBox theme={theme} className='formBox'>
 
           <HalfWidthFormBox theme={theme} className='halfWidthFormBox'>
             <FDivider />
@@ -1146,16 +1182,22 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                 name="numberOfVehicles"
                 control={control}
                 render={({ field }) => (
-                <Select
+                <HouseSelect
+                  IconComponent={chevronDown}
                   labelId="number-of-vehicles-label"
                   {...field}
                 >                
                 {formText.options.vehicle.amount.map((option: OptionNumber) => (
-                  <MenuItem key={option.value} value={option.value}>
+                  <HouseMenuItem 
+                    theme={theme} 
+                    key={option.value} 
+                    value={option.value}
+                    selected={numberOfVehicles === option.value}              
+                    >
                     {option.text}
-                  </MenuItem>
+                  </HouseMenuItem>
                 ))}
-              </Select>
+              </HouseSelect>
                 )}
               />
               {/* <Input type="number" {...register('numberOfVehicles', { required: true })} /> */}
@@ -1191,54 +1233,44 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
             </FormControl>
             </FormSection>
           
-                   {/* type="number"
-                   InputLabelProps={{
-                     shrink: true,
-                  }}
-                   {...register('numberOfVehicles', { required: true })}
-                 /> */}
-{/* 
-
-            <FormSection theme={theme} className='formSection'>
-              <Box display="flex" alignItems="center">               
-                {watchAllFields.vehicles?.map((vehicle: any, index: number) => (
-                  <FormControl error={!!errors.vehicles} key={`Car-${index}`}>
-                      <InputLabel sx={theme.typography.h3}>Car {index + 1}</InputLabel>
-                      <Select
-                        labelId={`vehicles-fuelType-label-${index}`}
-                        id={`vehicles-fuelType-${index}`}
-                        value={vehicle.fuelType || ''}
-                        {...register(`vehicles.${index}.fuelType`, { required: true })}
-                      >
-                        {formText.options.vehicle.fuelType.map((option: Option) => (
-                       
-                          <MenuItem key={`fuelType-${option.value}`} value={option.value}>
-                            {option.text}
-                          </MenuItem>
-                        ))} 
-                      </Select>
-                      {errors.vehicles && <FormHelperText>This field is required</FormHelperText>}
-                  </FormControl>          
-                ))}
-              </Box>
-            </FormSection> */}
+          </HalfWidthFormBox>
+            
 
 
-            <FormSection theme={theme} className='formSection'>
-              {/* <Box display="flex" alignItems="center">                */}
-              <Box className="VehicleBoxContainer"
+
+
+          {/* <FormBox theme={theme} className='formBox'> */}
+            <FormSection theme={theme} className='formSection'
+              sx={{
+                margin: '1.8rem 0',
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                // gap: '2rem',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between'
+                // '& .MuiFormControl-root': {
+                //     width: '100%',
+                //     flexBasis: '100%'
+                // },
+              }}
+              >            
+              {/* <Box className="VehicleBoxContainer"
                 sx={{
-                  margin: '0.5rem 0',
+                  margin: '1.8rem 0',
                   width: '100%',
                   display: 'flex',
-                  flexDirection: 'column',
-                  gap: '1rem',
+                  flexDirection: 'row',
+                  // gap: '2rem',
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-between'
                   // '& .MuiFormControl-root': {
                   //     width: '100%',
                   //     flexBasis: '100%'
                   // },
                 }}
-                >
+                > */}
+                  
                 
                 {watchAllFields.vehicleObjs?.map((vehicle: any, index: number) => (
                   <VehicleBox key={`Car-${index}`} 
@@ -1254,12 +1286,13 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                     />                  
                 ))}
 
-              </Box>
+              {/* </Box> */}
             </FormSection>
+            
 
           
-            
-          </HalfWidthFormBox>
+
+          </FormBox>
 
         </FormContainer>      
 

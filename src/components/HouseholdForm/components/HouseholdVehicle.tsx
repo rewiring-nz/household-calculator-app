@@ -1,16 +1,19 @@
 import { Box, FormControl, FormHelperText, IconButton, MenuItem, Select, Typography, useTheme, Accordion, AccordionSummary, AccordionDetails, Switch, FormLabel  } from '@mui/material';
-import { VehicleObject, Option, UsageOptions, UsageType } from '../data/interfaces';
+import { Option, VehicleObject, UsageOptions, UsageType } from '../data/interfaces';
 import deleteIcon from 'src/assets/icons/x-window.svg';
 import { FDivider } from 'src/shared/styles/FDivider';
 import { HouseSwitch } from './HouseSwitch';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+// import { VehicleOptionType } from '../data/householdForm.text';
+import { VehicleFuelTypeEnum } from 'src/shared/api/openapi-client';
 
 interface VehicleBoxProps extends VehicleObject {
     index: number;
     errors: any;
     register: any;
-    fuelTypes: Option[];
+    fuelTypes: Option<VehicleFuelTypeEnum>[];
+    // fuelTypes: VehicleOptionType[];
     onDelete: (index: number) => void;
     usageOptionsList: UsageOptions[];
     // defaultObject: VehicleObject;
@@ -41,6 +44,12 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                 borderRadius: theme.shape.borderRadius + 'px',
                 borderStyle: 'solid',
                 borderColor: theme.palette.primary.dark,
+                flexBasis: '100%',
+                maxWidth: '100%',
+                [theme.breakpoints.up('sm')]: {
+                  flexBasis: 'calc(50% - 3rem)', // 2 columns on medium and up screens
+                  maxWidth: 'calc(50% - 3rem)'
+                } 
             }}
             >
             
@@ -80,16 +89,16 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                     size="small"
                     >
                     <Select
-                    labelId={`vehicles-fuelType-label-${index}`}
-                    id={`vehicles-fuelType-${index}`}
-                    value={fuelType || ''}
-                    {...register(`vehicleObjs.${index}.fuelType`, { required: true })}
-                    >
-                    {fuelTypes.map((option: Option) => (
-                        <MenuItem key={`fuelType-${option.value}`} value={option.value}>
-                        {option.text}
-                        </MenuItem>
-                    ))}
+                        labelId={`vehicles-fuelType-label-${index}`}
+                        id={`vehicles-fuelType-${index}`}
+                        value={fuelType || ''}
+                        {...register(`vehicleObjs.${index}.fuelType`, { required: true })}
+                        >
+                        {fuelTypes.map((option: Option<VehicleFuelTypeEnum>) => (
+                            <MenuItem key={`fuelType-${option.value}`} value={option.value}>
+                            {option.text}
+                            </MenuItem>
+                        ))}
                     </Select>
                     {errors.vehicleObjs && <FormHelperText>This field is required</FormHelperText>}
                 </FormControl>

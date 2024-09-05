@@ -1,8 +1,11 @@
 import { styled } from '@mui/system';
-import { Box, PopperProps, Theme, FormLabel } from "@mui/material";
+import { Box, PopperProps, Theme, FormLabel, FormControl, Button, MenuItem, ListItemIcon, Select, SelectProps, InputAdornment } from "@mui/material";
 // import { theme } from "../../theme/theme";
+import { ReactComponent as chevronDown} from '../../assets/icons/chevron-down.svg';
+
 
 export const ResetButton = styled('button')(({ theme }: { theme: Theme }) => ({
+// export const ResetButton = styled(Button)(({ theme }: { theme: Theme }) => ({
     justifyContent: 'flex-end',  
     margin: '1rem 0 0.8rem 0',
     display: 'flex',
@@ -13,6 +16,9 @@ export const ResetButton = styled('button')(({ theme }: { theme: Theme }) => ({
     color: theme.palette.text.secondary,
     '&:hover': {
       color: theme.palette.text.primary
+    },
+    '&.Mui-focused': {
+        color: theme.palette.text.primary, 
     },
     '& p': {
       marginLeft: '0.2rem'
@@ -54,9 +60,10 @@ export const FormSection = styled(Box)(( { theme }: { theme: Theme }) => ({
     flexDirection: 'column',
     // gap: '1rem'
     width: '100%',
+    justifyContent: 'space-between',
     [theme.breakpoints.up('sm')]: {
         flexDirection: 'row',
-        gap: '1rem',
+        gap: '1.5rem',
         // flexWrap: 'wrap',
         // '& > *': {
         //     flexBasis: 'calc(50% - 0.5rem)', // Adjust the width of each child element
@@ -82,11 +89,11 @@ export const FormVehicle = styled(Box)(({ theme }: { theme: Theme }) => ({
             color: theme.palette.text.primary,
         }
     },
-    '& .MuiSelect-select': {
-        backgroundColor: theme.palette.background.paper,
-        color: theme.palette.text.primary,
-        fontWeight: '500',
-    },
+    // '& .MuiSelect-select': {
+    //     backgroundColor: theme.palette.background.paper,
+    //     color: theme.palette.text.primary,
+    //     fontWeight: '500',
+    // },
     '& .MuiFormGroup-root': {
         display: 'flex',
         flexDirection: 'row'
@@ -158,7 +165,7 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
       // border: `0.19rem solid ${theme.palette.divider}`,
       // borderWidth: '2px'            
       backgroundColor: theme.palette.background.paper,
-      color: theme.palette.text.primary,
+      // color: theme.palette.text.primary,
       fontWeight: '500',
       '& input[type=number]': {
       '-moz-appearance': 'textfield', // Firefox
@@ -173,7 +180,7 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
     },
     },
     // '& .MuiFormLabel-root': {
-    // '& .mainLabels': {
+    // '& .FormLabel': {
     //     margin: '0.8rem 0',
     //     color: theme.palette.text.primary,
     //     '&.Mui-focused': {
@@ -183,13 +190,13 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
     //         color: theme.palette.text.primary,
     //     }
     // },
-    '& .MuiSelect-select': {
-      backgroundColor: theme.palette.background.paper,
-      color: theme.palette.text.primary,
-      fontWeight: '500',
-    //   border: `0.19rem solid ${theme.palette.divider}`,
-    //   borderRadius: '0.44rem'
-    },
+    // '& .MuiSelect-select': {
+    //   backgroundColor: theme.palette.background.paper,
+    //   color: '#192D30', // theme.palette.text.primary,
+    //   fontWeight: '500',
+    // //   border: `0.19rem solid ${theme.palette.divider}`,
+    // //   borderRadius: '0.44rem'
+    // },
     '& .MuiFormGroup-root': {
       display: 'flex',
       flexDirection: 'row'
@@ -206,9 +213,48 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
     flexBasis: '100%',
     maxWidth: '100%',
     [theme.breakpoints.up('sm')]: {
-      flexBasis: 'calc(50% - 2rem)', // 2 columns on medium and up screens
-      maxWidth: 'calc(50% - 2rem)'
+      // flexBasis: 'calc(50% - 2rem)', // 2 columns on medium and up screens
+      // maxWidth: 'calc(50% - 2rem)',
+      flexBasis: 'calc(50% - 1rem)',
+      maxWidth: 'calc(50% - 1rem)'
     }
   }));
 
-// export default FormBox;
+  // export const HouseFormControl = styled(FormControl)(({ theme }: { theme: Theme }) => ({
+    
+  // }));
+
+
+//   export const StyledMenuItem = styled(MenuItem)(({ theme }: { theme: Theme }) => ({
+//     display: 'flex',
+//     justifyContent: 'space-between',
+//     '&.Mui-selected': {
+//         // backgroundColor: '#C0D4C1', // Change selected background color
+//         '&:hover': {
+//           backgroundColor: theme.palette.primary.main,
+//         },
+//     },
+//     '&:hover': {
+//       backgroundColor: theme.palette.primary.main,
+//     },
+// }));
+
+// export const StyledListItemIcon = styled(ListItemIcon)(({ theme }: { theme: Theme }) => ({
+//   minWidth: 'auto',
+//   marginRight: theme.spacing(1),
+//   color: theme.palette.primary.main,
+// }));
+
+
+// export const StyledSelect = styled(Select)(({ theme }: { theme: Theme }) => ({
+export const HouseSelect = styled(Select)(() => ({  
+  '& .MuiSelect-icon': {
+      right: '1rem'
+  },
+}));
+
+export const HouseInputAdornment = styled(InputAdornment)(({ theme }) => ({
+  '& p': {
+    color: '#AAAAAA'
+  } 
+}));

@@ -5,6 +5,7 @@ import {
     CooktopEnum,
     VehicleFuelTypeEnum,
 } from "../../../shared/api/openapi-client";
+import { VehicleOptionType } from "./householdForm.text";
      
 
 
@@ -26,10 +27,23 @@ export interface UsageOptions {
 }
 
 
+// export interface VehicleOptions {
+//     amount: OptionNumber[];
+//     // fuelType: Option[];
+//     fuelType: {
+//         value: VehicleFuelTypeEnum;
+//         text: string;
+//     }[];
+//     usageOptionsList: UsageOptions[];
+// }
 export interface VehicleOptions {
     amount: OptionNumber[];
-    fuelType: Option[];
-    usageOptionsList: UsageOptions[];
+    fuelType: Option<VehicleFuelTypeEnum>[];
+    usageOptionsList: {
+        type: string;
+        value: number;
+        unit: string;
+    }[];
 }
 
 
@@ -108,17 +122,30 @@ interface YesNoInput {
     default: boolean;
 }
 
-export interface Option {
-    value: LocationEnum | SpaceHeatingEnum | WaterHeatingEnum | CooktopEnum | VehicleFuelTypeEnum;
+// export interface Option {
+//     value: LocationEnum | SpaceHeatingEnum | WaterHeatingEnum | CooktopEnum | VehicleFuelTypeEnum;
+//     text: string;
+// }
+export interface Option<T> {
+    value: T;
     text: string;
 }
 
-export interface OptionNumber {
-    value: number;
-    text: string;
-}
+// export interface OptionNumber {
+//     value: number;
+//     text: string;
+// }
 
-export interface OptionYesNo {
-    value: boolean;
+// export interface OptionYesNo {
+//     value: boolean;
+//     text: 'Yes' | 'No';
+// }
+
+
+
+export interface OptionNumber extends Option<number> {}
+
+export interface OptionYesNo extends Option<boolean> {
     text: 'Yes' | 'No';
 }
+

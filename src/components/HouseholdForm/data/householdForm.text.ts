@@ -11,10 +11,9 @@ import { HouseholdFormState, Option, OptionNumber, OptionYesNo, UsageOptions, Us
 
 
 
-
 // -------------------- Mappings --------------------
-// const locationMapping: Record<HouseholdLocationEnum, string> = { // apparently the same as below
-export const locationMapping: { [key in LocationEnum]: string } = {
+
+export const locationMapping: Record<LocationEnum, string> = {
     [LocationEnum.Northland]: 'Northland / Te Tai Tokerau',
     [LocationEnum.AucklandNorth]: 'Auckland / Tāmaki Makaurau',
     [LocationEnum.AucklandCentral]: 'Auckland / Tāmaki Makaurau',
@@ -45,7 +44,7 @@ export const locationMapping: { [key in LocationEnum]: string } = {
 };
 console.log('householdFormText locationMapping:', locationMapping);
 
-export const spaceHeatingMapping: { [key in SpaceHeatingEnum]: string } = {
+export const spaceHeatingMapping: Record<SpaceHeatingEnum, string> = {
     [SpaceHeatingEnum.ElectricResistance]: 'Electric resistive heaters (e.g. oil column, fan, wall)',
     [SpaceHeatingEnum.ElectricHeatPump]: 'Heat pump(s)',
     [SpaceHeatingEnum.Wood]: 'Wood fire',
@@ -54,7 +53,7 @@ export const spaceHeatingMapping: { [key in SpaceHeatingEnum]: string } = {
     [SpaceHeatingEnum.DontKnow]: 'Not sure'
 };
 
-export const waterHeatingMapping: { [key in WaterHeatingEnum]: string } = {
+export const waterHeatingMapping: Record<WaterHeatingEnum, string> = {
     [WaterHeatingEnum.ElectricResistance]: 'Electric resistive',
     [WaterHeatingEnum.ElectricHeatPump]: 'Heat pump',
     [WaterHeatingEnum.Gas]: 'Piped/ducted gas',
@@ -63,7 +62,7 @@ export const waterHeatingMapping: { [key in WaterHeatingEnum]: string } = {
     [WaterHeatingEnum.DontKnow]: 'Not sure'
 };
 
-export const cooktopMapping: { [key in CooktopEnum]: string } = {
+export const cooktopMapping: Record<CooktopEnum, string> = {
     [CooktopEnum.ElectricResistance]: 'Electric resistive/Ceramic',
     [CooktopEnum.Gas]: 'Piped/ducted gas',
     [CooktopEnum.Lpg]: 'Bottled LPG',
@@ -72,14 +71,13 @@ export const cooktopMapping: { [key in CooktopEnum]: string } = {
     [CooktopEnum.DontKnow]: 'Not sure'
 };
 
-export const vehicleMapping: { [key in VehicleFuelTypeEnum]: string } = {
+export const vehicleMapping: Record<VehicleFuelTypeEnum, string> = {
     [VehicleFuelTypeEnum.Electric]: 'Electric',
     [VehicleFuelTypeEnum.PlugInHybrid]: 'Plug-in Hybrid',
     [VehicleFuelTypeEnum.Hybrid]: 'Hybrid',
     [VehicleFuelTypeEnum.Petrol]: 'Petrol',
     [VehicleFuelTypeEnum.Diesel]: 'Diesel'
 };
-
 
 // -----------------------------------------------------
 
@@ -103,8 +101,8 @@ const locationEntries = Object.entries(locationMapping);
 // export const locationOptions = Object.entries(locationMapping).map(([key, value]) => ({
 export const locationOptions = locationSet.map((locationName) => ({
         value: locationEntries.find(([key, value]) => value === locationName)![0] as LocationEnum,
-        text: locationName
-    })) as Option[];
+        text: locationName    
+    })) as Option<LocationEnum>[];
 
 
 
@@ -117,13 +115,17 @@ const getOccupancyString = (occupancy: number): string => {
     }
 };
 
-export const occupancyOptions = Array.from(Array(20).keys()).map((occupancy) => (    
-    { value: (occupancy + 1), text: getOccupancyString((occupancy + 1)) })) as OptionNumber[];
+export const occupancyOptions = Array.from(Array(20).keys())
+    .map((occupancy) => ({ 
+        value: (occupancy + 1), 
+        text: getOccupancyString((occupancy + 1))     
+    })) as OptionNumber[];
 
 export const spaceHeatingOptions = Object.entries(spaceHeatingMapping).map(([key, value]) => ({
     value: key as SpaceHeatingEnum,
     text: value
-})) as Option[];
+})) as Option<SpaceHeatingEnum>[];
+
     
 
 const waterHeatingMap_noSolar = { // Temp work around until API is updated
@@ -136,12 +138,15 @@ const waterHeatingMap_noSolar = { // Temp work around until API is updated
 export const waterHeatingOptions = Object.entries(waterHeatingMap_noSolar).map(([key, value]) => ({
     value: key as WaterHeatingEnum,
     text: value
-})) as Option[];
+})) as Option<WaterHeatingEnum>[];
+
+
 
 export const cooktopOptions = Object.entries(cooktopMapping).map(([key, value]) => ({
     value: key as CooktopEnum,
     text: value
-})) as Option[];
+})) as Option<CooktopEnum>[];
+
 
 
 export const vehicleOptions: VehicleOptions = {
@@ -150,7 +155,7 @@ export const vehicleOptions: VehicleOptions = {
         ) as OptionNumber[],
     fuelType: Object.entries(vehicleMapping).map(([key, value]) => (
         {value: key as VehicleFuelTypeEnum, text: value}
-        )) as Option[],
+        )) as Option<VehicleFuelTypeEnum>[],
     usageOptionsList: [
         { type: 'Low', value: 50, unit: '<100 km/wk' },
         { type: 'Medium', value: 200, unit: '100-300 km/wk' },
@@ -290,19 +295,32 @@ export default tooltipText;
 
 // -------------------- Form Text --------------------
 
+
+export type LocationOptionType = typeof locationOptions;
+export type OccupancyOptionType = typeof occupancyOptions;
+export type SpaceHeatingOptionType = typeof spaceHeatingOptions;
+export type WaterHeatingOptionType = typeof waterHeatingOptions;
+export type CooktopOptionType = typeof cooktopOptions;
+export type SolarOptionType = typeof solarOptions;
+export type BatteryOptionType = typeof batteryOptions;
+export type VehicleOptionType = typeof vehicleOptions;
+export type TooltipTextType = typeof tooltipText;
+
+
+
 export interface FormText {
     options: {
-        location: typeof locationOptions;
-        occupancy: typeof occupancyOptions;
-        spaceHeating: typeof spaceHeatingOptions;
-        waterHeating: typeof waterHeatingOptions;
-        cooktop: typeof cooktopOptions;
-        vehicle: typeof vehicleOptions;
-        solar: typeof solarOptions;
-        battery: typeof batteryOptions;
+        location: LocationOptionType;
+        occupancy: OccupancyOptionType;
+        spaceHeating: SpaceHeatingOptionType;
+        waterHeating: WaterHeatingOptionType;
+        cooktop: CooktopOptionType;
+        vehicle: VehicleOptionType;
+        solar: SolarOptionType;
+        battery: BatteryOptionType;
     };
     defaultFormState: HouseholdFormState;
-    tooltipText: typeof tooltipText;
+    tooltipText: TooltipTextType;
 }
 
 

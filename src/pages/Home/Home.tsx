@@ -19,12 +19,21 @@ const Home: React.FC = () => {
     
     const { householdData, updateHouseholdData, savingsData, loadingData, errorData } = useHouseholdData();
 
+
+    const appliances = {
+      currentSpaceHeater: householdData?.spaceHeating || '',
+      currentWaterHeater: householdData?.waterHeating || '',
+      currentCooktop: householdData?.cooktop || ''
+    };
+
   return (
-    <Box className="Home"
+    <Box className="Home">
+
+    <Box className="Home-content"
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100vh',
+        // height: '100vh',
         [theme.breakpoints.up('md')]: {
           flexDirection: 'row'
         }
@@ -37,15 +46,30 @@ const Home: React.FC = () => {
           padding: '1rem',
           backgroundColor: theme.palette.background.default, 
           [theme.breakpoints.up('md')]: {
+            padding: '2rem 2.5rem 1.5rem 2rem',            
+          },
+          [theme.breakpoints.up('lg')]: {
             // overflowY: 'auto', // Enable independent scrolling
-            padding: '1rem 1rem 20rem 1rem',
+            // padding: '1rem 1rem 20rem 1rem',
+            padding: '2rem 2rem 2rem 3rem',
             width: '60vw'
           }
         }}
         >
         <img src={logo} className="Home-logo" alt="logo" />
 
-        <Typography variant="h1">How much could you save by going electric?</Typography>
+        <Typography variant="h1"
+          sx={{
+            marginTop: '0.8rem',
+            [theme.breakpoints.up('md')]: {
+              marginTop: '1.8rem',
+            },
+            [theme.breakpoints.up('lg')]: {
+              marginTop: '3.6rem',
+            }
+          }}
+          >
+          How much could you save by going electric?</Typography>
         <Typography variant="subtitle1">Enter your household information to find out</Typography>
 
         {/* <HouseholdForm/> */}
@@ -59,6 +83,7 @@ const Home: React.FC = () => {
           padding: '1rem',
           backgroundColor: theme.palette.background.default,
           [theme.breakpoints.up('md')]: {
+            padding: '2rem 2rem 1rem 1rem',
             // overflowY: 'auto', // Enable independent scrolling
             // maxWidth:  '38vw' // '33vw'
             '@media (min-aspect-ratio: 1/1)': {
@@ -76,7 +101,25 @@ const Home: React.FC = () => {
         }}
       >
         {/* <HouseholdSavings /> */}
-        <HouseholdSavings savingsData={savingsData} loadingData={loadingData} />
+        <HouseholdSavings appliances={appliances} savingsData={savingsData} loadingData={loadingData} />
+      </Box>
+    </Box>
+
+    <Box className="Home-footer"
+      sx={{
+        padding: '1rem',
+        position: 'relative',
+        display: 'flex',
+        backgroundColor: theme.palette.background.default,
+        textAlign: 'center',
+        [theme.breakpoints.up('md')]: {
+          padding: '1rem 2rem 1.5rem 2rem',
+        }
+      }}
+    >
+      <Typography variant="caption">© Copyright Rewiring Aotearoa 2024</Typography>
+
+
       </Box>
       
     </Box>
