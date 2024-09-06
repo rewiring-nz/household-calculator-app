@@ -1,6 +1,5 @@
 import { Box, Tooltip, Typography, useTheme } from '@mui/material';
-// import { styled } from '@mui/system';
-// import { Opex } from 'src/shared/api/openapi-client';
+import { formatNZD } from 'src/shared/utils/formatters';
 
 interface BulletPoint {
     label: string;
@@ -14,20 +13,21 @@ interface ResultBoxState {
     paragraph?: string;
     linkText?: string;
     linkURL?: string;
+    children?: React.ReactNode;
 }
 
 // const ResultBox: React.FC<{ label: string, heading: string, paragraph?: string }> = ({ label, heading, paragraph }) => {
-const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, paragraph, linkText, linkURL }) => {
+const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, paragraph, linkText, linkURL, children }) => {
     const theme = useTheme();
     
     // const headingString = typeof heading === 'number' ? `$${heading.toFixed(2)}` : heading;
 
-    const formatNZD = (value: number | undefined) => {
-        if (value === undefined) return '';
-        // return ` $${value.toLocaleString('en-NZ')}`;
-        // return ` $${value.toFixed(2)}`;
-        return ` $${Number(value.toFixed(2)).toLocaleString('en-NZ')}`;
-    };
+    // const formatNZD = (value: number | undefined) => {
+    //     if (value === undefined) return '';
+    //     // return ` $${value.toLocaleString('en-NZ')}`;
+    //     // return ` $${value.toFixed(2)}`;
+    //     return ` $${Number(value.toFixed(2)).toLocaleString('en-NZ')}`;
+    // };
 
     return (
         <Box
@@ -64,9 +64,15 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
                     ))}
                 </Box>
             )}
-            <Typography variant="body1">
-                {paragraph}
-            </Typography>
+
+            {paragraph && (
+                <Typography variant="body1">
+                    {paragraph}
+                </Typography>
+            )}
+
+            {children}
+
             {linkText && (
                 <Tooltip title="Electric Vehicles" arrow>
                 {/* <Typography variant="body1"> */}

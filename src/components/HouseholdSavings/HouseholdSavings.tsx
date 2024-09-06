@@ -24,7 +24,7 @@ import { Savings, UpfrontCost } from '../../shared/api/openapi-client';
 import { electricVehicleURL } from 'src/shared/links';
 import { recommendationActions } from 'src/components/HouseholdSavings/data/HouseholdSavings.text';
 
-
+import { formatNZD } from 'src/shared/utils/formatters';
 
 
 
@@ -115,6 +115,11 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
 
 
 
+    const formatTonnes = (value: number | undefined): string => {
+        // (savingsData?.emissions?.perYear?.difference || 0) *-1
+        if (value === undefined) return '';
+        return `${(value*-1).toFixed(0)}`;
+    }
 
 
 
@@ -134,6 +139,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                     justifyContent: 'space-between',
                     gap: '1rem',
                 }}
+                aria-label="Household Savings Section"
                 >
 
 
@@ -145,7 +151,12 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                 sx={{
                     margin: '0 0.1rem'
                 }}>
-                <Typography variant="h1">Your Savings</Typography>
+                <Typography 
+                    variant="h1"
+                    aria-label="Your Savings"
+                    >
+                    Your Savings
+                </Typography>
                 <Typography variant="subtitle2">By switching to electric appliances and installing solar panels, we estimate you could save:</Typography>
                 <Typography variant="subtitle2"
                     sx={{
@@ -156,7 +167,11 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                     {/* <HouseLink component={RouterLink} to="/methodology" className="link" theme={theme}>
                         How did we calculate this?
                     </HouseLink> */}
-                    <Tooltip title="Methodology" arrow>
+                    <Tooltip 
+                        title="Methodology"
+                        aria-label="Methodology"
+                        arrow
+                        >
                         <Link 
                             component={RouterLink} 
                             to="/methodology"
@@ -184,7 +199,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                     borderRadius: 1,
                 }}
                 > */}
-            <SavingsFrameBox className='Results'
+            <SavingsFrameBox className='Results' aria-label="Results"
                 sx={{
                     backgroundColor: theme.palette.background.paper,
                 }}>
@@ -192,15 +207,32 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                 <ResultBox 
                     label="Energy Bill" 
                     heading={`$${(savingsData?.opex?.perWeek?.difference || 0) *-1} per week`} 
-                    />
+                    // paragraph={`on energy bills. That's $${(savingsData?.opex?.perYear?.difference || 0) *-1} per year.`}
+                    >   
+                    <Typography variant="body1">
+                        on energy bills. That's 
+                        <span style={{ fontWeight: '600' }}>
+                           {` ${formatNZD(savingsData?.opex?.perYear?.difference, 0)} per year.`}
+                        </span>
+                    </Typography>
+                </ResultBox>                    
 
                 <FDivider />
                 
                 <ResultBox 
                     label="Co2 Emissions" 
                     heading={`${(savingsData?.emissions?.perWeek?.difference || 0) *-1} % of emissions`} 
-                    paragraph={`on energy bills. That’s $750 per year.`}
-                    />
+                    // paragraph={`${formatTonnes(savingsData?.emissions?.perYear?.difference)} tonnes of CO2e a year!`}
+                    >   
+                    <Typography variant="body1">                    
+                        <span style={{ fontWeight: '600' }}>
+                            {`${formatTonnes(savingsData?.emissions?.perYear?.difference)} tonnes `}
+                        </span> 
+                        of CO2e a year!
+                    </Typography>            
+                    
+                </ResultBox>
+
                 
                 <FDivider />
 
@@ -266,7 +298,13 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                             // color: theme.palette.secondary.contrastText
                         }}
                     >
-                        <Typography variant="h2" sx={{ color: theme.palette.secondary.contrastText }}>
+                        <Typography 
+                            variant="h2" 
+                            sx={{ 
+                                color: theme.palette.secondary.contrastText 
+                            }}
+                            aria-label="Next steps"
+                            >
                             Next steps
                         </Typography>
                         {/* <Typography variant="subtitle2">
