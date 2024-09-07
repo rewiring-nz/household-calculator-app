@@ -108,7 +108,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
 
     // --------------------  Next Steps --------------------
     const recommendationKey = savingsData?.recommendation?.action;
-    const { getDescription, buttonText } =  recommendationKey ?  recommendationActions[recommendationKey] : { getDescription: () => '', buttonText: '' };   
+    const { getDescription, buttonText, imageComponent } =  recommendationKey ?  recommendationActions[recommendationKey] : { getDescription: () => '', buttonText: '', imageComponent: '' };
     const currentAppliance = appliances.currentSpaceHeater || appliances.currentWaterHeater || appliances.currentCooktop;
     const description = getDescription({ currentAppliance });
 
@@ -293,11 +293,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                         margin: '0.4rem 0'
                     }}
                     > 
-                    <Box
-                        sx={{
-                            // color: theme.palette.secondary.contrastText
-                        }}
-                    >
+                    <Box>
                         <Typography 
                             variant="h2" 
                             sx={{ 
@@ -307,20 +303,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                             >
                             Next steps
                         </Typography>
-                        {/* <Typography variant="subtitle2">
-                            Swap out your gas heater for electric heat pumps.
-                        </Typography>
 
-                        <Button variant="contained" color="info" sx={{
-                            textTransform: 'initial',
-                            margin: '.7rem 0',
-                            borderRadius: '0.25rem'
-                            }}
-                            >
-                            <Typography variant="h3" sx={{ color: theme.palette.info.contrastText }}>
-                                Show me how
-                            </Typography>                             
-                        </Button> */}
                         <Typography variant="subtitle2">
                             {description}
                         </Typography>
@@ -337,17 +320,16 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                                 </Typography>
                             </Button>
                         )}
-
                     </Box>
 
-                    {/* margin: 1rem 0.5rem 0.5rem 1.1rem; */}
-                    <Box
-                        sx={{
-                            margin: '1rem 0.5rem 0.5rem 1.1rem'
-                        }}
-                        >
-                        <img src={heatpump} alt="logo" />
-                    </Box>
+                        <Box
+                            sx={{
+                                margin: '1rem 0.5rem 0.5rem 1.1rem'
+                            }}
+                            >
+                            {/* <img src={imageURL} alt="logo" /> */}
+                            {imageComponent}
+                        </Box>
 
                 </Box>
 
