@@ -277,7 +277,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
           vehicles: (formValue.vehicleObjs ?? defaultFormData.vehicleObjs)
             .filter((vehicle): vehicle is VehicleObject => vehicle !== undefined)
             .map((vehicle: VehicleObject) => {
-              let vehicleOut: Vehicle = {
+              const vehicleOut: Vehicle = {
                 fuelType: vehicle.fuelType,
                 kmsPerWeek: formText.options.vehicle.usageOptionsList.find(option => 
                   option.type === vehicle.usageType )?.value ?? 200,
@@ -832,7 +832,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
               }}
               >
              <SwitchLabel className="installSolar-label" theme={theme}>
-                I'd like solar
+                I'd like solar {/* eslint-disable-line react/no-unescaped-entities */}
               </SwitchLabel>
               <Controller
                 name="solar.installSolar"
@@ -1037,7 +1037,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
               }}
               >
              <SwitchLabel className="installBattery-label" theme={theme}>
-                I'd like a battery
+                I'd like a battery {/* eslint-disable-line react/no-unescaped-entities */}
               </SwitchLabel>
               <Controller
                 name="battery.installBattery"

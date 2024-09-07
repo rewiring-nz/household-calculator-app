@@ -90,7 +90,7 @@ export const vehicleMapping: Record<VehicleFuelTypeEnum, string> = {
 // -------------------- Options --------------------
 
 
-let locationList: string[] = Object.values(LocationEnum)
+const locationList: string[] = Object.values(LocationEnum)
     .map((location:  LocationEnum) => locationMapping[location]);
 console.log('householdFormText locationList:', locationList);
 

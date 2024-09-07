@@ -83,9 +83,12 @@ const Home: React.FC = () => {
       
       <Box className="Home-savings"
         sx={{
-          // flex: 1,
-          padding: '1rem',
           backgroundColor: theme.palette.background.default,
+          // flex: 1,
+          padding: '0',
+          [theme.breakpoints.up('sm')]: {
+            padding: '1rem',
+          },
           [theme.breakpoints.up('md')]: {
             padding: '2rem 2rem 1rem 1rem',
             // overflowY: 'auto', // Enable independent scrolling

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Tooltip, Typography, useTheme } from '@mui/material';
 import { formatNZD } from 'src/shared/utils/formatters';
 

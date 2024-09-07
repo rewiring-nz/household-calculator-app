@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, FormControl, FormHelperText, IconButton, MenuItem, Select, Typography, useTheme, Accordion, AccordionSummary, AccordionDetails, Switch, FormLabel  } from '@mui/material';
 import { Option, VehicleObject, UsageOptions, UsageType } from '../data/interfaces';
 import deleteIcon from 'src/assets/icons/x-window.svg';

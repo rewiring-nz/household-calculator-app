@@ -1,6 +1,6 @@
 
 
-export  const formatNZD = (value: number | undefined, decimals: number = 2) => {
+export  const formatNZD = (value: number | undefined, decimals = 2) => {
     if (value === undefined) return '';
     // return ` $${value.toLocaleString('en-NZ')}`;
     // return ` $${value.toFixed(2)}`;

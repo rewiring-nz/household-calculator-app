@@ -8,7 +8,7 @@ import MailchimpForm from '../MailChimpForm/MailChimpForm';
 // Now passed as props
 
 // ----------------- Styles & Material UI -------------------
-import { Box, Button, Typography, useTheme, Link, Tooltip, styled } from '@mui/material';
+import { Box, Button, Typography, useTheme, Link, Tooltip, styled, Grid, useMediaQuery } from '@mui/material';
 import { FDivider } from 'src/shared/styles/FDivider';
 // import { HouseLink } from './HouseholdSavings.styles';
 
@@ -22,9 +22,11 @@ import heatpump from '../../assets/images/heatpump.png';
 // ----------------- Models & Interfaces -------------------
 import { Savings, UpfrontCost } from '../../shared/api/openapi-client';
 import { electricVehicleURL } from 'src/shared/links';
-import { recommendationActions } from 'src/components/HouseholdSavings/data/HouseholdSavings.text';
+import { recommendationActions } from './data/RecommendationActions';
 
 import { formatNZD } from 'src/shared/utils/formatters';
+import { SavingsFrameBox } from './HouseholdSavings.styles';
+
 
 
 
@@ -42,19 +44,15 @@ interface SavingsProps {
     // recommendation: RecommendationActionEnum;
 }
 
-const SavingsFrameBox = styled(Box)(({ theme }) => ({
-    borderRadius: theme.shape.borderRadius,
-    padding: '0 1.6rem',                    
-    // margin: '1rem 0',
-    // display: 'flex',
-}));
+
 
 
 
 
 const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, appliances }) => {
     const theme = useTheme();
-    
+    const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+        
     // const { 
     //     householdData,
     //     getSavingsData,
@@ -132,12 +130,15 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                 sx={{
                     padding: '1.25rem',
                     backgroundColor: theme.palette.primary.main,
-                    borderRadius: 1,
                     position: 'relative',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
                     gap: '1rem',
+                    borderRadius: 0,
+                    [theme.breakpoints.up('sm')]: {
+                        borderRadius: 1,
+                    }
                 }}
                 aria-label="Household Savings Section"
                 >
@@ -286,52 +287,173 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                     color: theme.palette.secondary.contrastText
                 }}
                 >
-                <Box
+                {/* <Box className="FrameBox"
                     sx={{
+                        margin: '0.4rem 0',
                         display: 'flex',
                         justifyContent: 'space-between',
-                        margin: '0.4rem 0'
+                        alignItems: 'center'
                     }}
-                    > 
-                    <Box>
-                        <Typography 
-                            variant="h2" 
-                            sx={{ 
-                                color: theme.palette.secondary.contrastText 
+                    >  */}
+                <Grid container 
+                    // spacing={2} 
+                    sx={{ 
+                        margin: '0.4rem 0', 
+                        padding: '0',
+                        boxSizing: 'border-box'
+                    }}
+                    >
+                    <Grid item xs={12} md={8} 
+                        sx={{
+                            padding: '0',
+                            boxSizing: 'border-box',
+                            paddingRight: '0',
+                            [theme.breakpoints.up('md')]: {
+                                paddingRight: '1rem'
+                            }
+                        }}
+                        >
+                        <Box className="TopBox" 
+                            sx={{
+                                display: 'flex',
+                                // flexDirection: { xs: 'column', md: 'row' },
+                                flexDirection: 'row',
+                                alignItems: 'flex-start',
+                                padding: '0',
+                                boxSizing: 'border-box'
                             }}
-                            aria-label="Next steps"
                             >
-                            Next steps
-                        </Typography>
+                            <Box className="TextBox"
+                                sx={{ 
+                                    flex: 1,
+                                    padding: '0',
+                                    boxSizing: 'border-box',
+                                    paddingRight: '1rem'
+                                }}
+                                >
+                                <Typography 
+                                    variant="h2" 
+                                    sx={{ 
+                                        color: theme.palette.secondary.contrastText 
+                                    }}
+                                    aria-label="Next steps"
+                                    >
+                                    Next steps
+                                </Typography>
 
-                        <Typography variant="subtitle2">
-                            {description}
-                        </Typography>
+                                <Typography 
+                                    variant="subtitle2"
+                                    >
+                                    {description}
+                                </Typography>
+                            </Box>
 
-                        {buttonText && (
-                            <Button variant="contained" color="info" sx={{
+                            {!isMdUp && (
+                                <Box className="ImageBox"
+                                    sx={{
+                                        flexShrink: 0,
+                                        marginLeft: { md: '1rem' }, 
+                                        marginTop: { xs: '1rem', md: 0 },
+                                        margin: '1.4rem 0'
+                                    }}
+                                    >
+                                    {imageComponent}                            
+                                </Box>
+                            )}
+                        </Box>
+
+                        <Grid item xs={12} sm={12} md={8}
+                            sx={{
+                                padding: '0',
+                                boxSizing: 'border-box'
+                            }}
+                            >
+                            {buttonText && (
+                            <Button
+                                variant="contained"
+                                color="info"
+                                sx={{
                                 textTransform: 'initial',
                                 margin: '.7rem 0',
                                 borderRadius: '0.25rem',
-                                boxShadow: 'none'
-                            }}>
+                                boxShadow: 'none',
+                                width: '100%',
+                                padding: '0',
+                                boxSizing: 'border-box'
+                                }}
+                                >
                                 <Typography variant="h3" sx={{ color: theme.palette.info.contrastText }}>
                                     {buttonText}
                                 </Typography>
                             </Button>
-                        )}
-                    </Box>
+                            )}
+                        </Grid>
 
-                        <Box
+                    </Grid>
+
+
+
+                    {isMdUp && (
+                        <Grid item xs={12} md={4} 
                             sx={{
-                                margin: '1rem 0.5rem 0.5rem 1.1rem'
+                                padding: '0',
+                                boxSizing: 'border-box'
                             }}
                             >
-                            {/* <img src={imageURL} alt="logo" /> */}
-                            {imageComponent}
-                        </Box>
+                            <Box className="ImageBox" 
+                                sx={{ 
+                                    // padding: '0',
+                                    // boxSizing: 'border-box'
+                                    margin: '1.4rem 0',
+                                    display: 'flex',
+                                    // alignItems: 'flex-start',
+                                    justifyContent: 'end'
+                                }}
+                                >
+                                {imageComponent}
+                            </Box>
+                        </Grid>
+                    )}
+{/* 
 
-                </Box>
+                    <Grid item xs={12} sm={12} md={6}
+                        sx={{
+                            padding: '0',
+                            boxSizing: 'border-box'
+                        }}
+                        >
+                        {buttonText && (
+                        <Button
+                            variant="contained"
+                            color="info"
+                            sx={{
+                            textTransform: 'initial',
+                            margin: '.7rem 0',
+                            borderRadius: '0.25rem',
+                            boxShadow: 'none',
+                            width: '100%',
+                            padding: '0',
+                            boxSizing: 'border-box'
+                            }}
+                            >
+                            <Typography variant="h3" sx={{ color: theme.palette.info.contrastText }}>
+                                {buttonText}
+                            </Typography>
+                        </Button>
+                        )}
+                    </Grid> */}
+
+
+                   
+
+                    
+                   
+                </Grid>
+
+
+                
+
+                    
 
                 <Typography variant="body1">
                     Sign me up to the mailing list for updates & toolkits for electrification:

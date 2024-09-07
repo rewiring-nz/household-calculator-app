@@ -8,7 +8,7 @@ const useHouseholdData = () => {
     const [householdData, setHouseholdData] = useState<Household>();
     const { savingsData, updateSavingsData, loadingData: savingsLoading, errorData: savingsError } = useSavingsData();
     const [loadingData, setLoadingData] = useState<boolean>(true);
-    const [errorData, setErrorData] = useState<any>(null);
+    const [errorData, setErrorData] = useState(null);
 
    const getHouseholdData = () => {
         HouseholdDataService.getHouseholdData()

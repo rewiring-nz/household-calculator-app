@@ -1,12 +1,15 @@
+import React from 'react';
 import { Button, FormControl, styled, TextField, Typography } from '@mui/material';
 import MailchimpSubscribe from 'react-mailchimp-subscribe';
-import { EmailFormFields } from '../../shared/interfaces/EmailFormFields';
+// import { EmailFormFields } from '../../shared/interfaces/EmailFormFields';
 
 
 // URL to your Mailchimp subscription form
 // const url = "https://YOUR_MAILCHIMP_URL";
 // const url = "https://rewiring.us17.list-manage.com/subscribe/post?u=1a7e35f66dab6e6bdb3f3e5bf&amp;id=8f847003a3&amp;f_id=00d1e7e3f0";
 const url = "https://rewiring.us17.list-manage.com/subscribe/post?u=1a7e35f66dab6e6bdb3f3e5bf&amp;id=8f847003a3&amp;f_id=00d1e7e3f0&TAG=household-calculator";
+
+// Attempt to add tag to Mailchimp form
 // This one uses JSONP
 // const url = "https://rewiring.us17.list-manage.com/subscribe/post-json?u=1a7e35f66dab6e6bdb3f3e5bf&id=8f847003a3&c=?";
 // const baseUrl = "https://rewiring.us17.list-manage.com/subscribe/post-json";
