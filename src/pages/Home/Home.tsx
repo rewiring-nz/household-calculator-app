@@ -5,6 +5,7 @@ import HouseholdForm from '../../components/HouseholdForm/HouseholdForm';
 import HouseholdSavings from '../../components/HouseholdSavings/HouseholdSavings';
 import { Box, Typography } from '@mui/material';
 import useHouseholdData from 'src/hooks/useHouseholdData/useHouseholdData';
+import { cooktopMapping, spaceHeatingMapping, waterHeatingMapping } from 'src/components/HouseholdForm/data/householdForm.text';
 
 
 
@@ -21,9 +22,9 @@ const Home: React.FC = () => {
 
 
     const appliances = {
-      currentSpaceHeater: householdData?.spaceHeating || '',
-      currentWaterHeater: householdData?.waterHeating || '',
-      currentCooktop: householdData?.cooktop || ''
+      currentSpaceHeater: householdData?.spaceHeating ? spaceHeatingMapping[householdData?.spaceHeating] : '', 
+      currentWaterHeater: householdData?.waterHeating ? waterHeatingMapping[householdData?.waterHeating] : '',        
+      currentCooktop: householdData?.cooktop ? cooktopMapping[householdData?.cooktop] : '',
     };
 
   return (
@@ -60,7 +61,11 @@ const Home: React.FC = () => {
           }
         }}
         >
-        <img src={logo} className="Home-logo" alt="logo" />
+        <img src={logo} className="Home-logo" alt="logo"
+          style={{
+            marginBottom: '1.2rem'
+          }}
+        />
 
         <Typography variant="h1"
           sx={{

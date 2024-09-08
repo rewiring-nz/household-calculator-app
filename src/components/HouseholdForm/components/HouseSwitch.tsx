@@ -6,8 +6,8 @@ import { Theme } from "@mui/material";
 // export const HouseSwitch = styled((props: SwitchProps) => <Switch {...props} />)(({ theme }: { theme: Theme }) => ({
 
 export const HouseSwitch = styled(Switch)(({ theme }: { theme: Theme }) => ({
-  width: 42,
-  height: 26,
+  width: 40,
+  height: 24,
   padding: 0,
   '& .MuiSwitch-switchBase': {
     padding: 0,
@@ -43,8 +43,8 @@ export const HouseSwitch = styled(Switch)(({ theme }: { theme: Theme }) => ({
   },
   '& .MuiSwitch-thumb': {
     boxSizing: 'border-box',
-    width: 18, // 22,
-    height: 18, // 22,
+    width: 16, // 22,
+    height: 16, // 22,
     margin: 2,
     boxShadow: 'none',
     backgroundColor: theme.palette.common.white // theme.palette.grey[400], // Set the thumb color when unchecked

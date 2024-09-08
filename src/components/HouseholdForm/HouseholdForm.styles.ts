@@ -26,36 +26,40 @@ export const ResetButton = styled('button')(({ theme }: { theme: Theme }) => ({
   }));
 
   // export const FormQuestionLabel = styled(FormLabel)(({ theme }: { theme: Theme }) => ({
-  export const FormQuestionLabel = styled(FormLabel)(() => ({
-    margin: '0.3rem 0'
-}));
+//   export const FormQuestionLabel = styled(FormLabel)(() => ({
+//     margin: '0.3rem 0'
+// }));
 
 export const SwitchLabel = styled(FormLabel)(({ theme }: { theme: Theme }) => ({
+  // fontSize: '0.875rem',
+  fontSize: theme.typography.body2.fontSize,
+  // color: theme.palette.text.primary,
+  color: theme.palette.common.black,
   display: 'inline-block',
   whiteSpace: 'nowrap',
-  marginRight: '0.8rem',
+  marginRight: '0.5rem',
   textDecoration: 'none',
-  color: theme.palette.text.primary,
-  '&:hover': {
-    color: theme.palette.text.primary,
-  },
-  '&.Mui-focused': {
-    color: theme.palette.text.primary,
-  },
-  '&.Mui-active': {
-    color: theme.palette.text.primary,
-  }
+  // '&:hover': {
+  //   color: theme.palette.text.primary,
+  // },
+  // '&.Mui-focused': {
+  //   color: theme.palette.text.primary,
+  // },
+  // '&.Mui-active': {
+  //   color: theme.palette.text.primary,
+  // }
 }));
 
 export const FormContainer = styled(Box)(({ theme }: { theme: Theme }) => ({
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '2.4rem',
+    gap: '2rem',
     justifyContent: 'space-between',
 }));
 
 export const FormSection = styled(Box)(( { theme }: { theme: Theme }) => ({
-    margin: '0.2rem 0',
+    // margin: '0.2rem 0',
+    margin: '0.4rem 0',
     display: 'flex',
     flexDirection: 'column',
     // gap: '1rem'
@@ -72,52 +76,18 @@ export const FormSection = styled(Box)(( { theme }: { theme: Theme }) => ({
     }
 }));
 
-export const FormVehicle = styled(Box)(({ theme }: { theme: Theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem',
-    // '& .MuiFormControl-root': {
-    //     width: '100%',
-    //     flexBasis: '100%'
-    // },
-    '& .MuiFormLabel-root': {
-        color: theme.palette.text.primary,
-        '&.Mui-focused': {
-            color: theme.palette.text.primary,
-        },
-        '&.Mui-active': {
-            color: theme.palette.text.primary,
-        }
-    },
-    // '& .MuiSelect-select': {
-    //     backgroundColor: theme.palette.background.paper,
-    //     color: theme.palette.text.primary,
-    //     fontWeight: '500',
-    // },
-    '& .MuiFormGroup-root': {
-        display: 'flex',
-        flexDirection: 'row'
-    },
-    '& .MuiButtonBase-root': {
-        color: theme.palette.text.secondary,
-        '&.Mui-checked': {
-            color: theme.palette.text.secondary
-        }
-    }
+export const LabelBox = styled(Box)(() => ({
+  // margin: '0 0 0.6rem 0',
+  display: 'flex',
+  alignItems: 'center',
+  '& img': {
+    marginRight: '0.7rem',
+    width: '1.125rem',
+    height: '1.125rem',
+    marginLeft: '0.7rem',
+    cursor: 'pointer',
+  }
 }));
-
-export const tooltipPoppers: PopperProps = {
-    modifiers: [
-        {
-            name: 'flip',
-            options: {
-                fallbackPlacements: ['top', 'bottom']
-            }
-        },
-    ],
-    open: false
-};
-
 
 
 export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
@@ -153,14 +123,15 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
       //   maxWidth: 'calc(100% / 2)'
       // },
     },
-    '& .tooltip-logo': {
-        width: '1.3rem',
-        height: '1.3rem',
-        marginLeft: '0.5rem',
-        cursor: 'pointer',
-        marginRight: '0.5rem',
-    },
+    // '& .tooltip-logo': {
+    //     width: '1.3rem',
+    //     height: '1.3rem',
+    //     marginLeft: '0.5rem',
+    //     cursor: 'pointer',
+    //     marginRight: '0.5rem',
+    // },
     '& .MuiInputBase-root': {
+      margin: '0.6rem 0',
       // borderRadius: '0.44rem',
       // border: `0.19rem solid ${theme.palette.divider}`,
       // borderWidth: '2px'            
@@ -179,17 +150,16 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
       },
     },
     },
-    // '& .MuiFormLabel-root': {
-    // '& .FormLabel': {
-    //     margin: '0.8rem 0',
-    //     color: theme.palette.text.primary,
-    //     '&.Mui-focused': {
-    //         color: theme.palette.text.primary,
-    //     },
-    //     '&.Mui-active': {
-    //         color: theme.palette.text.primary,
-    //     }
-    // },
+    '& .MuiFormLabel-root': {    
+        // margin: '0 0 0.6rem 0',
+        color: theme.palette.common.black,
+        // '&.Mui-focused': {
+        //     color: theme.palette.text.primary,
+        // },
+        // '&.Mui-active': {
+        //     color: theme.palette.text.primary,
+        // }
+    },
     // '& .MuiSelect-select': {
     //   backgroundColor: theme.palette.background.paper,
     //   color: '#192D30', // theme.palette.text.primary,
@@ -199,12 +169,13 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
     // },
     '& .MuiFormGroup-root': {
       display: 'flex',
-      flexDirection: 'row'
+      flexDirection: 'row',
+      // margin: '0 0 0.6rem 0',
     },
     '& .MuiButtonBase-root': {
-      color: theme.palette.text.secondary,
+      color: theme.palette.common.black,
       '&.Mui-checked': {
-        color: theme.palette.text.secondary
+        color: theme.palette.common.black,
       }
     }      
   }));
@@ -220,9 +191,53 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
     }
   }));
 
-  // export const HouseFormControl = styled(FormControl)(({ theme }: { theme: Theme }) => ({
-    
-  // }));
+  
+export const FormVehicle = styled(Box)(({ theme }: { theme: Theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1rem',
+  // '& .MuiFormControl-root': {
+  //     width: '100%',
+  //     flexBasis: '100%'
+  // },
+  '& .MuiFormLabel-root': {
+      color: theme.palette.text.primary,
+      '&.Mui-focused': {
+          color: theme.palette.text.primary,
+      },
+      '&.Mui-active': {
+          color: theme.palette.text.primary,
+      }
+  },
+  // '& .MuiSelect-select': {
+  //     backgroundColor: theme.palette.background.paper,
+  //     color: theme.palette.text.primary,
+  //     fontWeight: '500',
+  // },
+  '& .MuiFormGroup-root': {
+      display: 'flex',
+      flexDirection: 'row'
+  },
+  '& .MuiButtonBase-root': {
+      color: theme.palette.secondary,
+      '&.Mui-checked': {
+          color: theme.palette.secondary
+      }
+  }
+}));
+
+export const tooltipPoppers: PopperProps = {
+  modifiers: [
+      {
+          name: 'flip',
+          options: {
+              fallbackPlacements: ['top', 'bottom']
+          }
+      },
+  ],
+  open: false
+};
+
 
 
 //   export const StyledMenuItem = styled(MenuItem)(({ theme }: { theme: Theme }) => ({

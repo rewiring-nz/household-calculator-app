@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es2017",
     "lib": [
       "dom",
       "dom.iterable",
@@ -23,8 +23,8 @@
     "types": ["jest", "node"], 
     "baseUrl": "./", // Optional: Helps with module resolution
     "paths": {
-      "@components/*": ["src/components/*"], // Optional: Example path alias
-      "@utils/*": ["src/utils/*"] // Optional: Example path alias
+      "@components/*": ["src/components/*"], 
+      "@utils/*": ["src/shared/utils/*"]
     }
   },
   "include": [

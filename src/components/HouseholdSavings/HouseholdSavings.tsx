@@ -106,9 +106,11 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
 
     // --------------------  Next Steps --------------------
     const recommendationKey = savingsData?.recommendation?.action;
+    const recommendationURL = savingsData?.recommendation?.url || '';
     const { getDescription, buttonText, imageComponent } =  recommendationKey ?  recommendationActions[recommendationKey] : { getDescription: () => '', buttonText: '', imageComponent: '' };
-    const currentAppliance = appliances.currentSpaceHeater || appliances.currentWaterHeater || appliances.currentCooktop;
-    const description = getDescription({ currentAppliance });
+    // const currentAppliance = appliances.currentSpaceHeater || appliances.currentWaterHeater || appliances.currentCooktop;
+    // const description = getDescription({ currentAppliance });
+    const description = getDescription(appliances);
 
 
 
@@ -116,11 +118,13 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
     const formatTonnes = (value: number | undefined): string => {
         // (savingsData?.emissions?.perYear?.difference || 0) *-1
         if (value === undefined) return '';
-        return `${(value*-1).toFixed(0)}`;
+        return `${(value/1000*-1).toFixed(0)}`;
     }
 
 
-
+    // const handleRecommendationClick = () => {
+    //     console.log("Recommendation Clicked");
+    // }
 
 
 
@@ -373,16 +377,18 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                                 variant="contained"
                                 color="info"
                                 sx={{
-                                textTransform: 'initial',
-                                margin: '.7rem 0',
-                                borderRadius: '0.25rem',
-                                boxShadow: 'none',
-                                width: '100%',
-                                padding: '0',
-                                boxSizing: 'border-box'
+                                    textTransform: 'initial',
+                                    margin: '.7rem 0',
+                                    borderRadius: '0.25rem',
+                                    boxShadow: 'none',
+                                    width: '100%',
+                                    padding: '0',
+                                    boxSizing: 'border-box',
                                 }}
+                                onClick={() => window.open(recommendationURL, '_blank', 'noopener,noreferrer')}
                                 >
-                                <Typography variant="h3" sx={{ color: theme.palette.info.contrastText }}>
+                                <Typography variant="h3" 
+                                    sx={{ color: theme.palette.info.contrastText }}>
                                     {buttonText}
                                 </Typography>
                             </Button>

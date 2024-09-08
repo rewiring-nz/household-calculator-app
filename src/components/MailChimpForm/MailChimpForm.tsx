@@ -29,6 +29,7 @@ const EmailForm = styled('form')(({ theme }) => ({
     flexDirection: 'column',
     gap: '0.5rem',
     '& .MuiInputBase-root': {
+        maxHeight: '3.44rem',
         color: theme.palette.text.disabled,
         backgroundColor: theme.palette.background.paper
     },
@@ -43,6 +44,7 @@ const EmailForm = styled('form')(({ theme }) => ({
         }
     },
     '& .MuiButtonBase-root': {
+        maxHeight: '3.44rem',
         flexBasis: '100%',
         fontFamily: theme.typography,
         [theme.breakpoints.up('sm')]: {

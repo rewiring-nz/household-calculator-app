@@ -25,7 +25,7 @@ import resetIcon from '../../assets/icons/carbon-reset.svg';
 import { ReactComponent as chevronDown} from '../../assets/icons/chevron-down.svg';
 
 // ----------------- Components -------------------
-import { FormQuestionLabel, FormBox, HalfWidthFormBox, FormContainer, FormSection, ResetButton, tooltipPoppers, SwitchLabel, HouseSelect, HouseInputAdornment } from './HouseholdForm.styles';
+import { FormBox, HalfWidthFormBox, FormContainer, FormSection, ResetButton, tooltipPoppers, SwitchLabel, HouseSelect, HouseInputAdornment, LabelBox } from './HouseholdForm.styles';
 import VehicleBox from './components/HouseholdVehicle';
 import TooltipModal from './components/TooltipDialog';
 import TooltipDialog from './components/TooltipDialog';
@@ -233,7 +233,19 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
     if (numberOfVehicles && numberOfVehicles > 0) {
       setValue('numberOfVehicles', numberOfVehicles - 1);
     }
+    // fields.forEach((field, index) => {
+    //   setValue(`vehicleObjs.${index}.id`, index + 1);
+    // });
+    console.log('HouseholdForm handleVehicleDelete numberOfVehicles:', numberOfVehicles);
+    console.log('HouseholdForm vehicleObjs fields:', fields);    
   };
+
+  // useEffect(() => {
+  //   // Update the id of each VehicleBox after an item is removed
+  //   fields.forEach((field, index) => {
+  //       setValue(`vehicleObjs.${index}.id`, index + 1);
+  //   });
+  // }, [fields, setValue]);
 
 
   // This is used with onBlur to stop the form updating while the user is typing
@@ -377,7 +389,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
           }}
           >
           <img src={resetIcon} className="Home-logo" alt="logo" />
-          <Typography variant="body2">Reset</Typography>
+          <Typography variant="body1">Reset</Typography>
         </ResetButton>
       </Box>
 
@@ -389,7 +401,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         
         <FormBox theme={theme} className='formBox'>
           
-        {/* <Divider /> */}
         <FDivider />
 
 
@@ -399,7 +410,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         <FormControl 
               className="fullFormControl"
               error={!!errors.location}>
-          <FormLabel className='mainLabels'>Location</FormLabel>
+          <LabelBox>
+            <FormLabel className='mainLabels'>Location</FormLabel>
+          </LabelBox>
             <HouseSelect
               // {...field}
               IconComponent={chevronDown}
@@ -433,7 +446,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         <FormControl 
               className="fullFormControl"
               error={!!errors.occupancy}>
-          <FormLabel className='mainLabels'>Number of occupants</FormLabel>
+          <LabelBox>
+            <FormLabel className='mainLabels'>Number of occupants</FormLabel>
+          </LabelBox>
           <HouseSelect
             IconComponent={chevronDown}
             labelId="occupancy-label"
@@ -487,20 +502,14 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         <FormControl 
               className="fullFormControl"
               error={!!errors.spaceHeating}>
-          <Box display="flex" alignItems="center">
-            <FormLabel className='mainLabels'>House heating</FormLabel>            
-            {/* <Tooltip title={tooltipText.spaceHeating} placement="top">
-              <img src={questionIcon} className="tooltip-logo" alt="logo" />
-            </Tooltip> */}
+          {/* <Box display="flex" alignItems="center"> */}
+          <LabelBox>
+            <FormLabel className='mainLabels'>House heating</FormLabel>
             <HouseholdTooltip 
               title={tooltipText.spaceHeating} 
               placement="top"
               open={openTooltips.spaceHeating} 
-              // open={openTooltips === 'spaceHeating'}
               onClose={handleCloseTooltip('spaceHeating')}
-              // disableHoverListener
-              // disableFocusListener
-              // disableTouchListener
               >              
               <img
                   src={questionIcon}
@@ -525,7 +534,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   // mouseY={mousePosition.y}
               />              
             </Box>   */}
-          </Box>
+          </LabelBox>
 
           <HouseSelect
             IconComponent={chevronDown}
@@ -550,10 +559,12 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         </FormControl>
         
 
+
+
         <FormControl 
               className="fullFormControl"
               error={!!errors.waterHeating}>
-          <Box display="flex" alignItems="center">
+          <LabelBox>
             <FormLabel className='mainLabels'>Water heating</FormLabel>
             <HouseholdTooltip 
               title={tooltipText.waterHeating} 
@@ -568,22 +579,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   onClick={handleOpenTooltip('waterHeating')}
               />
             </HouseholdTooltip>
-            {/* <Box className="TooltipBox" >
-              <img
-                  src={questionIcon}
-                  className="tooltip-logo"
-                  alt="logo"
-                  onClick={handleOpenTooltip('waterHeating')}
-              />
-              <TooltipDialog
-                  open={openTooltips.waterHeating}
-                  handleClose={handleCloseTooltip('waterHeating')}
-                  text={tooltipText.waterHeating}                  
-                  // mouseX={mousePosition.x}
-                  // mouseY={mousePosition.y}
-              />              
-            </Box>   */}
-          </Box>
+          </LabelBox>
           
           <HouseSelect
             IconComponent={chevronDown} 
@@ -608,10 +604,12 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         </FormControl>
 
         
+
+
         <FormControl 
               className="fullFormControl"
               error={!!errors.cooktop}>
-          <Box display="flex" alignItems="center">            
+          <LabelBox>
             <FormLabel className='mainLabels'>Cooktop</FormLabel>
             <HouseholdTooltip 
               title={tooltipText.cooktop} 
@@ -641,7 +639,8 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   // mouseY={mousePosition.y}
               />              
             </Box>   */}
-          </Box>
+          </LabelBox>
+
           <HouseSelect
             IconComponent={chevronDown}
             labelId="cooktop-label"
@@ -684,7 +683,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
       
-      <FormSection theme={theme} className='formSection'>
+      <FormSection theme={theme} className='formSection'
+        sx={{
+          margin: 0
+        }}
+        >
       <HalfWidthFormBox theme={theme} className='halfWidthFormBox'>
         <FDivider />
 
@@ -701,40 +704,43 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
           <FormSection theme={theme} className='formSection'>
-            <Box display="flex" alignItems="center">                        
               {/* <FormLabel className='mainLabels'>Do you have solar panels?</FormLabel> */}
-              <FormQuestionLabel className='FormQuestionLabel'>
+              {/* <FormQuestionLabel className='FormQuestionLabel'>
                 Do you have solar panels?
-              </FormQuestionLabel>
-              <HouseholdTooltip 
-              title={tooltipText.hasSolar} 
-              placement="top"
-              open={openTooltips.hasSolar} 
-              onClose={handleCloseTooltip('hasSolar')}
-              >              
-              <img
-                  src={questionIcon}
-                  className="tooltip-logo"
-                  alt="logo"
-                  onClick={handleOpenTooltip('hasSolar')}
-              />
-            </HouseholdTooltip>
-              {/* <Box className="TooltipBox" >
-                <img
-                    src={questionIcon}
-                    className="tooltip-logo"
-                    alt="logo"
-                    onClick={handleOpenTooltip('hasSolar')}
-                />
-                <TooltipDialog
-                    open={openTooltips.hasSolar}
-                    handleClose={handleCloseTooltip('hasSolar')}
-                    text={tooltipText.hasSolar}
-                    // mouseX={mousePosition.x}
-                    // mouseY={mousePosition.y}
-                />              
-              </Box>   */}
-            </Box>
+                </FormQuestionLabel> */}
+              <LabelBox>
+                <FormLabel className='mainLabels'>
+                  Do you have solar panels?
+                </FormLabel>
+                <HouseholdTooltip 
+                  title={tooltipText.hasSolar} 
+                  placement="top"
+                  open={openTooltips.hasSolar} 
+                  onClose={handleCloseTooltip('hasSolar')}
+                  >              
+                  <img
+                      src={questionIcon}
+                      className="tooltip-logo"
+                      alt="logo"
+                      onClick={handleOpenTooltip('hasSolar')}
+                  />
+                </HouseholdTooltip>
+                {/* <Box className="TooltipBox" >
+                  <img
+                      src={questionIcon}
+                      className="tooltip-logo"
+                      alt="logo"
+                      onClick={handleOpenTooltip('hasSolar')}
+                  />
+                  <TooltipDialog
+                      open={openTooltips.hasSolar}
+                      handleClose={handleCloseTooltip('hasSolar')}
+                      text={tooltipText.hasSolar}
+                      // mouseX={mousePosition.x}
+                      // mouseY={mousePosition.y}
+                  />              
+                </Box>   */}
+              </LabelBox>
           </FormSection>
 
 
@@ -863,15 +869,15 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         
         <FormSection theme={theme} className='formSection-2'
           sx={{
-            margin: '1.3rem 0 0.8rem 0'
+            margin: '1.5rem 0 0.4rem 0'
           }}
           >
           <FormControl 
               className="fullFormControl"
               error={!!errors.solar}>
-            <Box display="flex" alignItems="center">            
+            <LabelBox>
               <FormLabel className='mainLabels'>What size?</FormLabel>            
-              <Box className="TooltipBox" >
+              {/* <Box className="TooltipBox" >
                 <img
                     src={questionIcon}
                     className="tooltip-logo"
@@ -883,8 +889,21 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                     handleClose={handleCloseTooltip('solarSize')}
                     text={tooltipText.solarSize}
                 />              
-              </Box>  
-            </Box>
+              </Box>   */}
+              <HouseholdTooltip 
+                title={tooltipText.solarSize} 
+                placement="top"
+                open={openTooltips.solarSize} 
+                onClose={handleCloseTooltip('solarSize')}
+                >              
+                <img
+                    src={questionIcon}
+                    className="tooltip-logo"
+                    alt="logo"
+                    onClick={handleOpenTooltip('solarSize')}
+                />
+              </HouseholdTooltip>
+            </LabelBox>
 
 
             <Controller
@@ -953,11 +972,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
         <FormSection theme={theme} className='formSection'>
-          <Box display="flex" alignItems="center">            
-              {/* <FormLabel className='mainLabels'>Do you have a battery?</FormLabel> */}
-            <FormQuestionLabel className='FormQuestionLabel'>
+          <LabelBox>
+            <FormLabel className='mainLabels'>Do you have a battery?</FormLabel>
+            {/* <FormQuestionLabel className='FormQuestionLabel'>
               Do you have a battery?
-            </FormQuestionLabel>
+            </FormQuestionLabel> */}
             <HouseholdTooltip 
               title={tooltipText.hasBattery} 
               placement="top"
@@ -984,7 +1003,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   text={tooltipText.hasBattery}
               />              
             </Box>   */}
-          </Box>
+          </LabelBox>
           </FormSection>
 
           <FormSection theme={theme} className='formSection'>
@@ -1071,16 +1090,17 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
-        <FormSection theme={theme} className='formSection-2'          sx={{
-            margin: '1.3rem 0 0.8rem 0'
+        <FormSection theme={theme} className='formSection-2'          
+          sx={{
+            margin: '1.5rem 0 0.4rem 0'
           }}
           >
         <FormControl 
               className="fullFormControl"
               error={!!errors.battery}>
-          <Box display="flex" alignItems="center">            
+          <LabelBox>          
             <FormLabel className='mainLabels'>What size?</FormLabel>            
-            <Box className="TooltipBox" >
+            {/* <Box className="TooltipBox" >
               <img
                   src={questionIcon}
                   className="tooltip-logo"
@@ -1094,8 +1114,21 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   // mouseX={mousePosition.x}
                   // mouseY={mousePosition.y}
               />              
-            </Box>  
-          </Box>
+            </Box>   */}
+            <HouseholdTooltip 
+                title={tooltipText.batteryCapacity} 
+                placement="top"
+                open={openTooltips.batteryCapacity} 
+                onClose={handleCloseTooltip('batteryCapacity')}
+                >              
+                <img
+                    src={questionIcon}
+                    className="tooltip-logo"
+                    alt="logo"
+                    onClick={handleOpenTooltip('batteryCapacity')}
+                />
+              </HouseholdTooltip>
+          </LabelBox>
           {/* <Select
             labelId="batterySize-label"
             id="batterySize"
@@ -1177,7 +1210,22 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
             <FormControl 
               className="fullFormControl"
               error={!!errors.vehicleObjs}>
-              <FormLabel className='mainLabels'>Number of vehicles</FormLabel>
+              <LabelBox>
+                <FormLabel className='mainLabels'>Number of vehicles</FormLabel>
+                <HouseholdTooltip 
+                title={tooltipText.vehicleNumber} 
+                placement="top"
+                open={openTooltips.vehicleNumber} 
+                onClose={handleCloseTooltip('vehicleNumber')}
+                >              
+                <img
+                    src={questionIcon}
+                    className="tooltip-logo"
+                    alt="logo"
+                    onClick={handleOpenTooltip('vehicleNumber')}
+                />
+              </HouseholdTooltip>
+              </LabelBox>
               <Controller
                 name="numberOfVehicles"
                 control={control}
@@ -1244,37 +1292,30 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
               sx={{
                 margin: '1.8rem 0',
                 width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
-                // gap: '2rem',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between'
-                // '& .MuiFormControl-root': {
-                //     width: '100%',
-                //     flexBasis: '100%'
-                // },
+                // display: 'flex',
+                // flexDirection: 'row',
+                // flexWrap: 'wrap',
+                // justifyContent: 'space-between',
+                // alignItems: 'flex-start',
+                // alignContent: 'flex-start',
+                display: 'grid',
+                // gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                gridTemplateColumns: 'repeat(1, 1fr)',
+                [theme.breakpoints.up('sm')]: {
+                  gridTemplateColumns: 'repeat(2, 1fr)',
+                },
+                gridGap: '2rem',
+                alignItems: 'start',
+                // gridAutoFlow: 'dense',
+                gridAutoRows: 'max-content',
               }}
-              >            
-              {/* <Box className="VehicleBoxContainer"
-                sx={{
-                  margin: '1.8rem 0',
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  // gap: '2rem',
-                  flexWrap: 'wrap',
-                  justifyContent: 'space-between'
-                  // '& .MuiFormControl-root': {
-                  //     width: '100%',
-                  //     flexBasis: '100%'
-                  // },
-                }}
-                > */}
+              >      
                   
                 
                 {watchAllFields.vehicleObjs?.map((vehicle: any, index: number) => (
                   <VehicleBox key={`Car-${index}`} 
                     index={index} 
+                    id={index + 1}
                     {...vehicle} 
                     errors={errors} 
                     register={register}

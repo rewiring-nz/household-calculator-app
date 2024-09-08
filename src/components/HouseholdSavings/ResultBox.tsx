@@ -33,8 +33,8 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
     return (
         <Box
             sx={{
-                padding: '1rem 0',
-                margin: '1rem 0'
+                // padding: '1rem 0',
+                margin: '1.2rem 0'
             }}
         >
             <Typography variant="h4" sx={{ textTransform: 'uppercase' }}>

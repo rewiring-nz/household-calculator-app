@@ -1,6 +1,6 @@
 import React from 'react';
 import { RecommendationActionEnum } from 'src/shared/api/openapi-client';
-import RecommendationImage from 'src/components/HouseholdSavings/data/RecommendationImage';
+// import RecommendationImage from 'src/components/HouseholdSavings/data/RecommendationImage';
 import { StyledRecommendationImage } from '../HouseholdSavings.styles';
 
 export interface RecommendationAction {
@@ -11,17 +11,17 @@ export interface RecommendationAction {
 
 export const recommendationActions: Record<RecommendationActionEnum, RecommendationAction> = {
     [RecommendationActionEnum.SpaceHeating]: {
-        getDescription: ({ currentSpaceHeater }) => `Swap out your ${currentSpaceHeater} for electric heat pumps.`,
+        getDescription: ({ currentSpaceHeater }) => `Swap out your ${currentSpaceHeater || 'current heater'} for electric heat pumps.`,
         buttonText: "Show me how",
         imageComponent: <StyledRecommendationImage type="heatPump" alt="Heat Pump" />
     },
     [RecommendationActionEnum.WaterHeating]: {
-        getDescription: ({ currentWaterHeater }) => `Swap out your ${currentWaterHeater} for an electric heat pump water heater.`,
+        getDescription: ({ currentWaterHeater }) => `Swap out your ${currentWaterHeater || 'current water heating'} for an electric heat pump water heater.`,
         buttonText: "Show me how",
         imageComponent: <StyledRecommendationImage type="waterHeating" alt="Water Heating" />
     },
     [RecommendationActionEnum.Cooking]: {
-        getDescription: ({ currentCooktop }) => `Swap out your ${currentCooktop} for an induction cooktop.`,
+        getDescription: ({ currentCooktop }) => `Swap out your ${currentCooktop || 'current cooking method'} for an induction cooktop.`,
         buttonText: "Show me how",
         imageComponent: <StyledRecommendationImage type="cooktop" alt="Cooktop" />
     },
