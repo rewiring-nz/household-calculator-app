@@ -37,7 +37,7 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
                 margin: '1.2rem 0'
             }}
         >
-            <Typography variant="h4" sx={{ textTransform: 'uppercase' }}>
+            <Typography variant="h6" sx={{ textTransform: 'uppercase' }}>
                 {label}
             </Typography>
             <Typography variant="h2">
@@ -55,7 +55,7 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
                         <Typography
                             key={i}
                             component="li"
-                            variant="body1"
+                            variant="body2"
                             >
                             <span style={{ fontWeight: 'bold' }}>
                                 {point.label}: 
@@ -67,16 +67,15 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
             )}
 
             {paragraph && (
-                <Typography variant="body1">
+                <Typography variant="body2">
                     {paragraph}
                 </Typography>
             )}
 
             {children}
 
-            {linkText && (
-                <Tooltip title="Electric Vehicles" arrow>
-                {/* <Typography variant="body1"> */}
+            {/* {linkText && (
+                <Tooltip title="Electric Vehicles" arrow>                
                     <a 
                         href={linkURL}
                         target="_blank"
@@ -88,9 +87,8 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
                     >
                         {linkText}
                     </a>
-                {/* </Typography> */}
                 </Tooltip>
-            )}
+            )} */}
         </Box>
     );
 };

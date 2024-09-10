@@ -14,34 +14,44 @@ const theme = createTheme({
         },
         h2: {
             fontFamily: 'Rubik, Roboto, sans-serif',
-            fontSize: '1.5rem', // 24px
+            fontSize:   '1.75rem', //28px    '1.5rem',  = 24px
             fontWeight: 700,
             lineHeight: '1.8rem', // 28.8px
             margin: '0.6rem 0 0.2rem 0',
-            letterSpacing: '0.022rem'
+            // letterSpacing: '0.022rem'
         },
         h3: {
             fontFamily: 'Rubik, Roboto, sans-serif',
-            fontSize: '1rem', // = 16px
+            fontSize: '1.0625rem', // = 17px
             fontWeight: 600,
             lineHeight: '1.2rem', // 19px
-            margin: '1.1rem 0',
-            letterSpacing: '0.02rem',
+            margin: '1rem 0 1.5rem 0',
+            // letterSpacing: '0.02rem',
             color: '#3A3A3A'
         },
         h4: {
             fontFamily: 'Rubik, Roboto, sans-serif',
-            fontSize: '0.75rem',
-            fontWeight: 700,
-            lineHeight: '0.94rem',
-            letterSpacing: '.04rem'
+            fontSize: '1.0625rem', // 17px
+            fontWeight: 600,
+            // lineHeight: '0.75rem',
+            // letterSpacing: '.04rem',
+            margin: '0.5rem 0 0.5rem 0',
+            color: '#000000'
         },
         h5: {
             fontFamily: 'Rubik, Roboto, sans-serif',
             fontSize: '1rem',
             fontWeight: 600,
-            // lineHeight: '0.75rem',
-            letterSpacing: '.04rem'
+            // lineHeight: '0.75rem',            
+            margin: '1.1rem 0',
+            // letterSpacing: '.04rem'
+        },
+        h6: {
+            fontFamily: 'Rubik, Roboto, sans-serif',
+            fontSize:  '0.81rem', // 12.96px   '0.75rem',
+            fontWeight: 700,
+            lineHeight: '0.94rem',
+            letterSpacing: '.04rem' // required
         },
         subtitle1: {
             fontFamily: 'Rubik, Roboto, sans-serif',
@@ -53,9 +63,9 @@ const theme = createTheme({
         },
         subtitle2: {
             fontFamily: 'Rubik, Roboto, sans-serif',
-            fontSize: '1.2rem', // 19px //  1.125rem = 18px
+            fontSize: '1.1875rem', // 19px //  1.125rem = 18px
             fontWeight: 400,
-            lineHeight: '1.78rem'
+            lineHeight: '1.6rem',
         },
         body1: {
             fontFamily: 'Rubik, Roboto, sans-serif',
@@ -73,7 +83,7 @@ const theme = createTheme({
             fontFamily: 'Rubik, Roboto, sans-serif',
             fontSize:   '0.9rem', // 0.94rem  ~15px  '0.75rem',
             fontWeight: 400,
-            // lineHeight: '0.94rem'
+            lineHeight: '1.3125rem'
         },
     },
     palette: {
@@ -93,7 +103,8 @@ const theme = createTheme({
             main: '#e97840' // '#ff9800'
         },
         info: {
-            main: '#FFC754'
+            main: '#FFC754',
+            dark: '#F1B029'
         },
         success: {
             main: '#4caf50' // 2E7D32
@@ -186,8 +197,8 @@ const theme = createTheme({
     breakpoints: {
         values: {
           xs: 0,
-          sm: 600,
-          md: 960,
+          sm: 630, // 600
+          md: 1000, // 960,
           lg: 1280,
           xl: 1920,
         },

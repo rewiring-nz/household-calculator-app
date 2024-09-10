@@ -30,7 +30,7 @@ import VehicleBox from './components/HouseholdVehicle';
 import TooltipModal from './components/TooltipDialog';
 import TooltipDialog from './components/TooltipDialog';
 import HouseholdTooltip from './components/HouseholdTooltip';
-import { HouseRadio, HouseCheck } from './components/HouseCheckRadio';
+import { HouseRadio } from './components/HouseCheckRadio';
 import { HouseSwitch } from './components/HouseSwitch';
 import HouseMenuItem from './components/HouseMenuItem';
 
@@ -744,82 +744,40 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
           </FormSection>
 
 
-
-
-
-
-
-
-
+          {/* Radio Buttons */}
 
           <FormSection theme={theme} className='formSection'>
-          <Box>
-          {/* <FormControl 
+            <FormControl 
               className="fullFormControl"
-              error={!!errors.solar}>
-            <Controller
-              name="solar.hasSolar"
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <RadioGroup
-                  {...field}
-                >                 
-                 {formText.options.solar.hasSolar.map((option: OptionYesNo) => (
-                    <FormControlLabel key={option.text} value={option.value} control={<Radio />} label={option.text} />
-                  ))}
-                </RadioGroup>
-              )}
-            />
-          </FormControl> */}
-          <FormControl 
-              className="fullFormControl"
-              error={!!errors.solar}>          
-            <Controller
-              name="solar.hasSolar"
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <RadioGroup
-                  {...field}
-                  onChange={(e) => {
-                    const value: boolean = e.target.value === 'true';
-                    field.onChange(value);
-                  }}
-                >
-                {formText.options.solar.hasSolar.map((option: OptionYesNo) => (
-                  <FormControlLabel 
-                    key={option.text} 
-                    value={option.value} 
-                    control={
-                      // <HouseRadio />
-                      <Radio />
-                      } label={option.text} />
-                  ))}
-                </RadioGroup>
-              )}
-            />
-            {errors.solar && <FormHelperText>This field is required</FormHelperText>}
-          </FormControl>
-
-          {/* <FormControl>
-            <Controller
-              name="solar.installSolar"
-              // name="solar.dontWantSolar"
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <FormControlLabel
-                  control={<HouseCheck {...field}/>}
-                  label="I'd like solar"
-                />
-              )}
-            />
-            {errors.solar && <FormHelperText>This field is required</FormHelperText>}
-          </FormControl> */}
-          
-          </Box>
-        </FormSection>
+              error={!!errors.solar}
+              >
+              <Controller
+                name="solar.hasSolar"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <RadioGroup
+                    {...field}
+                    onChange={(e) => {
+                      const value: boolean = e.target.value === 'true';
+                      field.onChange(value);
+                    }}
+                  >
+                  {formText.options.solar.hasSolar.map((option: OptionYesNo) => (
+                    <FormControlLabel 
+                      key={option.text} 
+                      value={option.value} 
+                      control={
+                        <HouseRadio />
+                        // <Radio />
+                        } label={option.text} />
+                    ))}
+                  </RadioGroup>
+                )}
+              />
+              {errors.solar && <FormHelperText>This field is required</FormHelperText>}
+            </FormControl>
+          </FormSection>
 
 
 
@@ -909,6 +867,23 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
             <Controller
                 name="solar.size"
                 control={control}
+                rules={{ 
+                  required: true,
+                  min: {
+                    value: 0,
+                    message: 'Size must be at least 0',
+                  },
+                  max: {
+                      value: 1000,
+                      message: 'Size must be at most 1000',
+                  },
+                  validate: (value) => {
+                    if (value < 0 || value > 1000) {
+                        return 'Size must be between 0 and 1000';
+                    }
+                    return true;
+                },
+                }}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <TextField
                     id="outlined-number"
@@ -932,7 +907,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                     inputRef={ref}
                     InputProps={{ 
                       endAdornment: <HouseInputAdornment position="end">{formText.defaultFormState.solar.unit}</HouseInputAdornment>,
-                      inputProps: { style: { textAlign: 'right' } }
+                      inputProps: { 
+                        style: { textAlign: 'right' },
+                        min: 0,
+                        max: 1000,
+                      }
                     }}
                   />
                 )}
@@ -1028,8 +1007,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                         key={option.text} 
                         value={option.value} 
                         control={
-                          // <HouseRadio />
-                          <Radio />
+                          <HouseRadio />
                           } label={option.text} />
                       ))}
                     </RadioGroup>
@@ -1145,6 +1123,23 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
           <Controller
                 name="battery.capacity"
                 control={control}
+                rules={{ 
+                  required: true,
+                  min: {
+                    value: 0,
+                    message: 'Battery capacity must be at least 0',
+                  },
+                  max: {
+                      value: 1000,
+                      message: 'Battery capacity must be at most 1000',
+                  },
+                  validate: (value) => {
+                    if (value < 0 || value > 1000) {
+                        return 'Battery capacity must be between 0 and 1000';
+                    }
+                    return true;
+                },
+                }}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <TextField
                     id="outlined-number"
@@ -1171,13 +1166,15 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                           {formText.defaultFormState.battery.unit}</HouseInputAdornment>,
                       inputProps: { 
                         style: { textAlign: 'right' },
-                        pattern: "[0-9]*" 
+                        pattern: "[0-9]*" ,
+                        min: 0,
+                        max: 1000,
                       }
                     }}
                   />
                 )}
               />
-          {errors.battery && <FormHelperText>This field is required</FormHelperText>}
+          {errors.battery?.capacity && <FormHelperText>This field is required</FormHelperText>}
         </FormControl>
         </FormSection>
         
@@ -1191,16 +1188,16 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
-
+        
 
 
 
         {/* Transport section */}
 
         <FormBox theme={theme} className='formBox'>
-
+          <FDivider />
           <HalfWidthFormBox theme={theme} className='halfWidthFormBox'>
-            <FDivider />
+          
             
             <Typography variant="h3">Transport</Typography>
 

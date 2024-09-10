@@ -23,7 +23,7 @@ export interface UsageOptions {
     // name:  'Low' | 'Medium' | 'High' ;
     type:  UsageType
     value: number;
-    unit: '<100 km/wk' | '100-300 km/wk' | '300+ km/wk' | string;
+    unit: '< 100 km/wk' | '100-300 km/wk' | '300+ km/wk' | string;
 }
 
 

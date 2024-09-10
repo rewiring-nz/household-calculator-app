@@ -64,7 +64,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                 borderColor: theme.palette.primary.dark,
                 flexBasis: '100%',
                 maxWidth: '100%',
-                height: showDetails ? '13.2rem' : 'auto',
+                // height: showDetails ? '13.2rem' : 'auto',
                 overflow: 'hidden',
                 // [theme.breakpoints.up('sm')]: {
                 //   flexBasis: 'calc(50% - 3rem)', // 2 columns on medium and up screens
@@ -81,7 +81,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                 }}
                 >
                 <Typography 
-                    variant="h5" 
+                    variant="h4" 
                     sx={{ 
                         // textTransform: 'uppercase',
                         flexGrow: 1,
@@ -144,7 +144,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
             
             <FDivider 
                 sx={{
-                    margin: '0.5rem 0'
+                    margin: '0.5rem 0 1.0rem 0'
                 }}
                 />
             
@@ -152,12 +152,20 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
             <Box className="VehicleBox-subheader">
                 <Box className="VehicleBox-toggleBox"
                     sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        width: '100%',
-                        margin: '1.3rem 0'
+                        display: 'flex',                        
+                        // [theme.breakpoints.up('sm')]: {
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: '0.6rem',
+                            justifyContent: 'space-between',
+                        // } 
+                        [theme.breakpoints.only('md')]: {
+                            flexDirection: 'column-reverse',
+                            gap: '0.6rem',
+                            alignItems: 'start',
+                            width: '100%',
+                            // margin: '1.3rem 0',
+                        }
                     }}
                     >
                     {/* <Button
@@ -225,11 +233,16 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                     <Typography variant="body2">Usage per week</Typography>
 
                     <FormControl
-                    className="VehicleBox-usage"
-                    error={!!errors.vehicleObjs}
-                    key={`Car-${id}`}
-                    size="small"
-                    >
+                        className="VehicleBox-usage"
+                        error={!!errors.vehicleObjs}
+                        key={`Car-${id}`}
+                        size="small"
+                        sx={{
+                            '& .MuiInputBase-root': {
+                                maxHeight: '2.438rem'
+                            },
+                        }}
+                        >
                     <Select
                         labelId={`vehicles-usages-label-${index}`}
                         id={`vehicles-usages-${index}`}

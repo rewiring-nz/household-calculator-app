@@ -85,7 +85,21 @@ const Home: React.FC = () => {
         {/* <HouseholdForm householdData={householdData} updateHouseholdData={updateHouseholdData} /> */}
         {householdData && <HouseholdForm householdData={householdData} updateHouseholdData={updateHouseholdData} />}
       </Box>    
-      
+      {/* ----------------------------------------------------------- */}
+
+
+
+
+
+
+
+
+
+
+
+      {/* -------------------------------------------------- */}
+      {/* Home Savings */}
+
       <Box className="Home-savings"
         sx={{
           backgroundColor: theme.palette.background.default,
@@ -117,8 +131,20 @@ const Home: React.FC = () => {
         {/* <HouseholdSavings /> */}
         <HouseholdSavings appliances={appliances} savingsData={savingsData} loadingData={loadingData} />
       </Box>
-    </Box>
+      {/* ----------------------------------------------------------- */}      
 
+
+
+
+    </Box>
+    {/* ----------------------------------------------------------- */}
+
+
+
+
+
+    {/* ----------------------------------------------------------- */}
+    {/* Home Footer */}
     <Box className="Home-footer"
       sx={{
         padding: '1rem',
@@ -131,7 +157,12 @@ const Home: React.FC = () => {
         }
       }}
     >
-      <Typography variant="caption">© Copyright Rewiring Aotearoa 2024</Typography>
+      <Typography variant="caption"
+        sx={{
+          lineHeight: '1.625rem',
+        }}
+        >
+          © Copyright Rewiring Aotearoa 2024</Typography>
 
 
       </Box>

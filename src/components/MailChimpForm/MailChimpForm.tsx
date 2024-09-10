@@ -88,7 +88,12 @@ const MailchimpForm = ({ theme }: { theme: any }) => (
                         id="email" 
                         name="email"
                         placeholder="name@example.com"
-                        variant="outlined" 
+                        variant="outlined"
+                        InputProps={{
+                            sx: {
+                                maxHeight: '3.438rem'
+                            }
+                        }}
                     />
                 </FormControl>
 
@@ -100,11 +105,12 @@ const MailchimpForm = ({ theme }: { theme: any }) => (
                     sx={{
                         textTransform: 'initial',
                         margin: '.7rem 0',
-                        color: "info"
+                        color: "info",                        
+                        maxHeight: '3.4375rem',
                     }}
                 >
                     <Typography 
-                        variant="h3" 
+                        variant="h5" 
                         sx={{ 
                             color: theme.palette.secondary.contrastText,
                             borderWidth: '0.1rem'

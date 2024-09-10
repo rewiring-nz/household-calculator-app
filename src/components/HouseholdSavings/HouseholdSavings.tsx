@@ -16,8 +16,9 @@ import { FDivider } from 'src/shared/styles/FDivider';
 import ResultBox from './ResultBox';
 
 // ----------------- Images -------------------
-import heatpump from '../../assets/images/heatpump.png'; 
+// import heatpump from '../../assets/images/heatpump.png'; 
 
+import openIcon from 'src/assets/icons/open-outline.svg';
 
 // ----------------- Models & Interfaces -------------------
 import { Savings, UpfrontCost } from '../../shared/api/openapi-client';
@@ -162,8 +163,13 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                     >
                     Your Savings
                 </Typography>
-                <Typography variant="subtitle2">By switching to electric appliances and installing solar panels, we estimate you could save:</Typography>
                 <Typography variant="subtitle2"
+                    sx={{
+                        margin: '0 0 1rem 0'
+                    }}
+                    >
+                    By electrifying your household, we estimate you could save:</Typography>
+                <Typography variant="body1"
                     sx={{
                         color: theme.palette.secondary.contrastText
                     }}
@@ -172,7 +178,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                     {/* <HouseLink component={RouterLink} to="/methodology" className="link" theme={theme}>
                         How did we calculate this?
                     </HouseLink> */}
-                    <Tooltip 
+                    {/* <Tooltip 
                         title="Methodology"
                         aria-label="Methodology"
                         arrow
@@ -190,7 +196,21 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                             >
                             How did we calculate this?
                         </Link>
-                    </Tooltip>
+                    </Tooltip> */}
+                    <Link 
+                        component={RouterLink} 
+                        to="/methodology"
+                        sx={{
+                            color: '#2D62FF',                            
+                            textDecoration: 'underline',
+                            // textDecoration: 'none',
+                            // '&:hover': {
+                            //     textDecoration: 'underline',
+                            // },
+                        }}
+                        >
+                        How did we calculate this?
+                    </Link>
                 </Typography>
                 
             </Box>
@@ -253,9 +273,49 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                         { label: 'Battery', value: savingsData?.upfrontCost?.battery },
                     ]}
                     paragraph="*Vehicle costs excluded due to large price range." 
-                    linkText="Learn more here"
-                    linkURL={electricVehicleURL}
-                    />            
+                    // linkText="Learn more here"
+                    // linkURL={electricVehicleURL}
+                    // />     
+                    >
+                    {/* <Tooltip title="Electric Vehicles" arrow>                    
+                        <a 
+                            href={electricVehicleURL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                color: theme.palette.text.primary,
+                                textDecoration: 'underline',
+                            }}
+                        >
+                            Learn more here
+                            <img src={openIcon} alt="Heat Pump" style={{ width: '1.5rem', marginLeft: '0.5rem' }} />
+                        </a>
+                    </Tooltip> */}
+                    <Link 
+                        href={electricVehicleURL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{
+                            color: theme.palette.text.primary,
+                            fontFamily: theme.typography.fontFamily,
+                            textDecoration: 'underline',
+                            // '&:hover': {
+                            //     textDecoration: 'none',
+                            // },
+                            display: 'flex',
+                            alignItems: 'center'
+                        }}
+                        >
+                        Learn more here
+                        <img src={openIcon} alt="Open Link" 
+                            style={{ 
+                                // width: '1.5rem', 
+                                marginLeft: '0.3rem',
+                                maxWidth: '15px'
+                            }}
+                            />
+                    </Link>
+                    </ResultBox>       
 
             {/* </Box> */}
             </SavingsFrameBox>
@@ -366,7 +426,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                             )}
                         </Box>
 
-                        <Grid item xs={12} sm={12} md={8}
+                        <Grid item xs={12} sm={12} md={12} lg={8}
                             sx={{
                                 padding: '0',
                                 boxSizing: 'border-box'
@@ -384,13 +444,46 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                                     width: '100%',
                                     padding: '0',
                                     boxSizing: 'border-box',
+                                    '&:hover': {
+                                        boxShadow: 'none',
+                                        backgroundColour: theme.palette.info.dark
+                                    }
                                 }}
                                 onClick={() => window.open(recommendationURL, '_blank', 'noopener,noreferrer')}
                                 >
-                                <Typography variant="h3" 
-                                    sx={{ color: theme.palette.info.contrastText }}>
+                                <Typography variant="h5" 
+                                    sx={{ 
+                                        color: theme.palette.info.contrastText,
+                                        maxHeight: '3.4375rem',                        
+                                    }}
+                                    >
+                                    {/* Most likely "Show me how" */}
                                     {buttonText}
                                 </Typography>
+                                {/* <img src={openIcon} alt="Show me how, Open Link" 
+                                    style={{ 
+                                        // width: '1.5rem', 
+                                        marginLeft: '0.3rem',
+                                        maxWidth: '15px'
+                                    }}
+                                /> */}
+                                <Box 
+                                    sx={{
+                                        // marginLeft: '0.3rem',
+                                        margin: '0 0.3rem 0 0.2rem',
+                                        display: 'flex',
+                                        alignItems: 'center'
+                                    }}
+                                    >
+                                    <svg width="15" height="15" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        {/* eslint-disable-next-line react/no-unknown-property */}
+                                        <path d="M384 224V408C384 413.253 382.965 418.454 380.955 423.307C378.945 428.16 375.999 432.57 372.284 436.284C368.57 439.999 364.16 442.945 359.307 444.955C354.454 446.965 349.253 448 344 448H104C93.3913 448 83.2172 443.786 75.7157 436.284C68.2143 428.783 64 418.609 64 408V168C64 157.391 68.2143 147.217 75.7157 139.716C83.2172 132.214 93.3913 128 104 128H271.48" stroke="black" stroke-width="55" stroke-linecap="round" stroke-linejoin="round"/>
+                                        {/* eslint-disable-next-line react/no-unknown-property */}
+                                        <path d="M336 64H448V176" stroke="black" stroke-width="55" stroke-linecap="round" stroke-linejoin="round"/>  
+                                        {/* eslint-disable-next-line react/no-unknown-property */}
+                                        <path d="M224 288L440 72" stroke="black" stroke-width="55" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>  
+                                </Box>
                             </Button>
                             )}
                         </Grid>

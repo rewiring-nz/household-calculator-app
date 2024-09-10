@@ -79,6 +79,11 @@ export const vehicleMapping: Record<VehicleFuelTypeEnum, string> = {
     [VehicleFuelTypeEnum.Diesel]: 'Diesel'
 };
 
+export const vehicleUsageOptions: UsageOptions[] = [
+    { type: 'Low', value: 50, unit: '<100 km/wk' },
+    { type: 'Medium', value: 200, unit: '100-300 km/wk' },
+    { type: 'High', value: 400, unit: '300+ km/wk' }
+];
 // -----------------------------------------------------
 
 
@@ -128,14 +133,19 @@ export const spaceHeatingOptions = Object.entries(spaceHeatingMapping).map(([key
 
     
 
-const waterHeatingMap_noSolar = { // Temp work around until API is updated
-    [WaterHeatingEnum.ElectricResistance]: 'Electric resistive',
-    [WaterHeatingEnum.ElectricHeatPump]: 'Heat pump',
-    [WaterHeatingEnum.Gas]: 'Piped/ducted gas',
-    [WaterHeatingEnum.Lpg]: 'Bottled LPG',
-    [WaterHeatingEnum.DontKnow]: 'Not sure'
-};
-export const waterHeatingOptions = Object.entries(waterHeatingMap_noSolar).map(([key, value]) => ({
+// const waterHeatingMap_noSolar = { // Temp work around until API is updated
+//     [WaterHeatingEnum.ElectricResistance]: 'Electric resistive',
+//     [WaterHeatingEnum.ElectricHeatPump]: 'Heat pump',
+//     [WaterHeatingEnum.Gas]: 'Piped/ducted gas',
+//     [WaterHeatingEnum.Lpg]: 'Bottled LPG',
+//     [WaterHeatingEnum.DontKnow]: 'Not sure'
+// };
+// export const waterHeatingOptions = Object.entries(waterHeatingMap_noSolar).map(([key, value]) => ({
+//     value: key as WaterHeatingEnum,
+//     text: value
+// })) as Option<WaterHeatingEnum>[];
+
+export const waterHeatingOptions = Object.entries(waterHeatingMapping).map(([key, value]) => ({
     value: key as WaterHeatingEnum,
     text: value
 })) as Option<WaterHeatingEnum>[];
@@ -157,7 +167,7 @@ export const vehicleOptions: VehicleOptions = {
         {value: key as VehicleFuelTypeEnum, text: value}
         )) as Option<VehicleFuelTypeEnum>[],
     usageOptionsList: [
-        { type: 'Low', value: 50, unit: '<100 km/wk' },
+        { type: 'Low', value: 50, unit: '< 100 km/wk' },
         { type: 'Medium', value: 200, unit: '100-300 km/wk' },
         { type: 'High', value: 400, unit: '300+ km/wk' }
     ]
@@ -262,7 +272,8 @@ const tooltipText: Record<string, string> = {
     hasSolar: 'If you have any solar panels in use (whether on roof or ground), select Yes. If you don’t have solar yet, select whether you would like to calculate your savings based on getting solar.',
     solarSize: 'The total capacity of your solar panel system. 9 kW is the average in Australia and enough for 2 EVs, 7 kW is enough for 1 EV.',
     hasBattery: 'If you have a home battery, select Yes. If you don’t have a battery yet, select whether you would like to calculate your savings based on getting one.',
-    batteryCapacity: 'The total capacity of your home battery system. A Tesla Powerwall is 5 kW.',
+    // batteryCapacity: 'The total capacity of your home battery system. A Tesla Powerwall is 5 kW.',
+    batteryCapacity: 'The total size of your home battery system. 10 kWh is our suggested default.',
     vehicleNumber: "Just count the number of vehicles that you use reasonably regularly."
 };
 

@@ -10,8 +10,8 @@ export const HouseRadio: React.FC<RadioProps> = (props) => {
     <Radio
       disableRipple
       color="default"
-      checkedIcon={<img src={HouseCheckedIcon} alt="HouseCheckedIcon" />}
-      icon={<img src={HouseUncheckedIcon} alt="HouseIcon" />}
+      // checkedIcon={<img src={HouseCheckedIcon} alt="HouseCheckedIcon" />}
+      // icon={<img src={HouseUncheckedIcon} alt="HouseIcon" />}
       {...props}
     />
   );
@@ -38,18 +38,20 @@ export const HouseRadio: React.FC<RadioProps> = (props) => {
 // };
 
 
-export const HouseCheck = forwardRef<HTMLButtonElement, CheckboxProps>((props, ref: ForwardedRef<HTMLButtonElement>) => {
-  // const invertedChecked = !props.checked;
+// export const HouseCheck = forwardRef<HTMLButtonElement, CheckboxProps>((props, ref: ForwardedRef<HTMLButtonElement>) => {
+//   // const invertedChecked = !props.checked;
 
-  return (
-    <Checkbox
-      disableRipple
-      color="default"
-      checkedIcon={<img src={HouseCheckedIcon} alt="HouseCheckedIcon" />}
-      icon={<img src={HouseUncheckedIcon} alt="HouseIcon" />}
-      {...props}
-      // checked={invertedChecked}
-      ref={ref}
-    />
-  );
-});
+//   return (
+//     <Checkbox
+//       disableRipple
+//       color="default"
+//       checkedIcon={<img src={HouseCheckedIcon} alt="HouseCheckedIcon" />}
+//       icon={<img src={HouseUncheckedIcon} alt="HouseIcon" />}
+//       {...props}
+//       // checked={invertedChecked}
+//       ref={ref}
+//     />
+//   );
+// });
+
+export default HouseRadio;

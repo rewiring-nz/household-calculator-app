@@ -30,6 +30,8 @@ const StyledTooltip = styled(({ className, ...props }: TooltipProps & { classNam
         // boxShadow: theme.shadows[1],
         fontFamily: theme.typography.caption.fontFamily,
         fontSize: theme.typography.caption.fontSize,
+        fontWeight: theme.typography.caption.fontWeight,
+        lineHeight: theme.typography.caption.lineHeight,
         position: 'relative',
         padding: '1rem',
         borderRadius: '4px',
