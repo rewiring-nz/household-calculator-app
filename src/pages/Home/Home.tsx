@@ -12,20 +12,15 @@ import { cooktopMapping, spaceHeatingMapping, waterHeatingMapping } from 'src/co
 
 const Home: React.FC = () => {
   const theme = useTheme();
-  // const { savingsData } = useHouseholdData();
-  
-  // React.useEffect(() => {
-    //   console.log("Home useEffect savingsData:", savingsData);
-    // }, [savingsData]);
-    
-    const { householdData, updateHouseholdData, savingsData, loadingData, errorData } = useHouseholdData();
+
+  const { householdData, updateHouseholdData, savingsData, loadingData, errorData } = useHouseholdData();
 
 
-    const appliances = {
-      currentSpaceHeater: householdData?.spaceHeating ? spaceHeatingMapping[householdData?.spaceHeating] : '', 
-      currentWaterHeater: householdData?.waterHeating ? waterHeatingMapping[householdData?.waterHeating] : '',        
-      currentCooktop: householdData?.cooktop ? cooktopMapping[householdData?.cooktop] : '',
-    };
+  const appliances = {
+    currentSpaceHeater: householdData?.spaceHeating ? spaceHeatingMapping[householdData?.spaceHeating] : '',
+    currentWaterHeater: householdData?.waterHeating ? waterHeatingMapping[householdData?.waterHeating] : '',
+    currentCooktop: householdData?.cooktop ? cooktopMapping[householdData?.cooktop] : '',
+  };
 
   return (
     <Box className="Home"
@@ -34,139 +29,135 @@ const Home: React.FC = () => {
         margin: 'auto'
       }}>
 
-    <Box className="Home-content"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        // height: '100vh',
-        [theme.breakpoints.up('md')]: {
-          flexDirection: 'row'
-        }
-      }}
-    >
-    
-      <Box className="Home-form"
+      <Box className="Home-content"
         sx={{
-          flex: 1,
-          padding: '1rem',
-          backgroundColor: theme.palette.background.default, 
+          display: 'flex',
+          flexDirection: 'column',
           [theme.breakpoints.up('md')]: {
-            padding: '2rem 2.5rem 1.5rem 2rem',            
-          },
-          [theme.breakpoints.up('lg')]: {
-            // overflowY: 'auto', // Enable independent scrolling
-            // padding: '1rem 1rem 20rem 1rem',
-            padding: '2rem 2rem 2rem 3rem',
-            width: '60vw'
+            flexDirection: 'row'
           }
         }}
-        >
-        <img src={logo} className="Home-logo" alt="logo"
-          style={{
-            marginBottom: '1.2rem'
-          }}
-        />
+      >
 
-        <Typography variant="h1"
+        <Box className="Home-form"
           sx={{
-            marginTop: '0.8rem',
+            flex: 1,
+            padding: '1rem',
+            backgroundColor: theme.palette.background.default,
             [theme.breakpoints.up('md')]: {
-              marginTop: '1.8rem',
+              padding: '2rem 1.6rem 1.5rem 2rem',
             },
             [theme.breakpoints.up('lg')]: {
-              marginTop: '3.6rem',
+              padding: '2rem 2rem 2rem 3rem',
+              width: '60vw',
             }
           }}
-          >
-          How much could you save by going electric?</Typography>
-        <Typography variant="subtitle1">Enter your household information to find out</Typography>
+        >
+          <img src={logo} className="Home-logo" alt="logo"
+            style={{
+              marginBottom: '1.2rem'
+            }}
+          />
 
-        {/* <HouseholdForm/> */}
-        {/* <HouseholdForm householdData={householdData} updateHouseholdData={updateHouseholdData} /> */}
-        {householdData && <HouseholdForm householdData={householdData} updateHouseholdData={updateHouseholdData} />}
-      </Box>    
+          <Typography variant="h1"
+            sx={{
+              marginTop: '0.8rem',
+              [theme.breakpoints.up('md')]: {
+                marginTop: '1.8rem',
+              },
+              [theme.breakpoints.up('lg')]: {
+                marginTop: '3.6rem',
+              }
+            }}
+          >
+            How much could you save by going electric?</Typography>
+          <Typography variant="subtitle1">Enter your household information to find out</Typography>
+
+
+          {householdData && <HouseholdForm householdData={householdData} updateHouseholdData={updateHouseholdData} />}
+        </Box>
+        {/* ----------------------------------------------------------- */}
+
+
+
+
+
+
+
+
+
+
+
+        {/* -------------------------------------------------- */}
+        {/* Home Savings */}
+
+        <Box className="Home-savings"
+          sx={{
+            backgroundColor: theme.palette.background.default,
+            // flex: 1,
+            padding: '0',
+            [theme.breakpoints.up('sm')]: {
+              padding: '1rem',
+            },
+            [theme.breakpoints.up('md')]: {
+              padding: '2rem 2rem 1rem 1rem',
+              // overflowY: 'auto', // Enable independent scrolling
+              // maxWidth:  '38vw' // '33vw'
+              '@media (min-aspect-ratio: 1/1)': {
+                // maxWidth: '33vw'
+                width: 'min(480px, 33%)'
+              },
+              '@media (max-aspect-ratio: 1/1)': {
+                // maxWidth: '38vw'
+                width: 'min(480px, 38%)'
+              }
+            },
+            // [theme.breakpoints.up('xl')]: { // Currently gets push up and heading is lost on narrow screens
+            //   maxWidth: '30vw',
+            //   display: 'flex',
+            //   alignItems: 'center',
+            // }
+          }}
+        >
+          {/* <HouseholdSavings /> */}
+          <HouseholdSavings appliances={appliances} savingsData={savingsData} loadingData={loadingData} />
+        </Box>
+        {/* ----------------------------------------------------------- */}
+
+
+
+
+      </Box>
       {/* ----------------------------------------------------------- */}
 
 
 
 
 
-
-
-
-
-
-
-      {/* -------------------------------------------------- */}
-      {/* Home Savings */}
-
-      <Box className="Home-savings"
+      {/* ----------------------------------------------------------- */}
+      {/* Home Footer */}
+      <Box className="Home-footer"
         sx={{
+          padding: '1rem',
+          position: 'relative',
+          display: 'flex',
           backgroundColor: theme.palette.background.default,
-          // flex: 1,
-          padding: '0',
-          [theme.breakpoints.up('sm')]: {
-            padding: '1rem',
-          },
+          textAlign: 'center',
           [theme.breakpoints.up('md')]: {
-            padding: '2rem 2rem 1rem 1rem',
-            // overflowY: 'auto', // Enable independent scrolling
-            // maxWidth:  '38vw' // '33vw'
-            '@media (min-aspect-ratio: 1/1)': {
-              // maxWidth: '33vw'
-              width: 'min(480px, 33%)'
-            },
-            '@media (max-aspect-ratio: 1/1)': {
-              // maxWidth: '38vw'
-              width: 'min(480px, 38%)'
-            }
-          },
-          // [theme.breakpoints.up('xl')]: { // Currently gets push up and heading is lost on narrow screens
-          //   maxWidth: '30vw',
-          //   display: 'flex',
-          //   alignItems: 'center',
-          // }
+            padding: '1rem 2rem 1.5rem 2rem',
+          }
         }}
       >
-        {/* <HouseholdSavings /> */}
-        <HouseholdSavings appliances={appliances} savingsData={savingsData} loadingData={loadingData} />
-      </Box>
-      {/* ----------------------------------------------------------- */}      
-
-
-
-
-    </Box>
-    {/* ----------------------------------------------------------- */}
-
-
-
-
-
-    {/* ----------------------------------------------------------- */}
-    {/* Home Footer */}
-    <Box className="Home-footer"
-      sx={{
-        padding: '1rem',
-        position: 'relative',
-        display: 'flex',
-        backgroundColor: theme.palette.background.default,
-        textAlign: 'center',
-        [theme.breakpoints.up('md')]: {
-          padding: '1rem 2rem 1.5rem 2rem',
-        }
-      }}
-    >
-      <Typography variant="caption"
-        sx={{
-          lineHeight: '1.625rem',
-        }}
+        <Typography variant="caption"
+          sx={{
+            lineHeight: '1.625rem',
+          }}
         >
           © Copyright Rewiring Aotearoa 2024</Typography>
 
 
       </Box>
-      
+
     </Box>
   );
 };

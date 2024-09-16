@@ -143,6 +143,7 @@ export interface Option<T> {
 
 
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface OptionNumber extends Option<number> {}
 
 export interface OptionYesNo extends Option<boolean> {
