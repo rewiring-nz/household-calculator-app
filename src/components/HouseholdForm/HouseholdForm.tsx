@@ -325,7 +325,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
         <Typography variant="h3">Dwelling</Typography>
 
-        <FormSectionGrid theme={theme} className='FormSectionGrid'>
+        <FormSectionFlex theme={theme} className='FormSectionFlex'>
         <FormControl 
               className="fullFormControl"
               error={!!errors.location}>
@@ -388,7 +388,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
           </HouseSelect>
           {errors.occupancy && <FormHelperText>This field is required</FormHelperText>}
         </FormControl>
-        </FormSectionGrid>
+        </FormSectionFlex>
       </FormBox>
 
 
@@ -422,7 +422,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
-        <FormSectionGrid theme={theme} className='FormSectionGrid'>
+        <FormSectionFlex theme={theme} className='FormSectionFlex'>
         <FormControl 
               className="fullFormControl"
               error={!!errors.spaceHeating}>
@@ -562,7 +562,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
           </HouseSelect>
           {errors.cooktop && <FormHelperText>This field is required</FormHelperText>}
         </FormControl>
-        </FormSectionGrid>
+        </FormSectionFlex>
 
       </FormBox>
 
@@ -1150,7 +1150,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         </FormContainer>      
 
       </form>
-    // </Box>
   );
 };
 

@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from '../../assets/logos/RewiringAotearoa_logo.svg';
 import { useTheme } from '@mui/material/styles';
 import HouseholdForm from '../../components/HouseholdForm/HouseholdForm';
 import HouseholdSavings from '../../components/HouseholdSavings/HouseholdSavings';
-import { Box, Typography } from '@mui/material';
+import { Box,Typography, useMediaQuery } from '@mui/material';
 import useHouseholdData from 'src/hooks/useHouseholdData/useHouseholdData';
 import { cooktopMapping, spaceHeatingMapping, waterHeatingMapping } from 'src/components/HouseholdForm/data/householdForm.text';
+import MobileSavingsDrawer from 'src/components/MobileSavingsDrawer';
 
 
 
 
 const Home: React.FC = () => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  // const isMobile = true; // for debugging
+  console.log('Home isMobile:', isMobile);
 
   const { householdData, updateHouseholdData, savingsData, loadingData, errorData } = useHouseholdData();
 
@@ -39,6 +43,8 @@ const Home: React.FC = () => {
         }}
       >
 
+        {/* ----------------------------------------------------------- */}
+        {/* Home Form */}
         <Box className="Home-form"
           sx={{
             flex: 1,
@@ -89,41 +95,42 @@ const Home: React.FC = () => {
 
 
         {/* -------------------------------------------------- */}
-        {/* Home Savings */}
+        {/* Home Savings Desktop */}
 
-        <Box className="Home-savings"
+        {!isMobile && (
+          <Box className="Home-savings"
           sx={{
             backgroundColor: theme.palette.background.default,
-            // flex: 1,
             padding: '0',
             [theme.breakpoints.up('sm')]: {
               padding: '1rem',
             },
             [theme.breakpoints.up('md')]: {
               padding: '2rem 2rem 1rem 1rem',
-              // overflowY: 'auto', // Enable independent scrolling
-              // maxWidth:  '38vw' // '33vw'
               '@media (min-aspect-ratio: 1/1)': {
-                // maxWidth: '33vw'
                 width: 'min(480px, 33%)'
               },
               '@media (max-aspect-ratio: 1/1)': {
-                // maxWidth: '38vw'
                 width: 'min(480px, 38%)'
               }
             },
-            // [theme.breakpoints.up('xl')]: { // Currently gets push up and heading is lost on narrow screens
-            //   maxWidth: '30vw',
-            //   display: 'flex',
-            //   alignItems: 'center',
-            // }
           }}
-        >
-          {/* <HouseholdSavings /> */}
-          <HouseholdSavings appliances={appliances} savingsData={savingsData} loadingData={loadingData} />
+          >
+          {/* HouseholdSavings Desktop */}
+          <HouseholdSavings appliances={appliances} results={savingsData} loadingData={loadingData} />
         </Box>
-        {/* ----------------------------------------------------------- */}
+        )}
+        {/* -------------------------------------------------- */}
 
+
+
+        {/* Home Savings Mobile */}
+        {isMobile && (
+          <MobileSavingsDrawer appliances={appliances} results={savingsData} loadingData={loadingData} />
+        )}
+        {/* ----------------------------------------------------------- */}
+        
+        
 
 
 

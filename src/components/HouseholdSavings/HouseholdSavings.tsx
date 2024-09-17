@@ -33,15 +33,16 @@ import { SavingsFrameBox } from './HouseholdSavings.styles';
 
 
 
-interface SavingsProps {
-    savingsData: Savings;
+export interface SavingsProps {
+    results: Savings;
     loadingData: boolean;
     // currentAppliance: string;
     appliances: {
         currentSpaceHeater: string;
         currentWaterHeater: string;
         currentCooktop: string;
-    }
+    };
+    isMobile?: boolean;
     // recommendation: RecommendationActionEnum;
 }
 
@@ -50,14 +51,14 @@ interface SavingsProps {
 
 
 
-const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, appliances }) => {
+const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, appliances, isMobile=false }) => {
     const theme = useTheme();
     const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
         
     // const { 
     //     householdData,
     //     getSavingsData,
-    //     savingsData,
+    //     results,
     //     loadingData,
     //     errorData
     // } = useHouseholdData();
@@ -68,20 +69,20 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
 
     useEffect(() => {
         console.log("HouseholdSavings useEffect triggered");
-        // console.log("HouseholdSavings Previous savingsData:", savings);
-        // console.log("HouseholdSavings New savingsData:", savingsData);
+        // console.log("HouseholdSavings Previous results:", savings);
+        // console.log("HouseholdSavings New results:", results);
         // console.log("HouseholdSavings useEffect householdData:", householdData);
 
-        // setSavings(savingsData);
-        const total = savingsData?.upfrontCost ? Object.values(savingsData.upfrontCost).reduce((acc, val) => acc + val, 0) : 0;
+        // setSavings(results);
+        const total = results?.upfrontCost ? Object.values(results.upfrontCost).reduce((acc, val) => acc + val, 0) : 0;
         const totalString = `$${Number(total.toFixed(2)).toLocaleString('en-NZ')}`;
         setUpfrontCostTotal(totalString);
 
         // console.log("HouseholdSavings useEffect savings:", savings);
-        console.log("HouseholdSavings useEffect savingsData:", savingsData);
+        console.log("HouseholdSavings useEffect results:", results);
         console.log("HouseholdSavings useEffect upfrontCostTotal:", total);
         console.log("HouseholdSavings useEffect loadingData:", loadingData);
-    }, [ savingsData, loadingData ]);
+    }, [ results, loadingData ]);
 
 
     // const { register, handleSubmit } = useForm<Email>();
@@ -106,8 +107,8 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
 
 
     // --------------------  Next Steps --------------------
-    const recommendationKey = savingsData?.recommendation?.action;
-    const recommendationURL = savingsData?.recommendation?.url || '';
+    const recommendationKey = results?.recommendation?.action;
+    const recommendationURL = results?.recommendation?.url || '';
     const { getDescription, buttonText, imageComponent } =  recommendationKey ?  recommendationActions[recommendationKey] : { getDescription: () => '', buttonText: '', imageComponent: '' };
     // const currentAppliance = appliances.currentSpaceHeater || appliances.currentWaterHeater || appliances.currentCooktop;
     // const description = getDescription({ currentAppliance });
@@ -117,7 +118,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
 
 
     const formatTonnes = (value: number | undefined): string => {
-        // (savingsData?.emissions?.perYear?.difference || 0) *-1
+        // (results?.emissions?.perYear?.difference || 0) *-1
         if (value === undefined) return '';
         return `${(value/1000*-1).toFixed(0)}`;
     }
@@ -157,12 +158,14 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                 sx={{
                     margin: '0 0.1rem'
                 }}>
-                <Typography 
-                    variant="h1"
-                    aria-label="Your Savings"
-                    >
-                    Your Savings
-                </Typography>
+                {!isMobile && (
+                    <Typography 
+                        variant="h1"
+                        aria-label="Your Savings"
+                        >
+                        Your Savings
+                    </Typography>
+                )}
                 <Typography variant="subtitle2"
                     sx={{
                         margin: '0 0 1rem 0'
@@ -231,13 +234,13 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
 
                 <ResultBox 
                     label="Energy Bill" 
-                    heading={`$${(savingsData?.opex?.perWeek?.difference || 0) *-1} per week`} 
-                    // paragraph={`on energy bills. That's $${(savingsData?.opex?.perYear?.difference || 0) *-1} per year.`}
+                    heading={`$${(results?.opex?.perWeek?.difference || 0) *-1} per week`} 
+                    // paragraph={`on energy bills. That's $${(results?.opex?.perYear?.difference || 0) *-1} per year.`}
                     >   
                     <Typography variant="body1">
                         on energy bills. That's 
                         <span style={{ fontWeight: '600' }}>
-                           {` ${formatNZD(savingsData?.opex?.perYear?.difference, 0)} per year.`}
+                           {` ${formatNZD(results?.opex?.perYear?.difference, 0)} per year.`}
                         </span>
                     </Typography>
                 </ResultBox>                    
@@ -246,12 +249,12 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                 
                 <ResultBox 
                     label="Co2 Emissions" 
-                    heading={`${(savingsData?.emissions?.perWeek?.difference || 0) *-1} % of emissions`} 
-                    // paragraph={`${formatTonnes(savingsData?.emissions?.perYear?.difference)} tonnes of CO2e a year!`}
+                    heading={`${(results?.emissions?.perWeek?.difference || 0) *-1} % of emissions`} 
+                    // paragraph={`${formatTonnes(results?.emissions?.perYear?.difference)} tonnes of CO2e a year!`}
                     >   
                     <Typography variant="body1">                    
                         <span style={{ fontWeight: '600' }}>
-                            {`${formatTonnes(savingsData?.emissions?.perYear?.difference)} tonnes `}
+                            {`${formatTonnes(results?.emissions?.perYear?.difference)} tonnes `}
                         </span> 
                         of CO2e a year!
                     </Typography>            
@@ -268,9 +271,9 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ savingsData, loadingData, ap
                     // heading={`$${upfrontCostTotal.toLocaleString('en-NZ')}`} 
                     heading={upfrontCostTotal} 
                     bulletPoints={[
-                        { label: 'Appliances (total)', value: getApplianceCost(savingsData?.upfrontCost) },                        
-                        { label: 'Solar', value: savingsData?.upfrontCost?.solar },
-                        { label: 'Battery', value: savingsData?.upfrontCost?.battery },
+                        { label: 'Appliances (total)', value: getApplianceCost(results?.upfrontCost) },                        
+                        { label: 'Solar', value: results?.upfrontCost?.solar },
+                        { label: 'Battery', value: results?.upfrontCost?.battery },
                     ]}
                     paragraph="*Vehicle costs excluded due to large price range." 
                     // linkText="Learn more here"
