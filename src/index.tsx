@@ -5,6 +5,7 @@ import './index.css';
 import './fonts.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { DrawerProvider } from 'src/components/MobileSavingsDrawer/DrawerContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <DrawerProvider>
+        <App />
+      </DrawerProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

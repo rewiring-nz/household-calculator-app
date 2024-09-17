@@ -3,29 +3,24 @@ import { Link as RouterLink } from 'react-router-dom';
 import MailchimpForm from '../MailChimpForm/MailChimpForm';
 
 
-// ----------------- Data -------------------
-// import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
-// Now passed as props
-
 // ----------------- Styles & Material UI -------------------
 import { Box, Button, Typography, useTheme, Link, Tooltip, styled, Grid, useMediaQuery } from '@mui/material';
 import { FDivider } from 'src/shared/styles/FDivider';
-// import { HouseLink } from './HouseholdSavings.styles';
+
 
 // ----------------- Components -------------------
 import ResultBox from './ResultBox';
 
-// ----------------- Images -------------------
-// import heatpump from '../../assets/images/heatpump.png'; 
 
-import openIcon from 'src/assets/icons/open-outline.svg';
+import { ReactComponent as OpenIcon } from 'src/assets/icons/open-outline.svg';
+
 
 // ----------------- Models & Interfaces -------------------
 import { Savings, UpfrontCost } from '../../shared/api/openapi-client';
 import { electricVehicleURL } from 'src/shared/links';
 import { recommendationActions } from './data/RecommendationActions';
 
-import { formatNZD } from 'src/shared/utils/formatters';
+import { formatKgs, formatNZD } from 'src/shared/utils/formatters';
 import { SavingsFrameBox } from './HouseholdSavings.styles';
 
 
@@ -36,14 +31,12 @@ import { SavingsFrameBox } from './HouseholdSavings.styles';
 export interface SavingsProps {
     results: Savings;
     loadingData: boolean;
-    // currentAppliance: string;
     appliances: {
         currentSpaceHeater: string;
         currentWaterHeater: string;
         currentCooktop: string;
     };
     isMobile?: boolean;
-    // recommendation: RecommendationActionEnum;
 }
 
 
@@ -55,16 +48,6 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
     const theme = useTheme();
     const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
         
-    // const { 
-    //     householdData,
-    //     getSavingsData,
-    //     results,
-    //     loadingData,
-    //     errorData
-    // } = useHouseholdData();
-
-    // const savings = getSavingsData();
-    // const [savings, setSavings] = useState(getSavingsData());
     const [upfrontCostTotal, setUpfrontCostTotal] = useState('0');
 
     useEffect(() => {
@@ -73,7 +56,6 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
         // console.log("HouseholdSavings New results:", results);
         // console.log("HouseholdSavings useEffect householdData:", householdData);
 
-        // setSavings(results);
         const total = results?.upfrontCost ? Object.values(results.upfrontCost).reduce((acc, val) => acc + val, 0) : 0;
         const totalString = `$${Number(total.toFixed(2)).toLocaleString('en-NZ')}`;
         setUpfrontCostTotal(totalString);
@@ -85,13 +67,6 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
     }, [ results, loadingData ]);
 
 
-    // const { register, handleSubmit } = useForm<Email>();
-    // const onSubmit: SubmitHandler<Email> = (data) => console.log('HouseholdSavings: ', data);
-
-    // const formatNZD = (value: number | undefined) => {
-    //     if (value === undefined) return '';
-    //     return `$${value.toLocaleString('en-NZ')}`;
-    // };
 
     const getApplianceCost = (upfrontCost: UpfrontCost | undefined): number => {
         const spaceHeating = upfrontCost?.spaceHeating || 0;
@@ -110,25 +85,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
     const recommendationKey = results?.recommendation?.action;
     const recommendationURL = results?.recommendation?.url || '';
     const { getDescription, buttonText, imageComponent } =  recommendationKey ?  recommendationActions[recommendationKey] : { getDescription: () => '', buttonText: '', imageComponent: '' };
-    // const currentAppliance = appliances.currentSpaceHeater || appliances.currentWaterHeater || appliances.currentCooktop;
-    // const description = getDescription({ currentAppliance });
     const description = getDescription(appliances);
-
-
-
-
-    const formatTonnes = (value: number | undefined): string => {
-        // (results?.emissions?.perYear?.difference || 0) *-1
-        if (value === undefined) return '';
-        return `${(value/1000*-1).toFixed(0)}`;
-    }
-
-
-    // const handleRecommendationClick = () => {
-    //     console.log("Recommendation Clicked");
-    // }
-
-
 
     
     return (
@@ -176,40 +133,13 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                     sx={{
                         color: theme.palette.secondary.contrastText
                     }}
-                    >
-                    {/* <Link href="#"tertiary"secondary"> */}
-                    {/* <HouseLink component={RouterLink} to="/methodology" className="link" theme={theme}>
-                        How did we calculate this?
-                    </HouseLink> */}
-                    {/* <Tooltip 
-                        title="Methodology"
-                        aria-label="Methodology"
-                        arrow
-                        >
-                        <Link 
-                            component={RouterLink} 
-                            to="/methodology"
-                            sx={{
-                                color: '#2D62FF',
-                                textDecoration: 'none',
-                                '&:hover': {
-                                    textDecoration: 'underline',
-                                },
-                            }}
-                            >
-                            How did we calculate this?
-                        </Link>
-                    </Tooltip> */}
+                    >                    
                     <Link 
                         component={RouterLink} 
                         to="/methodology"
                         sx={{
                             color: '#2D62FF',                            
                             textDecoration: 'underline',
-                            // textDecoration: 'none',
-                            // '&:hover': {
-                            //     textDecoration: 'underline',
-                            // },
                         }}
                         >
                         How did we calculate this?
@@ -219,14 +149,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
             </Box>
 
 
-            {/* <Box
-                sx={{
-                    padding: '1rem',
-                    backgroundColor: theme.palette.background.paper,
-                    margin: '1rem 0',
-                    borderRadius: 1,
-                }}
-                > */}
+            
             <SavingsFrameBox className='Results' aria-label="Results"
                 sx={{
                     backgroundColor: theme.palette.background.paper,
@@ -234,8 +157,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
 
                 <ResultBox 
                     label="Energy Bill" 
-                    heading={`$${(results?.opex?.perWeek?.difference || 0) *-1} per week`} 
-                    // paragraph={`on energy bills. That's $${(results?.opex?.perYear?.difference || 0) *-1} per year.`}
+                    heading={`${formatNZD(results?.opex?.perWeek?.difference, 2)} per week`} 
                     >   
                     <Typography variant="body1">
                         on energy bills. That's 
@@ -249,12 +171,12 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                 
                 <ResultBox 
                     label="Co2 Emissions" 
-                    heading={`${(results?.emissions?.perWeek?.difference || 0) *-1} % of emissions`} 
-                    // paragraph={`${formatTonnes(results?.emissions?.perYear?.difference)} tonnes of CO2e a year!`}
+                    heading={`${(results?.emissions?.perWeek?.difference || 0) *-1} % of emissions`}
                     >   
                     <Typography variant="body1">                    
                         <span style={{ fontWeight: '600' }}>
-                            {`${formatTonnes(results?.emissions?.perYear?.difference)} tonnes `}
+                            {/* {`${formatTonnes(results?.emissions?.perYear?.difference)} tonnes `} */}
+                            {formatKgs(results?.emissions?.perYear?.difference)}
                         </span> 
                         of CO2e a year!
                     </Typography>            
@@ -265,35 +187,16 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                 <FDivider />
 
                 
-                {/* <ResultBox label="" heading={`${formatNZD(savings?.upfrontCost)} total`} /> */}
                 <ResultBox 
-                    label="Upfront Cost*" 
-                    // heading={`$${upfrontCostTotal.toLocaleString('en-NZ')}`} 
+                    label="Upfront Cost*"                 
                     heading={upfrontCostTotal} 
                     bulletPoints={[
                         { label: 'Appliances (total)', value: getApplianceCost(results?.upfrontCost) },                        
                         { label: 'Solar', value: results?.upfrontCost?.solar },
                         { label: 'Battery', value: results?.upfrontCost?.battery },
                     ]}
-                    paragraph="*Vehicle costs excluded due to large price range." 
-                    // linkText="Learn more here"
-                    // linkURL={electricVehicleURL}
-                    // />     
-                    >
-                    {/* <Tooltip title="Electric Vehicles" arrow>                    
-                        <a 
-                            href={electricVehicleURL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                                color: theme.palette.text.primary,
-                                textDecoration: 'underline',
-                            }}
-                        >
-                            Learn more here
-                            <img src={openIcon} alt="Heat Pump" style={{ width: '1.5rem', marginLeft: '0.5rem' }} />
-                        </a>
-                    </Tooltip> */}
+                    paragraph="*Vehicle costs excluded due to large price range."                     
+                    >                    
                     <Link 
                         href={electricVehicleURL}
                         target="_blank"
@@ -302,68 +205,34 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                             color: theme.palette.text.primary,
                             fontFamily: theme.typography.fontFamily,
                             textDecoration: 'underline',
-                            // '&:hover': {
-                            //     textDecoration: 'none',
-                            // },
                             display: 'flex',
                             alignItems: 'center'
                         }}
                         >
                         Learn more here
-                        <img src={openIcon} alt="Open Link" 
-                            style={{ 
-                                // width: '1.5rem', 
+                        <OpenIcon
+                            style={{
                                 marginLeft: '0.3rem',
-                                maxWidth: '15px'
+                                maxWidth: '15px',
+                                maxHeight: '15px',
+                                stroke: 'currentColor'
                             }}
                             />
                     </Link>
                     </ResultBox>       
 
-            {/* </Box> */}
             </SavingsFrameBox>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-            {/* Next Steps */}
-
-            {/* <Box
-                sx={{
-                    padding: '1.25rem',                    
-                    backgroundColor: theme.palette.secondary.main,
-                    margin: '1rem 0',
-                    // display: 'flex',
-                    borderRadius: 1,
-                    color: theme.palette.secondary.contrastText
-                }}
-                >      */}
             <SavingsFrameBox className='NextSteps'
                 sx={{
                     backgroundColor: theme.palette.secondary.main,
                     color: theme.palette.secondary.contrastText
                 }}
                 >
-                {/* <Box className="FrameBox"
-                    sx={{
-                        margin: '0.4rem 0',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                    }}
-                    >  */}
-                <Grid container 
-                    // spacing={2} 
+                <Grid container                  
                     sx={{ 
                         margin: '0.4rem 0', 
                         padding: '0',
@@ -383,7 +252,6 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                         <Box className="TopBox" 
                             sx={{
                                 display: 'flex',
-                                // flexDirection: { xs: 'column', md: 'row' },
                                 flexDirection: 'row',
                                 alignItems: 'flex-start',
                                 padding: '0',
@@ -462,17 +330,9 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                                     >
                                     {/* Most likely "Show me how" */}
                                     {buttonText}
-                                </Typography>
-                                {/* <img src={openIcon} alt="Show me how, Open Link" 
-                                    style={{ 
-                                        // width: '1.5rem', 
-                                        marginLeft: '0.3rem',
-                                        maxWidth: '15px'
-                                    }}
-                                /> */}
+                                </Typography>                                
                                 <Box 
                                     sx={{
-                                        // marginLeft: '0.3rem',
                                         margin: '0 0.3rem 0 0.2rem',
                                         display: 'flex',
                                         alignItems: 'center'
@@ -504,11 +364,8 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                             >
                             <Box className="ImageBox" 
                                 sx={{ 
-                                    // padding: '0',
-                                    // boxSizing: 'border-box'
                                     margin: '1.4rem 0',
                                     display: 'flex',
-                                    // alignItems: 'flex-start',
                                     justifyContent: 'end'
                                 }}
                                 >
@@ -516,44 +373,10 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                             </Box>
                         </Grid>
                     )}
-{/* 
-
-                    <Grid item xs={12} sm={12} md={6}
-                        sx={{
-                            padding: '0',
-                            boxSizing: 'border-box'
-                        }}
-                        >
-                        {buttonText && (
-                        <Button
-                            variant="contained"
-                            color="info"
-                            sx={{
-                            textTransform: 'initial',
-                            margin: '.7rem 0',
-                            borderRadius: '0.25rem',
-                            boxShadow: 'none',
-                            width: '100%',
-                            padding: '0',
-                            boxSizing: 'border-box'
-                            }}
-                            >
-                            <Typography variant="h3" sx={{ color: theme.palette.info.contrastText }}>
-                                {buttonText}
-                            </Typography>
-                        </Button>
-                        )}
-                    </Grid> */}
-
-
-                   
-
-                    
-                   
                 </Grid>
 
 
-                
+               
 
                     
 

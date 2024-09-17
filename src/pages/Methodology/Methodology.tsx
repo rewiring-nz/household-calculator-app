@@ -1,76 +1,26 @@
-import React from 'react';
-import { AppBar, Box, IconButton, styled, Toolbar, Typography, useTheme } from "@mui/material"
+import React, { useEffect } from 'react';
+import { Box, IconButton, styled, Typography, useTheme } from "@mui/material"
 import { Link as RouterLink } from 'react-router-dom';
-import ArrowBackIcon from '../../assets/icons/arrow-back.svg';
-import CloseIcon from '../../assets/icons/x-window1.svg';
+import { ReactComponent as ArrowBackIcon } from '../../assets/icons/arrow-back.svg';
+import { ReactComponent as CloseIcon } from '../../assets/icons/x-window1.svg';
 
 
 
 
-
-const MethodParagraph = styled(Typography)(({ theme }) => ({
-    maxWidth: '40rem',
-  }));
+const MethodParagraph = styled(Typography)(() => ({
+  maxWidth: '40rem',
+}));
 
 
 
 const Methodology: React.FC = () => {
     const theme = useTheme();
 
-    // const handleBack = () => {
-    //   // Handle back action
-    // };
-  
-    // const handleClose = () => {
-    //   // Handle close action
-    // };
+    useEffect(() => {
+      // Scroll to the top when the component is mounted
+      window.scrollTo(0, 0);
+    }, []);
 
-
-    // return (
-    //     <div>
-    //         <AppBar position="static">
-    //             <Toolbar
-    //                 sx={{
-    //                     backgroundColor: 'transparent',
-    //                     color: theme.palette.text.secondary,
-    //                     boxShadow: 'none'
-    //                 }}
-    //                 >
-    //             <div style={{ display: 'flex', alignItems: 'center' }}>
-    //                 <IconButton
-    //                 edge="start"
-    //                 color="inherit"
-    //                 component={RouterLink}
-    //                 to="/"
-    //                 aria-label="back"
-    //                 >
-    //                 <img src={ArrowBackIcon} alt="Back" />
-    //                 </IconButton>
-    //                 <Typography
-    //                 variant="h6"
-    //                 component={RouterLink}
-    //                 to="/"
-    //                 sx={{ textDecoration: 'none', color: 'inherit', marginLeft: '8px' }}
-    //                 >
-    //                 Back
-    //                 </Typography>
-    //             </div>
-    //             <IconButton 
-    //                 edge="end" 
-    //                 color="inherit"
-    //                 component={RouterLink} 
-    //                 to="/"
-    //                 aria-label="close">
-    //                 {/* <CloseIcon /> */}
-    //                 <img src={CloseIcon} alt="Close" />
-    //             </IconButton>
-    //             </Toolbar>
-    //         </AppBar>
-    //         <div>
-    //             Methodology
-    //         </div>
-    //     </div>
-    // )
     return (
         <div>
 
@@ -90,8 +40,13 @@ const Methodology: React.FC = () => {
               component={RouterLink}
               to="/"
               aria-label="back"
-            >
-              <img src={ArrowBackIcon} alt="Back" />
+              >
+              <ArrowBackIcon 
+                style={{
+                  width: '1.5rem',
+                  height: '1.5rem'
+                }}
+                />
             </IconButton>
             <Typography
               variant="h6"
@@ -108,19 +63,19 @@ const Methodology: React.FC = () => {
                 component={RouterLink} 
                 to="/"
                 aria-label="close">
-                <img src={CloseIcon} alt="Close" />
+                <CloseIcon 
+                  style={{
+                    width: '1.5rem',
+                    height: '1.5rem'
+                  }}
+                  />
             </IconButton>
         </div>
 
         <Box className="content"
             sx={{
-                // display: 'flex',
-                // gap: '1rem',
-                // flexWrap: 'wrap',
-                // justifyContent: 'center'
                 maxWidth: '30rem',
                 padding: '1rem',
-                // margin: '2.5rem auto',
                 [theme.breakpoints.up('sm')]: {
                     maxWidth: '35rem',
                     margin: '2.5rem auto',
@@ -145,8 +100,6 @@ const Methodology: React.FC = () => {
             sx={{
                 display: 'flex',
                 gap: '1rem',
-                // flexWrap: 'wrap',
-                // justifyContent: 'center'
                 flexDirection: 'column',
                 [theme.breakpoints.up('md')]: {
                     flexDirection: 'row',

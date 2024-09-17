@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../../assets/logos/RewiringAotearoa_logo.svg';
 import { useTheme } from '@mui/material/styles';
 import HouseholdForm from '../../components/HouseholdForm/HouseholdForm';
@@ -6,7 +6,8 @@ import HouseholdSavings from '../../components/HouseholdSavings/HouseholdSavings
 import { Box,Typography, useMediaQuery } from '@mui/material';
 import useHouseholdData from 'src/hooks/useHouseholdData/useHouseholdData';
 import { cooktopMapping, spaceHeatingMapping, waterHeatingMapping } from 'src/components/HouseholdForm/data/householdForm.text';
-import MobileSavingsDrawer from 'src/components/MobileSavingsDrawer';
+import MobileSavingsDrawer from 'src/components/MobileSavingsDrawer/MobileSavingsDrawer';
+import { useDrawer } from 'src/components/MobileSavingsDrawer/DrawerContext';
 
 
 
@@ -25,6 +26,28 @@ const Home: React.FC = () => {
     currentWaterHeater: householdData?.waterHeating ? waterHeatingMapping[householdData?.waterHeating] : '',
     currentCooktop: householdData?.cooktop ? cooktopMapping[householdData?.cooktop] : '',
   };
+
+  // -----------------------------------------------------------
+  // Drawer
+  const { drawerOpen, toggleDrawer, scrollPosition, setScrollPosition } = useDrawer();
+
+  useEffect(() => {
+    window.scrollTo(0, scrollPosition);
+  }, [scrollPosition]);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [setScrollPosition]);
+  // -----------------------------------------------------------
+
 
   return (
     <Box className="Home"
@@ -126,7 +149,13 @@ const Home: React.FC = () => {
 
         {/* Home Savings Mobile */}
         {isMobile && (
-          <MobileSavingsDrawer appliances={appliances} results={savingsData} loadingData={loadingData} />
+          <MobileSavingsDrawer
+            appliances={appliances}
+            results={savingsData}
+            loadingData={loadingData}
+            drawerOpen={drawerOpen}
+            toggleDrawer={toggleDrawer}
+          />
         )}
         {/* ----------------------------------------------------------- */}
         
