@@ -325,8 +325,19 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
         <Typography variant="h3">Dwelling</Typography>
 
-        <FormSectionFlex theme={theme} className='FormSectionFlex'>
-        <FormControl 
+        <FormSectionFlex theme={theme} className='FormSectionFlex'
+          sx={{
+            '& .MuiFormControl-root': {
+              width: '100%',
+              flex: '1 1 100%',
+              [theme.breakpoints.up('sm')]: {
+                flex: '1 1 calc(50% - 1rem)',
+                maxWidth: 'calc(50% - 1rem)',
+              }
+            }          
+          }}
+          >
+          <FormControl 
               className="fullFormControl"
               error={!!errors.location}>
           <LabelBox>
@@ -422,7 +433,18 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
-        <FormSectionFlex theme={theme} className='FormSectionFlex'>
+        <FormSectionFlex theme={theme} className='FormSectionFlex'
+          sx={{
+            '& .MuiFormControl-root': {
+              width: '100%',
+              flex: '1 1 100%',
+              [theme.breakpoints.up('sm')]: {
+                flex: '1 1 calc(33.33% - 1rem)',
+                maxWidth: 'calc(33.33% - 1rem)',
+              }
+            }           
+          }}
+          >
         <FormControl 
               className="fullFormControl"
               error={!!errors.spaceHeating}>

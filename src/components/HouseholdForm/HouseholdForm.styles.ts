@@ -45,27 +45,28 @@ export const FormSectionFlex = styled(Box)(( { theme }: { theme: Theme }) => ({
   margin: '0.4rem 0',
   display: 'flex',
   width: '100%',
-  gap: '2rem',
+  gap: '1rem',
+  justifyContent: 'space-between',
   flexWrap: 'wrap', // Ensure items wrap when they exceed the available space
-  // '& > *': {
-  '& .MuiFormControl-root': {
-    // flex: '1 1 auto', // Allow items to grow and shrink as needed
-    // minWidth: 'fit-content', // Ensure items have a minimum width of fit-content
-    width: 'clamp(200px, auto, calc(50% - 1rem))', // Use clamp to set min, preferred, and max width
-    // maxWidth: 'calc(50% - 1rem)', // Ensure items don't exceed half width minus gap
-    maxWidth: '100%',
-    // whiteSpace: 'nowrap', // Ensure no line breaks
-    // [theme.breakpoints.up('sm')]: {
-    //   flex: '1 1 calc(50% - 1rem)', // Allow items to grow and shrink, default to half width minus gap on larger screens
-    //   maxWidth: 'calc(50% - 1rem)', // Ensure items don't exceed half width minus gap on larger screens
-    // },
-    // '& > *:first-child': {
-    //   minWidth: 'fit-content', // Ensure the first child has a minimum width of fit-content
-    // },
-  },
-  // '& MuiFormLabel-root': {
-  //   whiteSpace: 'nowrap',
-  // }
+  // // '& > *': {
+  // '& .MuiFormControl-root': {
+  //   // flex: '1 1 auto', // Allow items to grow and shrink as needed
+  //   // minWidth: 'fit-content', // Ensure items have a minimum width of fit-content
+  //   width: 'clamp(200px, auto, calc(50% - 1rem))', // Use clamp to set min, preferred, and max width
+  //   // maxWidth: 'calc(50% - 1rem)', // Ensure items don't exceed half width minus gap
+  //   maxWidth: '100%',
+  //   // whiteSpace: 'nowrap', // Ensure no line breaks
+  //   // [theme.breakpoints.up('sm')]: {
+  //   //   flex: '1 1 calc(50% - 1rem)', // Allow items to grow and shrink, default to half width minus gap on larger screens
+  //   //   maxWidth: 'calc(50% - 1rem)', // Ensure items don't exceed half width minus gap on larger screens
+  //   // },
+  //   // '& > *:first-child': {
+  //   //   minWidth: 'fit-content', // Ensure the first child has a minimum width of fit-content
+  //   // },
+  // },
+  // // '& MuiFormLabel-root': {
+  // //   whiteSpace: 'nowrap',
+  // // }
 }));
 
 export const FormSectionGrid = styled(Box)(( { theme }: { theme: Theme }) => ({
