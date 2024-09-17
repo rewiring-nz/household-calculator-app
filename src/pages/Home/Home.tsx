@@ -145,7 +145,7 @@ const Home: React.FC = () => {
       {/* Home Footer */}
       <Box className="Home-footer"
         sx={{
-          padding: '1rem',
+          padding: '1rem 1rem 5rem 1rem',
           position: 'relative',
           display: 'flex',
           backgroundColor: theme.palette.background.default,
