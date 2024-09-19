@@ -20,7 +20,7 @@ import { Savings, UpfrontCost } from '../../shared/api/openapi-client';
 import { electricVehicleURL } from 'src/shared/links';
 import { recommendationActions } from './data/RecommendationActions';
 
-import { formatKgs, formatNZD } from 'src/shared/utils/formatters';
+import { formatKgs, formatNZD, formatSavingsNZD } from 'src/shared/utils/formatters';
 import { SavingsFrameBox } from './HouseholdSavings.styles';
 
 
@@ -157,12 +157,12 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
 
                 <ResultBox 
                     label="Energy Bill" 
-                    heading={`${formatNZD(results?.opex?.perWeek?.difference, 2)} per week`} 
+                    heading={`${formatSavingsNZD(results?.opex?.perWeek?.difference, 2)} per week`} 
                     >   
                     <Typography variant="body1">
                         on energy bills. That's 
                         <span style={{ fontWeight: '600' }}>
-                           {` ${formatNZD(results?.opex?.perYear?.difference, 0)} per year.`}
+                           {` ${formatSavingsNZD(results?.opex?.perYear?.difference, 0)} per year.`}
                         </span>
                     </Typography>
                 </ResultBox>                    

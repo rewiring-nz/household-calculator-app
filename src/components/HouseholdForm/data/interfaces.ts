@@ -19,31 +19,16 @@ import { VehicleOptionType } from "./householdForm.text";
 export type UsageType =  'Low' | 'Medium' | 'High' ;
 
 
-export interface UsageOptions {
-    // name:  'Low' | 'Medium' | 'High' ;
-    type:  UsageType
+export interface UsageOption {
+    type: UsageType;
     value: number;
     unit: '< 100 km/wk' | '100-300 km/wk' | '300+ km/wk' | string;
 }
 
-
-// export interface VehicleOptions {
-//     amount: OptionNumber[];
-//     // fuelType: Option[];
-//     fuelType: {
-//         value: VehicleFuelTypeEnum;
-//         text: string;
-//     }[];
-//     usageOptionsList: UsageOptions[];
-// }
 export interface VehicleOptions {
     amount: OptionNumber[];
-    fuelType: Option<VehicleFuelTypeEnum>[];
-    usageOptionsList: {
-        type: string;
-        value: number;
-        unit: string;
-    }[];
+    fuelTypeOptions: Option<VehicleFuelTypeEnum>[];
+    usageOptions: UsageOption[]; // Use UsageOption interface here
 }
 
 
@@ -68,14 +53,14 @@ export interface HouseholdFormState {
     solar: {
         hasSolar: boolean;
         size: number;
-        installSolar: boolean | null;
+        installSolar: boolean | undefined;
         // dontWantSolar: boolean; // if true, then installSolar is false. Question logic different, gets changed before POST request.
         unit?: string;
     };
     battery: {
         hasBattery: boolean;
         capacity: number;
-        installBattery: boolean | null;
+        installBattery: boolean | undefined;
         // dontWantBattery: boolean; // if true, then installBattery is false. Question logic different, gets changed before POST request.
         unit?: string;
     };

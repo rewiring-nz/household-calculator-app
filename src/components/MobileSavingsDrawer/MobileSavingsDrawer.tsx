@@ -4,7 +4,7 @@ import HouseholdSavings from '../HouseholdSavings';
 import { ReactComponent as ChevronDown} from 'src/assets/icons/chevron-down.svg';
 import { ReactComponent as ChevronUp} from 'src/assets/icons/chevron-up.svg';
 import { SavingsProps } from '../HouseholdSavings/HouseholdSavings';
-import { formatNZD } from 'src/shared/utils/formatters';
+import { formatNZD, formatSavingsNZD } from 'src/shared/utils/formatters';
 import { useDrawer } from './DrawerContext';
 
 export interface SavingsDrawerProps extends SavingsProps {
@@ -12,7 +12,8 @@ export interface SavingsDrawerProps extends SavingsProps {
     toggleDrawer: () => void;
 }
 
-const drawerBleeding = 56; // 56px is the height of the toolbar
+const drawerToolbarHeight = 56; 
+const overlap = 4;
 
 
 const StyledBox = styled('div')(({ theme }) => ({
@@ -40,22 +41,21 @@ const MobileSavingsDrawer = (savings: SavingsDrawerProps) => {
             open={drawerOpen}
             onClose={toggleDrawer}
             onOpen={toggleDrawer}
-            swipeAreaWidth={drawerBleeding}
+            swipeAreaWidth={drawerToolbarHeight}
             disableSwipeToOpen={false}
             ModalProps={{
                 keepMounted: true,
             }}
             sx={{
                 '& .MuiDrawer-paper': {
-                    height: drawerOpen ? `calc(100% - ${drawerBleeding}px)` : `calc(50% - ${drawerBleeding}px)`,
+                    height: drawerOpen ? `calc(100% - ${drawerToolbarHeight}px)` : `calc(50% - ${drawerToolbarHeight}px)`,
                     overflow: 'visible',
                     visibility: 'visible',
                     transition: 'height 0.3s',
                     // pointerEvents: 'auto',
+                    // boxShadow: '0px -12px 10px rgba(0, 0, 0, 0.2)'
                 },
                 // '& .MuiPaper-root': {
-                //     pointerEvents: 'auto',
-                //     visibility: 'visible',
                 // },
             }}
             >
@@ -64,16 +64,17 @@ const MobileSavingsDrawer = (savings: SavingsDrawerProps) => {
                 theme={theme} 
                 sx={{
                     position: 'fixed',
-                    top: drawerOpen ? 0 : -drawerBleeding,
+                    top: drawerOpen ? 0 : -drawerToolbarHeight,
                     bottom: drawerOpen ? 'auto' : 0,
                     right: 0,
                     left: 0,
                     visibility: 'visible',
                     display: 'flex',
-                    height: drawerBleeding,
+                    height: drawerToolbarHeight + overlap,
                     padding: '0 1.2rem',
                     justifyContent: 'space-between',
                     zIndex: 1300,
+                    boxShadow: drawerOpen ? 'none' : '0px -9px 17px rgba(0, 0, 0, 0.2)'
                 }}
                 >
                 <Box 
@@ -91,7 +92,7 @@ const MobileSavingsDrawer = (savings: SavingsDrawerProps) => {
                         >
                         Your Savings</Typography>
                     <Typography variant="body1">
-                        ({formatNZD(savings.results?.opex?.perWeek?.difference)} /wk)
+                        ({formatSavingsNZD(savings.results?.opex?.perWeek?.difference)} /wk)
                     </Typography>
                 </Box>
 

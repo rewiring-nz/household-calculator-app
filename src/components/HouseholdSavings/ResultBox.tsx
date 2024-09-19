@@ -40,7 +40,10 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
             <Typography variant="h6" sx={{ textTransform: 'uppercase' }}>
                 {label}
             </Typography>
-            <Typography variant="h2">
+            <Typography variant="h2"
+                sx={{
+                    margin: '0.8rem 0 0.2rem 0'
+                }}>
                 {heading}
             </Typography>
             {bulletPoints && (
@@ -48,7 +51,8 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
                     component="ul"
                     sx={{
                         listStyleType: 'disc',
-                        paddingLeft: '1.5rem'
+                        paddingLeft: '1.5rem',
+                        marginBottom: '1.5rem'
                     }}
                 >
                     {bulletPoints.map((point, i) => (
@@ -56,8 +60,13 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
                             key={i}
                             component="li"
                             variant="body2"
+                            sx={{
+                                lineHeight: '1.5rem' 
+                            }}
                             >
-                            <span style={{ fontWeight: 'bold' }}>
+                            <span style={{ 
+                                fontWeight: 'bold',
+                                }}>
                                 {point.label}: 
                             </span>
                             {formatNZD(point.value)}

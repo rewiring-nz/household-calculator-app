@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box, FormControl, FormHelperText, IconButton, MenuItem, Select, Typography, useTheme, Accordion, AccordionSummary, AccordionDetails, Switch, FormLabel, Button  } from '@mui/material';
-import { Option, VehicleObject, UsageOptions, UsageType } from '../data/interfaces';
+import { Box, FormControl, FormHelperText, IconButton, MenuItem, Select, Typography, useTheme, Accordion, AccordionSummary, AccordionDetails, Switch, FormLabel, Button, SelectChangeEvent  } from '@mui/material';
+import { Option, VehicleObject, UsageType, UsageOption } from '../data/interfaces';
 import deleteIcon from 'src/assets/icons/x-window.svg';
 import { FDivider } from 'src/shared/styles/FDivider';
 import { HouseSwitch } from './HouseSwitch';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm, useFormContext } from 'react-hook-form';
 // import { VehicleOptionType } from '../data/householdForm.text';
 import { VehicleFuelTypeEnum } from 'src/shared/api/openapi-client';
 import { SwitchLabel } from '../HouseholdForm.styles';
@@ -14,33 +14,36 @@ import chevronUp from 'src/assets/icons/chevron-up.svg';
 
 interface VehicleBoxProps extends VehicleObject {
     index: number;
+    id: number;
     errors: any;
-    register: any;
-    fuelTypes: Option<VehicleFuelTypeEnum>[];
-    // fuelTypes: VehicleOptionType[];
+    register: any;    
+    control: any;
+    fuelTypeOptions: Option<VehicleFuelTypeEnum>[];
     onDelete: (index: number) => void;
-    usageOptionsList: UsageOptions[];
-    // defaultObject: VehicleObject;
+    usageOptions: UsageOption[];
     defaultType: UsageType;
-    // showDetails: boolean;
-    
+    defaultChecked: boolean;
 }
 
-const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageOptionsList, index, register, errors, onDelete, defaultType }) => {
+const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypeOptions, usageOptions, index, register, control, errors, onDelete, defaultType, defaultChecked }) => {
     const theme = useTheme();
     const { setValue } = useForm();
+    // const { setValue, getValues, control } = useFormContext();
     // console.log("VehicleBox usageOptionsList:", usageOptionsList);
     // console.log("VehicleBox defaultType:", defaultType);
     const [selectedUsageName, setSelectedUsageName] = useState<string | undefined>(undefined);
-    // const usageMap = new Map<string, Usage>(usageOptions.map((option: Usage) => [option.name, option]));
     const [showDetails, setShowDetails] = useState(false);
 
 
 
-    const handleUsageChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        const selectedValue = event.target.value as string;
-        setSelectedUsageName(selectedValue);
-        setValue(`vehicleObjs.${index}.usage`, selectedValue, { shouldValidate: true });
+    // const handleUsageChange = (event: SelectChangeEvent<UsageType>) => {
+    //     const selectedValue = event.target.value as UsageType;
+    //     setSelectedUsageName(selectedValue);
+    //     setValue(`vehicleObjs.${index}.usageType`, selectedValue, { shouldValidate: true });
+    // };
+    const handleUsageTypeChange = (selectedType: UsageType) => {
+        setSelectedUsageName(selectedType);
+        setValue(`vehicleObjs.${index}.usageType`, selectedType, { shouldValidate: true});
     };
 
 
@@ -57,22 +60,15 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
         <Box className="VehicleBox"
             sx={{
                 padding: '1rem 1rem',
-                borderWidth: '1px', //'0.1rem', // 1.6px
-                // borderRadius: '0.5rem', // 0.5rem = 8 '0.25rem',
+                borderWidth: '1px',
                 borderRadius: theme.shape.borderRadius + 'px',
                 borderStyle: 'solid',
                 borderColor: theme.palette.primary.dark,
                 flexBasis: '100%',
                 maxWidth: '100%',
-                // height: showDetails ? '13.2rem' : 'auto',
                 overflow: 'hidden',
-                // [theme.breakpoints.up('sm')]: {
-                //   flexBasis: 'calc(50% - 3rem)', // 2 columns on medium and up screens
-                //   maxWidth: 'calc(50% - 3rem)'
-                // } 
             }}
-            >
-            
+            >            
             <Box className="VehicleBox-header"
                 sx={{
                     display: 'flex',
@@ -83,28 +79,21 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                 <Typography 
                     variant="h4" 
                     sx={{ 
-                        // textTransform: 'uppercase',
                         flexGrow: 1,
                         flexBasis: '30%'
                     }}
                     >
-                    Car {id}
+                    {/* Car {id} */}
+                    Car {index + 1}
                 </Typography>
 
 
                 <FormControl className="VehicleBox-fuelType"
                     error={!!errors.vehicleObjs} 
-                    key={`Car-${id}`}
+                    key={`Car-${index + 1}`}
                     sx={{
-                        // width: '33%',
-                        // flexBasis: '33%',
                         margin: '0 0.5rem',
                         flexBasis: '50%',
-                        // '& .MuiFormControl-root': {
-                        //     width: '33%',
-                        //     flexBasis: '33%',
-                        //     margin: '0 0.5rem',
-                        // },
                     }}
                     size="small"
                     >
@@ -114,7 +103,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                         value={fuelType || ''}
                         {...register(`vehicleObjs.${index}.fuelType`, { required: true })}
                         >
-                        {fuelTypes.map((option: Option<VehicleFuelTypeEnum>) => (
+                        {fuelTypeOptions.map((option: Option<VehicleFuelTypeEnum>) => (
                             <MenuItem key={`fuelType-${option.value}`} value={option.value}>
                             {option.text}
                             </MenuItem>
@@ -127,8 +116,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                 <IconButton
                     aria-label="delete"
                     onClick={() => onDelete(index)}
-                    sx={{ 
-                        // position: 'absolute', top: '0.5rem', right: '0.5rem' 
+                    sx={{
                         flexBasis: '12%',
                         padding: '0',
                         '&:hover': {
@@ -152,24 +140,19 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
             <Box className="VehicleBox-subheader">
                 <Box className="VehicleBox-toggleBox"
                     sx={{
-                        display: 'flex',                        
-                        // [theme.breakpoints.up('sm')]: {
+                        display: 'flex',
                             flexDirection: 'row',
                             alignItems: 'center',
                             gap: '0.6rem',
-                            justifyContent: 'space-between',
-                        // } 
+                            justifyContent: 'space-between',                        
                         [theme.breakpoints.only('md')]: {
                             flexDirection: 'column-reverse',
                             gap: '0.6rem',
                             alignItems: 'start',
                             width: '100%',
-                            // margin: '1.3rem 0',
                         }
                     }}
                     >
-                    {/* <Button
-                        variant="text" */}
                     <Box
                         onClick={toggleDetails} 
                         sx={{ 
@@ -212,12 +195,26 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                     <SwitchLabel className="installSolar-label" theme={theme}>
                         Switch to EV
                     </SwitchLabel>
-                    <HouseSwitch
-                        defaultChecked
+                    {/* <HouseSwitch
                         size="small"
                         theme={theme}
                         {...register(`vehicleObjs.${index}.switchToEV`)}
-                    />
+                        // {...register(`vehicleObjs.${id}.switchToEV`)}
+                        // defaultChecked={defaultChecked}
+                        /> */}
+                        <Controller
+                            name={`vehicleObjs.${index}.switchToEV`}
+                            control={control}
+                            defaultValue={defaultChecked}
+                            render={({ field }) => (
+                            <HouseSwitch
+                                size="small"
+                                theme={theme}
+                                checked={field.value}
+                                onChange={(e) => field.onChange(e.target.checked)}
+                            />
+                            )}
+                        />
                     </FormControl>
                 </Box>
                 </Box>
@@ -243,7 +240,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                             },
                         }}
                         >
-                    <Select
+                    {/* <Select
                         labelId={`vehicles-usages-label-${index}`}
                         id={`vehicles-usages-${index}`}
                         value={selectedUsageName}
@@ -251,7 +248,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                         defaultValue={defaultType}
                         {...register(`vehicleObjs.${index}.usage`, { required: true })}
                         renderValue={(selectedType: UsageType) => {
-                        const selectedOption: UsageOptions | undefined = usageOptionsList.find(option => option.type === selectedType);
+                        const selectedOption: UsageOption | undefined = usageOptions.find((option: UsageOption) => option.type === selectedType);
                         return selectedOption ? (
                             <Typography variant="h5">
                             {selectedOption.type}
@@ -267,7 +264,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                         ) : '';
                         }}
                     >
-                        {usageOptionsList.map((option: UsageOptions) => (
+                        {usageOptions.map((option: UsageOption) => (
                         <MenuItem key={`usage-${option.unit}`} value={option.type}>
                             <Typography variant="h5">
                             {option.type}
@@ -282,13 +279,62 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({ id, fuelType, fuelTypes, usageO
                             </Typography>
                         </MenuItem>
                         ))}
-                    </Select>
+                    </Select> */}
+                     <Controller
+                    name={`vehicleObjs.${index}.usageType`}
+                    control={control}
+                    rules={{ required: true }}
+                    defaultValue={defaultType}
+                    render={({ field }) => (
+                        <Select
+                            labelId={`vehicles-usageType-label-${index}`}
+                            id={`vehicles-usageType-${index}`}
+                            value={field.value}
+                            onChange={(e) => {
+                                const selectedType = e.target.value as UsageType;
+                                field.onChange(e);
+                                handleUsageTypeChange(selectedType);
+                            }}
+                            renderValue={(selectedType: UsageType) => {
+                                const selectedOption: UsageOption | undefined = usageOptions.find((option: UsageOption) => option.type === selectedType);
+                                return selectedOption ? (
+                                    <Typography variant="h5">
+                                        {selectedOption.type}
+                                        <Typography component="span" 
+                                            sx={{
+                                                fontSize: '0.875rem',
+                                                color: theme.palette.text.secondary,
+                                            }}
+                                        >
+                                            {' ' + selectedOption.unit}
+                                        </Typography>
+                                    </Typography>
+                                ) : '';
+                            }}
+                        >
+                            {usageOptions.map((option: UsageOption) => (
+                                <MenuItem key={`usage-${option.unit}`} value={option.type}>
+                                    <Typography variant="h5">
+                                        {option.type}
+                                        <Typography component="span"
+                                            sx={{
+                                                fontSize: '0.875rem',
+                                                color: theme.palette.text.secondary,
+                                            }}
+                                        >
+                                            {' ' + option.unit}
+                                        </Typography>
+                                    </Typography>
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    )}
+                />
                     {errors.vehicleObjs && <FormHelperText>This field is required</FormHelperText>}
                     </FormControl>
                 </Box>
                 )}
             </Box>
-
 
           
             

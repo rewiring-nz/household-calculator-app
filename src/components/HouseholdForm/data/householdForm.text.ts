@@ -6,7 +6,15 @@ import {
     VehicleFuelTypeEnum,
      } from '../../../shared/api/openapi-client';
 
-import { HouseholdFormState, Option, OptionNumber, OptionYesNo, UsageOptions, UsageType, VehicleOptions } from './interfaces';
+import { 
+    HouseholdFormState, 
+    Option, 
+    OptionNumber, 
+    OptionYesNo, 
+    UsageOption, 
+    UsageType, 
+    VehicleOptions 
+} from './interfaces';
 
 
 
@@ -79,7 +87,7 @@ export const vehicleMapping: Record<VehicleFuelTypeEnum, string> = {
     [VehicleFuelTypeEnum.Diesel]: 'Diesel'
 };
 
-export const vehicleUsageOptions: UsageOptions[] = [
+export const vehicleUsageOptions: UsageOption[] = [
     { type: 'Low', value: 50, unit: '<100 km/wk' },
     { type: 'Medium', value: 200, unit: '100-300 km/wk' },
     { type: 'High', value: 400, unit: '300+ km/wk' }
@@ -163,10 +171,10 @@ export const vehicleOptions: VehicleOptions = {
     amount: Array.from(Array(6).keys()).map((amount) => (
         { value: amount, text: amount.toString() })
         ) as OptionNumber[],
-    fuelType: Object.entries(vehicleMapping).map(([key, value]) => (
+    fuelTypeOptions: Object.entries(vehicleMapping).map(([key, value]) => (
         {value: key as VehicleFuelTypeEnum, text: value}
         )) as Option<VehicleFuelTypeEnum>[],
-    usageOptionsList: [
+    usageOptions: [
         { type: 'Low', value: 50, unit: '< 100 km/wk' },
         { type: 'Medium', value: 200, unit: '100-300 km/wk' },
         { type: 'High', value: 400, unit: '300+ km/wk' }

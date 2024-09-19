@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm, FormProvider } from 'react-hook-form';
 
 
 
@@ -11,12 +11,12 @@ import { FDivider } from 'src/shared/styles/FDivider';
 
 // ----------------- Models & Interfaces -------------------
 import { CooktopEnum, Household, LocationEnum, SpaceHeatingEnum, Vehicle, VehicleFuelTypeEnum, WaterHeatingEnum } from '../../shared/api/openapi-client';
-import { HouseholdFormState, Option, OptionNumber, OptionYesNo, UsageType, VehicleObject } from './data/interfaces';
+import { HouseholdFormState, Option, OptionNumber, OptionYesNo, UsageOption, UsageType, VehicleObject } from './data/interfaces';
 
 
 // ----------------- Data -------------------
-import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
-import { formText, LocationOptionType } from './data/householdForm.text';
+// import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
+import { formText } from './data/householdForm.text';
 
 
 // ----------------- Icons -------------------
@@ -27,8 +27,8 @@ import { ReactComponent as chevronDown} from '../../assets/icons/chevron-down.sv
 // ----------------- Components -------------------
 import { FormBox, HalfWidthFormBox, FormContainer, FormSectionFlex, FormSectionGrid, ResetButton, tooltipPoppers, SwitchLabel, HouseSelect, HouseInputAdornment, LabelBox } from './HouseholdForm.styles';
 import VehicleBox from './components/HouseholdVehicle';
-import TooltipModal from './components/TooltipDialog';
-import TooltipDialog from './components/TooltipDialog';
+// import TooltipModal from './components/TooltipDialog';
+// import TooltipDialog from './components/TooltipDialog';
 import HouseholdTooltip from './components/HouseholdTooltip';
 import { HouseRadio } from './components/HouseCheckRadio';
 import { HouseSwitch } from './components/HouseSwitch';
@@ -45,7 +45,7 @@ interface HouseholdFormProps {
 
 const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHouseholdData }) => {
   const theme = useTheme();
-  
+  // const methods = useForm();
     
   const defaultFormData = formText.defaultFormState
 
@@ -162,26 +162,26 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
   useEffect(() => {
     const currentLength = fields.length;
+    console.log('HouseholdForm useEffect currentLength:', currentLength);
     const fuelTypes = Object.values(VehicleFuelTypeEnum);
 
     if (numberOfVehicles > currentLength) {
       for (let i = currentLength; i < numberOfVehicles; i++) {
-        console.log('HouseholdForm useEffect append vehicle:', { id: (i + 1), fuelType: fuelTypes[i % fuelTypes.length], usageType: 'Medium' as UsageType });
-        append({ 
-          id: (i + 1), 
-          fuelType: fuelTypes[i % fuelTypes.length], 
+        const newVehicle: VehicleObject = {
+          id: (i + 1) as number, 
+          // fuelType: fuelTypes[i % fuelTypes.length], // random fuel type
+          fuelType: VehicleFuelTypeEnum.Petrol, // 'PETROL'
           usageType: 'Medium' as UsageType,
           switchToEV: true
-        });
+        };
+        console.log('HouseholdForm useEffect newVehicle:', newVehicle);
+        append(newVehicle);
       }
     } else {
       for (let i = currentLength; i > numberOfVehicles; i--) {
         remove(i - 1);
       }
-    }
-
-    
-    
+    }    
   }, [numberOfVehicles, append, remove, fields.length]);
 
 
@@ -190,8 +190,18 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
     remove(index);
 
     if (numberOfVehicles && numberOfVehicles > 0) {
-      setValue('numberOfVehicles', numberOfVehicles - 1);
+      // setValue('numberOfVehicles', numberOfVehicles - 1);
+      setValue('numberOfVehicles', numberOfVehicles - 1, { shouldValidate: true, shouldDirty: true });
+    } else {
+      setValue('numberOfVehicles', 0, { shouldValidate: true, shouldDirty: true });
+      setValue('vehicleObjs', [], { shouldValidate: true, shouldDirty: true });
     }
+
+
+    // fields.forEach((field, index: number) => {
+    //   field.id = (index + 1) || 0;
+    // });
+
     console.log('HouseholdForm handleVehicleDelete numberOfVehicles:', numberOfVehicles);
     console.log('HouseholdForm vehicleObjs fields:', fields);    
   };
@@ -199,7 +209,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
   // This is used with onBlur to stop the form updating while the user is typing
-  const [numVehicles, setNumVehicles] = useState('2');
+  // const [numVehicles, setNumVehicles] = useState('2');
   const [batteryCapacity, setBatteryCapacity] = useState<number | string>(defaultFormData.battery.capacity);
   const [solarSize, setSolarSize] = useState<number | string>(defaultFormData.solar.size);
   // -------------------------------------------------------------------
@@ -239,7 +249,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
             .map((vehicle: VehicleObject) => {
               const vehicleOut: Vehicle = {
                 fuelType: vehicle.fuelType,
-                kmsPerWeek: formText.options.vehicle.usageOptionsList.find(option => 
+                kmsPerWeek: formText.options.vehicle.usageOptions.find((option: UsageOption) => 
                   option.type === vehicle.usageType )?.value ?? 200,
                 switchToEV: vehicle.switchToEV ?? false,
               };
@@ -292,6 +302,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
   // ------------------------------------
   return (
+      // <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
 
 
@@ -689,7 +700,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
         <FormSectionFlex theme={theme} className='FormSectionFlex'>
             <FormControl className="fullFormControl"
-              error={!!errors.solar}
+              error={!!errors.solar?.installSolar}
               sx={{
                   flexDirection: 'row',
                   alignItems: 'center',
@@ -705,11 +716,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                 rules={{ required: true }}
                 render={({ field }) => (
                   <HouseSwitch 
-                    {...field} 
-                    defaultChecked 
+                    {...field}
+                    checked={field.value}
+                    // disabled={disableSolarToggle}
                     size="small" 
                     theme={theme} 
-                    disabled={disableSolarToggle}
                     />
                 )}
               />
@@ -750,7 +761,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
               </HouseholdTooltip>
             </LabelBox>
 
-
             <Controller
                 name="solar.size"
                 control={control}
@@ -765,14 +775,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                     onChange={(e) => {
                       const numericValue = parseFloat(e.target.value);
                       if (numericValue >= 0 && numericValue <= 1000) {
-                        setSolarSize(isNaN(numericValue) ? 0 : numericValue);
-                        onChange(numericValue);
+                        setSolarSize(isNaN(numericValue) ? 0 : numericValue);                        
                       } else if (numericValue > 1000) {
                         setSolarSize(1000);
-                        onChange(1000);
                       } else {
                         setSolarSize(0);
-                        onChange(0);
                       }
                     }}
                     onBlur={() => {
@@ -864,7 +871,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
             <Box>
               <FormControl 
                   className="fullFormControl"
-                  error={!!errors.battery}>          
+                  error={!!errors.battery?.hasBattery}>     
                 <Controller
                   name="battery.hasBattery"
                   control={control}
@@ -888,7 +895,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                     </RadioGroup>
                   )}
                 />
-                {errors.battery && <FormHelperText>This field is required</FormHelperText>}
+                {errors.battery?.hasBattery && <FormHelperText>This field is required</FormHelperText>}
               </FormControl>
           </Box>        
         </FormSectionFlex>
@@ -897,7 +904,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         
         <FormSectionFlex theme={theme} className='FormSectionFlex'>        
             <FormControl className="fullFormControl"
-              error={!!errors.battery}
+              error={!!errors.battery?.installBattery}
               sx={{
                   flexDirection: 'row',
                   alignItems: 'center',
@@ -913,14 +920,16 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                 rules={{ required: true }}
                 render={({ field }) => (
                   <HouseSwitch
-                    {...field} 
-                    defaultChecked 
+                    {...field}
+                    checked={field.value}
+                    // disabled={disableBatteryToggle}                    
+                    // defaultChecked 
                     size="small" 
                     theme={theme}
-                    disabled={disableBatteryToggle}
                     />
                 )}
               />
+              {errors.battery?.installBattery && <FormHelperText>This field is required</FormHelperText>}
             </FormControl>
         </FormSectionFlex>
 
@@ -958,7 +967,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                     alt="logo"
                     onClick={handleOpenTooltip('batteryCapacity')}
                 />
-              </HouseholdTooltip>
+                </HouseholdTooltip>
           </LabelBox>
 
           <Controller
@@ -1078,6 +1087,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   IconComponent={chevronDown}
                   labelId="number-of-vehicles-label"
                   {...field}
+                  value={numberOfVehicles}
                 >                
                 {formText.options.vehicle.amount.map((option: OptionNumber) => (
                   <HouseMenuItem 
@@ -1092,35 +1102,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
               </HouseSelect>
                 )}
               />
-              {/* <Input type="number" {...register('numberOfVehicles', { required: true })} /> */}
-              {/* <Controller
-                name="numberOfVehicles"
-                control={control}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
-                  <TextField
-                    id="outlined-number"
-                    type="number"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    value={numVehicles}
-                    // value={numVehicles || value}
-                    onChange={(e) => {
-                      setNumVehicles(e.target.value);
-                      // onChange(e);
-                    }}
-                    onBlur={() => {
-                      onChange({ target: { value: numVehicles } });
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        onChange({ target: { value: numVehicles } });
-                      }
-                    }}
-                    inputRef={ref}
-                  />
-                )}
-              /> */}
               {errors.vehicleObjs && <FormHelperText>This field is required</FormHelperText>}
             </FormControl>
             </FormSectionFlex>
@@ -1148,16 +1129,20 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
               >      
                   
                 
-                {watchAllFields.vehicleObjs?.map((vehicle: any, index: number) => (
+                {watchAllFields.vehicleObjs?.map((vehicle: VehicleObject, index: number) => (
                   <VehicleBox key={`Car-${index}`} 
                     index={index} 
-                    id={index + 1}
+                    // id={index + 1}
+                    defaultChecked={true}
                     {...vehicle} 
-                    errors={errors} 
+                    // register={methods.register}
+                    // errors={methods.formState.errors}
+                    errors={errors}
                     register={register}
+                    control={control}
                     onDelete={() => handleVehicleDelete(index)}
-                    fuelTypes={formText.options.vehicle.fuelType} 
-                    usageOptionsList={formText.options.vehicle.usageOptionsList}
+                    fuelTypeOptions={formText.options.vehicle.fuelTypeOptions}
+                    usageOptions={formText.options.vehicle.usageOptions}
                     defaultType={'Medium'}
                     />                  
                 ))}
@@ -1170,9 +1155,10 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
           </FormBox>
 
         </FormContainer>      
-
+ 
       </form>
   );
+  {/* </FormProvider> */} 
 };
 
 export default HouseholdForm;

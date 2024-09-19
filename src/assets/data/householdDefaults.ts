@@ -20,12 +20,12 @@ export const defaultHouseholdData: Household = {
         {
             fuelType: VehicleFuelTypeEnum.Hybrid,
             kmsPerWeek: 200,
-            switchToEV: false
+            switchToEV: true
         },
         {
             fuelType: VehicleFuelTypeEnum.Petrol,
             kmsPerWeek: 50,
-            switchToEV: false
+            switchToEV: true
         }
     ],
     solar: {
