@@ -176,6 +176,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         };
         console.log('HouseholdForm useEffect newVehicle:', newVehicle);
         append(newVehicle);
+        // setValue(`vehicleObjs.${i}`, newVehicle, { shouldValidate: true, shouldDirty: true });
+        setValue('vehicleObjs',  [...fields, newVehicle], { shouldValidate: true, shouldDirty: true });
+        
       }
     } else {
       for (let i = currentLength; i > numberOfVehicles; i--) {
@@ -192,6 +195,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
     if (numberOfVehicles && numberOfVehicles > 0) {
       // setValue('numberOfVehicles', numberOfVehicles - 1);
       setValue('numberOfVehicles', numberOfVehicles - 1, { shouldValidate: true, shouldDirty: true });
+      setValue('vehicleObjs', fields.filter((field) => field !== fields[index]), { shouldValidate: true, shouldDirty: true });
     } else {
       setValue('numberOfVehicles', 0, { shouldValidate: true, shouldDirty: true });
       setValue('vehicleObjs', [], { shouldValidate: true, shouldDirty: true });
@@ -205,6 +209,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
     console.log('HouseholdForm handleVehicleDelete numberOfVehicles:', numberOfVehicles);
     console.log('HouseholdForm vehicleObjs fields:', fields);    
   };
+
+  // -------------------------------------------------------------------
+
 
 
 
