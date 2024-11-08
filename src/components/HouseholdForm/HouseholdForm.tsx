@@ -275,10 +275,10 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         };
 
         if (formValue.solar?.hasSolar && householdDataOut.solar) {
-          householdDataOut.solar.installSolar = null;
+          householdDataOut.solar.installSolar = undefined;
         }
         if (formValue.battery.hasBattery && householdDataOut.battery) {
-          householdDataOut.battery.installBattery = null;
+          householdDataOut.battery.installBattery = undefined;
         }
 
         console.log('HouseholdForm watch householdDataOut:', householdDataOut);
