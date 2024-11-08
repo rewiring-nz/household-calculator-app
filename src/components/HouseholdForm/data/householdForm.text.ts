@@ -74,7 +74,6 @@ export const cooktopMapping: Record<CooktopEnum, string> = {
     [CooktopEnum.ElectricResistance]: 'Electric resistive/Ceramic',
     [CooktopEnum.Gas]: 'Piped/ducted gas',
     [CooktopEnum.Lpg]: 'Bottled LPG',
-    [CooktopEnum.Wood]: 'Wood',
     [CooktopEnum.ElectricInduction]: 'Induction', // NB error in api, needs updating to Induction
     [CooktopEnum.DontKnow]: 'Not sure'
 };
