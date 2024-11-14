@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect';
 // describe('HouseholdForm', () => {
 //   test('renders the form correctly', () => {
 //     render(<HouseholdForm />);
-//     expect(screen.getByText('Dwelling')).toBeInTheDocument();
+//     expect(screen.getByText('Your home')).toBeInTheDocument();
 //   });
 
 //   test('submits the form', () => {

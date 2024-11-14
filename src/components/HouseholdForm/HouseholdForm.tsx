@@ -341,7 +341,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
         <FDivider />
 
 
-        <Typography variant="h3">Dwelling</Typography>
+        <Typography variant="h3">Your home</Typography>
 
         <FormSectionFlex theme={theme} className='FormSectionFlex'
           sx={{
@@ -442,7 +442,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
-        <Typography variant="h3">Appliances</Typography>
+        <Typography variant="h3">Your household appliances</Typography>
 
 
 
