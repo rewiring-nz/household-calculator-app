@@ -1,21 +1,26 @@
-.Home {
-    text-align: left;
-    background-color: #FDFAF1;
-  }
+.Home-logos {
+  margin-bottom: 1.2rem;
+  height: 64px;
+  display: flex;
+  flex-direction: row;
+}
 
-  .Home-logo {
-    max-width: 38vw;
-    margin-bottom: 1.1rem;
-  }
+.Home-logo {
+  max-width: 38vw;
+  margin-bottom: 0;
+}
 
-  .Home-header {
-    background-color: #FDFAF1;
-    min-height: 10vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: black;
-  }
+#rewiring-logo {
+  margin: auto 1.5rem auto 0;
+}
 
+#asb-logo {
+  height: 45%;
+  margin: auto 0 auto 1.8rem;
+}
+
+#Home-logo-keyline {
+  border-color: black;
+  height: 80%;
+  margin: auto 0;
+}

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import rewiringLogo from '../../assets/logos/rewiring_full_logo.svg';
-import asbLogo from '../../assets/logos/asb_logo.svg';
+import rewiringLogo from "../../assets/logos/rewiring_full_logo.svg";
+import asbLogo from "../../assets/logos/asb_logo.svg";
 import { useTheme } from "@mui/material/styles";
 import HouseholdForm from "../../components/HouseholdForm/HouseholdForm";
 import HouseholdSavings from "../../components/HouseholdSavings/HouseholdSavings";
-import { Box, Link, Typography, useMediaQuery } from "@mui/material";
+import { Box, Divider, Link, Typography, useMediaQuery } from "@mui/material";
 import useHouseholdData from "src/hooks/useHouseholdData/useHouseholdData";
 import {
   cooktopMapping,
@@ -13,6 +13,7 @@ import {
 } from "src/components/HouseholdForm/data/householdForm.text";
 import MobileSavingsDrawer from "src/components/MobileSavingsDrawer/MobileSavingsDrawer";
 import { useDrawer } from "src/components/MobileSavingsDrawer/DrawerContext";
+import "./Home.css";
 
 const Home: React.FC = () => {
   const theme = useTheme();
@@ -129,19 +130,30 @@ const Home: React.FC = () => {
             },
           }}
         >
-          <Link
-            href="https://rewiring.nz/"
-            aria-label="Go to Rewiring Aotearoa home page"
-          >
+          <Box className="Home-logos">
+            <Box id="rewiring-logo">
+              <Link
+                href="https://rewiring.nz/"
+                aria-label="Go to Rewiring Aotearoa home page"
+              >
+                <img
+                  src={rewiringLogo}
+                  className="Home-logo"
+                  alt="Rewiring Aotearoa logo"
+                  style={{
+                    marginBottom: "1.2rem",
+                  }}
+                />
+              </Link>
+            </Box>
+            <Divider id="Home-logo-keyline" orientation="vertical" flexItem />
             <img
-              src={rewiringLogo}
+              src={asbLogo}
               className="Home-logo"
-              alt="Rewiring Aotearoa logo"
-              style={{
-                marginBottom: "1.2rem",
-              }}
+              id="asb-logo"
+              alt="ASB logo"
             />
-          </Link>
+          </Box>
 
           <Typography
             variant="h1"
