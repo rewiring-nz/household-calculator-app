@@ -157,7 +157,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
 
                 <ResultBox 
                     label="Energy Bill" 
-                    heading={`${formatSavingsNZD(results?.opex?.perWeek?.difference, 2)} per week`} 
+                    heading={`${formatSavingsNZD(results?.opex?.perWeek?.difference, 2)} saved per week`} 
                     >   
                     <Typography variant="body1">
                         on energy bills. That's 
@@ -171,10 +171,10 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                 
                 <ResultBox 
                     label="Co2 Emissions" 
-                    heading={`${(results?.emissions?.perWeek?.difference || 0) *-1} % of emissions`}
+                    heading={`${(results?.emissions?.perWeek?.difference || 0) *-1}% saved`}
                     >   
                     <Typography variant="body1">                    
-                        <span style={{ fontWeight: '600' }}>
+                        That's <span style={{ fontWeight: '600' }}>
                             {/* {`${formatTonnes(results?.emissions?.perYear?.difference)} tonnes `} */}
                             {formatKgs(results?.emissions?.perYear?.difference)}
                         </span> 

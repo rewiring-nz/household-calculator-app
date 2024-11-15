@@ -637,7 +637,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
-        <Typography variant="h3">Solar</Typography>
+        <Typography variant="h3">Solar panels</Typography>
 
 
 
@@ -752,7 +752,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
               className="fullFormControl"
               error={!!errors.solar?.size}>
             <LabelBox>
-              <FormLabel className='mainLabels'>What size?</FormLabel>
+              <FormLabel className='mainLabels'>What size of solar panel power output?</FormLabel>
               <HouseholdTooltip 
                 title={tooltipText.solarSize} 
                 placement="top"
@@ -961,7 +961,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
               className="fullFormControl"
               error={!!errors.battery?.capacity}>
           <LabelBox>          
-            <FormLabel className='mainLabels'>What size?</FormLabel>
+            <FormLabel className='mainLabels'>What battery capacity?</FormLabel>
             <HouseholdTooltip 
                 title={tooltipText.batteryCapacity} 
                 placement="top"
