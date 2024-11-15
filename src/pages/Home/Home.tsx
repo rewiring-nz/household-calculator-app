@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import logo from "../../assets/logos/RewiringAotearoa_logo.svg";
+import rewiringLogo from '../../assets/logos/rewiring_full_logo.svg';
+import asbLogo from '../../assets/logos/asb_logo.svg';
 import { useTheme } from "@mui/material/styles";
 import HouseholdForm from "../../components/HouseholdForm/HouseholdForm";
 import HouseholdSavings from "../../components/HouseholdSavings/HouseholdSavings";
@@ -133,7 +134,7 @@ const Home: React.FC = () => {
             aria-label="Go to Rewiring Aotearoa home page"
           >
             <img
-              src={logo}
+              src={rewiringLogo}
               className="Home-logo"
               alt="Rewiring Aotearoa logo"
               style={{
