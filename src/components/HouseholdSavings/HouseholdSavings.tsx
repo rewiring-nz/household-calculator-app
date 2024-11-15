@@ -4,7 +4,7 @@ import MailchimpForm from '../MailChimpForm/MailChimpForm';
 
 
 // ----------------- Styles & Material UI -------------------
-import { Box, Button, Typography, useTheme, Link, Tooltip, styled, Grid, useMediaQuery } from '@mui/material';
+import { Box, Button, Typography, useTheme, Link, Grid, useMediaQuery } from '@mui/material';
 import { FDivider } from 'src/shared/styles/FDivider';
 
 
@@ -16,11 +16,11 @@ import { ReactComponent as OpenIcon } from 'src/assets/icons/open-outline.svg';
 
 
 // ----------------- Models & Interfaces -------------------
-import { Savings, UpfrontCost } from '../../shared/api/openapi-client';
+import { Savings } from '../../shared/api/openapi-client';
 import { electricVehicleURL } from 'src/shared/links';
 import { recommendationActions } from './data/RecommendationActions';
 
-import { formatKgs, formatNZD, formatSavingsNZD } from 'src/shared/utils/formatters';
+import { formatKgs, formatSavingsNZD } from 'src/shared/utils/formatters';
 import { SavingsFrameBox } from './HouseholdSavings.styles';
 
 
@@ -65,15 +65,6 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
         console.log("HouseholdSavings useEffect upfrontCostTotal:", total);
         console.log("HouseholdSavings useEffect loadingData:", loadingData);
     }, [ results, loadingData ]);
-
-
-
-    const getApplianceCost = (upfrontCost: UpfrontCost | undefined): number => {
-        const spaceHeating = upfrontCost?.spaceHeating || 0;
-        const waterHeating = upfrontCost?.waterHeating || 0;
-        const cooktop = upfrontCost?.cooktop || 0;
-        return spaceHeating + waterHeating + cooktop;        
-    };
 
 
 

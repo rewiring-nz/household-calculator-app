@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import logo from '../../assets/logos/RewiringAotearoa_logo.svg';
 import { useTheme } from '@mui/material/styles';
 import HouseholdForm from '../../components/HouseholdForm/HouseholdForm';
 import HouseholdSavings from '../../components/HouseholdSavings/HouseholdSavings';
-import { Box,Typography, useMediaQuery } from '@mui/material';
+import { Box,Divider,Typography, useMediaQuery } from '@mui/material';
 import useHouseholdData from 'src/hooks/useHouseholdData/useHouseholdData';
 import { cooktopMapping, spaceHeatingMapping, waterHeatingMapping } from 'src/components/HouseholdForm/data/householdForm.text';
 import MobileSavingsDrawer from 'src/components/MobileSavingsDrawer/MobileSavingsDrawer';
