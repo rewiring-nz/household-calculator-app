@@ -19,7 +19,7 @@ const Home: React.FC = () => {
   console.log('Home isMobile:', isMobile);
 
   const { householdData, updateHouseholdData, savingsData, loadingData, errorData } = useHouseholdData();
-
+  const numEVsToBuy = householdData?.vehicles?.filter(vehicle => vehicle.switchToEV).length || 0;
 
   const appliances = {
     currentSpaceHeater: householdData?.spaceHeating ? spaceHeatingMapping[householdData?.spaceHeating] : '',
@@ -140,7 +140,7 @@ const Home: React.FC = () => {
           }}
           >
           {/* HouseholdSavings Desktop */}
-          <HouseholdSavings appliances={appliances} results={savingsData} loadingData={loadingData} />
+          <HouseholdSavings appliances={appliances} results={savingsData} numEVsToBuy={numEVsToBuy} loadingData={loadingData} />
         </Box>
         )}
         {/* -------------------------------------------------- */}
@@ -153,6 +153,7 @@ const Home: React.FC = () => {
             appliances={appliances}
             results={savingsData}
             loadingData={loadingData}
+            numEVsToBuy={numEVsToBuy}
             drawerOpen={drawerOpen}
             toggleDrawer={toggleDrawer}
           />

@@ -16,7 +16,7 @@ import { ReactComponent as OpenIcon } from 'src/assets/icons/open-outline.svg';
 
 
 // ----------------- Models & Interfaces -------------------
-import { Savings } from '../../shared/api/openapi-client';
+import { Household, Savings } from '../../shared/api/openapi-client';
 import { electricVehicleURL } from 'src/shared/links';
 import { recommendationActions } from './data/RecommendationActions';
 
@@ -31,6 +31,7 @@ import { SavingsFrameBox } from './HouseholdSavings.styles';
 export interface SavingsProps {
     results: Savings;
     loadingData: boolean;
+    numEVsToBuy: number;
     appliances: {
         currentSpaceHeater: string;
         currentWaterHeater: string;
@@ -41,14 +42,23 @@ export interface SavingsProps {
 
 
 
+const getVehicleCostStr = (numEVsToBuy: number): string => {
+    const priceRangeLow = 30000;
+    const priceRangeHigh = 70000;
+    const totalPriceKsRangeLow = (priceRangeLow * numEVsToBuy / 1000).toFixed(0);
+    const totalPriceKsRangeHigh = (priceRangeHigh * numEVsToBuy / 1000).toFixed(0);
+    const vehicleCostStr = `$${totalPriceKsRangeLow}k-$${totalPriceKsRangeHigh}k`;
+    return vehicleCostStr;
+}
 
 
-
-const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, appliances, isMobile=false }) => {
+const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, appliances, numEVsToBuy, isMobile=false }) => {
     const theme = useTheme();
     const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
         
     const [upfrontCostTotal, setUpfrontCostTotal] = useState('0');
+    const householdData = useState<Household>();
+    const vehicleCostStr = getVehicleCostStr(numEVsToBuy)
 
     useEffect(() => {
         console.log("HouseholdSavings useEffect triggered");
@@ -151,10 +161,13 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                     heading={`${formatSavingsNZD(results?.opex?.perWeek?.difference, 2)} saved per week`} 
                     >   
                     <Typography variant="body1">
-                        on energy bills. That's 
+                        That's 
                         <span style={{ fontWeight: '600' }}>
-                           {` ${formatSavingsNZD(results?.opex?.perYear?.difference, 0)} per year.`}
-                        </span>
+                           {` ${formatSavingsNZD(results?.opex?.perYear?.difference, 0)}`}
+                        </span> saved per year and 
+                        <span style={{ fontWeight: '600' }}>
+                           {` ${formatSavingsNZD(results?.opex?.overLifetime?.difference, 0)}`}
+                        </span> over <a href="mailto:"></a> a 15 year product lifetime.
                     </Typography>
                 </ResultBox>                    
 
@@ -176,10 +189,9 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
 
                 
                 <FDivider />
-
                 
                 <ResultBox 
-                    label="Upfront Cost*"                 
+                    label="Replacement Cost"
                     heading={upfrontCostTotal} 
                     bulletPoints={[
                         { label: 'House heating', value: results?.upfrontCost?.spaceHeating || 0 },
@@ -188,31 +200,39 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                         { label: 'Solar', value: results?.upfrontCost?.solar },
                         { label: 'Battery', value: results?.upfrontCost?.battery },
                     ]}
-                    paragraph="*Vehicle costs excluded due to large price range."                     
-                    >                    
-                    <Link 
-                        href={electricVehicleURL}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    >
+                    <Typography variant="h2"
                         sx={{
-                            color: theme.palette.text.primary,
-                            fontFamily: theme.typography.fontFamily,
-                            textDecoration: 'underline',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
-                        >
-                        Learn more here
-                        <OpenIcon
-                            style={{
-                                marginLeft: '0.3rem',
-                                maxWidth: '15px',
-                                maxHeight: '15px',
-                                stroke: 'currentColor'
+                            margin: '0.8rem 0 0.2rem 0'
+                        }}>
+                        + {vehicleCostStr}
+                    </Typography>
+                    <Typography variant="body2">
+                        <span style={{ fontWeight: '600' }}>to buy {numEVsToBuy} new EVs.</span> EVs cost around $30k-$70k each new, depending on the model. Secondhand EVs start at around $3k.&nbsp;
+                        <Link 
+                            href={electricVehicleURL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            sx={{
+                                color: theme.palette.text.primary,
+                                fontFamily: theme.typography.fontFamily,
+                                textDecoration: 'underline',
+                                display: 'inline-flex',
+                                alignItems: 'center'
                             }}
-                            />
-                    </Link>
-                    </ResultBox>       
+                            >
+                            Learn more here
+                            <OpenIcon
+                                style={{
+                                    marginLeft: '0.3rem',
+                                    maxWidth: '15px',
+                                    maxHeight: '15px',
+                                    stroke: 'currentColor'
+                                }}
+                                />
+                        </Link>
+                    </Typography>
+                </ResultBox>       
 
             </SavingsFrameBox>
 
