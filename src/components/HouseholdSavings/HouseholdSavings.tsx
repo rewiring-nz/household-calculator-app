@@ -208,7 +208,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                         + {vehicleCostStr}
                     </Typography>
                     <Typography variant="body2">
-                        <span style={{ fontWeight: '600' }}>to buy {numEVsToBuy} new EVs.</span> EVs cost around $30k-$70k each new, depending on the model. Secondhand EVs start at around $3k.&nbsp;
+                        <span style={{ fontWeight: '600' }}>to buy {numEVsToBuy} new EVs.</span> New mid-range EVs cost $30k-$70k each, depending on the model. Secondhand EVs start at ~$3k.&nbsp;
                         <Link 
                             href={electricVehicleURL}
                             target="_blank"
