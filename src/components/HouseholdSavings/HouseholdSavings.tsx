@@ -20,7 +20,7 @@ import { Savings } from '../../shared/api/openapi-client';
 import { electricVehicleURL } from 'src/shared/links';
 import { recommendationActions } from './data/RecommendationActions';
 
-import { formatKgs, formatSavingsNZD } from 'src/shared/utils/formatters';
+import { formatKgs, formatNZD, formatSavingsNZD } from 'src/shared/utils/formatters';
 import { SavingsFrameBox } from './HouseholdSavings.styles';
 
 
@@ -56,8 +56,14 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
         // console.log("HouseholdSavings New results:", results);
         // console.log("HouseholdSavings useEffect householdData:", householdData);
 
-        const total = results?.upfrontCost ? Object.values(results.upfrontCost).reduce((acc, val) => acc + val, 0) : 0;
-        const totalString = `$${Number(total.toFixed(2)).toLocaleString('en-NZ')}`;
+        // Round constituent values to nearest $100 first before summing for total
+        const total = results?.upfrontCost
+            ? Object.values(results.upfrontCost)
+                .map(value => Math.round(value / 100) * 100) // Round each value to the nearest $100
+                .reduce((acc, val) => acc + val, 0) // Sum the rounded values
+            : 0;
+        const totalString = `$${total.toLocaleString('en-NZ')}`;
+    
         setUpfrontCostTotal(totalString);
 
         // console.log("HouseholdSavings useEffect savings:", savings);
@@ -148,7 +154,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
 
                 <ResultBox 
                     label="Energy Bill" 
-                    heading={`${formatSavingsNZD(results?.opex?.perWeek?.difference, 2)} saved per week`} 
+                    heading={`${formatSavingsNZD(results?.opex?.perWeek?.difference, 0)} saved per week`} 
                     >   
                     <Typography variant="body1">
                         on energy bills. That's 
@@ -182,11 +188,11 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                     label="Upfront Cost*"                 
                     heading={upfrontCostTotal} 
                     bulletPoints={[
-                        { label: 'House heating', value: results?.upfrontCost?.spaceHeating || 0 },
-                        { label: 'Water heating', value: results?.upfrontCost?.waterHeating || 0 },
-                        { label: 'Cooktop', value: results?.upfrontCost?.cooktop || 0 },
-                        { label: 'Solar', value: results?.upfrontCost?.solar },
-                        { label: 'Battery', value: results?.upfrontCost?.battery },
+                        { label: 'House heating', value: Math.round((results?.upfrontCost?.spaceHeating || 0) /100) * 100 },
+                        { label: 'Water heating', value: Math.round((results?.upfrontCost?.waterHeating || 0) /100) * 100 },
+                        { label: 'Cooktop', value: Math.round((results?.upfrontCost?.cooktop || 0) /100) * 100 },
+                        { label: 'Solar', value: Math.round((results?.upfrontCost?.solar || 0) /100) * 100 },
+                        { label: 'Battery', value: Math.round((results?.upfrontCost?.battery || 0) /100) * 100 },
                     ]}
                     paragraph="*Vehicle costs excluded due to large price range."                     
                     >                    
