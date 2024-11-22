@@ -161,7 +161,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                 <FDivider />
                 
                 <ResultBox 
-                    label="Co2 Emissions" 
+                    label="Energy Emissions" 
                     heading={`${(results?.emissions?.perWeek?.difference || 0) *-1}% saved`}
                     >   
                     <Typography variant="body1">                    
