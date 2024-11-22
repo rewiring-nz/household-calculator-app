@@ -280,7 +280,7 @@ const tooltipText: Record<string, string> = {
     solarSize: 'The total capacity of your solar panel system. 9 kW is the average in Australia and enough for 2 EVs, 7 kW is enough for 1 EV.',
     hasBattery: 'If you have a home battery, select Yes. If you don’t have a battery yet, select whether you would like to calculate your savings based on getting one.',
     // batteryCapacity: 'The total capacity of your home battery system. A Tesla Powerwall is 5 kW.',
-    batteryCapacity: 'The total size of your home battery system. 10 kWh is our suggested default.',
+    batteryCapacity: 'The total size of your home battery system. 10 kWh is our default.',
     vehicleNumber: "Select the number of vehicles that you use reasonably regularly."
 };
 
