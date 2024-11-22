@@ -226,21 +226,21 @@ console.log('householdFormText batteryOptions:', batteryOptions);
 export const defaultFormState: HouseholdFormState = {
     location: LocationEnum.AucklandNorth,
     occupancy: 3,
-    spaceHeating: SpaceHeatingEnum.Wood,
-    waterHeating: WaterHeatingEnum.Gas,
+    spaceHeating: SpaceHeatingEnum.ElectricHeatPump,
+    waterHeating: WaterHeatingEnum.ElectricResistance,
     cooktop: CooktopEnum.Gas,
     numberOfVehicles: 2,
     vehicleObjs: [
         {
             id: 1,
-            fuelType: VehicleFuelTypeEnum.Hybrid,
+            fuelType: VehicleFuelTypeEnum.Petrol,
             usageType: ('Medium' as UsageType),
             switchToEV: true
         },
         {
             id: 2,
             fuelType: VehicleFuelTypeEnum.Petrol,
-            usageType: ('Low' as UsageType),
+            usageType: ('Medium' as UsageType),
             switchToEV: true
         }
     ],
@@ -248,14 +248,12 @@ export const defaultFormState: HouseholdFormState = {
         hasSolar: false,
         size: 7,
         installSolar: true,
-        // dontWantSolar: false,
         unit: 'kW'
     },
     battery: {
         hasBattery: false,
         capacity: 10,
         installBattery: true,
-        // dontWantBattery: false,
         unit: 'kWh'
     }
 };

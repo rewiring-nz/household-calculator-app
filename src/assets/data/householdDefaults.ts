@@ -13,18 +13,18 @@ import {
 export const defaultHouseholdData: Household = {
     location: LocationEnum.AucklandNorth,
     occupancy: 2,
-    spaceHeating: SpaceHeatingEnum.Wood,
-    waterHeating: WaterHeatingEnum.Gas,
+    spaceHeating: SpaceHeatingEnum.ElectricHeatPump,
+    waterHeating: WaterHeatingEnum.ElectricResistance,
     cooktop: CooktopEnum.Gas,
     vehicles: [
         {
-            fuelType: VehicleFuelTypeEnum.Hybrid,
+            fuelType: VehicleFuelTypeEnum.Petrol,
             kmsPerWeek: 200,
             switchToEV: true
         },
         {
             fuelType: VehicleFuelTypeEnum.Petrol,
-            kmsPerWeek: 50,
+            kmsPerWeek: 200,
             switchToEV: true
         }
     ],
