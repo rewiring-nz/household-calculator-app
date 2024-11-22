@@ -281,7 +281,7 @@ const tooltipText: Record<string, string> = {
     hasBattery: 'If you have a home battery, select Yes. If you don’t have a battery yet, select whether you would like to calculate your savings based on getting one.',
     // batteryCapacity: 'The total capacity of your home battery system. A Tesla Powerwall is 5 kW.',
     batteryCapacity: 'The total size of your home battery system. 10 kWh is our suggested default.',
-    vehicleNumber: "Just count the number of vehicles that you use reasonably regularly."
+    vehicleNumber: "Select the number of vehicles that you use reasonably regularly."
 };
 
 export default tooltipText;
