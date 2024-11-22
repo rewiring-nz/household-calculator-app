@@ -182,7 +182,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                     label="Upfront Cost*"                 
                     heading={upfrontCostTotal} 
                     bulletPoints={[
-                        { label: 'Main house heating source', value: results?.upfrontCost?.spaceHeating || 0 },
+                        { label: 'House heating', value: results?.upfrontCost?.spaceHeating || 0 },
                         { label: 'Water heating', value: results?.upfrontCost?.waterHeating || 0 },
                         { label: 'Cooktop', value: results?.upfrontCost?.cooktop || 0 },
                         { label: 'Solar', value: results?.upfrontCost?.solar },
