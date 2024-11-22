@@ -56,7 +56,7 @@ export const spaceHeatingMapping: Record<SpaceHeatingEnum, string> = {
     [SpaceHeatingEnum.ElectricResistance]: 'Electric resistive heaters (e.g. oil column, fan, wall)',
     [SpaceHeatingEnum.ElectricHeatPump]: 'Heat pump(s)',
     [SpaceHeatingEnum.Wood]: 'Wood fire',
-    [SpaceHeatingEnum.Gas]: 'Piped/ducted gas heater',
+    [SpaceHeatingEnum.Gas]: 'Piped/natural gas heater',
     [SpaceHeatingEnum.Lpg]: 'Bottled LPG heater',
     [SpaceHeatingEnum.DontKnow]: 'Not sure'
 };
@@ -64,7 +64,7 @@ export const spaceHeatingMapping: Record<SpaceHeatingEnum, string> = {
 export const waterHeatingMapping: Record<WaterHeatingEnum, string> = {
     [WaterHeatingEnum.ElectricResistance]: 'Electric resistive',
     [WaterHeatingEnum.ElectricHeatPump]: 'Heat pump',
-    [WaterHeatingEnum.Gas]: 'Piped/ducted gas',
+    [WaterHeatingEnum.Gas]: 'Piped/natural gas',
     [WaterHeatingEnum.Lpg]: 'Bottled LPG',
     [WaterHeatingEnum.Solar]: 'Solar',
     [WaterHeatingEnum.DontKnow]: 'Not sure'
@@ -72,7 +72,7 @@ export const waterHeatingMapping: Record<WaterHeatingEnum, string> = {
 
 export const cooktopMapping: Record<CooktopEnum, string> = {
     [CooktopEnum.ElectricResistance]: 'Electric resistive/Ceramic',
-    [CooktopEnum.Gas]: 'Piped/ducted gas',
+    [CooktopEnum.Gas]: 'Piped/natural gas',
     [CooktopEnum.Lpg]: 'Bottled LPG',
     [CooktopEnum.ElectricInduction]: 'Induction', // NB error in api, needs updating to Induction
     [CooktopEnum.DontKnow]: 'Not sure'
@@ -143,7 +143,7 @@ export const spaceHeatingOptions = Object.entries(spaceHeatingMapping).map(([key
 // const waterHeatingMap_noSolar = { // Temp work around until API is updated
 //     [WaterHeatingEnum.ElectricResistance]: 'Electric resistive',
 //     [WaterHeatingEnum.ElectricHeatPump]: 'Heat pump',
-//     [WaterHeatingEnum.Gas]: 'Piped/ducted gas',
+//     [WaterHeatingEnum.Gas]: 'Piped/natural gas',
 //     [WaterHeatingEnum.Lpg]: 'Bottled LPG',
 //     [WaterHeatingEnum.DontKnow]: 'Not sure'
 // };
