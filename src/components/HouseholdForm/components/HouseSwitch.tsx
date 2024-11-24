@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Switch, SwitchProps } from '@mui/material';
+import { Switch } from '@mui/material';
 import { Theme } from "@mui/material";
 
 

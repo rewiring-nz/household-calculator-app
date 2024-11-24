@@ -33,7 +33,7 @@ export interface VehicleOptions {
 
 
 export interface VehicleObject {
-    id: number;
+    id: number | string;
     fuelType: VehicleFuelTypeEnum;
     // usage: Usage
     usageType: UsageType;
