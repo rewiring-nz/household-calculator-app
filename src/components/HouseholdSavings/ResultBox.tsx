@@ -17,23 +17,14 @@ interface ResultBoxState {
     children?: React.ReactNode;
 }
 
-// const ResultBox: React.FC<{ label: string, heading: string, paragraph?: string }> = ({ label, heading, paragraph }) => {
-const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, paragraph, linkText, linkURL, children }) => {
+  
+const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, paragraph, children }) => {
     const theme = useTheme();
     
-    // const headingString = typeof heading === 'number' ? `$${heading.toFixed(2)}` : heading;
-
-    // const formatNZD = (value: number | undefined) => {
-    //     if (value === undefined) return '';
-    //     // return ` $${value.toLocaleString('en-NZ')}`;
-    //     // return ` $${value.toFixed(2)}`;
-    //     return ` $${Number(value.toFixed(2)).toLocaleString('en-NZ')}`;
-    // };
 
     return (
         <Box
             sx={{
-                // padding: '1rem 0',
                 margin: '1.2rem 0'
             }}
         >
@@ -69,7 +60,9 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
                                 }}>
                                 {point.label}: 
                             </span>
+
                             {typeof point.value === "string" ? point.value : formatNZD(point.value)}
+
                         </Typography>
                     ))}
                 </Box>
@@ -83,21 +76,6 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
 
             {children}
 
-            {/* {linkText && (
-                <Tooltip title="Electric Vehicles" arrow>                
-                    <a 
-                        href={linkURL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                            color: theme.palette.text.primary,
-                            textDecoration: 'underline',
-                        }}
-                    >
-                        {linkText}
-                    </a>
-                </Tooltip>
-            )} */}
         </Box>
     );
 };
