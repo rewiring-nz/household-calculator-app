@@ -122,12 +122,14 @@ export const locationOptions = locationSet.map((locationName) => ({
 const getOccupancyString = (occupancy: number): string => {
     if (occupancy === 1) {
         return '1 person';
-    } else {
-        return occupancy + ' people';
     }
+    if (occupancy === 5) {
+        return '5+ people';
+    }
+    return occupancy + ' people';
 };
 
-export const occupancyOptions = Array.from(Array(20).keys())
+export const occupancyOptions = Array.from(Array(5).keys())
     .map((occupancy) => ({ 
         value: (occupancy + 1), 
         text: getOccupancyString((occupancy + 1))     
