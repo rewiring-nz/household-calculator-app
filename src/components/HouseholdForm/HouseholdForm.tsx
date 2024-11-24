@@ -169,32 +169,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
   const numberOfVehicles = watch('numberOfVehicles');
 
-  // useEffect(() => {
-  //   const currentLength = fields.length;
-  //   console.log('HouseholdForm useEffect currentLength:', currentLength);
-  //   const fuelTypes = Object.values(VehicleFuelTypeEnum);
-
-  //   if (numberOfVehicles > currentLength) {
-  //     for (let i = currentLength; i < numberOfVehicles; i++) {
-  //       const newVehicle: VehicleObject = {
-  //         id: (i + 1) as number,
-  //         fuelType: VehicleFuelTypeEnum.Petrol, // 'PETROL'
-  //         usageType: 'Medium' as UsageType,
-  //         switchToEV: true
-  //       };
-  //       console.log('HouseholdForm useEffect newVehicle:', newVehicle);
-  //       append(newVehicle);
-  //       // setValue(`vehicleObjs.${i}`, newVehicle, { shouldValidate: true, shouldDirty: true });
-  //       // setValue('vehicleObjs', [...fields, newVehicle], { shouldValidate: true, shouldDirty: true });
-  //       // setValue(`vehicleObjs.${i}`, newVehicle, { shouldValidate: true, shouldDirty: true });
-
-  //     }
-  //   } else {
-  //     for (let i = currentLength; i > numberOfVehicles; i--) {
-  //       remove(i - 1);
-  //     }
-  //   }
-  // }, [numberOfVehicles, append, remove, fields.length]);
   const isUpdatingVehicles = useRef(false);
 
   useEffect(() => {
@@ -267,27 +241,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
     isUpdatingVehicles.current = false;
   };
 
-  //   const handleVehicleDelete = async (index: number) => {
-  //     await remove(index);
-
-  //     if (numberOfVehicles && numberOfVehicles > 0) {
-  //       // setValue('numberOfVehicles', numberOfVehicles - 1);
-  //       setValue('numberOfVehicles', numberOfVehicles - 1, { shouldValidate: true, shouldDirty: true });
-  //       // setValue('vehicleObjs', fields.filter((field) => field !== fields[index]), { shouldValidate: true, shouldDirty: true });
-  //       setValue('vehicleObjs', fields.filter((_, i) => i !== index), { shouldValidate: true, shouldDirty: true });
-  //     } else {
-  //       setValue('numberOfVehicles', 0, { shouldValidate: true, shouldDirty: true });
-  //       setValue('vehicleObjs', [], { shouldValidate: true, shouldDirty: true });
-  //     }
-
-  //     // Update the IDs of the remaining vehicles
-  //     fields.forEach((field, idx) => {
-  //       setValue(`vehicleObjs.${idx}.id`, idx + 1, { shouldValidate: true, shouldDirty: true });
-  //     });
-
-  //     console.log('HouseholdForm handleVehicleDelete numberOfVehicles:', numberOfVehicles);
-  //     console.log('HouseholdForm vehicleObjs fields:', fields);
-  //   };
 
   // -------------------------------------------------------------------
 
@@ -295,13 +248,18 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
   // This is used with onBlur to stop the form updating while the user is typing
-  // const [numVehicles, setNumVehicles] = useState('2');
-  const [batteryCapacity, setBatteryCapacity] = useState<number | string>(defaultFormData.battery.capacity);
-  const [solarSize, setSolarSize] = useState<number | string>(defaultFormData.solar.size);
+  const [batteryCapacity, setBatteryCapacity] = useState<number>(defaultFormData.battery.capacity);
+  const [solarSize, setSolarSize] = useState<number>(defaultFormData.solar.size);
   // -------------------------------------------------------------------
 
 
+  useEffect(() => {
+    console.log('HouseholdForm solarSize: ', solarSize);
+  }, [solarSize]);
 
+  useEffect(() => {
+    console.log('HouseholdForm batteryCapacity: ', batteryCapacity);
+  }, [batteryCapacity]);
 
 
 
@@ -873,26 +831,10 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                           shrink: true,
                         }}
                         value={solarSize ?? ''}
-                        // onChange={(e) => {
-                        //   const numericValue = parseFloat(e.target.value);
-                        //   if (numericValue >= 0 && numericValue <= 1000) {
-                        //     setSolarSize(isNaN(numericValue) ? 0 : numericValue);                        
-                        //   } else if (numericValue > 1000) {
-                        //     setSolarSize(1000);
-                        //   } else {
-                        //     setSolarSize(0);
-                        //   }
-                        // }}
                         onChange={(e) => {
                           const numericValue = parseFloat(e.target.value);
                           setSolarSize(isNaN(numericValue) ? 0 : numericValue);
                         }}
-                        // onBlur={() => {
-                        //   if (solarSize === '') {
-                        //     onChange(0);
-                        //   }
-                        //   onBlur();
-                        // }}
                         onBlur={(e) => {
                           console.log('HouseholdForm batteryCapacity onBlur e:', e);
                           const numericValue = parseFloat(e.target.value);
@@ -907,31 +849,26 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                             console.log('HouseholdForm batteryCapacity onBlur e.target.value:', e.target.value);
                             onChange(0);
                           }
-                          // onBlur();
+                          setValue('solar.size', solarSize, { shouldValidate: true, shouldDirty: true });
                         }}
                         onKeyDown={(e) => {
-                          const currentSize = parseFloat(solarSize as string) || 0;
+                          const currentSize = solarSize || 0;
                           if (e.key === 'Enter') {
                             if (currentSize >= 0 && currentSize <= 1000) {
                               setSolarSize(isNaN(currentSize) ? 0 : currentSize);
-                              // onChange({ target: { value: solarSize } });
                             } else if (currentSize > 1000) {
                               setSolarSize(1000);
-                              // onChange({ target: { value: 1000 } });
                             } else {
                               setSolarSize(0);
-                              // onChange({ target: { value: 0 } });
                             }
-                            // onChange({ target: { value: solarSize } });
+                            setValue('solar.size', solarSize, { shouldValidate: true, shouldDirty: true });
                           }
                           if (e.key === 'ArrowUp') {
                             const newValue = Math.min(currentSize + 1, 1000);
-                            // onChange(newValue);
                             setSolarSize(newValue);
                           }
                           if (e.key === 'ArrowDown') {
                             const newValue = Math.max(currentSize - 1, 0);
-                            // onChange(newValue);
                             setSolarSize(newValue);
                           }
                         }}
@@ -1131,10 +1068,14 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                           if (e.target.value === '') {
                             console.log('HouseholdForm batteryCapacity onBlur e.target.value:', e.target.value);
                             onChange(0);
+                          } else {
+                            onChange(numericValue);
                           }
+                          setValue('battery.capacity', batteryCapacity, { shouldValidate: true, shouldDirty: true });
                         }}
                         onKeyDown={(e) => {
-                          const currentCapacity = parseFloat(batteryCapacity as string) || 0;
+                          // const currentCapacity = parseFloat(batteryCapacity as string) || 0;
+                          const currentCapacity = batteryCapacity || 0;
                           if (e.key === 'Enter') {
                             if (currentCapacity >= 0 && currentCapacity <= 1000) {
                               setBatteryCapacity(isNaN(currentCapacity) ? 0 : currentCapacity);
@@ -1143,6 +1084,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                             } else {
                               setBatteryCapacity(0);
                             }
+                            setValue('battery.capacity', batteryCapacity, { shouldValidate: true, shouldDirty: true });
                           }
                           if (e.key === 'ArrowUp') {
                             const newValue = Math.min(currentCapacity + 1, 1000);
