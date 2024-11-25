@@ -4,8 +4,7 @@ import { Controller, useFieldArray, useForm, FormProvider } from 'react-hook-for
 
 
 // ----------------- Styles & Material-UI -------------------
-import { Box, FormControl, FormControlLabel, FormHelperText, FormLabel, Input, InputAdornment, InputLabel, Radio, RadioGroup, Select, TextField, Tooltip, Typography, useTheme, Checkbox } from '@mui/material';
-// import { ReactComponent as TickIcon } from 'src/assets/icons/tick.svg';
+import { Box, FormControl, FormControlLabel, FormHelperText, FormLabel, RadioGroup, TextField, Typography, useTheme } from '@mui/material';
 import './HouseholdForm.css';
 import { FDivider } from 'src/shared/styles/FDivider';
 
@@ -15,7 +14,6 @@ import { HouseholdFormState, Option, OptionNumber, OptionYesNo, UsageOption, Usa
 
 
 // ----------------- Data -------------------
-// import useHouseholdData from '../../hooks/useHouseholdData/useHouseholdData';
 import { formText } from './data/householdForm.text';
 
 
@@ -25,10 +23,8 @@ import resetIcon from '../../assets/icons/carbon-reset.svg';
 import { ReactComponent as chevronDown } from '../../assets/icons/chevron-down.svg';
 
 // ----------------- Components -------------------
-import { FormBox, HalfWidthFormBox, FormContainer, FormSectionFlex, FormSectionGrid, ResetButton, tooltipPoppers, SwitchLabel, HouseSelect, HouseInputAdornment, LabelBox } from './HouseholdForm.styles';
+import { FormBox, HalfWidthFormBox, FormContainer, FormSectionFlex, FormSectionGrid, ResetButton, SwitchLabel, HouseSelect, HouseInputAdornment, LabelBox } from './HouseholdForm.styles';
 import VehicleBox from './components/HouseholdVehicle';
-// import TooltipModal from './components/TooltipDialog';
-// import TooltipDialog from './components/TooltipDialog';
 import HouseholdTooltip from './components/HouseholdTooltip';
 import { HouseRadio } from './components/HouseCheckRadio';
 import { HouseSwitch } from './components/HouseSwitch';
@@ -46,39 +42,13 @@ interface HouseholdFormProps {
 
 const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHouseholdData }) => {
   const theme = useTheme();
-  // const methods = useForm();
+
+
+
+  // ----------------- Default State -----------------
 
   const defaultFormData = formText.defaultFormState
 
-  // ------------- Tooltip -------------------
-  const tooltipText = formText.tooltipText;
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [openTooltips, setOpenTooltips] = useState<Record<string, boolean>>({});
-
-  const handleOpenTooltip = (tooltipKey: string) => (event: React.MouseEvent<HTMLImageElement>) => {
-    setOpenTooltips((prevState) => ({ ...prevState, [tooltipKey]: true }));
-    setDialogOpen(true);
-  };
-
-  const handleCloseTooltip = (tooltipKey: string) => () => {
-    setOpenTooltips((prevState) => ({ ...prevState, [tooltipKey]: false }));
-    setDialogOpen(false);
-  };
-  // -----------------------------------------
-
-
-  // const { 
-  //   register, 
-  //   handleSubmit, 
-  //   watch, 
-  //   control, 
-  //   formState: { errors }, 
-  //   reset, 
-  //   setValue,
-  //   methods
-  // } = useForm<HouseholdFormState>({
-  //   defaultValues: merged_defaultFormValues,
-  // });
   const methods = useForm<HouseholdFormState>({
     defaultValues: {
       location: householdData?.location ?? defaultFormData.location,
@@ -104,38 +74,71 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
   const { control, setValue, getValues, watch } = methods;
 
   const watchAllFields: HouseholdFormState = watch();
-
-  const [disableSolarToggle, setDisableSolarToggle] = useState(false);
-  const [disableBatteryToggle, setDisableBatteryToggle] = useState(false);
-
-  const watchHasSolar = watch('solar.hasSolar');
-  const watchHasBattery = watch('battery.hasBattery');
-
-  // solar state
-  useEffect(() => {
-    console.log('HouseholdForm useEffect watchHasSolar:', watchHasSolar);
-    if (watchHasSolar) {
-      setDisableSolarToggle(true);
-      setValue('solar.installSolar', false);
-    } else {
-      setDisableSolarToggle(false);
-    }
-  }, [watchHasSolar, setValue, disableSolarToggle]);
   // -------------------------------------------------------------------
 
 
 
+
+
+  // -------------------------------------------------------------------
+  // solar state
+  const watchHasSolar = watch('solar.hasSolar');
+  const watchInstallSolar = watch('solar.installSolar');
+  const [solarSize, setSolarSize] = useState<number>(defaultFormData.solar.size); // This is used with onBlur to stop the form updating while the user is typing
+
+
+  useEffect(() => {
+    console.log('HouseholdForm useEffect watchHasSolar:', watchHasSolar);
+    if (watchHasSolar) {
+      setValue('solar.installSolar', false);
+    } else {
+      setValue('solar.installSolar', true);
+    }
+  }, [watchHasSolar, setValue]);
+
+  useEffect(() => {
+    console.log('HouseholdForm watchInstallSolar:', watchInstallSolar);
+    updateFormData(getValues());
+  }, [watchInstallSolar]);
+
+  useEffect(() => {
+    console.log('HouseholdForm solarSize: ', solarSize);
+  }, [solarSize]);
+  // -------------------------------------------------------------------
+
+
+
+  // -------------------------------------------------------------------
   // battery state
+  const watchHasBattery = watch('battery.hasBattery');
+  const watchInstallBattery = watch('battery.installBattery');
+  const [batteryCapacity, setBatteryCapacity] = useState<number>(defaultFormData.battery.capacity); // This is used with onBlur to stop the form updating while the user is typing
+
+
   useEffect(() => {
     console.log('HouseholdForm useEffect watchHasBattery:', watchHasBattery);
     if (watchHasBattery) {
-      setDisableBatteryToggle(true);
       setValue('battery.installBattery', false);
     } else {
-      setDisableBatteryToggle(false);
+      setValue('battery.installBattery', true);
     }
-  }, [watchHasBattery, setValue, disableBatteryToggle]);
+  }, [watchHasBattery, setValue]);
+
+  useEffect(() => {
+    console.log('HouseholdForm watchInstallBattery:', watchInstallBattery);
+    updateFormData(getValues());
+  }, [watchInstallBattery]);
+
+  useEffect(() => {
+    console.log('HouseholdForm batteryCapacity: ', batteryCapacity);
+  }, [batteryCapacity]);
+
   // ----------------------------------------------------------------
+
+
+
+
+
 
 
 
@@ -155,6 +158,21 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
+  // ------------- Tooltip -------------------
+  const tooltipText = formText.tooltipText;
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [openTooltips, setOpenTooltips] = useState<Record<string, boolean>>({});
+
+  const handleOpenTooltip = (tooltipKey: string) => (event: React.MouseEvent<HTMLImageElement>) => {
+    setOpenTooltips((prevState) => ({ ...prevState, [tooltipKey]: true }));
+    setDialogOpen(true);
+  };
+
+  const handleCloseTooltip = (tooltipKey: string) => () => {
+    setOpenTooltips((prevState) => ({ ...prevState, [tooltipKey]: false }));
+    setDialogOpen(false);
+  };
+  // -----------------------------------------
 
 
 
@@ -220,20 +238,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
       setValue('vehicleObjs', [], { shouldValidate: true, shouldDirty: true });
       setValue('numberOfVehicles', 0, { shouldValidate: true, shouldDirty: true });
     } else {
-      // const updatedVehicleObjs = fields.filter((_, i) => i !== index);
-      // setValue('vehicleObjs', updatedVehicleObjs, { shouldValidate: true, shouldDirty: true });
-      // Directly use the fields array after removal
-      // setValue('vehicleObjs', fields, { shouldValidate: true, shouldDirty: true });
-      const updatedFields = getValues('vehicleObjs'); // Get the updated fields
+      const updatedFields = getValues('vehicleObjs');
       setValue('vehicleObjs', updatedFields, { shouldValidate: true, shouldDirty: true });
 
-
-      // Update the IDs of the remaining vehicles
-      // updatedVehicleObjs.forEach((field, idx) => {
-      // fields.forEach((field, idx) => {
-      //   setValue(`vehicleObjs.${idx}.id`, idx + 1, { shouldValidate: true, shouldDirty: true });
-      //   // setValue(`vehicleObjs.${idx}.index`, idx + 1, { shouldValidate: true, shouldDirty: true });
-      // });
     }
 
     console.log('HouseholdForm handleVehicleDelete numberOfVehicles:', numberOfVehicles);
@@ -248,28 +255,66 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
-  // This is used with onBlur to stop the form updating while the user is typing
-  const [batteryCapacity, setBatteryCapacity] = useState<number>(defaultFormData.battery.capacity);
-  const [solarSize, setSolarSize] = useState<number>(defaultFormData.solar.size);
-  // -------------------------------------------------------------------
 
 
-  useEffect(() => {
-    console.log('HouseholdForm solarSize: ', solarSize);
-  }, [solarSize]);
+  // Function to update form data
+  const updateFormData = (formValue: HouseholdFormState) => {
+    // Update switchToEV based on fuelType
+    formValue.vehicleObjs.forEach((vehicle, index) => {
+      if (vehicle.fuelType === 'ELECTRIC') {
+        setValue(`vehicleObjs.${index}.switchToEV`, false);
+      } else {
+        setValue(`vehicleObjs.${index}.switchToEV`, vehicle.switchToEV);
+      }
+    });
 
-  useEffect(() => {
-    console.log('HouseholdForm batteryCapacity: ', batteryCapacity);
-  }, [batteryCapacity]);
+    // Check whether user already has solar or battery
+    const installSolar = formValue.solar.hasSolar ? false : formValue.solar.installSolar;
+    const installBattery = formValue.battery?.hasBattery ? false : formValue.battery.installBattery;
+
+    const householdDataOut: Household = {
+      location: formValue.location ?? defaultFormState.location,
+      occupancy: formValue.occupancy ?? defaultFormState.occupancy,
+      spaceHeating: formValue.spaceHeating ?? defaultFormState.spaceHeating,
+      waterHeating: formValue.waterHeating ?? defaultFormState.waterHeating,
+      cooktop: formValue.cooktop ?? defaultFormState.cooktop,
+      vehicles: (formValue.vehicleObjs ?? defaultFormState.vehicleObjs)
+        .filter((vehicle): vehicle is VehicleObject => vehicle !== undefined)
+        .map((vehicle: VehicleObject) => {
+          console.log('HouseholdForm vehicle: ', vehicle)
+          const vehicleOut: Vehicle = {
+            fuelType: vehicle.fuelType,
+            kmsPerWeek: formText.options.vehicle.usageOptions.find((option: UsageOption) =>
+              option.type === vehicle.usageType)?.value ?? 200,
+            switchToEV: vehicle.switchToEV,
+          };
+          return vehicleOut;
+        }),
+      solar: {
+        hasSolar: Boolean(formValue.solar?.hasSolar ?? defaultFormState.solar.hasSolar),
+        size: formValue.solar?.size ?? defaultFormState.solar.size,
+        installSolar: installSolar
+      },
+      battery: {
+        hasBattery: Boolean(formValue.battery?.hasBattery ?? defaultFormState.battery.hasBattery),
+        capacity: formValue.battery?.capacity ?? defaultFormState.battery.capacity,
+        installBattery: installBattery
+      }
+    };
+
+    console.log('HouseholdForm updateFormData householdDataOut:', householdDataOut);
+
+    updateHouseholdData(householdDataOut);
+  };
 
 
 
 
 
 
-
+  // Watch for changes in the form
   const isUpdating = useRef(false);
-  // ----------------- Watch for changes in the form -------------------
+
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
       if (isUpdating.current) return;
@@ -279,74 +324,21 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
       console.log('HouseholdForm watch name:', name);
       console.log('HouseholdForm watch type:', type);
 
-      // console.log('HouseholdForm watch showSolarToggle:', showSolarToggle);
-      // console.log('HouseholdForm watch showBatteryToggle:', showBatteryToggle);
-
-
       if (value) {
-        const formValue = value as HouseholdFormState;
-
-        // Update switchToEV based on fuelType
-        formValue.vehicleObjs.forEach((vehicle, index) => {
-          if (vehicle.fuelType === 'ELECTRIC') {
-            setValue(`vehicleObjs.${index}.switchToEV`, false);
-          } else {
-            setValue(`vehicleObjs.${index}.switchToEV`, vehicle.switchToEV);
-            // setValue(`vehicleObjs.${index}.switchToEV`, true);
-          }
-        });
-
-        const householdDataOut: Household = {
-          location: formValue.location ?? defaultFormData.location,
-          occupancy: formValue.occupancy ?? defaultFormData.occupancy,
-          spaceHeating: formValue.spaceHeating ?? defaultFormData.spaceHeating,
-          waterHeating: formValue.waterHeating ?? defaultFormData.waterHeating,
-          cooktop: formValue.cooktop ?? defaultFormData.cooktop,
-          vehicles: (formValue.vehicleObjs ?? defaultFormData.vehicleObjs)
-            .filter((vehicle): vehicle is VehicleObject => vehicle !== undefined)
-            .map((vehicle: VehicleObject) => {
-              console.log('HouseholdForm vehicle: ', vehicle)
-              const vehicleOut: Vehicle = {
-                fuelType: vehicle.fuelType,
-                kmsPerWeek: formText.options.vehicle.usageOptions.find((option: UsageOption) =>
-                  option.type === vehicle.usageType)?.value ?? 200,
-                // switchToEV: vehicle.switchToEV ?? false,
-                // switchToEV: vehicle.fuelType === 'ELECTRIC' ? false : vehicle.switchToEV,
-                switchToEV: vehicle.switchToEV,
-              };
-              return vehicleOut;
-            }),
-          solar: {
-            hasSolar: Boolean(formValue.solar?.hasSolar ?? defaultFormData.solar.hasSolar),
-            size: formValue.solar?.size ?? defaultFormData.solar.size,
-            installSolar: formValue.solar?.installSolar ?? defaultFormData.solar.installSolar
-          },
-          battery: {
-            hasBattery: Boolean(formValue.battery?.hasBattery ?? defaultFormData.battery.hasBattery),
-            capacity: formValue.battery?.capacity ?? defaultFormData.battery.capacity,
-            installBattery: formValue.battery?.installBattery ?? defaultFormData.battery.installBattery
-          }
-        };
-
-        if (formValue.solar?.hasSolar && householdDataOut.solar) {
-          householdDataOut.solar.installSolar = undefined;
-        }
-        if (formValue.battery.hasBattery && householdDataOut.battery) {
-          householdDataOut.battery.installBattery = undefined;
-        }
-
-        console.log('HouseholdForm watch householdDataOut:', householdDataOut);
-
-        updateHouseholdData(householdDataOut);
+        updateFormData(value as HouseholdFormState);
       }
 
       isUpdating.current = false;
     });
     return () => subscription.unsubscribe();
-  }, [watch, updateHouseholdData, defaultFormData]);
-  // -------------------------------------------------------------------
+  }, [watch, updateHouseholdData, setValue]);
 
 
+  const handleReset = () => {
+    methods.reset();
+    setBatteryCapacity(defaultFormData.battery.capacity);
+    setSolarSize(defaultFormData.solar.size);
+  };
 
 
   const handleReset = () => {
@@ -770,7 +762,8 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   sx={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    opacity: disableSolarToggle ? 0.5 : 1, // Grey out when disabled
+                    // opacity: disableSolarToggle ? 0.5 : 1, // Grey out when disabled
+                    // opacity: watchHasSolar ? 0.5 : 1, // Grey out when disabled
                   }}
                 >
                   <SwitchLabel className="installSolar-label" theme={theme}>
@@ -784,7 +777,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                       <HouseSwitch
                         {...field}
                         checked={field.value}
-                        // disabled={disableSolarToggle}
+                        disabled={watchHasSolar}
                         size="small"
                         theme={theme}
                       />
@@ -988,7 +981,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   sx={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    opacity: disableBatteryToggle ? 0.5 : 1, // Grey out when disabled
+                    // opacity: disableBatteryToggle ? 0.5 : 1, // Grey out when disabled
                   }}
                 >
                   <SwitchLabel className="installBattery-label" theme={theme}>
@@ -1002,7 +995,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                       <HouseSwitch
                         {...field}
                         checked={field.value}
-                        // disabled={disableBatteryToggle}                    
+                        disabled={watchHasBattery}
                         // defaultChecked 
                         size="small"
                         theme={theme}
@@ -1219,28 +1212,10 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
             >
 
 
-              {/* {watchAllFields.vehicleObjs?.map((vehicle: VehicleObject, index: number) => (
-                <VehicleBox key={`Car-${index}`}
-                  index={index}
-                  // id={index + 1}
-                  defaultChecked={true}
-                  {...vehicle}
-                  // register={methods.register}
-                  // errors={methods.formState.errors}
-                  // errors={methods.formState.errors}
-                  // register={methods.register}
-                  // control={methods.control}
-                  // setValue={setValue}
-                  onDelete={() => handleVehicleDelete(index)}
-                  fuelTypeOptions={formText.options.vehicle.fuelTypeOptions}
-                  usageOptions={formText.options.vehicle.usageOptions}
-                  defaultType={'Medium'}
-                />
-              ))} */}
+
               {watchAllFields.vehicleObjs?.map((vehicle: VehicleObject, index: number) => (
                 <VehicleBox
-                  key={vehicle.id} // Use a unique key
-                  // id={vehicle.id} // Pass the id to the VehicleBox component
+                  key={vehicle.id}
                   index={index}
                   defaultChecked={true}
                   {...vehicle}
