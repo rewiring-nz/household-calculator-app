@@ -13,18 +13,18 @@ import {
 export const defaultHouseholdData: Household = {
     location: LocationEnum.AucklandNorth,
     occupancy: 2,
-    spaceHeating: SpaceHeatingEnum.Wood,
-    waterHeating: WaterHeatingEnum.Gas,
+    spaceHeating: SpaceHeatingEnum.ElectricHeatPump,
+    waterHeating: WaterHeatingEnum.ElectricResistance,
     cooktop: CooktopEnum.Gas,
     vehicles: [
         {
-            fuelType: VehicleFuelTypeEnum.Hybrid,
+            fuelType: VehicleFuelTypeEnum.Petrol,
             kmsPerWeek: 200,
             switchToEV: true
         },
         {
             fuelType: VehicleFuelTypeEnum.Petrol,
-            kmsPerWeek: 50,
+            kmsPerWeek: 200,
             switchToEV: true
         }
     ],
@@ -41,51 +41,41 @@ export const defaultHouseholdData: Household = {
 };
 
 
-// export const defaultSavingsData: Savings = {
-//     "emissions": {
-//         "perWeek": {
-//             "before": 500.5,
-//             "after": 100.1,
-//             "difference": -55.98
-//         },
-//         "perYear": {
-//             "before": 500.5,
-//             "after": 100.1,
-//             "difference": -400.4
-//         },
-//         "overLifetime": {
-//             "before": 500.5,
-//             "after": 100.1,
-//             "difference": -400.4
-//         },
-//         "operationalLifetime": 15
-//     },
-//     "opex": {
-//         "perWeek": {
-//             "before": 500.5,
-//             "after": 100.1,
-//             "difference": -33.84
-//         },
-//         "perYear": {
-//             "before": 500.5,
-//             "after": 100.1,
-//             "difference": -400.4
-//         },
-//         "overLifetime": {
-//             "before": 500.5,
-//             "after": 100.1,
-//             "difference": -400.4
-//         },
-//         "operationalLifetime": 15
-//     },
-//     "upfrontCost": {
-//         "solar": 15944.44,
-//         "battery": 10000,
-//         "cooktop": 2695,
-//         "waterHeating": 6999,
-//         "spaceHeating": 3778
-//     }
-// }
+
+// ------------------- Default Household Form State -------------------
+// Initial values for the form, note slightly different to the defaultHouseholdData
+// This reflects the UI
+
+export const defaultFormState: HouseholdFormState = {
+  location: defaultHouseholdData.location || LocationEnum.AucklandNorth,
+  occupancy: defaultHouseholdData.occupancy || 2,
+  spaceHeating: defaultHouseholdData.spaceHeating || SpaceHeatingEnum.ElectricHeatPump,
+  waterHeating: defaultHouseholdData.waterHeating || WaterHeatingEnum.ElectricResistance,
+  cooktop: defaultHouseholdData.cooktop || CooktopEnum.Gas,
+  numberOfVehicles: defaultHouseholdData?.vehicles?.length || 0,
+  vehicleObjs: defaultHouseholdData?.vehicles?.map((vehicle, index) => ({
+    id: index + 1,
+    fuelType: vehicle.fuelType || VehicleFuelTypeEnum.Petrol,
+    usageType: 'Medium' as UsageType,
+    switchToEV: vehicle.switchToEV ?? false
+  })) || [],
+  solar: {
+    hasSolar: defaultHouseholdData?.solar?.hasSolar ?? false,
+    size: defaultHouseholdData?.solar?.size || 7,
+    installSolar: defaultHouseholdData?.solar?.installSolar,
+    unit: 'kW'
+  },
+  battery: {
+    hasBattery: defaultHouseholdData?.battery?.hasBattery ?? false,
+    capacity: defaultHouseholdData?.battery?.capacity ?? 10,
+    installBattery: defaultHouseholdData?.battery?.installBattery ?? true,
+    unit: 'kWh'
+  }
+};
+
+// -----------------------------------------------------
+
+
 export const defaultSavingsData: Savings = {
     "emissions": {
       "perWeek": {
