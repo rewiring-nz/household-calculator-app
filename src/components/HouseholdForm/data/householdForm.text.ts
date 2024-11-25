@@ -1,3 +1,4 @@
+import { defaultFormState } from 'src/assets/data/householdDefaults';
 import {     
     LocationEnum, 
     SpaceHeatingEnum, 
@@ -220,43 +221,47 @@ console.log('householdFormText batteryOptions:', batteryOptions);
 
 
 
+
+
 // ------------------- Default State -------------------
 // Initial values for the form, todo: update defaults from API
-
-export const defaultFormState: HouseholdFormState = {
-    location: LocationEnum.AucklandNorth,
-    occupancy: 3,
-    spaceHeating: SpaceHeatingEnum.ElectricHeatPump,
-    waterHeating: WaterHeatingEnum.ElectricResistance,
-    cooktop: CooktopEnum.Gas,
-    numberOfVehicles: 2,
-    vehicleObjs: [
-        {
-            id: 1,
-            fuelType: VehicleFuelTypeEnum.Petrol,
-            usageType: ('Medium' as UsageType),
-            switchToEV: true
-        },
-        {
-            id: 2,
-            fuelType: VehicleFuelTypeEnum.Petrol,
-            usageType: ('Medium' as UsageType),
-            switchToEV: true
-        }
-    ],
-    solar: {
-        hasSolar: false,
-        size: 7,
-        installSolar: true,
-        unit: 'kW'
-    },
-    battery: {
-        hasBattery: false,
-        capacity: 10,
-        installBattery: true,
-        unit: 'kWh'
-    }
-};
+// Moved to assets/data/householdDefaults.ts
+// export const defaultFormState: HouseholdFormState = {
+//     location: LocationEnum.AucklandNorth,
+//     occupancy: 3,
+//     spaceHeating: SpaceHeatingEnum.Wood,
+//     waterHeating: WaterHeatingEnum.Gas,
+//     cooktop: CooktopEnum.Gas,
+//     numberOfVehicles: 2,
+//     vehicleObjs: [
+//         {
+//             id: 1,
+//             fuelType: VehicleFuelTypeEnum.Hybrid,
+//             usageType: ('Medium' as UsageType),
+//             switchToEV: true
+//         },
+//         {
+//             id: 2,
+//             fuelType: VehicleFuelTypeEnum.Petrol,
+//             usageType: ('Low' as UsageType),
+//             switchToEV: true
+//         }
+//     ],
+//     solar: {
+//         hasSolar: false,
+//         size: 7,
+//         installSolar: true,
+//         // dontWantSolar: false,
+//         unit: 'kW'
+//     },
+//     battery: {
+//         hasBattery: false,
+//         capacity: 10,
+//         installBattery: true,
+//         // dontWantBattery: false,
+//         unit: 'kWh'
+//     }
+// };
 
 // -----------------------------------------------------
 
