@@ -1,3 +1,4 @@
+import { HouseholdFormState, UsageType } from '@components/HouseholdForm/data/interfaces';
 import { 
     Household, 
     Savings, 
