@@ -20,7 +20,7 @@ import { Household, Savings } from '../../shared/api/openapi-client';
 import { electricVehicleURL } from 'src/shared/links';
 import { recommendationActions } from './data/RecommendationActions';
 
-import { calcPercentage, formatKgs, formatNZD, formatSavingsNZD } from 'src/shared/utils/formatters';
+import { calcPercentage, formatKgs, formatSavingsNZD } from 'src/shared/utils/formatters';
 import { SavingsFrameBox } from './HouseholdSavings.styles';
 
 
@@ -99,17 +99,21 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
         <Box className="HouseholdSavings"
             sx={{
                 padding: '1.25rem',
-                backgroundColor: theme.palette.primary.main,
-                position: 'relative',
+                backgroundColor: theme.palette.primary.main,                
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 gap: '1rem',
                 borderRadius: 0,
+                margin: 'auto 0',
+                position: 'sticky',
+                top: '2rem',
                 [theme.breakpoints.up('sm')]: {
                     borderRadius: 1,
                 },
-                margin: 'auto 0'
+                [theme.breakpoints.up('lg')]: {
+                    top: '3.5rem',
+                },
             }}
             aria-label="Household Savings Section"
         >
@@ -415,7 +419,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                 </Box>
 
 
-                {/* </Box> */}
+
             </SavingsFrameBox>
 
 
