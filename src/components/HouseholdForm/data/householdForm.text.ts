@@ -130,6 +130,7 @@ const getOccupancyString = (occupancy: number): string => {
     return occupancy + ' people';
 };
 
+
 export const occupancyOptions = Array.from(Array(5).keys())
     .map((occupancy) => ({ 
         value: (occupancy + 1), 
@@ -142,31 +143,16 @@ export const spaceHeatingOptions = Object.entries(spaceHeatingMapping).map(([key
 })) as Option<SpaceHeatingEnum>[];
 
     
-
-// const waterHeatingMap_noSolar = { // Temp work around until API is updated
-//     [WaterHeatingEnum.ElectricResistance]: 'Electric resistive',
-//     [WaterHeatingEnum.ElectricHeatPump]: 'Heat pump',
-//     [WaterHeatingEnum.Gas]: 'Piped/natural gas',
-//     [WaterHeatingEnum.Lpg]: 'Bottled LPG',
-//     [WaterHeatingEnum.DontKnow]: 'Not sure'
-// };
-// export const waterHeatingOptions = Object.entries(waterHeatingMap_noSolar).map(([key, value]) => ({
-//     value: key as WaterHeatingEnum,
-//     text: value
-// })) as Option<WaterHeatingEnum>[];
-
 export const waterHeatingOptions = Object.entries(waterHeatingMapping).map(([key, value]) => ({
     value: key as WaterHeatingEnum,
     text: value
 })) as Option<WaterHeatingEnum>[];
 
 
-
 export const cooktopOptions = Object.entries(cooktopMapping).map(([key, value]) => ({
     value: key as CooktopEnum,
     text: value
 })) as Option<CooktopEnum>[];
-
 
 
 export const vehicleOptions: VehicleOptions = {
@@ -195,6 +181,7 @@ export const solarOptions = {
     ) as OptionNumber[]
 }
 
+
 export const batteryOptions = {
     hasBattery: [
         { value: false, text: 'No' },
@@ -206,66 +193,19 @@ export const batteryOptions = {
     ) as OptionNumber[]
 };
 
-console.log('householdFormText locationOptions:', locationOptions);
-console.log('householdFormText spaceHeatingOptions:', spaceHeatingOptions);
-console.log('householdFormText waterHeatingOptions:', waterHeatingOptions);
-console.log('householdFormText cooktopOptions:', cooktopOptions);
-console.log('householdFormText vehicleOptions:', vehicleOptions);
-console.log('householdFormText solarOptions:', solarOptions);
-console.log('householdFormText batteryOptions:', batteryOptions);
+// console.log('householdFormText locationOptions:', locationOptions);
+// console.log('householdFormText spaceHeatingOptions:', spaceHeatingOptions);
+// console.log('householdFormText waterHeatingOptions:', waterHeatingOptions);
+// console.log('householdFormText cooktopOptions:', cooktopOptions);
+// console.log('householdFormText vehicleOptions:', vehicleOptions);
+// console.log('householdFormText solarOptions:', solarOptions);
+// console.log('householdFormText batteryOptions:', batteryOptions);
 // -----------------------------------------------------
 
 
 
 
 
-
-
-
-
-
-
-// ------------------- Default State -------------------
-// Initial values for the form, todo: update defaults from API
-// Moved to assets/data/householdDefaults.ts
-// export const defaultFormState: HouseholdFormState = {
-//     location: LocationEnum.AucklandNorth,
-//     occupancy: 3,
-//     spaceHeating: SpaceHeatingEnum.Wood,
-//     waterHeating: WaterHeatingEnum.Gas,
-//     cooktop: CooktopEnum.Gas,
-//     numberOfVehicles: 2,
-//     vehicleObjs: [
-//         {
-//             id: 1,
-//             fuelType: VehicleFuelTypeEnum.Hybrid,
-//             usageType: ('Medium' as UsageType),
-//             switchToEV: true
-//         },
-//         {
-//             id: 2,
-//             fuelType: VehicleFuelTypeEnum.Petrol,
-//             usageType: ('Low' as UsageType),
-//             switchToEV: true
-//         }
-//     ],
-//     solar: {
-//         hasSolar: false,
-//         size: 7,
-//         installSolar: true,
-//         // dontWantSolar: false,
-//         unit: 'kW'
-//     },
-//     battery: {
-//         hasBattery: false,
-//         capacity: 10,
-//         installBattery: true,
-//         // dontWantBattery: false,
-//         unit: 'kWh'
-//     }
-// };
-
-// -----------------------------------------------------
 
 
 
@@ -284,7 +224,6 @@ const tooltipText: Record<string, string> = {
     hasSolar: 'If you have any solar panels in use (whether on roof or ground), select Yes. If you don’t have solar yet, select whether you would like to calculate your savings based on getting solar.',
     solarSize: 'The total capacity of your solar panel system. 9 kW is the average in Australia and enough for 2 EVs, 7 kW is enough for 1 EV.',
     hasBattery: 'If you have a home battery, select Yes. If you don’t have a battery yet, select whether you would like to calculate your savings based on getting one.',
-    // batteryCapacity: 'The total capacity of your home battery system. A Tesla Powerwall is 5 kW.',
     batteryCapacity: 'The total size of your home battery system. 10 kWh is our default.',
     vehicleNumber: "Select the number of vehicles that you use reasonably regularly."
 };
