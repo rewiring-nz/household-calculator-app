@@ -52,10 +52,10 @@ const getVehicleCostStr = (numEVsToBuy: number): string => {
 }
 
 
-const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, appliances, numEVsToBuy, isMobile=false }) => {
+const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, appliances, numEVsToBuy, isMobile = false }) => {
     const theme = useTheme();
     const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
-        
+
     const [upfrontCostTotal, setUpfrontCostTotal] = useState('0');
     const householdData = useState<Household>();
     const vehicleCostStr = getVehicleCostStr(numEVsToBuy)
@@ -73,14 +73,14 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                 .reduce((acc, val) => acc + val, 0) // Sum the rounded values
             : 0;
         const totalString = `$${total.toLocaleString('en-NZ')}`;
-    
+
         setUpfrontCostTotal(totalString);
 
         // console.log("HouseholdSavings useEffect savings:", savings);
         console.log("HouseholdSavings useEffect results:", results);
         console.log("HouseholdSavings useEffect upfrontCostTotal:", total);
         console.log("HouseholdSavings useEffect loadingData:", loadingData);
-    }, [ results, loadingData ]);
+    }, [results, loadingData]);
 
 
 
@@ -91,27 +91,28 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
     // --------------------  Next Steps --------------------
     const recommendationKey = results?.recommendation?.action;
     const recommendationURL = results?.recommendation?.url || '';
-    const { getDescription, buttonText, imageComponent } =  recommendationKey ?  recommendationActions[recommendationKey] : { getDescription: () => '', buttonText: '', imageComponent: '' };
+    const { getDescription, buttonText, imageComponent } = recommendationKey ? recommendationActions[recommendationKey] : { getDescription: () => '', buttonText: '', imageComponent: '' };
     const description = getDescription(appliances);
 
-    
+
     return (
-            <Box className="HouseholdSavings"
-                sx={{
-                    padding: '1.25rem',
-                    backgroundColor: theme.palette.primary.main,
-                    position: 'relative',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    gap: '1rem',
-                    borderRadius: 0,
-                    [theme.breakpoints.up('sm')]: {
-                        borderRadius: 1,
-                    }
-                }}
-                aria-label="Household Savings Section"
-                >
+        <Box className="HouseholdSavings"
+            sx={{
+                padding: '1.25rem',
+                backgroundColor: theme.palette.primary.main,
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                gap: '1rem',
+                borderRadius: 0,
+                [theme.breakpoints.up('sm')]: {
+                    borderRadius: 1,
+                },
+                margin: 'auto 0'
+            }}
+            aria-label="Household Savings Section"
+        >
 
 
 
@@ -123,10 +124,10 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                     margin: '0 0.1rem'
                 }}>
                 {!isMobile && (
-                    <Typography 
+                    <Typography
                         variant="h1"
                         aria-label="Your Savings"
-                        >
+                    >
                         Your Savings
                     </Typography>
                 )}
@@ -134,80 +135,78 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                     sx={{
                         margin: '0 0 1rem 0'
                     }}
-                    >
+                >
                     By electrifying your household, we estimate you could save:</Typography>
                 <Typography variant="body1"
                     sx={{
                         color: theme.palette.secondary.contrastText
                     }}
-                    >                    
-                    <Link 
-                        component={RouterLink} 
+                >
+                    <Link
+                        component={RouterLink}
                         to="/methodology"
                         sx={{
-                            color: '#2D62FF',                            
+                            color: '#2D62FF',
                             textDecoration: 'underline',
                         }}
-                        >
+                    >
                         How did we calculate this?
                     </Link>
                 </Typography>
-                
+
             </Box>
  
 
-            
+
             <SavingsFrameBox className='Results' aria-label="Results"
                 sx={{
                     backgroundColor: theme.palette.background.paper,
                 }}>
 
-                <ResultBox 
-                    label="Energy Bill" 
-                    heading={`${formatSavingsNZD(results?.opex?.perWeek?.difference, 0)} saved per week`} 
-                    >   
+                <ResultBox
+                    label="Energy Bill"
+                    heading={`${formatSavingsNZD(results?.opex?.perWeek?.difference, 0)} saved per week`}
+                >
                     <Typography variant="body1">
-                        That's 
+                        That's
                         <span style={{ fontWeight: '600' }}>
-                           {` ${formatSavingsNZD(results?.opex?.perYear?.difference, 0)}`}
-                        </span> saved per year and 
+                            {` ${formatSavingsNZD(results?.opex?.perYear?.difference, 0)}`}
+                        </span> saved per year and
                         <span style={{ fontWeight: '600' }}>
-                           {` ${formatSavingsNZD(results?.opex?.overLifetime?.difference, 0)}`}
+                            {` ${formatSavingsNZD(results?.opex?.overLifetime?.difference, 0)}`}
                         </span> over <a href="mailto:"></a> a 15 year product lifetime.
                     </Typography>
-                </ResultBox>                    
-
-                <FDivider />
-                
-                <ResultBox 
-                    label="Energy Emissions" 
-                    // heading={`${(results?.emissions?.perWeek?.difference || 0) *-1}% saved`}
-                    heading={`${calcPercentage(results?.emissions?.perYear)}% saved`}
-                    >   
-                    <Typography variant="body1">                    
-                        That's <span style={{ fontWeight: '600' }}>
-                            {/* {`${formatTonnes(results?.emissions?.perYear?.difference)} tonnes `} */}
-                            {formatKgs(results?.emissions?.perYear?.difference)}
-                        </span> 
-                        of CO2e a year!
-                    </Typography>            
-                    
                 </ResultBox>
 
-                
                 <FDivider />
                 
-                <ResultBox 
+                <ResultBox
+                    label="Energy Emissions"
+                    heading={`${calcPercentage(results?.emissions?.perYear)}% saved`}
+                >
+                    <Typography variant="body1">
+                        That's <span style={{ fontWeight: '600' }}>
+                            {formatKgs(results?.emissions?.perYear?.difference)}
+                        </span>
+                        of CO2e a year!
+                    </Typography>
+
+                </ResultBox>
+
+
+                <FDivider />
+
+                <ResultBox
                     label="Replacement Cost"
-                    heading={upfrontCostTotal} 
+                    heading={upfrontCostTotal}
                     bulletPoints={[
-                        { label: 'House heating', value: Math.round((results?.upfrontCost?.spaceHeating || 0) /100) * 100 },
-                        { label: 'Water heating', value: Math.round((results?.upfrontCost?.waterHeating || 0) /100) * 100 },
-                        { label: 'Cooktop', value: Math.round((results?.upfrontCost?.cooktop || 0) /100) * 100 },
-                        { label: 'Solar', value: Math.round((results?.upfrontCost?.solar || 0) /100) * 100 },
-                        { label: 'Battery', value: Math.round((results?.upfrontCost?.battery || 0) /100) * 100 },
+                        { label: 'House heating', value: Math.round((results?.upfrontCost?.spaceHeating || 0) / 100) * 100 },
+                        { label: 'Water heating', value: Math.round((results?.upfrontCost?.waterHeating || 0) / 100) * 100 },
+                        { label: 'Cooktop', value: Math.round((results?.upfrontCost?.cooktop || 0) / 100) * 100 },
+                        { label: 'Solar', value: Math.round((results?.upfrontCost?.solar || 0) / 100) * 100 },
+                        { label: 'Battery', value: Math.round((results?.upfrontCost?.battery || 0) / 100) * 100 },
                     ]}
-                    >
+                >
                     <Typography variant="h2"
                         sx={{
                             margin: '0.8rem 0 0.2rem 0'
@@ -216,7 +215,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                     </Typography>
                     <Typography variant="body2">
                         <span style={{ fontWeight: '600' }}>to buy {numEVsToBuy} new EVs.</span> New mid-range EVs cost $30k-$70k each, depending on the model. Secondhand EVs start at ~$3k.&nbsp;
-                        <Link 
+                        <Link
                             href={electricVehicleURL}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -227,7 +226,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                                 display: 'inline-flex',
                                 alignItems: 'center'
                             }}
-                            >
+                        >
                             Learn more here
                             <OpenIcon
                                 style={{
@@ -236,10 +235,10 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                                     maxHeight: '15px',
                                     stroke: 'currentColor'
                                 }}
-                                />
+                            />
                         </Link>
                     </Typography>
-                </ResultBox>       
+                </ResultBox>
 
             </SavingsFrameBox>
 
@@ -251,15 +250,15 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                     backgroundColor: theme.palette.secondary.main,
                     color: theme.palette.secondary.contrastText
                 }}
-                >
-                <Grid container                  
-                    sx={{ 
-                        margin: '0.4rem 0', 
+            >
+                <Grid container
+                    sx={{
+                        margin: '0.4rem 0',
                         padding: '0',
                         boxSizing: 'border-box'
                     }}
-                    >
-                    <Grid item xs={12} md={8} 
+                >
+                    <Grid item xs={12} md={8}
                         sx={{
                             padding: '0',
                             boxSizing: 'border-box',
@@ -268,8 +267,8 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                                 paddingRight: '1rem'
                             }
                         }}
-                        >
-                        <Box className="TopBox" 
+                    >
+                        <Box className="TopBox"
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'row',
@@ -277,28 +276,28 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                                 padding: '0',
                                 boxSizing: 'border-box'
                             }}
-                            >
+                        >
                             <Box className="TextBox"
-                                sx={{ 
+                                sx={{
                                     flex: 1,
                                     padding: '0',
                                     boxSizing: 'border-box',
                                     paddingRight: '1rem'
                                 }}
-                                >
-                                <Typography 
-                                    variant="h2" 
-                                    sx={{ 
-                                        color: theme.palette.secondary.contrastText 
+                            >
+                                <Typography
+                                    variant="h2"
+                                    sx={{
+                                        color: theme.palette.secondary.contrastText
                                     }}
                                     aria-label="Next steps"
-                                    >
+                                >
                                     Next steps
                                 </Typography>
 
-                                <Typography 
+                                <Typography
                                     variant="subtitle2"
-                                    >
+                                >
                                     {description}
                                 </Typography>
                             </Box>
@@ -307,12 +306,12 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                                 <Box className="ImageBox"
                                     sx={{
                                         flexShrink: 0,
-                                        marginLeft: { md: '1rem' }, 
+                                        marginLeft: { md: '1rem' },
                                         marginTop: { xs: '1rem', md: 0 },
                                         margin: '1.4rem 0'
                                     }}
-                                    >
-                                    {imageComponent}                            
+                                >
+                                    {imageComponent}
                                 </Box>
                             )}
                         </Box>
@@ -322,52 +321,52 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                                 padding: '0',
                                 boxSizing: 'border-box'
                             }}
-                            >
+                        >
                             {buttonText && (
-                            <Button
-                                variant="contained"
-                                color="info"
-                                sx={{
-                                    textTransform: 'initial',
-                                    margin: '.7rem 0',
-                                    borderRadius: '0.25rem',
-                                    boxShadow: 'none',
-                                    width: '100%',
-                                    padding: '0',
-                                    boxSizing: 'border-box',
-                                    '&:hover': {
-                                        boxShadow: 'none',
-                                        backgroundColour: theme.palette.info.dark
-                                    }
-                                }}
-                                onClick={() => window.open(recommendationURL, '_blank', 'noopener,noreferrer')}
-                                >
-                                <Typography variant="h5" 
-                                    sx={{ 
-                                        color: theme.palette.info.contrastText,
-                                        maxHeight: '3.4375rem',                        
-                                    }}
-                                    >
-                                    {/* Most likely "Show me how" */}
-                                    {buttonText}
-                                </Typography>                                
-                                <Box 
+                                <Button
+                                    variant="contained"
+                                    color="info"
                                     sx={{
-                                        margin: '0 0.3rem 0 0.2rem',
-                                        display: 'flex',
-                                        alignItems: 'center'
+                                        textTransform: 'initial',
+                                        margin: '.7rem 0',
+                                        borderRadius: '0.25rem',
+                                        boxShadow: 'none',
+                                        width: '100%',
+                                        padding: '0',
+                                        boxSizing: 'border-box',
+                                        '&:hover': {
+                                            boxShadow: 'none',
+                                            backgroundColour: theme.palette.info.dark
+                                        }
                                     }}
+                                    onClick={() => window.open(recommendationURL, '_blank', 'noopener,noreferrer')}
+                                >
+                                    <Typography variant="h5"
+                                        sx={{
+                                            color: theme.palette.info.contrastText,
+                                            maxHeight: '3.4375rem',
+                                        }}
                                     >
-                                    <svg width="15" height="15" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        {/* eslint-disable-next-line react/no-unknown-property */}
-                                        <path d="M384 224V408C384 413.253 382.965 418.454 380.955 423.307C378.945 428.16 375.999 432.57 372.284 436.284C368.57 439.999 364.16 442.945 359.307 444.955C354.454 446.965 349.253 448 344 448H104C93.3913 448 83.2172 443.786 75.7157 436.284C68.2143 428.783 64 418.609 64 408V168C64 157.391 68.2143 147.217 75.7157 139.716C83.2172 132.214 93.3913 128 104 128H271.48" stroke="black" strokeWidth="55" strokeLinecap="round" strokeLinejoin="round"/>
-                                        {/* eslint-disable-next-line react/no-unknown-property */}
-                                        <path d="M336 64H448V176" stroke="black" strokeWidth="55" strokeLinecap="round" strokeLinejoin="round"/>  
-                                        {/* eslint-disable-next-line react/no-unknown-property */}
-                                        <path d="M224 288L440 72" stroke="black" strokeWidth="55" strokeLinecap="round" strokeLinejoin="round"/>
-                                    </svg>  
-                                </Box>
-                            </Button>
+                                        {/* Most likely "Show me how" */}
+                                        {buttonText}
+                                    </Typography>
+                                    <Box
+                                        sx={{
+                                            margin: '0 0.3rem 0 0.2rem',
+                                            display: 'flex',
+                                            alignItems: 'center'
+                                        }}
+                                    >
+                                        <svg width="15" height="15" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            {/* eslint-disable-next-line react/no-unknown-property */}
+                                            <path d="M384 224V408C384 413.253 382.965 418.454 380.955 423.307C378.945 428.16 375.999 432.57 372.284 436.284C368.57 439.999 364.16 442.945 359.307 444.955C354.454 446.965 349.253 448 344 448H104C93.3913 448 83.2172 443.786 75.7157 436.284C68.2143 428.783 64 418.609 64 408V168C64 157.391 68.2143 147.217 75.7157 139.716C83.2172 132.214 93.3913 128 104 128H271.48" stroke="black" strokeWidth="55" strokeLinecap="round" strokeLinejoin="round" />
+                                            {/* eslint-disable-next-line react/no-unknown-property */}
+                                            <path d="M336 64H448V176" stroke="black" strokeWidth="55" strokeLinecap="round" strokeLinejoin="round" />
+                                            {/* eslint-disable-next-line react/no-unknown-property */}
+                                            <path d="M224 288L440 72" stroke="black" strokeWidth="55" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </Box>
+                                </Button>
                             )}
                         </Grid>
 
@@ -376,19 +375,19 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
 
 
                     {isMdUp && (
-                        <Grid item xs={12} md={4} 
+                        <Grid item xs={12} md={4}
                             sx={{
                                 padding: '0',
                                 boxSizing: 'border-box'
                             }}
-                            >
-                            <Box className="ImageBox" 
-                                sx={{ 
+                        >
+                            <Box className="ImageBox"
+                                sx={{
                                     margin: '1.4rem 0',
                                     display: 'flex',
                                     justifyContent: 'end'
                                 }}
-                                >
+                            >
                                 {imageComponent}
                             </Box>
                         </Grid>
@@ -396,9 +395,9 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                 </Grid>
 
 
-               
 
-                    
+
+
 
                 <Typography variant="body1">
                     Sign me up to the mailing list for updates & toolkits for electrification:
@@ -406,22 +405,22 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
 
 
 
-               
+
                 <Box
                     sx={{
                         margin: '0.6rem 0 1.5rem 0'
                     }}
-                    >
+                >
                     <MailchimpForm theme={theme} />
                 </Box>
 
 
-            {/* </Box> */}
+                {/* </Box> */}
             </SavingsFrameBox>
 
 
 
-            
+
         </Box>
     );
 };
