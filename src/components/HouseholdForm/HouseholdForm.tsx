@@ -33,6 +33,7 @@ import HouseholdTooltip from './components/HouseholdTooltip';
 import { HouseRadio } from './components/HouseCheckRadio';
 import { HouseSwitch } from './components/HouseSwitch';
 import HouseMenuItem from './components/HouseMenuItem';
+import { defaultFormState } from 'src/assets/data/householdDefaults';
 
 
 interface HouseholdFormProps {
@@ -348,6 +349,13 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
+  const handleReset = () => {
+    methods.reset();
+    setBatteryCapacity(defaultFormData.battery.capacity);
+    setSolarSize(defaultFormData.solar.size);
+  };
+
+
 
   const onSubmit = (formData: Household) => {
     console.log('HouseholdForm onSubmit formData:', formData);
@@ -371,7 +379,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
             justifyContent: 'flex-end'
           }}
         >
-          <ResetButton theme={theme} type="button" onClick={() => methods.reset()}
+          <ResetButton theme={theme} type="button" onClick={handleReset}
             sx={{
               width: 'fit-content',
             }}
