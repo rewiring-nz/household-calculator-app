@@ -43,8 +43,6 @@ interface HouseholdFormProps {
 const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHouseholdData }) => {
   const theme = useTheme();
 
-
-
   // ----------------- Default State -----------------
 
   const defaultFormData = formText.defaultFormState
@@ -75,11 +73,10 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
   const watchAllFields: HouseholdFormState = watch();
   // -------------------------------------------------------------------
-
-
-
-
-
+  
+  
+  
+  
   // -------------------------------------------------------------------
   // solar state
   const watchHasSolar = watch('solar.hasSolar');
