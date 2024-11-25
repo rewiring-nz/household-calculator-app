@@ -20,7 +20,7 @@ import { Household, Savings } from '../../shared/api/openapi-client';
 import { electricVehicleURL } from 'src/shared/links';
 import { recommendationActions } from './data/RecommendationActions';
 
-import { formatKgs, formatNZD, formatSavingsNZD } from 'src/shared/utils/formatters';
+import { calcPercentage, formatKgs, formatNZD, formatSavingsNZD } from 'src/shared/utils/formatters';
 import { SavingsFrameBox } from './HouseholdSavings.styles';
 
 
@@ -154,7 +154,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                 </Typography>
                 
             </Box>
-
+ 
 
             
             <SavingsFrameBox className='Results' aria-label="Results"
@@ -181,7 +181,8 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                 
                 <ResultBox 
                     label="Energy Emissions" 
-                    heading={`${(results?.emissions?.perWeek?.difference || 0) *-1}% saved`}
+                    // heading={`${(results?.emissions?.perWeek?.difference || 0) *-1}% saved`}
+                    heading={`${calcPercentage(results?.emissions?.perYear)}% saved`}
                     >   
                     <Typography variant="body1">                    
                         That's <span style={{ fontWeight: '600' }}>
