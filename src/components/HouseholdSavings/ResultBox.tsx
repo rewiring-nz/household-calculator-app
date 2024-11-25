@@ -61,7 +61,7 @@ const ResultBox: React.FC<ResultBoxState> = ({ label, heading, bulletPoints, par
                                 {point.label}: 
                             </span>
 
-                            {typeof point.value === "string" ? point.value : formatNZD(point.value)}
+                            {typeof point.value === "string" ? point.value : formatNZD(point.value, 0)}
 
                         </Typography>
                     ))}
