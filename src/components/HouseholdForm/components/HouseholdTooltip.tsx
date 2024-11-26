@@ -41,10 +41,6 @@ const HouseholdTooltip: React.FC<HouseholdTooltipProps> = ({
     const handleTooltipOpen = () => {
         setOpen(true);
     };
-
-    const handleTooltipToggle = () => {
-        setOpen((prevOpen) => !prevOpen);
-    };
     
     const handleTooltipClose = () => {
         setOpen(false);
@@ -57,7 +53,7 @@ const HouseholdTooltip: React.FC<HouseholdTooltipProps> = ({
             theme={theme}
             open={open}
             onClose={handleTooltipClose}
-            onClick={handleTooltipToggle}
+            onClick={handleTooltipOpen}
             onMouseEnter={handleTooltipOpen}
             onMouseLeave={handleTooltipClose}
             leaveTouchDelay={3000}
