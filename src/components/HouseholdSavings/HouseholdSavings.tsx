@@ -203,6 +203,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                 <ResultBox
                     label="Replacement Cost"
                     heading={upfrontCostTotal}
+                    subheading="for new appliances, solar, and/or battery"
                     bulletPoints={[
                         { label: 'House heating', value: Math.round((results?.upfrontCost?.spaceHeating || 0) / 100) * 100 },
                         { label: 'Water heating', value: Math.round((results?.upfrontCost?.waterHeating || 0) / 100) * 100 },
@@ -215,12 +216,12 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                         <>
                             <Typography variant="h2"
                                 sx={{
-                                    margin: '0.8rem 0 0.2rem 0'
+                                    margin: '1.5rem 0 0.2rem 0'
                                 }}>
                                 + {vehicleCostStr}
                             </Typography>
                             <Typography variant="body2">
-                                <span style={{ fontWeight: '600' }}>to buy {numEVsToBuy} new EVs.</span> New mid-range EVs cost $30k-$70k each, depending on the model. Secondhand EVs start at ~$3k.&nbsp;
+                                <span style={{ fontWeight: '600' }}>for {numEVsToBuy} new EVs.</span> New mid-range EVs cost $30k-$70k each, depending on the model. Secondhand EVs start at ~$3k.&nbsp;
                                 <Link
                                     href={electricVehicleURL}
                                     target="_blank"
