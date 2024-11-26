@@ -161,13 +161,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 33bf310 (Fixed HouseholdTooltip, onhover-desktop, ontouch-mobile)
-
-
-
 
 
   // ----------------- Manage the number of vehicles -------------------
