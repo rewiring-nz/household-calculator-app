@@ -816,8 +816,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                     render={({ field: { onChange, onBlur, value, ref } }) => (
                       <TextField
                         id="outlined-number"
-                        // type="number" // This is causes the input to always have a 0 if empty
-                        inputMode="numeric"
                         InputLabelProps={{
                           shrink: true,
                         }}
@@ -870,6 +868,8 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                             style: { textAlign: 'right' },
                             min: 0,
                             max: 1000,
+                            inputMode: "numeric",
+                            pattern: '[0-9]*',
                           }
                         }}
                         error={!!methods.formState.errors.solar?.size}
@@ -1036,11 +1036,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   <Controller
                     name="battery.capacity"
                     control={methods.control}
-                    render={({ field: { onChange, onBlur, value, ref } }) => (
+                    render={({ field: { onChange, ref } }) => (
                       <TextField
                         id="outlined-number"
-                        // type="number" // This is causes the input to always have a 0 if empty
-                        inputMode="numeric"
                         value={batteryCapacity ?? ''}
                         onChange={(e) => {
                           const numericValue = parseFloat(e.target.value);
@@ -1095,6 +1093,8 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                             style: { textAlign: 'right' },
                             min: 0,
                             max: 1000,
+                            inputMode: "numeric",
+                            pattern: '[0-9]*',
                           }
                         }}
                         error={!!methods.formState.errors.battery?.capacity}
