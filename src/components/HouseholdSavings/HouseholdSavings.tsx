@@ -20,7 +20,7 @@ import { Household, Savings } from '../../shared/api/openapi-client';
 import { electricVehicleURL } from 'src/shared/links';
 import { recommendationActions } from './data/RecommendationActions';
 
-import { calcPercentage, formatKgs, formatNZD, formatSavingsNZD } from 'src/shared/utils/formatters';
+import { calcPercentage, formatKgs, formatSavingsNZD } from 'src/shared/utils/formatters';
 import { SavingsFrameBox } from './HouseholdSavings.styles';
 
 
@@ -100,16 +100,20 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
             sx={{
                 padding: '1.25rem',
                 backgroundColor: theme.palette.primary.main,
-                position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 gap: '1rem',
                 borderRadius: 0,
+                margin: 'auto 0',
+                position: 'sticky',
+                top: '2rem',
                 [theme.breakpoints.up('sm')]: {
                     borderRadius: 1,
                 },
-                margin: 'auto 0'
+                [theme.breakpoints.up('lg')]: {
+                    top: '3.5rem',
+                },
             }}
             aria-label="Household Savings Section"
         >
@@ -199,6 +203,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                 <ResultBox
                     label="Replacement Cost"
                     heading={upfrontCostTotal}
+                    subheading="for new appliances, solar, and/or battery"
                     bulletPoints={[
                         { label: 'House heating', value: Math.round((results?.upfrontCost?.spaceHeating || 0) / 100) * 100 },
                         { label: 'Water heating', value: Math.round((results?.upfrontCost?.waterHeating || 0) / 100) * 100 },
@@ -207,37 +212,41 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                         { label: 'Battery', value: Math.round((results?.upfrontCost?.battery || 0) / 100) * 100 },
                     ]}
                 >
-                    <Typography variant="h2"
-                        sx={{
-                            margin: '0.8rem 0 0.2rem 0'
-                        }}>
-                        + {vehicleCostStr}
-                    </Typography>
-                    <Typography variant="body2">
-                        <span style={{ fontWeight: '600' }}>to buy {numEVsToBuy} new EVs.</span> New mid-range EVs cost $30k-$70k each, depending on the model. Secondhand EVs start at ~$3k.&nbsp;
-                        <Link
-                            href={electricVehicleURL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            sx={{
-                                color: theme.palette.text.primary,
-                                fontFamily: theme.typography.fontFamily,
-                                textDecoration: 'underline',
-                                display: 'inline-flex',
-                                alignItems: 'center'
-                            }}
-                        >
-                            Learn more here
-                            <OpenIcon
-                                style={{
-                                    marginLeft: '0.3rem',
-                                    maxWidth: '15px',
-                                    maxHeight: '15px',
-                                    stroke: 'currentColor'
-                                }}
-                            />
-                        </Link>
-                    </Typography>
+                    {numEVsToBuy > 0 && (
+                        <>
+                            <Typography variant="h2"
+                                sx={{
+                                    margin: '1.5rem 0 0.2rem 0'
+                                }}>
+                                + {vehicleCostStr}
+                            </Typography>
+                            <Typography variant="body2">
+                                <span style={{ fontWeight: '600' }}>for {numEVsToBuy} new EVs.</span> New mid-range EVs cost $30k-$70k each, depending on the model. Secondhand EVs start at ~$3k.&nbsp;
+                                <Link
+                                    href={electricVehicleURL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    sx={{
+                                        color: theme.palette.text.primary,
+                                        fontFamily: theme.typography.fontFamily,
+                                        textDecoration: 'underline',
+                                        display: 'inline-flex',
+                                        alignItems: 'center'
+                                    }}
+                                >
+                                    Learn more here
+                                    <OpenIcon
+                                        style={{
+                                            marginLeft: '0.3rem',
+                                            maxWidth: '15px',
+                                            maxHeight: '15px',
+                                            stroke: 'currentColor'
+                                        }}
+                                    />
+                                </Link>
+                            </Typography>
+                        </>
+                    )}
                 </ResultBox>
 
             </SavingsFrameBox>
@@ -415,7 +424,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                 </Box>
 
 
-                {/* </Box> */}
+
             </SavingsFrameBox>
 
 

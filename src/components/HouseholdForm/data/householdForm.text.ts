@@ -59,7 +59,6 @@ export const spaceHeatingMapping: Record<SpaceHeatingEnum, string> = {
     [SpaceHeatingEnum.Wood]: 'Wood fire',
     [SpaceHeatingEnum.Gas]: 'Piped/natural gas heater',
     [SpaceHeatingEnum.Lpg]: 'Bottled LPG heater',
-    [SpaceHeatingEnum.DontKnow]: 'Not sure'
 };
 
 export const waterHeatingMapping: Record<WaterHeatingEnum, string> = {
@@ -68,7 +67,6 @@ export const waterHeatingMapping: Record<WaterHeatingEnum, string> = {
     [WaterHeatingEnum.Gas]: 'Piped/natural gas',
     [WaterHeatingEnum.Lpg]: 'Bottled LPG',
     [WaterHeatingEnum.Solar]: 'Solar',
-    [WaterHeatingEnum.DontKnow]: 'Not sure'
 };
 
 export const cooktopMapping: Record<CooktopEnum, string> = {
@@ -76,7 +74,6 @@ export const cooktopMapping: Record<CooktopEnum, string> = {
     [CooktopEnum.Gas]: 'Piped/natural gas',
     [CooktopEnum.Lpg]: 'Bottled LPG',
     [CooktopEnum.ElectricInduction]: 'Induction', // NB error in api, needs updating to Induction
-    [CooktopEnum.DontKnow]: 'Not sure'
 };
 
 export const vehicleMapping: Record<VehicleFuelTypeEnum, string> = {

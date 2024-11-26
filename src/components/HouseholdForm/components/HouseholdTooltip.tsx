@@ -41,7 +41,7 @@ const HouseholdTooltip: React.FC<HouseholdTooltipProps> = ({
     const handleTooltipOpen = () => {
         setOpen(true);
     };
-    
+
     const handleTooltipClose = () => {
         setOpen(false);
     };
