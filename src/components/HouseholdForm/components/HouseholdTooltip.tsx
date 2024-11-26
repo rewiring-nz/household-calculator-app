@@ -26,16 +26,12 @@ const StyledTooltip = styled(({ className, ...props }: TooltipProps & { classNam
 type HouseholdTooltipProps = TooltipProps & {
     title: string;
     children: React.ReactElement;
-    open?: boolean;
-    onClose?: () => void;
 };
 
 
 const HouseholdTooltip: React.FC<HouseholdTooltipProps> = ({
     title,
     children,
-    open: openProp,
-    onClose: onCloseProp,
     ...props
 }) => {
     const theme = useTheme();
@@ -46,11 +42,12 @@ const HouseholdTooltip: React.FC<HouseholdTooltipProps> = ({
         setOpen(true);
     };
 
+    const handleTooltipToggle = () => {
+        setOpen((prevOpen) => !prevOpen);
+    };
+    
     const handleTooltipClose = () => {
         setOpen(false);
-        if (onCloseProp) {
-            onCloseProp();
-        }
     };
 
     return (
@@ -58,9 +55,9 @@ const HouseholdTooltip: React.FC<HouseholdTooltipProps> = ({
             {...props}
             title={title}
             theme={theme}
-            open={openProp !== undefined ? openProp : open}
+            open={open}
             onClose={handleTooltipClose}
-            onClick={handleTooltipOpen}
+            onClick={handleTooltipToggle}
             onMouseEnter={handleTooltipOpen}
             onMouseLeave={handleTooltipClose}
             leaveTouchDelay={3000}
