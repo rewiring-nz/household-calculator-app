@@ -99,7 +99,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
         <Box className="HouseholdSavings"
             sx={{
                 padding: '1.25rem',
-                backgroundColor: theme.palette.primary.main,                
+                backgroundColor: theme.palette.primary.main,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
@@ -211,37 +211,41 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
                         { label: 'Battery', value: Math.round((results?.upfrontCost?.battery || 0) / 100) * 100 },
                     ]}
                 >
-                    <Typography variant="h2"
-                        sx={{
-                            margin: '0.8rem 0 0.2rem 0'
-                        }}>
-                        + {vehicleCostStr}
-                    </Typography>
-                    <Typography variant="body2">
-                        <span style={{ fontWeight: '600' }}>to buy {numEVsToBuy} new EVs.</span> New mid-range EVs cost $30k-$70k each, depending on the model. Secondhand EVs start at ~$3k.&nbsp;
-                        <Link
-                            href={electricVehicleURL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            sx={{
-                                color: theme.palette.text.primary,
-                                fontFamily: theme.typography.fontFamily,
-                                textDecoration: 'underline',
-                                display: 'inline-flex',
-                                alignItems: 'center'
-                            }}
-                        >
-                            Learn more here
-                            <OpenIcon
-                                style={{
-                                    marginLeft: '0.3rem',
-                                    maxWidth: '15px',
-                                    maxHeight: '15px',
-                                    stroke: 'currentColor'
-                                }}
-                            />
-                        </Link>
-                    </Typography>
+                    {numEVsToBuy > 0 && (
+                        <>
+                            <Typography variant="h2"
+                                sx={{
+                                    margin: '0.8rem 0 0.2rem 0'
+                                }}>
+                                + {vehicleCostStr}
+                            </Typography>
+                            <Typography variant="body2">
+                                <span style={{ fontWeight: '600' }}>to buy {numEVsToBuy} new EVs.</span> New mid-range EVs cost $30k-$70k each, depending on the model. Secondhand EVs start at ~$3k.&nbsp;
+                                <Link
+                                    href={electricVehicleURL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    sx={{
+                                        color: theme.palette.text.primary,
+                                        fontFamily: theme.typography.fontFamily,
+                                        textDecoration: 'underline',
+                                        display: 'inline-flex',
+                                        alignItems: 'center'
+                                    }}
+                                >
+                                    Learn more here
+                                    <OpenIcon
+                                        style={{
+                                            marginLeft: '0.3rem',
+                                            maxWidth: '15px',
+                                            maxHeight: '15px',
+                                            stroke: 'currentColor'
+                                        }}
+                                    />
+                                </Link>
+                            </Typography>
+                        </>
+                    )}
                 </ResultBox>
 
             </SavingsFrameBox>
