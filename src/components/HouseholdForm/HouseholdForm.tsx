@@ -44,6 +44,10 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
   const theme = useTheme();
 
 
+  // ------------- Tooltip -------------------
+  const tooltipText = formText.tooltipText;
+  // -----------------------------------------
+
 
   // ----------------- Default State -----------------
 
@@ -157,22 +161,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
 
-
-  // ------------- Tooltip -------------------
-  const tooltipText = formText.tooltipText;
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [openTooltips, setOpenTooltips] = useState<Record<string, boolean>>({});
-
-  const handleOpenTooltip = (tooltipKey: string) => (event: React.MouseEvent<HTMLImageElement>) => {
-    setOpenTooltips((prevState) => ({ ...prevState, [tooltipKey]: true }));
-    setDialogOpen(true);
-  };
-
-  const handleCloseTooltip = (tooltipKey: string) => () => {
-    setOpenTooltips((prevState) => ({ ...prevState, [tooltipKey]: false }));
-    setDialogOpen(false);
-  };
-  // -----------------------------------------
 
 
 
@@ -515,14 +503,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   <HouseholdTooltip
                     title={tooltipText.spaceHeating}
                     placement="top"
-                    open={openTooltips.spaceHeating}
-                    onClose={handleCloseTooltip('spaceHeating')}
                   >
                     <img
                       src={questionIcon}
                       className="tooltip-logo"
                       alt="logo"
-                      onClick={handleOpenTooltip('spaceHeating')}
                     />
                   </HouseholdTooltip>
                 </LabelBox>
@@ -570,14 +555,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   <HouseholdTooltip
                     title={tooltipText.waterHeating}
                     placement="top"
-                    open={openTooltips.waterHeating}
-                    onClose={handleCloseTooltip('waterHeating')}
                   >
                     <img
                       src={questionIcon}
                       className="tooltip-logo"
                       alt="logo"
-                      onClick={handleOpenTooltip('waterHeating')}
                     />
                   </HouseholdTooltip>
                 </LabelBox>
@@ -614,14 +596,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   <HouseholdTooltip
                     title={tooltipText.cooktop}
                     placement="top"
-                    open={openTooltips.cooktop}
-                    onClose={handleCloseTooltip('cooktop')}
                   >
                     <img
                       src={questionIcon}
                       className="tooltip-logo"
                       alt="logo"
-                      onClick={handleOpenTooltip('cooktop')}
                     />
                   </HouseholdTooltip>
                 </LabelBox>
@@ -695,14 +674,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   <HouseholdTooltip
                     title={tooltipText.hasSolar}
                     placement="top"
-                    open={openTooltips.hasSolar}
-                    onClose={handleCloseTooltip('hasSolar')}
                   >
                     <img
                       src={questionIcon}
                       className="tooltip-logo"
                       alt="logo"
-                      onClick={handleOpenTooltip('hasSolar')}
                     />
                   </HouseholdTooltip>
                 </LabelBox>
@@ -801,14 +777,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                     <HouseholdTooltip
                       title={tooltipText.solarSize}
                       placement="top"
-                      open={openTooltips.solarSize}
-                      onClose={handleCloseTooltip('solarSize')}
                     >
                       <img
                         src={questionIcon}
                         className="tooltip-logo"
                         alt="logo"
-                        onClick={handleOpenTooltip('solarSize')}
                       />
                     </HouseholdTooltip>
                   </LabelBox>
@@ -920,14 +893,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   <HouseholdTooltip
                     title={tooltipText.hasBattery}
                     placement="top"
-                    open={openTooltips.hasBattery}
-                    onClose={handleCloseTooltip('hasBattery')}
                   >
                     <img
                       src={questionIcon}
                       className="tooltip-logo"
                       alt="logo"
-                      onClick={handleOpenTooltip('hasBattery')}
                     />
                   </HouseholdTooltip>
                 </LabelBox>
@@ -1024,14 +994,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                     <HouseholdTooltip
                       title={tooltipText.batteryCapacity}
                       placement="top"
-                      open={openTooltips.batteryCapacity}
-                      onClose={handleCloseTooltip('batteryCapacity')}
                     >
                       <img
                         src={questionIcon}
                         className="tooltip-logo"
                         alt="logo"
-                        onClick={handleOpenTooltip('batteryCapacity')}
                       />
                     </HouseholdTooltip>
                   </LabelBox>
@@ -1144,14 +1111,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                     <HouseholdTooltip
                       title={tooltipText.vehicleNumber}
                       placement="top"
-                      open={openTooltips.vehicleNumber}
-                      onClose={handleCloseTooltip('vehicleNumber')}
                     >
                       <img
                         src={questionIcon}
                         className="tooltip-logo"
                         alt="logo"
-                        onClick={handleOpenTooltip('vehicleNumber')}
                       />
                     </HouseholdTooltip>
                   </LabelBox>
