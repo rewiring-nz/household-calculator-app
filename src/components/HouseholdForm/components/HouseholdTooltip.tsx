@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { styled, Theme, useTheme } from '@mui/material';
+import { styled, Theme, useTheme, useMediaQuery } from '@mui/material';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 
 
@@ -35,18 +35,20 @@ const HouseholdTooltip: React.FC<HouseholdTooltipProps> = ({
     ...props
 }) => {
     const theme = useTheme();
-    const isMobile = theme.breakpoints['down']('sm');
+    const isMobile = useMediaQuery(theme.breakpoints['down']('sm'));
     const [open, setOpen] = useState(false);
 
-    const handleTooltipOpen = () => {
+    const handleTooltipOpen = (e?: React.MouseEvent | React.TouchEvent) => {
+        if (e) e.preventDefault(); // Prevent default touch behavior
         setOpen(true);
     };
 
-    const handleTooltipToggle = () => {
-        setOpen(() => !open);
+    const handleTooltipToggle = (e: React.MouseEvent | React.TouchEvent) => {
+        e.preventDefault(); // Prevent default touch behavior
+        setOpen(prev => !prev);
     }
     
-    const handleTooltipClose = () => {
+    const handleTooltipClose = (event?: React.SyntheticEvent | Event) => {
         setOpen(false);
     };
 
@@ -57,9 +59,10 @@ const HouseholdTooltip: React.FC<HouseholdTooltipProps> = ({
             theme={theme}
             open={open}
             onClose={handleTooltipClose}
-            onClick={ isMobile ? handleTooltipToggle : undefined }
-            onMouseEnter={handleTooltipOpen}
-            onMouseLeave={handleTooltipClose}
+            onClick={isMobile ? handleTooltipToggle : undefined}
+            onTouchStart={isMobile ? handleTooltipToggle : undefined}
+            onMouseEnter={!isMobile ? handleTooltipOpen : undefined}
+            onMouseLeave={!isMobile ? handleTooltipClose : undefined}
             leaveTouchDelay={3000}
         >
             {children}
