@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { styled, Theme, useTheme } from '@mui/material';
+import { styled, Theme, useTheme, useMediaQuery } from '@mui/material';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 
 
@@ -26,31 +26,30 @@ const StyledTooltip = styled(({ className, ...props }: TooltipProps & { classNam
 type HouseholdTooltipProps = TooltipProps & {
     title: string;
     children: React.ReactElement;
-    open?: boolean;
-    onClose?: () => void;
 };
 
 
 const HouseholdTooltip: React.FC<HouseholdTooltipProps> = ({
     title,
     children,
-    open: openProp,
-    onClose: onCloseProp,
     ...props
 }) => {
     const theme = useTheme();
-
+    const isMobile = useMediaQuery(theme.breakpoints['down']('sm'));
     const [open, setOpen] = useState(false);
 
-    const handleTooltipOpen = () => {
+    const handleTooltipOpen = (e?: React.MouseEvent | React.TouchEvent) => {
+        if (e) e.preventDefault(); // Prevent default touch behavior
         setOpen(true);
     };
 
-    const handleTooltipClose = () => {
+    const handleTooltipToggle = (e: React.MouseEvent | React.TouchEvent) => {
+        e.preventDefault(); // Prevent default touch behavior
+        setOpen(prev => !prev);
+    }
+    
+    const handleTooltipClose = (event?: React.SyntheticEvent | Event) => {
         setOpen(false);
-        if (onCloseProp) {
-            onCloseProp();
-        }
     };
 
     return (
@@ -58,11 +57,12 @@ const HouseholdTooltip: React.FC<HouseholdTooltipProps> = ({
             {...props}
             title={title}
             theme={theme}
-            open={openProp !== undefined ? openProp : open}
+            open={open}
             onClose={handleTooltipClose}
-            onClick={handleTooltipOpen}
-            onMouseEnter={handleTooltipOpen}
-            onMouseLeave={handleTooltipClose}
+            onClick={isMobile ? handleTooltipToggle : undefined}
+            onTouchStart={isMobile ? handleTooltipToggle : undefined}
+            onMouseEnter={!isMobile ? handleTooltipOpen : undefined}
+            onMouseLeave={!isMobile ? handleTooltipClose : undefined}
             leaveTouchDelay={3000}
         >
             {children}
