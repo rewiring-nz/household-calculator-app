@@ -1,10 +1,10 @@
 import React from 'react';
 import { Typography, useTheme, SwipeableDrawer, Box, styled } from '@mui/material';
-import HouseholdSavings from '../HouseholdSavings'; 
-import { ReactComponent as ChevronDown} from 'src/assets/icons/chevron-down.svg';
-import { ReactComponent as ChevronUp} from 'src/assets/icons/chevron-up.svg';
+import HouseholdSavings from '../HouseholdSavings';
+import { ReactComponent as ChevronDown } from 'src/assets/icons/chevron-down.svg';
+import { ReactComponent as ChevronUp } from 'src/assets/icons/chevron-up.svg';
 import { SavingsProps } from '../HouseholdSavings/HouseholdSavings';
-import { formatNZD, formatSavingsNZD } from 'src/shared/utils/formatters';
+import { formatSavingsNZD } from 'src/shared/utils/formatters';
 import { useDrawer } from './DrawerContext';
 
 export interface SavingsDrawerProps extends SavingsProps {
@@ -12,7 +12,7 @@ export interface SavingsDrawerProps extends SavingsProps {
     toggleDrawer: () => void;
 }
 
-const drawerToolbarHeight = 56; 
+const drawerToolbarHeight = 56;
 const overlap = 4;
 
 
@@ -22,18 +22,12 @@ const StyledBox = styled('div')(({ theme }) => ({
 
 
 
-  
+
 const MobileSavingsDrawer = (savings: SavingsDrawerProps) => {
     const { results, loadingData, appliances, numEVsToBuy } = savings;
     const { drawerOpen, toggleDrawer } = useDrawer();
     const theme = useTheme();
 
-    // Moved to Home.tsx
-    // const [drawerOpen, setDrawerOpen] = useState(false);
-    // const toggleDrawer = () => { 
-    //     // setDrawerOpen(!drawerOpen);
-    //     setDrawerOpen((prev) => !prev);
-    // };
 
     return (
         <SwipeableDrawer
@@ -48,20 +42,14 @@ const MobileSavingsDrawer = (savings: SavingsDrawerProps) => {
             }}
             sx={{
                 '& .MuiDrawer-paper': {
-                    height: drawerOpen ? `calc(100% - ${drawerToolbarHeight}px)` : `calc(50% - ${drawerToolbarHeight}px)`,
                     overflow: 'visible',
-                    visibility: 'visible',
                     transition: 'height 0.3s',
-                    // pointerEvents: 'auto',
-                    // boxShadow: '0px -12px 10px rgba(0, 0, 0, 0.2)'
+                    backgroundColor: theme.palette.primary.main,
                 },
-                // '& .MuiPaper-root': {
-                // },
             }}
-            >
-            {/* <StyledBox theme={theme} onClick={toggleDrawer} */}
+        >
             <StyledBox className="MobileSavingsDrawer-Toolbar"
-                theme={theme} 
+                theme={theme}
                 sx={{
                     position: 'fixed',
                     top: drawerOpen ? 0 : -drawerToolbarHeight,
@@ -76,59 +64,62 @@ const MobileSavingsDrawer = (savings: SavingsDrawerProps) => {
                     zIndex: 1300,
                     boxShadow: drawerOpen ? 'none' : '0px -9px 17px rgba(0, 0, 0, 0.2)'
                 }}
-                >
-                <Box 
-                    sx={{ 
-                        display: 'flex', 
+            >
+                <Box
+                    sx={{
+                        display: 'flex',
                         alignItems: 'center',
                         gap: '0.5rem',
                     }}>
-                    <Typography 
+                    <Typography
                         sx={{
                             fontFamily: theme.typography.fontFamily,
                             fontSize: '1.25rem', // 20px
                             fontWeight: 600,
                         }}
-                        >
+                    >
                         Your Savings</Typography>
                     <Typography variant="body1">
                         ({formatSavingsNZD(savings.results?.opex?.perWeek?.difference)} /wk)
                     </Typography>
                 </Box>
 
-                <Box 
+                <Box
                     onClick={toggleDrawer}
-                    sx={{ 
-                        display: 'flex', 
+                    sx={{
+                        display: 'flex',
                         alignItems: 'center',
                         gap: '0.25rem',
                         cursor: 'pointer',
                         pointerEvents: 'auto',
                     }}>
-                {drawerOpen ? (
-                    <ChevronUp />
-                ) : (
-                    <>
-                        <Typography
-                            variant="body1"
-                            sx={{
-                                textDecoration: 'underline',
-                            }}
-                        >
-                            View
-                        </Typography>
-                        <ChevronDown />
-                    </>
-                )}
+                    {drawerOpen ? (
+                        <ChevronUp />
+                    ) : (
+                        <>
+                            <Typography
+                                variant="body1"
+                                sx={{
+                                    textDecoration: 'underline',
+                                }}
+                            >
+                                View
+                            </Typography>
+                            <ChevronDown />
+                        </>
+                    )}
                 </Box>
             </StyledBox>
 
 
-            <StyledBox  theme={theme}
-                sx={{ 
-                    height: '100%', overflow: 'auto' 
+            <StyledBox theme={theme}
+                sx={{
+                    top: drawerToolbarHeight,
+                    position: 'relative',
+                    height: '100%',
+                    overflow: 'auto'
                 }}
-                >
+            >
                 <HouseholdSavings isMobile={true} appliances={appliances} results={results} numEVsToBuy={numEVsToBuy} loadingData={loadingData} />
             </StyledBox>
 
