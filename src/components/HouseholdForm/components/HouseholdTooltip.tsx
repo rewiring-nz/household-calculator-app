@@ -35,13 +35,17 @@ const HouseholdTooltip: React.FC<HouseholdTooltipProps> = ({
     ...props
 }) => {
     const theme = useTheme();
-
+    const isMobile = theme.breakpoints['down']('sm');
     const [open, setOpen] = useState(false);
 
     const handleTooltipOpen = () => {
         setOpen(true);
     };
 
+    const handleTooltipToggle = () => {
+        setOpen(() => !open);
+    }
+    
     const handleTooltipClose = () => {
         setOpen(false);
     };
@@ -53,7 +57,7 @@ const HouseholdTooltip: React.FC<HouseholdTooltipProps> = ({
             theme={theme}
             open={open}
             onClose={handleTooltipClose}
-            onClick={handleTooltipOpen}
+            onClick={ isMobile ? handleTooltipToggle : undefined }
             onMouseEnter={handleTooltipOpen}
             onMouseLeave={handleTooltipClose}
             leaveTouchDelay={3000}
