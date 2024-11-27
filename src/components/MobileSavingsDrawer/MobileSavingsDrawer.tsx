@@ -91,7 +91,7 @@ const MobileSavingsDrawer = (savings: SavingsDrawerProps) => {
                         alignItems: 'center',
                         gap: '0.25rem',
                         cursor: 'pointer',
-                        // pointerEvents: 'auto',
+                        pointerEvents: 'auto',
                     }}>
                     {drawerOpen ? (
                         <ChevronUp />
