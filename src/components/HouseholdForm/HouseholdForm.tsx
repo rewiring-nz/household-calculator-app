@@ -493,7 +493,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                 className="fullFormControl"
                 error={!!methods.formState.errors.spaceHeating}>
                 <LabelBox>
-                  <FormLabel className='mainLabels'>Main house heating source</FormLabel>
+                  <FormLabel className='mainLabels'>Main heating source</FormLabel>
                   <HouseholdTooltip
                     title={tooltipText.spaceHeating}
                     placement="top"
