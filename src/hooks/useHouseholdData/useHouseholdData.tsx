@@ -30,7 +30,6 @@ const useHouseholdData = () => {
         setHouseholdData(data);
         HouseholdDataService.postHouseholdData(data)
             .then((savings: Savings | undefined) => {
-                console.log('HouseholdDataService savings:', savings);
                 if (savings) {
                     updateSavingsData(savings);
                 }

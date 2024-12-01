@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Household, Savings } from '../../shared/api/openapi-client';
+import { Savings } from '../../shared/api/openapi-client';
 import { defaultSavingsData } from '../../assets/data/householdDefaults';
 import HouseholdDataService from '../../services/householdDataService';
 

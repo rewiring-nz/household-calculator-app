@@ -90,7 +90,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
   const [disableBatteryFields, setDisableBatteryFields] = useState(false); // Disable battery fields if no solar
 
   useEffect(() => {
-    console.log('HouseholdForm useEffect watchHasSolar:', watchHasSolar);
     if (watchHasSolar) {
       setValue('solar.installSolar', false);
       setDisableBatteryFields(false)
@@ -100,7 +99,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
   }, [watchHasSolar, setValue]);
 
   useEffect(() => {
-    console.log('HouseholdForm watchInstallSolar:', watchInstallSolar);
     updateFormData(getValues());
     if (!watchHasSolar) {
       setDisableBatteryFields(!watchInstallSolar); // if they don't have solar and don't want to install solar, turn off & disable battery fields
@@ -111,7 +109,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
   }, [watchInstallSolar]);
 
   useEffect(() => {
-    console.log('HouseholdForm solarSize: ', solarSize);
   }, [solarSize]);
   // -------------------------------------------------------------------
 
@@ -125,7 +122,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
   useEffect(() => {
-    console.log('HouseholdForm useEffect watchHasBattery:', watchHasBattery);
     if (watchHasBattery) {
       setValue('battery.installBattery', false);
     } else {
@@ -134,12 +130,10 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
   }, [watchHasBattery, setValue]);
 
   useEffect(() => {
-    console.log('HouseholdForm watchInstallBattery:', watchInstallBattery);
     updateFormData(getValues());
   }, [watchInstallBattery]);
 
   useEffect(() => {
-    console.log('HouseholdForm batteryCapacity: ', batteryCapacity);
   }, [batteryCapacity]);
 
   // ----------------------------------------------------------------
@@ -154,9 +148,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
   // ----------------- useHouseholdData useEffect -------------------
   React.useEffect(() => {
-    console.log('HouseholdForm useEffect householdData:', householdData);
-    // console.log('HouseholdForm useEffect savingsData:', savingsData);
-    // console.log('HouseholdForm useEffect loadingData:', loadingData);
   }, [householdData]);
   // -------------------------------------------------------------------
 
@@ -185,7 +176,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
     if (isUpdatingVehicles.current) return;
 
     const currentLength = fields.length;
-    console.log('HouseholdForm useEffect currentLength:', currentLength);
 
     if (numberOfVehicles > currentLength) {
       for (let i = currentLength; i < numberOfVehicles; i++) {
@@ -195,7 +185,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
           usageType: 'Medium' as UsageType,
           switchToEV: true
         };
-        console.log('HouseholdForm useEffect newVehicle:', newVehicle);
         append(newVehicle);
       }
     }
@@ -205,7 +194,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
     if (isUpdatingVehicles.current) return;
 
     const currentLength = fields.length;
-    console.log('HouseholdForm useEffect currentLength:', currentLength);
 
     if (numberOfVehicles < currentLength) {
       for (let i = currentLength; i > numberOfVehicles; i--) {
@@ -216,8 +204,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
   const handleVehicleDelete = async (index: number) => {
-    console.log('HouseholdForm delete object at index:', index);
-    console.log('HouseholdForm fields[index]: ', fields[index]);
     isUpdatingVehicles.current = true;
     await remove(index);
 
@@ -233,9 +219,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
     }
 
-    console.log('HouseholdForm handleVehicleDelete numberOfVehicles:', numberOfVehicles);
-    console.log('HouseholdForm vehicleObjs fields:', fields);
-    console.log('HouseholdForm vehicleObjs fields:', getValues('vehicleObjs'));
     isUpdatingVehicles.current = false;
   };
 
@@ -271,7 +254,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
       vehicles: (formValue.vehicleObjs ?? defaultFormState.vehicleObjs)
         .filter((vehicle): vehicle is VehicleObject => vehicle !== undefined)
         .map((vehicle: VehicleObject) => {
-          console.log('HouseholdForm vehicle: ', vehicle)
           const vehicleOut: Vehicle = {
             fuelType: vehicle.fuelType,
             kmsPerWeek: formText.options.vehicle.usageOptions.find((option: UsageOption) =>
@@ -292,7 +274,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
       }
     };
 
-    console.log('HouseholdForm updateFormData householdDataOut:', householdDataOut);
 
     updateHouseholdData(householdDataOut);
   };
@@ -310,9 +291,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
       if (isUpdating.current) return;
       isUpdating.current = true;
 
-      console.log('HouseholdForm watch value:', value);
-      console.log('HouseholdForm watch name:', name);
-      console.log('HouseholdForm watch type:', type);
 
       if (value) {
         updateFormData(value as HouseholdFormState);
@@ -333,7 +311,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
 
   const onSubmit = (formData: Household) => {
-    console.log('HouseholdForm onSubmit formData:', formData);
   };
 
 
@@ -803,7 +780,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                           setSolarSize(isNaN(numericValue) ? 0 : numericValue);
                         }}
                         onBlur={(e) => {
-                          console.log('HouseholdForm batteryCapacity onBlur e:', e);
                           const numericValue = parseFloat(e.target.value);
                           if (numericValue >= 0 && numericValue <= 1000) {
                             setSolarSize(isNaN(numericValue) ? 0 : numericValue);
@@ -813,7 +789,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                             setSolarSize(0);
                           }
                           if (e.target.value === '') {
-                            console.log('HouseholdForm batteryCapacity onBlur e.target.value:', e.target.value);
                             onChange(0);
                           }
                           setValue('solar.size', solarSize, { shouldValidate: true, shouldDirty: true });
@@ -1027,7 +1002,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                           setBatteryCapacity(isNaN(numericValue) ? 0 : numericValue);
                         }}
                         onBlur={(e) => {
-                          console.log('HouseholdForm batteryCapacity onBlur e:', e);
                           const numericValue = parseFloat(e.target.value);
                           if (numericValue >= 0 && numericValue <= 1000) {
                             setBatteryCapacity(isNaN(numericValue) ? 0 : numericValue);
@@ -1037,7 +1011,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                             setBatteryCapacity(0);
                           }
                           if (e.target.value === '') {
-                            console.log('HouseholdForm batteryCapacity onBlur e.target.value:', e.target.value);
                             onChange(0);
                           } else {
                             onChange(numericValue);

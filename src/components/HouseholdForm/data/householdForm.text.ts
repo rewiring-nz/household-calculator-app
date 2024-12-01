@@ -51,7 +51,6 @@ export const locationMapping: Record<LocationEnum, string> = {
     [LocationEnum.Overseas]: 'Overseas',
     [LocationEnum.Other]: 'Other'
 };
-console.log('householdFormText locationMapping:', locationMapping);
 
 export const spaceHeatingMapping: Record<SpaceHeatingEnum, string> = {
     [SpaceHeatingEnum.ElectricResistance]: 'Electric resistive heaters (e.g. oil column, fan, wall)',
@@ -102,10 +101,8 @@ export const vehicleUsageOptions: UsageOption[] = [
 
 const locationList: string[] = Object.values(LocationEnum)
     .map((location:  LocationEnum) => locationMapping[location]);
-console.log('householdFormText locationList:', locationList);
 
 const locationSet: string[] = [...new Set(locationList)];
-console.log('householdFormText locationSet:', locationSet);
 
 const locationEntries = Object.entries(locationMapping);
 // export const locationOptions = Object.entries(locationMapping).map(([key, value]) => ({
@@ -190,13 +187,6 @@ export const batteryOptions = {
     ) as OptionNumber[]
 };
 
-// console.log('householdFormText locationOptions:', locationOptions);
-// console.log('householdFormText spaceHeatingOptions:', spaceHeatingOptions);
-// console.log('householdFormText waterHeatingOptions:', waterHeatingOptions);
-// console.log('householdFormText cooktopOptions:', cooktopOptions);
-// console.log('householdFormText vehicleOptions:', vehicleOptions);
-// console.log('householdFormText solarOptions:', solarOptions);
-// console.log('householdFormText batteryOptions:', batteryOptions);
 // -----------------------------------------------------
 
 

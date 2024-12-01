@@ -16,7 +16,6 @@ const Home: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   // const isMobile = true; // for debugging
-  console.log('Home isMobile:', isMobile);
 
   const { householdData, updateHouseholdData, savingsData, loadingData, errorData } = useHouseholdData();
   const numEVsToBuy = householdData?.vehicles?.filter(vehicle => vehicle.switchToEV).length || 0;
