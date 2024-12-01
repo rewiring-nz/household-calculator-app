@@ -1,14 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import './index.css';
-import './fonts.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { DrawerProvider } from 'src/components/MobileSavingsDrawer/DrawerContext';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import "./index.css";
+import "./fonts.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { DrawerProvider } from "src/components/MobileSavingsDrawer/DrawerContext";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
@@ -17,7 +17,7 @@ root.render(
         <App />
       </DrawerProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

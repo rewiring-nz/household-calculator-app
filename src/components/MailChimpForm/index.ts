@@ -1,1 +1,1 @@
-export { default } from './MailChimpForm';
+export { default } from "./MailChimpForm";

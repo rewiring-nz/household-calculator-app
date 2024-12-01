@@ -1,6 +1,15 @@
 # household-calculator-app
 The frontend app for the household savings calculator
 
+## Contributing
+
+Make sure you have an Editor Config extension set up.
+
+```bash
+# linting
+npx prettier --write "**/*.{js,jsx,ts,tsx}"
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -1,1 +1,1 @@
-export { default } from './Methodology';
+export { default } from "./Methodology";
