@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
 interface DrawerContextProps {
   drawerOpen: boolean;
@@ -8,7 +14,7 @@ interface DrawerContextProps {
 }
 
 interface DrawerProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
@@ -22,20 +28,26 @@ export const DrawerProvider: React.FC<DrawerProviderProps> = ({ children }) => {
   };
 
   useEffect(() => {
-    const savedDrawerOpen = JSON.parse(sessionStorage.getItem('drawerOpen') || 'false');
-    const savedScrollPosition = JSON.parse(sessionStorage.getItem('scrollPosition') || '0');
+    const savedDrawerOpen = JSON.parse(
+      sessionStorage.getItem("drawerOpen") || "false",
+    );
+    const savedScrollPosition = JSON.parse(
+      sessionStorage.getItem("scrollPosition") || "0",
+    );
 
     setDrawerOpen(savedDrawerOpen);
     setScrollPosition(savedScrollPosition);
   }, []);
 
   useEffect(() => {
-    sessionStorage.setItem('drawerOpen', JSON.stringify(drawerOpen));
-    sessionStorage.setItem('scrollPosition', JSON.stringify(scrollPosition));
+    sessionStorage.setItem("drawerOpen", JSON.stringify(drawerOpen));
+    sessionStorage.setItem("scrollPosition", JSON.stringify(scrollPosition));
   }, [drawerOpen, scrollPosition]);
 
   return (
-    <DrawerContext.Provider value={{ drawerOpen, toggleDrawer, scrollPosition, setScrollPosition }}>
+    <DrawerContext.Provider
+      value={{ drawerOpen, toggleDrawer, scrollPosition, setScrollPosition }}
+    >
       {children}
     </DrawerContext.Provider>
   );
@@ -44,7 +56,7 @@ export const DrawerProvider: React.FC<DrawerProviderProps> = ({ children }) => {
 export const useDrawer = (): DrawerContextProps => {
   const context = useContext(DrawerContext);
   if (!context) {
-    throw new Error('useDrawer must be used within a DrawerProvider');
+    throw new Error("useDrawer must be used within a DrawerProvider");
   }
   return context;
 };
