@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, FormControl, FormHelperText, IconButton, MenuItem, Select, SelectChangeEvent, Typography, useTheme } from '@mui/material';
-import { Option, VehicleObject, UsageType, UsageOption, HouseholdFormState } from '../data/interfaces';
+import { Option, VehicleObject, UsageType, UsageOption } from '../data/interfaces';
 import deleteIcon from 'src/assets/icons/x-window.svg';
 import { FDivider } from 'src/shared/styles/FDivider';
 import { HouseSwitch } from './HouseSwitch';
 import { useState } from 'react';
-import { Control, Controller, FieldErrors, useForm, useFormContext, UseFormRegister } from 'react-hook-form';
-// import { VehicleOptionType } from '../data/householdForm.text';
+import { Controller, useFormContext } from 'react-hook-form';
 import { VehicleFuelTypeEnum } from 'src/shared/api/openapi-client';
 import { SwitchLabel } from '../HouseholdForm.styles';
 import chevronDown from 'src/assets/icons/chevron-down.svg';
@@ -45,18 +44,10 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
     // const { setValue } = useForm();
     // const { setValue, getValues, control } = useFormContext();
     const { setValue, register, control, watch, formState: { errors } } = useFormContext();
-    // console.log("VehicleBox usageOptionsList:", usageOptionsList);
-    // console.log("VehicleBox defaultType:", defaultType);
     const [selectedUsageName, setSelectedUsageName] = useState<string | undefined>(undefined);
     const [showDetails, setShowDetails] = useState(false);
 
 
-
-    // const handleUsageChange = (event: SelectChangeEvent<UsageType>) => {
-    //     const selectedValue = event.target.value as UsageType;
-    //     setSelectedUsageName(selectedValue);
-    //     setValue(`vehicleObjs.${index}.usageType`, selectedValue, { shouldValidate: true });
-    // };
     const handleUsageTypeChange = (selectedType: UsageType) => {
         setSelectedUsageName(selectedType);
         setValue(`vehicleObjs.${index}.usageType`, selectedType, { shouldValidate: true });
@@ -68,17 +59,6 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
     };
 
 
-    // useEffect(() => {
-    //     console.log("VehicleBox useEffect triggered");
-    //     console.log("VehicleBox fuelType: ", fuelType);
-    //     if (fuelType === 'ELECTRIC') {
-    //         setValue(`vehicleObjs.${index}.switchToEV`, false);
-    //         console.log('VehicleBox setValue called with:', `vehicleObjs.${index}.switchToEV`, false);
-    //     } else {
-    //         setValue(`vehicleObjs.${index}.switchToEV`, true);
-    //         console.log('VehicleBox setValue called with:', `vehicleObjs.${index}.switchToEV`, true);            
-    //     }
-    // }, [fuelType, index, setValue]);
     const handleFuelTypeChange = (event: SelectChangeEvent<VehicleFuelTypeEnum>) => {
         const newFuelType = event.target.value as VehicleFuelTypeEnum;
         setValue(`vehicleObjs.${index}.fuelType`, newFuelType);
@@ -88,11 +68,6 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
             setValue(`vehicleObjs.${index}.switchToEV`, true);
         }
     };
-
-    const watchSwitchToEV = watch(`vehicleObjs.${index}.switchToEV`);
-    useEffect(() => {
-        console.log(`VehicleBox watchSwitchToEV: ${watchSwitchToEV}`);
-    }, [watchSwitchToEV]);
 
 
     return (
@@ -144,14 +119,12 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
                             <Select
                                 labelId={`vehicles-fuelType-label-${index}`}
                                 id={`vehicles-fuelType-${index}`}
-                                // value={fuelType || ''}
                                 value={field.value || ''}
                                 onChange={(e) => {
                                     field.onChange(e);
                                     handleFuelTypeChange(e);
                                 }
                                 }
-                            // {...register(`vehicleObjs.${index}.fuelType`, { required: true })}
                             >
                                 {fuelTypeOptions.map((option: Option<VehicleFuelTypeEnum>) => (
                                     <MenuItem key={`fuelType-${option.value}`} value={option.value}>
@@ -293,46 +266,6 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
                                 },
                             }}
                         >
-                            {/* <Select
-                        labelId={`vehicles-usages-label-${index}`}
-                        id={`vehicles-usages-${index}`}
-                        value={selectedUsageName}
-                        onChange={handleUsageChange}
-                        defaultValue={defaultType}
-                        {...register(`vehicleObjs.${index}.usage`, { required: true })}
-                        renderValue={(selectedType: UsageType) => {
-                        const selectedOption: UsageOption | undefined = usageOptions.find((option: UsageOption) => option.type === selectedType);
-                        return selectedOption ? (
-                            <Typography variant="h5">
-                            {selectedOption.type}
-                            <Typography component="span" 
-                                sx={{
-                                    fontSize: '0.875rem',
-                                    color: theme.palette.text.secondary,
-                                }}
-                                >
-                                {' ' + selectedOption.unit}
-                            </Typography>
-                            </Typography>
-                        ) : '';
-                        }}
-                    >
-                        {usageOptions.map((option: UsageOption) => (
-                        <MenuItem key={`usage-${option.unit}`} value={option.type}>
-                            <Typography variant="h5">
-                            {option.type}
-                            <Typography component="span"
-                            sx={{
-                                fontSize: '0.875rem',
-                                color: theme.palette.text.secondary,
-                            }}
-                            >
-                                {' ' + option.unit}
-                            </Typography>
-                            </Typography>
-                        </MenuItem>
-                        ))}
-                    </Select> */}
                             <Controller
                                 name={`vehicleObjs.${index}.usageType`}
                                 control={control}

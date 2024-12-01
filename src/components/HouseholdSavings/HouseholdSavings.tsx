@@ -61,10 +61,6 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
     const vehicleCostStr = getVehicleCostStr(numEVsToBuy)
 
     useEffect(() => {
-        console.log("HouseholdSavings useEffect triggered");
-        // console.log("HouseholdSavings Previous results:", savings);
-        // console.log("HouseholdSavings New results:", results);
-        // console.log("HouseholdSavings useEffect householdData:", householdData);
 
         // Round constituent values to nearest $100 first before summing for total
         const total = results?.upfrontCost
@@ -76,10 +72,6 @@ const HouseholdSavings: React.FC<SavingsProps> = ({ results, loadingData, applia
 
         setUpfrontCostTotal(totalString);
 
-        // console.log("HouseholdSavings useEffect savings:", savings);
-        console.log("HouseholdSavings useEffect results:", results);
-        console.log("HouseholdSavings useEffect upfrontCostTotal:", total);
-        console.log("HouseholdSavings useEffect loadingData:", loadingData);
     }, [results, loadingData]);
 
 
