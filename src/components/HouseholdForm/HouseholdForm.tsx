@@ -93,6 +93,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
     console.log('HouseholdForm useEffect watchHasSolar:', watchHasSolar);
     if (watchHasSolar) {
       setValue('solar.installSolar', false);
+      setDisableBatteryFields(false)
     } else {
       setValue('solar.installSolar', true);
     }
@@ -102,7 +103,10 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
     console.log('HouseholdForm watchInstallSolar:', watchInstallSolar);
     updateFormData(getValues());
     if (!watchHasSolar) {
-      setDisableBatteryFields(!watchInstallSolar); // if they don't have solar and don't want to install solar, disable battery fields
+      setDisableBatteryFields(!watchInstallSolar); // if they don't have solar and don't want to install solar, turn off & disable battery fields
+      if (!watchInstallSolar) {
+        setValue('battery.installBattery', false);
+      }
     }
   }, [watchInstallSolar]);
 
