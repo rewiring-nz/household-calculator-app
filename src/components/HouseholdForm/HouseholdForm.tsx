@@ -87,6 +87,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
   const watchHasSolar = watch('solar.hasSolar');
   const watchInstallSolar = watch('solar.installSolar');
   const [solarSize, setSolarSize] = useState<number>(defaultFormData.solar.size); // This is used with onBlur to stop the form updating while the user is typing
+  const [disableBatteryFields, setDisableBatteryFields] = useState(false); // Disable battery fields if no solar
 
   useEffect(() => {
     console.log('HouseholdForm useEffect watchHasSolar:', watchHasSolar);
@@ -100,6 +101,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
   useEffect(() => {
     console.log('HouseholdForm watchInstallSolar:', watchInstallSolar);
     updateFormData(getValues());
+    if (!watchHasSolar) {
+      setDisableBatteryFields(!watchInstallSolar); // if they don't have solar and don't want to install solar, disable battery fields
+    }
   }, [watchInstallSolar]);
 
   useEffect(() => {
@@ -883,7 +887,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
 
               <FormSectionFlex theme={theme} className='FormSectionFlex'>
                 <LabelBox>
-                  <FormLabel className='mainLabels'>Do you have a battery?</FormLabel>
+                  <FormLabel className='mainLabels' sx={{
+                    opacity: disableBatteryFields ? 0.5 : 1, // Grey out when disabled
+                  }}>Do you have a battery?</FormLabel>
                   <HouseholdTooltip
                     title={tooltipText.hasBattery}
                     placement="top"
@@ -901,7 +907,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                 <Box>
                   <FormControl
                     className="fullFormControl"
-                    error={!!methods.formState.errors.battery?.hasBattery}>
+                    error={!!methods.formState.errors.battery?.hasBattery}
+                    disabled={disableBatteryFields}
+                    sx={{
+                      opacity: disableBatteryFields ? 0.5 : 1, // Grey out when disabled
+                    }}>
                     <Controller
                       name="battery.hasBattery"
                       control={methods.control}
@@ -938,7 +948,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                   sx={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    // opacity: disableBatteryToggle ? 0.5 : 1, // Grey out when disabled
+                    opacity: disableBatteryFields ? 0.5 : 1, // Grey out when disabled
                   }}
                 >
                   <SwitchLabel className="installBattery-label" theme={theme}>
@@ -952,7 +962,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                       <HouseSwitch
                         {...field}
                         checked={field.value}
-                        disabled={watchHasBattery}
+                        disabled={watchHasBattery || disableBatteryFields}
                         // defaultChecked 
                         size="small"
                         theme={theme}
@@ -982,7 +992,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
               >
                 <FormControl
                   className="fullFormControl"
-                  error={!!methods.formState.errors.battery?.capacity}>
+                  error={!!methods.formState.errors.battery?.capacity}
+                  disabled={disableBatteryFields}
+                  sx={{
+                    opacity: disableBatteryFields ? 0.5 : 1, // Grey out when disabled
+                  }}>
                   <LabelBox>
                     <FormLabel className='mainLabels'>What battery capacity?</FormLabel>
                     <HouseholdTooltip
@@ -1062,6 +1076,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({ householdData, updateHous
                           }
                         }}
                         error={!!methods.formState.errors.battery?.capacity}
+                        disabled={disableBatteryFields}
                         helperText={methods.formState.errors.battery?.capacity?.message}
                       />
                     )}
