@@ -119,9 +119,6 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
       color: theme.palette.common.black,
     },
   },
-  "& .MuiOutlinedInput-root.Mui-focused fieldset": {
-    borderColor: theme.palette.common.black
-  }
 }));
 
 export const HalfWidthFormBox = styled(FormBox)(

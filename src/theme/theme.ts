@@ -182,7 +182,7 @@ const theme = createTheme({
               borderColor: "#000000",
             },
             "&.Mui-focused fieldset": {
-              borderColor: "#2D62FF",
+              borderColor: "#222222",
             },
           },
           "& .MuiSelect-select": {
