@@ -2,13 +2,12 @@
     text-align: left;
     background-color: #FDFAF1;
   }
-  
+
   .Home-logo {
     max-width: 38vw;
     margin-bottom: 1.1rem;
-    pointer-events: none;
   }
-    
+
   .Home-header {
     background-color: #FDFAF1;
     min-height: 10vh;
@@ -19,5 +18,4 @@
     font-size: calc(10px + 2vmin);
     color: black;
   }
-  
-  
+

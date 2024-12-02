@@ -18,12 +18,8 @@ const Home: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   // const isMobile = true; // for debugging
 
-  const {
-    householdData,
-    updateHouseholdData,
-    savingsData,
-    loadingData,
-  } = useHouseholdData();
+  const { householdData, updateHouseholdData, savingsData, loadingData } =
+    useHouseholdData();
   const numEVsToBuy =
     householdData?.vehicles?.filter((vehicle) => vehicle.switchToEV).length ||
     0;
@@ -132,14 +128,19 @@ const Home: React.FC = () => {
             },
           }}
         >
-          <img
-            src={logo}
-            className="Home-logo"
-            alt="logo"
-            style={{
-              marginBottom: "1.2rem",
-            }}
-          />
+          <Link
+            href="https://rewiring.nz/"
+            aria-label="Go to Rewiring Aotearoa home page"
+          >
+            <img
+              src={logo}
+              className="Home-logo"
+              alt="Rewiring Aotearoa logo"
+              style={{
+                marginBottom: "1.2rem",
+              }}
+            />
+          </Link>
 
           <Typography
             variant="h1"
@@ -156,7 +157,8 @@ const Home: React.FC = () => {
             How much could you save by going electric?
           </Typography>
           <Typography variant="subtitle1">
-            Enter your information to calculate savings from electrifying household machines
+            Enter your information to calculate savings from electrifying
+            household machines
           </Typography>
 
           {householdData && (
@@ -188,9 +190,14 @@ const Home: React.FC = () => {
                 lineHeight: "1.625rem",
               }}
             >
-              © Copyright           <Link
-            href="https://rewiring.nz/"
-          >Rewiring Aotearoa</Link> 2024
+              © Copyright{" "}
+              <Link
+                href="https://rewiring.nz/"
+                aria-label="Go to Rewiring Aotearoa home page"
+              >
+                Rewiring Aotearoa
+              </Link>{" "}
+              2024
             </Typography>
           </Box>
           {/* ------------------------------------------------------------------ */}
