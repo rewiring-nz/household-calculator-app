@@ -50,35 +50,35 @@ export const locationMapping: Record<LocationEnum, string> = {
 };
 
 export const spaceHeatingMapping: Record<SpaceHeatingEnum, string> = {
+  [SpaceHeatingEnum.ElectricHeatPump]: "Heat pump(s)",
   [SpaceHeatingEnum.ElectricResistance]:
     "Electric resistive heaters (e.g. oil column, fan, wall)",
-  [SpaceHeatingEnum.ElectricHeatPump]: "Heat pump(s)",
   [SpaceHeatingEnum.Wood]: "Wood fire",
   [SpaceHeatingEnum.Gas]: "Piped/natural gas heater",
   [SpaceHeatingEnum.Lpg]: "Bottled LPG heater",
 };
 
 export const waterHeatingMapping: Record<WaterHeatingEnum, string> = {
+  [WaterHeatingEnum.ElectricHeatPump]: "Electric heat pump",
   [WaterHeatingEnum.ElectricResistance]: "Electric resistive",
-  [WaterHeatingEnum.ElectricHeatPump]: "Heat pump",
   [WaterHeatingEnum.Gas]: "Piped/natural gas",
   [WaterHeatingEnum.Lpg]: "Bottled LPG",
   [WaterHeatingEnum.Solar]: "Solar",
 };
 
 export const cooktopMapping: Record<CooktopEnum, string> = {
-  [CooktopEnum.ElectricResistance]: "Electric resistive/Ceramic",
+  [CooktopEnum.ElectricInduction]: "Electric induction",
+  [CooktopEnum.ElectricResistance]: "Electric resistive/ceramic",
   [CooktopEnum.Gas]: "Piped/natural gas",
   [CooktopEnum.Lpg]: "Bottled LPG",
-  [CooktopEnum.ElectricInduction]: "Induction", // NB error in api, needs updating to Induction
 };
 
 export const vehicleMapping: Record<VehicleFuelTypeEnum, string> = {
-  [VehicleFuelTypeEnum.Electric]: "Electric",
-  [VehicleFuelTypeEnum.PlugInHybrid]: "Plug-in Hybrid",
-  [VehicleFuelTypeEnum.Hybrid]: "Hybrid",
   [VehicleFuelTypeEnum.Petrol]: "Petrol",
   [VehicleFuelTypeEnum.Diesel]: "Diesel",
+  [VehicleFuelTypeEnum.PlugInHybrid]: "Plug-in Hybrid",
+  [VehicleFuelTypeEnum.Hybrid]: "Hybrid",
+  [VehicleFuelTypeEnum.Electric]: "Electric",
 };
 
 export const vehicleUsageOptions: UsageOption[] = [
