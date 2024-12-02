@@ -28,6 +28,7 @@ import {
   calcPercentage,
   formatKgs,
   formatSavingsNZD,
+  roundToHundreds,
 } from "src/shared/utils/formatters";
 import { SavingsFrameBox } from "./HouseholdSavings.styles";
 
@@ -200,28 +201,26 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
             {
               label: "House heating",
               value:
-                Math.round((results?.upfrontCost?.spaceHeating || 0) / 100) *
-                100,
+                roundToHundreds(results?.upfrontCost?.spaceHeating)
             },
             {
               label: "Water heating",
               value:
-                Math.round((results?.upfrontCost?.waterHeating || 0) / 100) *
-                100,
+                roundToHundreds(results?.upfrontCost?.waterHeating)
             },
             {
               label: "Cooktop",
               value:
-                Math.round((results?.upfrontCost?.cooktop || 0) / 100) * 100,
+                roundToHundreds(results?.upfrontCost?.cooktop),
             },
             {
               label: "Solar",
-              value: Math.round((results?.upfrontCost?.solar || 0) / 100) * 100,
+              value: roundToHundreds(results?.upfrontCost?.solar),
             },
             {
               label: "Battery",
               value:
-                Math.round((results?.upfrontCost?.battery || 0) / 100) * 100,
+                roundToHundreds(results?.upfrontCost?.battery),
             },
           ]}
         >

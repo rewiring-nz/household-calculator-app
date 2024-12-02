@@ -124,7 +124,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
 
   const watchAllFields: HouseholdFormState = watch();
 
-
   // -------------------------------------------------------------------
   // solar state
   const watchHasSolar = watch("solar.hasSolar");
@@ -155,7 +154,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
 
   useEffect(() => {}, [solarSize]);
 
-
   // -------------------------------------------------------------------
   // battery state
   const watchHasBattery = watch("battery.hasBattery");
@@ -178,11 +176,8 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
 
   useEffect(() => {}, [batteryCapacity]);
 
-
-
   // ----------------- useHouseholdData useEffect -------------------
   React.useEffect(() => {}, [householdData]);
-
 
   // ----------------- Manage the number of vehicles -------------------
 
@@ -251,7 +246,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
 
     isUpdatingVehicles.current = false;
   };
-
 
   // -------------------------------------------------------------------
   // Function to update form data
@@ -512,6 +506,12 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {methods.formState.errors.spaceHeating && (
                   <FormHelperText>This field is required</FormHelperText>
                 )}
+                {watchAllFields.spaceHeating !==
+                  SpaceHeatingEnum.ElectricHeatPump && (
+                  <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
+                    ⚡️ Replaced with heat pumps
+                  </FormHelperText>
+                )}
               </FormControl>
 
               <FormControl
@@ -555,6 +555,14 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {methods.formState.errors.waterHeating && (
                   <FormHelperText>This field is required</FormHelperText>
                 )}
+                {watchAllFields.waterHeating !==
+                  WaterHeatingEnum.ElectricHeatPump &&
+                  watchAllFields.waterHeating !==
+                    WaterHeatingEnum.ElectricResistance && (
+                    <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
+                      ⚡️ Replaced with water heat pump
+                    </FormHelperText>
+                  )}
               </FormControl>
 
               <FormControl
@@ -594,6 +602,14 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 </HouseSelect>
                 {methods.formState.errors.cooktop && (
                   <FormHelperText>This field is required</FormHelperText>
+                )}
+                {watchAllFields.cooktop !==
+                CooktopEnum.ElectricInduction &&
+                watchAllFields.cooktop !==
+                  CooktopEnum.ElectricResistance && (
+                  <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
+                    ⚡️ Replaced with induction
+                  </FormHelperText>
                 )}
               </FormControl>
             </FormSectionFlex>
