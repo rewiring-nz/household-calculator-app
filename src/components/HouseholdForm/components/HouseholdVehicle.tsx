@@ -255,7 +255,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
             >
               <SwitchLabel className="installSolar-label" theme={theme}>
                 {watch(`vehicleObjs.${index}.switchToEV`)
-                  ? "⚡️ Switch to EV"
+                  ? "🔧 Switch to EV"
                   : "Switch to EV"}
               </SwitchLabel>
               <Controller

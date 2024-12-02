@@ -462,7 +462,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   verticalAlign: "text-top",
                 }}
               ></Box>
-              fossil fuel machine (15+ years of continued emissions)
+              fossil fuel machine (committing to 15+ years of emissions)
             </FormHelperText>
             <FormHelperText sx={{marginBottom: "1.5rem"}}>
               <Box
@@ -478,7 +478,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   verticalAlign: "text-top",
                 }}
               ></Box>
-              electric machine (zero emissions potential)
+              electric machine (can be zero emissions with solar)
             </FormHelperText>
 
             <FormSectionFlex
@@ -554,19 +554,19 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   watchAllFields.spaceHeating !==
                     SpaceHeatingEnum.ElectricResistance && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                      ⚡️ Replacing with heat pumps
+                      🔧 Replacing with heat pumps
                     </FormHelperText>
                   )}
                 {watchAllFields.spaceHeating ===
                   SpaceHeatingEnum.ElectricHeatPump && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    💚 Already the most efficient option!
+                    ⚡️ Already the most efficient option!
                   </FormHelperText>
                 )}
                 {watchAllFields.spaceHeating ===
                   SpaceHeatingEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    ⚡️ Already electric, but will replace with heat pumps for
+                    🔧 Already electric, but will replace with heat pumps for
                     efficiency savings
                   </FormHelperText>
                 )}
@@ -629,19 +629,19 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   watchAllFields.waterHeating !==
                     WaterHeatingEnum.ElectricResistance && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                      ⚡️ Replacing with water heat pump
+                      🔧 Replacing with water heat pump
                     </FormHelperText>
                   )}
                 {watchAllFields.waterHeating ===
                   WaterHeatingEnum.ElectricHeatPump && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    💚 Already the most efficient option!
+                    ⚡️ Already the most efficient option!
                   </FormHelperText>
                 )}
                 {watchAllFields.waterHeating ===
                   WaterHeatingEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    💚 Already electric
+                    ⚡️ Already electric
                   </FormHelperText>
                 )}
               </FormControl>
@@ -698,17 +698,17 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {watchAllFields.cooktop !== CooktopEnum.ElectricInduction &&
                   watchAllFields.cooktop !== CooktopEnum.ElectricResistance && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                      ⚡️ Replacing with induction
+                      🔧 Replacing with induction
                     </FormHelperText>
                   )}
                 {watchAllFields.cooktop === CooktopEnum.ElectricInduction && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    💚 Already the most efficient option!
+                    ⚡️ Already the most efficient option!
                   </FormHelperText>
                 )}
                 {watchAllFields.cooktop === CooktopEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    💚 Already electric
+                    ⚡️ Already electric
                   </FormHelperText>
                 )}
               </FormControl>
