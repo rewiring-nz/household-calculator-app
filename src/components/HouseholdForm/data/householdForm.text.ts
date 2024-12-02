@@ -80,11 +80,7 @@ export const vehicleMapping: Record<VehicleFuelTypeEnum, string> = {
   [VehicleFuelTypeEnum.Electric]: "Electric",
 };
 
-export const vehicleUsageOptions: UsageOption[] = [
-  { type: "Low", value: 50, unit: "<100 km/wk" },
-  { type: "Medium", value: 200, unit: "100-300 km/wk" },
-  { type: "High", value: 400, unit: "300+ km/wk" },
-];
+
 // -----------------------------------------------------
 
 // -------------------- Options --------------------
@@ -153,7 +149,7 @@ export const vehicleOptions: VehicleOptions = {
   })) as Option<VehicleFuelTypeEnum>[],
   usageOptions: [
     { type: "Low", value: 50, unit: "< 100 km/wk" },
-    { type: "Medium", value: 200, unit: "100-300 km/wk" },
+    { type: "Medium", value: 210, unit: "100-300 km/wk" },
     { type: "High", value: 400, unit: "300+ km/wk" },
   ],
 };

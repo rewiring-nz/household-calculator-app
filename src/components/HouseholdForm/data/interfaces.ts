@@ -56,21 +56,6 @@ export interface HouseholdFormState {
 
 // ----------------------------------------------
 
-// See householdFormText.ts
-// export interface FormText {
-//     options: {
-//         location: typeof locationOptions;
-//         occupancy: typeof occupancyOptions;
-//         spaceHeating: typeof spaceHeatingOptions;
-//         waterHeating: typeof waterHeatingOptions;
-//         cooktop: typeof cooktopOptions;
-//         vehicle: typeof vehicleOptions;
-//         solar: typeof solarOptions;
-//         battery: typeof batteryOptions;
-//     };
-//     defaultValues: HouseholdFormState;
-//     tooltipText: typeof tooltipText;
-// }
 
 interface StringInput {
   options: string[];
