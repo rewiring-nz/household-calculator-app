@@ -3,7 +3,7 @@ import logo from "../../assets/logos/RewiringAotearoa_logo.svg";
 import { useTheme } from "@mui/material/styles";
 import HouseholdForm from "../../components/HouseholdForm/HouseholdForm";
 import HouseholdSavings from "../../components/HouseholdSavings/HouseholdSavings";
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, Link, Typography, useMediaQuery } from "@mui/material";
 import useHouseholdData from "src/hooks/useHouseholdData/useHouseholdData";
 import {
   cooktopMapping,
@@ -189,7 +189,9 @@ const Home: React.FC = () => {
                 lineHeight: "1.625rem",
               }}
             >
-              © Copyright Rewiring Aotearoa 2024
+              © Copyright           <Link
+            href="https://rewiring.nz/"
+          >Rewiring Aotearoa</Link> 2024
             </Typography>
           </Box>
           {/* ------------------------------------------------------------------ */}
