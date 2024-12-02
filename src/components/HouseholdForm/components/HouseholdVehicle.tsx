@@ -66,7 +66,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
     watch,
     formState: { errors },
   } = useFormContext();
-  const [selectedUsageName, setSelectedUsageName] = useState<
+  const [, setSelectedUsageName] = useState<
     string | undefined
   >(undefined);
   const [showDetails, setShowDetails] = useState(false);

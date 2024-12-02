@@ -21,7 +21,6 @@ import { ReactComponent as OpenIcon } from "src/assets/icons/open-outline.svg";
 
 // ----------------- Models & Interfaces -------------------
 import {
-  Household,
   Savings,
   UpfrontCost,
 } from "../../shared/api/openapi-client";
@@ -85,7 +84,6 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
 
   const [upfrontCostTotal, setUpfrontCostTotal] = useState("0");
-  const householdData = useState<Household>();
   const vehicleCostStr = getVehicleCostStr(numEVsToBuy);
   const replacementCostSubtext = getReplacementCostSubtext(
     results?.upfrontCost,
@@ -180,7 +178,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
             <span style={{ fontWeight: "600" }}>
               {` ${formatSavingsNZD(results?.opex?.overLifetime?.difference, 0)}`}
             </span>{" "}
-            saved over <a href="mailto:"></a> 15 year product lifetime
+            saved over 15 year product lifetime
           </Typography>
         </ResultBox>
 

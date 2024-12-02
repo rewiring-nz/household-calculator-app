@@ -3,7 +3,9 @@ import {
   Box,
   PopperProps,
   Theme,
-  FormLabel, Select, InputAdornment
+  FormLabel,
+  Select,
+  InputAdornment,
 } from "@mui/material";
 // import { theme } from "../../theme/theme";
 
@@ -95,13 +97,13 @@ export const FormBox = styled(Box)(({ theme }: { theme: Theme }) => ({
     backgroundColor: theme.palette.background.paper,
     fontWeight: "500",
     "& input[type=number]": {
-      "-moz-appearance": "textfield", // Firefox
+      MozAppearance: "textfield", // Firefox
       "&::-webkit-outer-spin-button": {
-        "-webkit-appearance": "none", // Chrome, Safari, Edge, Opera
+        WebkitAppearance: "none", // Chrome, Safari, Edge, Opera
         margin: 0,
       },
       "&::-webkit-inner-spin-button": {
-        "-webkit-appearance": "none", // Chrome, Safari, Edge, Opera
+        WebkitAppearance: "none", // Chrome, Safari, Edge, Opera
         margin: 0,
       },
     },

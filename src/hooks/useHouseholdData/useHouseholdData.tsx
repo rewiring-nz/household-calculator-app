@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import HouseholdDataService from "../../services/householdDataService";
 import { Household, Savings } from "../../shared/api/openapi-client";
-// import { defaultSavingsData } from '../../assets/data/householdDefaults';
 import useSavingsData from "./useSavingsData";
 
 const useHouseholdData = () => {
@@ -12,8 +11,8 @@ const useHouseholdData = () => {
     loadingData: savingsLoading,
     errorData: savingsError,
   } = useSavingsData();
-  const [loadingData, setLoadingData] = useState<boolean>(true);
-  const [errorData, setErrorData] = useState(null);
+  const [, setLoadingData] = useState<boolean>(true);
+  const [, setErrorData] = useState(null);
 
   const getHouseholdData = () => {
     HouseholdDataService.getHouseholdData()

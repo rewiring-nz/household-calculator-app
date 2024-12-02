@@ -13,7 +13,6 @@ import {
   OptionNumber,
   OptionYesNo,
   UsageOption,
-  UsageType,
   VehicleOptions,
 } from "./interfaces";
 

@@ -23,7 +23,6 @@ const Home: React.FC = () => {
     updateHouseholdData,
     savingsData,
     loadingData,
-    errorData,
   } = useHouseholdData();
   const numEVsToBuy =
     householdData?.vehicles?.filter((vehicle) => vehicle.switchToEV).length ||
