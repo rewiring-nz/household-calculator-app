@@ -178,7 +178,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
             <span style={{ fontWeight: "600" }}>
               {` ${formatSavingsNZD(results?.opex?.overLifetime?.difference, 0)}`}
             </span>{" "}
-            saved over <a href="mailto:"></a> 15 year product lifetime
+            saved over 15 year product lifetime
           </Typography>
         </ResultBox>
 

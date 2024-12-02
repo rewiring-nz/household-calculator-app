@@ -447,8 +447,10 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
           <FormBox theme={theme} className="formBox">
             <FDivider />
 
-            <Typography variant="h3" sx={{marginBottom: "0.9rem"}}>Your household appliances</Typography>
-            <FormHelperText sx={{marginBottom: 0}}>
+            <Typography variant="h3" sx={{ marginBottom: "0.9rem" }}>
+              Your household appliances
+            </Typography>
+            <FormHelperText sx={{ marginBottom: 0 }}>
               <Box
                 component="span"
                 sx={{
@@ -457,14 +459,14 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   height: "0.9rem",
                   backgroundColor: theme.palette.warning.light,
                   borderRadius: "2px",
-                  border: '1px solid black',
+                  border: "1px solid black",
                   marginRight: "0.5em",
                   verticalAlign: "text-top",
                 }}
               ></Box>
-              fossil fuel machine (commits you to 15+ years of emissions)
+              fossil fuel machine (committing to 15+ years of emissions)
             </FormHelperText>
-            <FormHelperText sx={{marginBottom: "1.5rem"}}>
+            <FormHelperText sx={{ marginBottom: "1.5rem" }}>
               <Box
                 component="span"
                 sx={{
@@ -473,7 +475,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   height: "0.9rem",
                   backgroundColor: theme.palette.success.light,
                   borderRadius: "2px",
-                  border: '1px solid black',
+                  border: "1px solid black",
                   marginRight: "0.5em",
                   verticalAlign: "text-top",
                 }}
