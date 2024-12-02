@@ -20,7 +20,11 @@ import ResultBox from "./ResultBox";
 import { ReactComponent as OpenIcon } from "src/assets/icons/open-outline.svg";
 
 // ----------------- Models & Interfaces -------------------
-import { Household, Savings } from "../../shared/api/openapi-client";
+import {
+  Household,
+  Savings,
+  UpfrontCost,
+} from "../../shared/api/openapi-client";
 import { electricVehicleURL } from "src/shared/links";
 import { recommendationActions } from "./data/RecommendationActions";
 
@@ -57,6 +61,19 @@ const getVehicleCostStr = (numEVsToBuy: number): string => {
   return vehicleCostStr;
 };
 
+const getReplacementCostSubtext = (upfrontCost?: UpfrontCost) => {
+  if (!upfrontCost?.battery) {
+    if (!upfrontCost?.solar) {
+      return "for new appliances";
+    }
+    return "for new appliances & solar";
+  }
+  if (!upfrontCost?.solar) {
+    return "for new appliances & battery";
+  }
+  return "for new appliances, solar, and battery";
+};
+
 const HouseholdSavings: React.FC<SavingsProps> = ({
   results,
   loadingData,
@@ -70,6 +87,9 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
   const [upfrontCostTotal, setUpfrontCostTotal] = useState("0");
   const householdData = useState<Household>();
   const vehicleCostStr = getVehicleCostStr(numEVsToBuy);
+  const replacementCostSubtext = getReplacementCostSubtext(
+    results?.upfrontCost,
+  );
 
   useEffect(() => {
     // Round constituent values to nearest $100 first before summing for total
@@ -79,7 +99,6 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
           .reduce((acc, val) => acc + val, 0) // Sum the rounded values
       : 0;
     const totalString = `$${total.toLocaleString("en-NZ")}`;
-
     setUpfrontCostTotal(totalString);
   }, [results, loadingData]);
 
@@ -196,22 +215,19 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
         <ResultBox
           label="Replacement Cost"
           heading={upfrontCostTotal}
-          subheading="for new appliances, solar, and/or battery"
+          subheading={replacementCostSubtext}
           bulletPoints={[
             {
               label: "House heating",
-              value:
-                roundToHundreds(results?.upfrontCost?.spaceHeating)
+              value: roundToHundreds(results?.upfrontCost?.spaceHeating),
             },
             {
               label: "Water heating",
-              value:
-                roundToHundreds(results?.upfrontCost?.waterHeating)
+              value: roundToHundreds(results?.upfrontCost?.waterHeating),
             },
             {
               label: "Cooktop",
-              value:
-                roundToHundreds(results?.upfrontCost?.cooktop),
+              value: roundToHundreds(results?.upfrontCost?.cooktop),
             },
             {
               label: "Solar",
@@ -219,8 +235,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
             },
             {
               label: "Battery",
-              value:
-                roundToHundreds(results?.upfrontCost?.battery),
+              value: roundToHundreds(results?.upfrontCost?.battery),
             },
           ]}
         >
