@@ -507,9 +507,22 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   <FormHelperText>This field is required</FormHelperText>
                 )}
                 {watchAllFields.spaceHeating !==
-                  SpaceHeatingEnum.ElectricHeatPump && (
+                  SpaceHeatingEnum.ElectricHeatPump && watchAllFields.spaceHeating !==
+                  SpaceHeatingEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
                     ⚡️ Replaced with heat pumps
+                  </FormHelperText>
+                )}
+                {watchAllFields.spaceHeating ===
+                SpaceHeatingEnum.ElectricHeatPump && (
+                  <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
+                    🎉 Already the most efficient option!
+                  </FormHelperText>
+                )}
+                {watchAllFields.spaceHeating ===
+                  SpaceHeatingEnum.ElectricResistance && (
+                  <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
+                    ⚡️ Already electric, but replaced with heat pumps for efficiency savings
                   </FormHelperText>
                 )}
               </FormControl>
@@ -563,6 +576,18 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                       ⚡️ Replaced with water heat pump
                     </FormHelperText>
                   )}
+                {watchAllFields.waterHeating ===
+                WaterHeatingEnum.ElectricHeatPump && (
+                  <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
+                    🎉 Already the most efficient option!
+                  </FormHelperText>
+                )}
+                {watchAllFields.waterHeating ===
+                  WaterHeatingEnum.ElectricResistance && (
+                  <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
+                    👏 Already electric!
+                    </FormHelperText>
+                  )}
               </FormControl>
 
               <FormControl
@@ -609,6 +634,18 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   CooktopEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
                     ⚡️ Replaced with induction
+                  </FormHelperText>
+                )}
+                {watchAllFields.cooktop ===
+                CooktopEnum.ElectricInduction && (
+                  <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
+                    🎉 Already the most efficient option!
+                  </FormHelperText>
+                )}
+                {watchAllFields.cooktop ===
+                  CooktopEnum.ElectricResistance && (
+                  <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
+                    👏 Already electric!
                   </FormHelperText>
                 )}
               </FormControl>
