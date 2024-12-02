@@ -157,8 +157,7 @@ const Home: React.FC = () => {
             How much could you save by going electric?
           </Typography>
           <Typography variant="subtitle1">
-            Enter your household information to find out how much you could save
-            by going electric
+            Enter your information to calculate savings from electrifying household machines
           </Typography>
 
           {householdData && (
