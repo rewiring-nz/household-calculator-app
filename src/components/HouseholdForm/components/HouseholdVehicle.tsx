@@ -144,6 +144,9 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
             render={({ field }) => (
               <Select
                 labelId={`vehicles-fuelType-label-${index}`}
+                inputProps={{
+                  id: `vehicles-fuelType-${index}-input`
+                }}
                 id={`vehicles-fuelType-${index}`}
                 value={field.value || ""}
                 onChange={(e) => {
@@ -253,7 +256,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
                 alignItems: "center",
               }}
             >
-              <SwitchLabel className="installSolar-label" theme={theme}>
+              <SwitchLabel className="installSolar-label" theme={theme} htmlFor={`vehicles-switchToEV-${index}-input`}>
                 {watch(`vehicleObjs.${index}.switchToEV`)
                   ? "🔧 Switch to EV"
                   : "Switch to EV"}
@@ -268,6 +271,9 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
                 render={({ field }) => (
                   <HouseSwitch
                     size="small"
+                    inputProps={{
+                      id: `vehicles-switchToEV-${index}-input`
+                    }}
                     theme={theme}
                     disabled={fuelType === "ELECTRIC"}
                     checked={fuelType === "ELECTRIC" ? false : field.value}

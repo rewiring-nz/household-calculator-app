@@ -380,12 +380,15 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 error={!!methods.formState.errors.location}
               >
                 <LabelBox>
-                  <FormLabel className="mainLabels">Location</FormLabel>
+                  <FormLabel className="mainLabels" htmlFor="location">
+                    Location
+                  </FormLabel>
                 </LabelBox>
                 <HouseSelect
                   IconComponent={chevronDown}
-                  labelId="location-label"
-                  id="location"
+                  inputProps={{
+                    id: "location",
+                  }}
                   value={watchAllFields.location}
                   {...methods.register("location", { required: true })}
                 >
@@ -415,14 +418,15 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 error={!!methods.formState.errors.occupancy}
               >
                 <LabelBox>
-                  <FormLabel className="mainLabels">
+                  <FormLabel className="mainLabels" htmlFor="occupancy">
                     Number of occupants
                   </FormLabel>
                 </LabelBox>
                 <HouseSelect
                   IconComponent={chevronDown}
-                  labelId="occupancy-label"
-                  id="occupancy"
+                  inputProps={{
+                    id: "occupancy",
+                  }}
                   value={watchAllFields.occupancy}
                   {...methods.register("occupancy", { required: true })}
                 >
@@ -502,7 +506,10 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 error={!!methods.formState.errors.spaceHeating}
               >
                 <LabelBox>
-                  <FormLabel className="mainLabels">
+                  <FormLabel
+                    className="mainLabels"
+                    htmlFor="spaceHeating-input"
+                  >
                     Main heating source
                   </FormLabel>
                   <HouseholdTooltip
@@ -521,6 +528,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   IconComponent={chevronDown}
                   labelId="spaceHeating-label"
                   id="spaceHeating"
+                  inputProps={{
+                    id: "spaceHeating-input",
+                  }}
                   value={watchAllFields.spaceHeating}
                   {...methods.register("spaceHeating", { required: true })}
                   sx={{
@@ -579,7 +589,12 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 error={!!methods.formState.errors.waterHeating}
               >
                 <LabelBox>
-                  <FormLabel className="mainLabels">Water heating</FormLabel>
+                  <FormLabel
+                    className="mainLabels"
+                    htmlFor="waterHeating-input"
+                  >
+                    Water heating
+                  </FormLabel>
                   <HouseholdTooltip
                     title={tooltipText.waterHeating}
                     placement="top"
@@ -596,6 +611,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   IconComponent={chevronDown}
                   labelId="waterHeating-label"
                   id="waterHeating"
+                  inputProps={{
+                    id: "waterHeating-input",
+                  }}
                   value={watchAllFields.waterHeating}
                   {...methods.register("waterHeating", { required: true })}
                   sx={{
@@ -653,7 +671,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 error={!!methods.formState.errors.cooktop}
               >
                 <LabelBox>
-                  <FormLabel className="mainLabels">Cooktop</FormLabel>
+                  <FormLabel className="mainLabels" htmlFor="cooktop-input">
+                    Cooktop
+                  </FormLabel>
                   <HouseholdTooltip title={tooltipText.cooktop} placement="top">
                     <img
                       src={questionIcon}
@@ -667,6 +687,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   IconComponent={chevronDown}
                   labelId="cooktop-label"
                   id="cooktop"
+                  inputProps={{
+                    id: "cooktop-input",
+                  }}
                   value={watchAllFields.cooktop}
                   {...methods.register("cooktop", { required: true })}
                   sx={{
@@ -731,7 +754,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
 
               <FormSectionFlex theme={theme} className="FormSectionFlex">
                 <LabelBox>
-                  <FormLabel className="mainLabels">
+                  <FormLabel className="mainLabels" htmlFor="hasSolar-input-no">
                     Do you have solar panels?
                   </FormLabel>
                   <HouseholdTooltip
@@ -769,10 +792,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                             <FormControlLabel
                               key={option.text}
                               value={option.value}
-                              control={
-                                <HouseRadio />
-                                // <Radio />
-                              }
+                              control={<HouseRadio id={`hasSolar-input-${option.text.toLowerCase()}`} />}
                               label={option.text}
                             />
                           ),
@@ -797,7 +817,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                     // opacity: watchHasSolar ? 0.5 : 1, // Grey out when disabled
                   }}
                 >
-                  <SwitchLabel className="installSolar-label" theme={theme}>
+                  <SwitchLabel
+                    className="installSolar-label"
+                    htmlFor="installSolar-input"
+                    theme={theme}
+                  >
                     I'd like solar{" "}
                     {/* eslint-disable-line react/no-unescaped-entities */}
                   </SwitchLabel>
@@ -808,6 +832,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                     render={({ field }) => (
                       <HouseSwitch
                         {...field}
+                        inputProps={{
+                          id: "installSolar-input",
+                        }}
                         checked={field.value}
                         disabled={watchHasSolar}
                         size="small"
@@ -830,7 +857,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   error={!!methods.formState.errors.solar?.size}
                 >
                   <LabelBox>
-                    <FormLabel className="mainLabels">
+                    <FormLabel className="mainLabels" htmlFor="solarSize-input">
                       What size of solar panel power output?
                     </FormLabel>
                     <HouseholdTooltip
@@ -850,7 +877,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                     control={methods.control}
                     render={({ field: { onChange, onBlur, value, ref } }) => (
                       <TextField
-                        id="outlined-number"
                         InputLabelProps={{
                           shrink: true,
                         }}
@@ -917,6 +943,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                             max: 1000,
                             inputMode: "numeric",
                             pattern: "[0-9]*",
+                            id: "solarSize-input",
                           },
                         }}
                         error={!!methods.formState.errors.solar?.size}
@@ -942,6 +969,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 <LabelBox>
                   <FormLabel
                     className="mainLabels"
+                    htmlFor="hasBattery-input-no"
                     sx={{
                       opacity: disableBatteryFields ? 0.5 : 1, // Grey out when disabled
                     }}
@@ -988,7 +1016,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                               <FormControlLabel
                                 key={option.text}
                                 value={option.value}
-                                control={<HouseRadio />}
+                                control={<HouseRadio id={`hasBattery-input-${option.text.toLowerCase()}`} />}
                                 label={option.text}
                               />
                             ),
@@ -1013,7 +1041,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                     opacity: disableBatteryFields ? 0.5 : 1, // Grey out when disabled
                   }}
                 >
-                  <SwitchLabel className="installBattery-label" theme={theme}>
+                  <SwitchLabel
+                    className="installBattery-label"
+                    htmlFor="installBattery-input"
+                    theme={theme}
+                  >
                     I'd like a battery{" "}
                     {/* eslint-disable-line react/no-unescaped-entities */}
                   </SwitchLabel>
@@ -1029,6 +1061,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                         // defaultChecked
                         size="small"
                         theme={theme}
+                        inputProps={{
+                          id: "installBattery-input",
+                        }}
                       />
                     )}
                   />
@@ -1054,7 +1089,10 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   }}
                 >
                   <LabelBox>
-                    <FormLabel className="mainLabels">
+                    <FormLabel
+                      className="mainLabels"
+                      htmlFor="batteryCapacity-input"
+                    >
                       What battery capacity?
                     </FormLabel>
                     <HouseholdTooltip
@@ -1074,7 +1112,6 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                     control={methods.control}
                     render={({ field: { onChange, ref } }) => (
                       <TextField
-                        id="outlined-number"
                         value={batteryCapacity ?? ""}
                         onChange={(e) => {
                           const numericValue = parseFloat(e.target.value);
@@ -1149,6 +1186,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                             max: 1000,
                             inputMode: "numeric",
                             pattern: "[0-9]*",
+                            id: "batteryCapacity-input",
                           },
                         }}
                         error={!!methods.formState.errors.battery?.capacity}
@@ -1183,7 +1221,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   error={!!methods.formState.errors.vehicleObjs}
                 >
                   <LabelBox>
-                    <FormLabel className="mainLabels">
+                    <FormLabel className="mainLabels" htmlFor="numberOfVehicles-input">
                       Number of vehicles
                     </FormLabel>
                     <HouseholdTooltip
@@ -1206,6 +1244,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                         labelId="number-of-vehicles-label"
                         {...field}
                         value={numberOfVehicles}
+                        inputProps={{id: "numberOfVehicles-input"}}
                       >
                         {formText.options.vehicle.amount.map(
                           (option: OptionNumber) => (

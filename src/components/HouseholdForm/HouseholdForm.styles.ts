@@ -7,7 +7,6 @@ import {
   Select,
   InputAdornment,
 } from "@mui/material";
-// import { theme } from "../../theme/theme";
 
 export const ResetButton = styled("button")(({ theme }: { theme: Theme }) => ({
   justifyContent: "flex-end",

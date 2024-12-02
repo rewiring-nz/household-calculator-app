@@ -85,6 +85,7 @@ const MailchimpForm = ({ theme }: { theme: any }) => (
               id="email"
               name="email"
               placeholder="name@example.com"
+              autoComplete="on"
               variant="outlined"
               InputProps={{
                 sx: {
