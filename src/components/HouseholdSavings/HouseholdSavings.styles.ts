@@ -1,15 +1,6 @@
-import { Box, Link, LinkProps } from "@mui/material";
+import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import RecommendationImage from "./data/RecommendationImage";
-
-
-export const HouseLink = styled(Link)<LinkProps>(({ theme }) => ({
-  color: "#2D62FF",
-  textDecoration: "none",
-  "&:hover": {
-    textDecoration: "underline",
-  },
-}));
 
 export const SavingsFrameBox = styled(Box)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,

@@ -1,5 +1,52 @@
 import { createTheme } from "@mui/material/styles";
 
+const palette = {
+  primary: {
+    main: "#E7EFE8",
+    // light: '#9d46ff', will be calculated from palette.primary.main
+    // dark: '#0a00b6',
+  },
+  secondary: {
+    main: "#527570",
+  },
+  error: {
+    main: "#EB5757", // '#b00020'
+  },
+  warning: {
+    main: "#e97840", // '#ff9800'
+    light: "#ffcac0"
+  },
+  info: {
+    main: "#FFC754",
+    dark: "#F1B029",
+  },
+  success: {
+    main: "#4caf50", // 2E7D32
+    light: "#e6f8d3", // 2E7D32
+  },
+  text: {
+    primary: "#222222", // '#000000', //'#2E2E2E', //#3A3A3A
+    secondary: "#2E2E2E", //'#3A3A3A', //#AAAAAA
+    disabled: "#9e9e9e", // #BCBCBC
+  },
+  background: {
+    default: "#FDFAF1", // #527570
+    paper: "#ffffff",
+  },
+  divider: "#d7d5cd",
+  action: {
+    active: '#222222',
+    // hover: '#9d46ff',
+    selected: '#222222', //'#6200ea',
+    // disabled: '#9e9e9e',
+    disabledBackground: "#CCCCCC",
+    focus: "#222222",
+    // hoverOpacity: 0.08,
+    // disabledOpacity: 0.38,
+    // focusOpacity: 0.12,
+  }
+}
+
 const theme = createTheme({
   typography: {
     fontFamily: "Roboto, Poppins, Rubik, sans-serif",
@@ -86,58 +133,23 @@ const theme = createTheme({
       lineHeight: "1.3125rem",
     },
   },
-  palette: {
-    primary: {
-      main: "#E7EFE8",
-      // light: '#9d46ff', will be calculated from palette.primary.main
-      // dark: '#0a00b6',
-      // contrastText: '#ffffff',
-    },
-    secondary: {
-      main: "#527570",
-    },
-    error: {
-      main: "#EB5757", // '#b00020'
-    },
-    warning: {
-      main: "#e97840", // '#ff9800'
-      light: "#ffcac0"
-    },
-    info: {
-      main: "#FFC754",
-      dark: "#F1B029",
-    },
-    success: {
-      main: "#4caf50", // 2E7D32
-      light: "#e6f8d3", // 2E7D32
-    },
-    text: {
-      primary: "#222222", // '#000000', //'#2E2E2E', //#3A3A3A
-      secondary: "#2E2E2E", //'#3A3A3A', //#AAAAAA
-      disabled: "#9e9e9e", // #BCBCBC
-    },
-    background: {
-      default: "#FDFAF1", // #527570
-      paper: "#ffffff",
-    },
-    divider: "#d7d5cd",
-    action: {
-      // active: '#2D62FF',
-      // hover: '#9d46ff',
-      // selected: '#2D62FF', //'#6200ea',
-      // disabled: '#9e9e9e',
-      disabledBackground: "#CCCCCC",
-      focus: "#2D62FF",
-      // hoverOpacity: 0.08,
-      // disabledOpacity: 0.38,
-      // focusOpacity: 0.12,
-    },
-  },
+  palette: palette,
   spacing: 8,
   shape: {
     borderRadius: 8,
   },
   components: {
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          textDecoration: "underline",
+          color: palette.text.primary,
+          "&:hover": {
+            color: palette.secondary.main,
+          },
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

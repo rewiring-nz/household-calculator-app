@@ -152,20 +152,8 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
         >
           By electrifying your household, we estimate you could save:
         </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            color: theme.palette.secondary.contrastText,
-          }}
-        >
-          <Link
-            component={RouterLink}
-            to="/methodology"
-            sx={{
-              color: "#2D62FF",
-              textDecoration: "underline",
-            }}
-          >
+        <Typography variant="body1">
+          <Link component={RouterLink} to="/methodology">
             How did we calculate this?
           </Link>
         </Typography>
@@ -241,8 +229,10 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
           ]}
         >
           <p>
-            Note that this is the <i>total</i> cost of new electric alternatives. When comparing with savings, you should compare the cost{" "}
-            <i>difference</i> between new fossil fuel and electric alternatives.
+            Note that this is the <i>total</i> cost of new electric
+            alternatives. When comparing with savings, you should compare the
+            cost <i>difference</i> between new fossil fuel and electric
+            alternatives.
           </p>
           {numEVsToBuy > 0 && (
             <>
@@ -265,9 +255,6 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
-                    color: theme.palette.text.primary,
-                    fontFamily: theme.typography.fontFamily,
-                    textDecoration: "underline",
                     display: "inline-flex",
                     alignItems: "center",
                   }}

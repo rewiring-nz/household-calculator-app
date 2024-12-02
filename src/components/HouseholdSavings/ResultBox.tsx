@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Tooltip, Typography, useTheme } from "@mui/material";
+import { Box, Link, Typography, useTheme } from "@mui/material";
 import { formatNZD } from "src/shared/utils/formatters";
 
 interface BulletPoint {
@@ -50,17 +50,14 @@ const ResultBox: React.FC<ResultBoxState> = ({
         <Typography variant="body2">
           <span style={{ fontWeight: "600" }}>{subheading}&nbsp;</span>
           {bulletPoints && (
-            <Typography
-              variant="body2"
+            <Link
               sx={{
-                cursor: "pointer",
-                textDecorationLine: "underline",
                 display: "inline-block",
               }}
               onClick={() => setIsExpanded(!isExpanded)}
             >
               {isExpanded ? "(hide details)" : "(show details)"}
-            </Typography>
+            </Link>
           )}
         </Typography>
       )}
@@ -74,29 +71,30 @@ const ResultBox: React.FC<ResultBoxState> = ({
               marginBottom: "0.8rem",
             }}
           >
-            {bulletPoints.map((point, i) => (
-              ((point.value ?? 0) > 0) ? (
-              <Typography
-                key={i}
-                component="li"
-                variant="body2"
-                sx={{
-                  lineHeight: "1.5rem",
-                }}
-              >
-                <span
-                  style={{
-                    fontWeight: "bold",
+            {bulletPoints.map((point, i) =>
+              (point.value ?? 0) > 0 ? (
+                <Typography
+                  key={i}
+                  component="li"
+                  variant="body2"
+                  sx={{
+                    lineHeight: "1.5rem",
                   }}
                 >
-                  {point.label}:
-                </span>
+                  <span
+                    style={{
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {point.label}:
+                  </span>
 
-                {typeof point.value === "string"
-                  ? point.value
-                  : formatNZD(point.value, 0)}
-              </Typography>) : null
-            ))}
+                  {typeof point.value === "string"
+                    ? point.value
+                    : formatNZD(point.value, 0)}
+                </Typography>
+              ) : null,
+            )}
           </Box>
         </>
       )}

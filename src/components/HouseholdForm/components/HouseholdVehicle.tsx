@@ -151,7 +151,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
                   handleFuelTypeChange(e);
                 }}
                 sx={{
-                    [`& #vehicles-fuelType-${index}`]: {
+                  [`& #vehicles-fuelType-${index}`]: {
                     backgroundColor:
                       fuelType !== VehicleFuelTypeEnum.Electric
                         ? theme.palette.warning.light

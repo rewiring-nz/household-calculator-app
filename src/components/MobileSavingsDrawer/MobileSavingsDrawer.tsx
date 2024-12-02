@@ -5,6 +5,7 @@ import {
   SwipeableDrawer,
   Box,
   styled,
+  Link,
 } from "@mui/material";
 import HouseholdSavings from "../HouseholdSavings";
 import { ReactComponent as ChevronDown } from "src/assets/icons/chevron-down.svg";
@@ -102,14 +103,7 @@ const MobileSavingsDrawer = (savings: SavingsDrawerProps) => {
             <ChevronUp />
           ) : (
             <>
-              <Typography
-                variant="body1"
-                sx={{
-                  textDecoration: "underline",
-                }}
-              >
-                View
-              </Typography>
+              <Link variant="body1">View</Link>
               <ChevronDown />
             </>
           )}
