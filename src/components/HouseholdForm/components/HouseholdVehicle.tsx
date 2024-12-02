@@ -150,6 +150,14 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
                   field.onChange(e);
                   handleFuelTypeChange(e);
                 }}
+                sx={{
+                    [`& #vehicles-fuelType-${index}`]: {
+                    backgroundColor:
+                      fuelType !== VehicleFuelTypeEnum.Electric
+                        ? theme.palette.warning.light
+                        : "inherit",
+                  },
+                }}
               >
                 {fuelTypeOptions.map((option: Option<VehicleFuelTypeEnum>) => (
                   <MenuItem
@@ -246,7 +254,9 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
               }}
             >
               <SwitchLabel className="installSolar-label" theme={theme}>
-                {watch(`vehicleObjs.${index}.switchToEV`) ? "⚡️ Switch to EV" : "Switch to EV"}
+                {watch(`vehicleObjs.${index}.switchToEV`)
+                  ? "⚡️ Switch to EV"
+                  : "Switch to EV"}
               </SwitchLabel>
               <Controller
                 // name={`vehicleObjs.${index}.switchToEV`}

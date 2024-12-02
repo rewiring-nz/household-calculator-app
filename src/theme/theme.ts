@@ -101,6 +101,7 @@ const theme = createTheme({
     },
     warning: {
       main: "#e97840", // '#ff9800'
+      light: "#ffcac0"
     },
     info: {
       main: "#FFC754",

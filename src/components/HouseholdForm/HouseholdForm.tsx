@@ -489,6 +489,17 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   id="spaceHeating"
                   value={watchAllFields.spaceHeating}
                   {...methods.register("spaceHeating", { required: true })}
+                  sx={{
+                    "& #spaceHeating": {
+                      backgroundColor:
+                        watchAllFields.spaceHeating !==
+                          SpaceHeatingEnum.ElectricHeatPump &&
+                        watchAllFields.spaceHeating !==
+                          SpaceHeatingEnum.ElectricResistance
+                          ? theme.palette.warning.light
+                          : "inherit",
+                    },
+                  }}
                 >
                   {formText.options.spaceHeating.map(
                     (option: Option<SpaceHeatingEnum>) => (
@@ -507,14 +518,15 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   <FormHelperText>This field is required</FormHelperText>
                 )}
                 {watchAllFields.spaceHeating !==
-                  SpaceHeatingEnum.ElectricHeatPump && watchAllFields.spaceHeating !==
-                  SpaceHeatingEnum.ElectricResistance && (
-                  <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    ⚡️ Replaced with heat pumps
-                  </FormHelperText>
-                )}
+                  SpaceHeatingEnum.ElectricHeatPump &&
+                  watchAllFields.spaceHeating !==
+                    SpaceHeatingEnum.ElectricResistance && (
+                    <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
+                      ⚡️ Replaced with heat pumps
+                    </FormHelperText>
+                  )}
                 {watchAllFields.spaceHeating ===
-                SpaceHeatingEnum.ElectricHeatPump && (
+                  SpaceHeatingEnum.ElectricHeatPump && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
                     🎉 Already the most efficient option!
                   </FormHelperText>
@@ -522,7 +534,8 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {watchAllFields.spaceHeating ===
                   SpaceHeatingEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    ⚡️ Already electric, but replaced with heat pumps for efficiency savings
+                    ⚡️ Already electric, but replaced with heat pumps for
+                    efficiency savings
                   </FormHelperText>
                 )}
               </FormControl>
@@ -551,6 +564,17 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   id="waterHeating"
                   value={watchAllFields.waterHeating}
                   {...methods.register("waterHeating", { required: true })}
+                  sx={{
+                    "& #waterHeating": {
+                      backgroundColor:
+                        watchAllFields.waterHeating !==
+                          WaterHeatingEnum.ElectricHeatPump &&
+                        watchAllFields.waterHeating !==
+                          WaterHeatingEnum.ElectricResistance
+                          ? theme.palette.warning.light
+                          : "inherit",
+                    },
+                  }}
                 >
                   {formText.options.waterHeating.map(
                     (option: Option<WaterHeatingEnum>) => (
@@ -577,7 +601,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                     </FormHelperText>
                   )}
                 {watchAllFields.waterHeating ===
-                WaterHeatingEnum.ElectricHeatPump && (
+                  WaterHeatingEnum.ElectricHeatPump && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
                     🎉 Already the most efficient option!
                   </FormHelperText>
@@ -586,8 +610,8 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   WaterHeatingEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
                     💚 Already electric!
-                    </FormHelperText>
-                  )}
+                  </FormHelperText>
+                )}
               </FormControl>
 
               <FormControl
@@ -611,6 +635,17 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   id="cooktop"
                   value={watchAllFields.cooktop}
                   {...methods.register("cooktop", { required: true })}
+                  sx={{
+                    "& #cooktop": {
+                      backgroundColor:
+                        watchAllFields.cooktop !==
+                          CooktopEnum.ElectricInduction &&
+                        watchAllFields.cooktop !==
+                          CooktopEnum.ElectricResistance
+                          ? theme.palette.warning.light
+                          : "inherit",
+                    },
+                  }}
                 >
                   {formText.options.cooktop.map(
                     (option: Option<CooktopEnum>) => (
@@ -628,22 +663,18 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {methods.formState.errors.cooktop && (
                   <FormHelperText>This field is required</FormHelperText>
                 )}
-                {watchAllFields.cooktop !==
-                CooktopEnum.ElectricInduction &&
-                watchAllFields.cooktop !==
-                  CooktopEnum.ElectricResistance && (
-                  <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    ⚡️ Replaced with induction
-                  </FormHelperText>
-                )}
-                {watchAllFields.cooktop ===
-                CooktopEnum.ElectricInduction && (
+                {watchAllFields.cooktop !== CooktopEnum.ElectricInduction &&
+                  watchAllFields.cooktop !== CooktopEnum.ElectricResistance && (
+                    <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
+                      ⚡️ Replaced with induction
+                    </FormHelperText>
+                  )}
+                {watchAllFields.cooktop === CooktopEnum.ElectricInduction && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
                     🎉 Already the most efficient option!
                   </FormHelperText>
                 )}
-                {watchAllFields.cooktop ===
-                  CooktopEnum.ElectricResistance && (
+                {watchAllFields.cooktop === CooktopEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
                     💚 Already electric!
                   </FormHelperText>
