@@ -187,7 +187,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
             <span style={{ fontWeight: "600" }}>
               {` ${formatSavingsNZD(results?.opex?.perYear?.difference, 0)}`}
             </span>{" "}
-            saved per year and
+            saved per year or
             <span style={{ fontWeight: "600" }}>
               {` ${formatSavingsNZD(results?.opex?.overLifetime?.difference, 0)}`}
             </span>{" "}

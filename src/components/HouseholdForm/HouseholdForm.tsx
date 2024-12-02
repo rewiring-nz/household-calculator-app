@@ -462,7 +462,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   verticalAlign: "text-top",
                 }}
               ></Box>
-              fossil fuel machine (committing to 15+ years of emissions)
+              fossil fuel machine (commits you to 15+ years of emissions)
             </FormHelperText>
             <FormHelperText sx={{marginBottom: "1.5rem"}}>
               <Box
