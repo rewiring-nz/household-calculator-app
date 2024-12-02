@@ -1248,7 +1248,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
               {watchAllFields.vehicleObjs?.map(
                 (vehicle: VehicleObject, index: number) => (
                   <VehicleBox
-                    key={vehicle.id}
+                    key={`vehicle-id-${index}`}
                     index={index}
                     defaultChecked={true}
                     {...vehicle}
