@@ -75,6 +75,7 @@ const ResultBox: React.FC<ResultBoxState> = ({
             }}
           >
             {bulletPoints.map((point, i) => (
+              ((point.value ?? 0) > 0) ? (
               <Typography
                 key={i}
                 component="li"
@@ -94,7 +95,7 @@ const ResultBox: React.FC<ResultBoxState> = ({
                 {typeof point.value === "string"
                   ? point.value
                   : formatNZD(point.value, 0)}
-              </Typography>
+              </Typography>) : null
             ))}
           </Box>
         </>
