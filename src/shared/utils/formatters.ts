@@ -28,6 +28,10 @@ export const formatSavingsNZD = (value: number | undefined, decimals = 2) => {
   return value <= 0 ? `$${absoluteValue}` : `-$${absoluteValue}`;
 };
 
+export const roundToHundreds = (value: number | undefined) => {
+  return Math.round((value || 0) / 100) * 100
+}
+
 export const formatTonnes = (value: number | undefined): string => {
   if (value === undefined) return "";
   return `${((value / 1000) * -1).toFixed(0)}`;
