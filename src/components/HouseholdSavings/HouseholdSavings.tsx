@@ -179,19 +179,20 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
         }}
       >
         <ResultBox
-          label="Energy Bill"
+          label="Energy Bills"
           heading={`${formatSavingsNZD(results?.opex?.perWeek?.difference, 0)} saved per week`}
         >
           <Typography variant="body1">
-            That's
             <span style={{ fontWeight: "600" }}>
               {` ${formatSavingsNZD(results?.opex?.perYear?.difference, 0)}`}
             </span>{" "}
-            saved per year or
+            saved per year
+          </Typography>
+          <Typography variant="body1">
             <span style={{ fontWeight: "600" }}>
               {` ${formatSavingsNZD(results?.opex?.overLifetime?.difference, 0)}`}
             </span>{" "}
-            over <a href="mailto:"></a> a 15 year product lifetime.
+            saved over <a href="mailto:"></a> 15 year product lifetime
           </Typography>
         </ResultBox>
 
