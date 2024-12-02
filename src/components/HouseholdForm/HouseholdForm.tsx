@@ -585,7 +585,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {watchAllFields.waterHeating ===
                   WaterHeatingEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    👏 Already electric!
+                    💚 Already electric!
                     </FormHelperText>
                   )}
               </FormControl>
@@ -645,7 +645,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {watchAllFields.cooktop ===
                   CooktopEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    👏 Already electric!
+                    💚 Already electric!
                   </FormHelperText>
                 )}
               </FormControl>
