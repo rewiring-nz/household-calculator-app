@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Link, Typography, useTheme } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import { formatNZD } from "src/shared/utils/formatters";
 
 interface BulletPoint {
@@ -26,7 +26,6 @@ const ResultBox: React.FC<ResultBoxState> = ({
   paragraph,
   children,
 }) => {
-  const theme = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
