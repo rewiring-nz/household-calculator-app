@@ -155,7 +155,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
                     backgroundColor:
                       fuelType !== VehicleFuelTypeEnum.Electric
                         ? theme.palette.warning.light
-                        : "inherit",
+                        : theme.palette.success.light,
                   },
                 }}
               >

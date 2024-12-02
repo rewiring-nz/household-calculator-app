@@ -50,7 +50,7 @@ export const locationMapping: Record<LocationEnum, string> = {
 };
 
 export const spaceHeatingMapping: Record<SpaceHeatingEnum, string> = {
-  [SpaceHeatingEnum.ElectricHeatPump]: "Heat pump(s)",
+  [SpaceHeatingEnum.ElectricHeatPump]: "Electric heat pump(s)",
   [SpaceHeatingEnum.ElectricResistance]:
     "Electric resistive heaters (e.g. oil column, fan, wall)",
   [SpaceHeatingEnum.Wood]: "Wood fire",

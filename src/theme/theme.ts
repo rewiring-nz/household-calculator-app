@@ -109,6 +109,7 @@ const theme = createTheme({
     },
     success: {
       main: "#4caf50", // 2E7D32
+      light: "#e6f8d3", // 2E7D32
     },
     text: {
       primary: "#222222", // '#000000', //'#2E2E2E', //#3A3A3A

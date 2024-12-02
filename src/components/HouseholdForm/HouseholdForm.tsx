@@ -447,7 +447,39 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
           <FormBox theme={theme} className="formBox">
             <FDivider />
 
-            <Typography variant="h3">Your household appliances</Typography>
+            <Typography variant="h3" sx={{marginBottom: "0.9rem"}}>Your household appliances</Typography>
+            <FormHelperText sx={{marginBottom: 0}}>
+              <Box
+                component="span"
+                sx={{
+                  display: "inline-block",
+                  width: "0.9rem",
+                  height: "0.9rem",
+                  backgroundColor: theme.palette.warning.light,
+                  borderRadius: "2px",
+                  border: '1px solid black',
+                  marginRight: "0.5em",
+                  verticalAlign: "text-top",
+                }}
+              ></Box>
+              fossil fuel machine (15+ years of continued emissions)
+            </FormHelperText>
+            <FormHelperText sx={{marginBottom: "1.5rem"}}>
+              <Box
+                component="span"
+                sx={{
+                  display: "inline-block",
+                  width: "0.9rem",
+                  height: "0.9rem",
+                  backgroundColor: theme.palette.success.light,
+                  borderRadius: "2px",
+                  border: '1px solid black',
+                  marginRight: "0.5em",
+                  verticalAlign: "text-top",
+                }}
+              ></Box>
+              electric machine (zero emissions potential)
+            </FormHelperText>
 
             <FormSectionFlex
               theme={theme}
@@ -497,7 +529,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                         watchAllFields.spaceHeating !==
                           SpaceHeatingEnum.ElectricResistance
                           ? theme.palette.warning.light
-                          : "inherit",
+                          : theme.palette.success.light,
                     },
                   }}
                 >
@@ -522,19 +554,19 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   watchAllFields.spaceHeating !==
                     SpaceHeatingEnum.ElectricResistance && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                      ⚡️ Replaced with heat pumps
+                      ⚡️ Replacing with heat pumps
                     </FormHelperText>
                   )}
                 {watchAllFields.spaceHeating ===
                   SpaceHeatingEnum.ElectricHeatPump && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    🎉 Already the most efficient option!
+                    💚 Already the most efficient option!
                   </FormHelperText>
                 )}
                 {watchAllFields.spaceHeating ===
                   SpaceHeatingEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    ⚡️ Already electric, but replaced with heat pumps for
+                    ⚡️ Already electric, but will replace with heat pumps for
                     efficiency savings
                   </FormHelperText>
                 )}
@@ -572,7 +604,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                         watchAllFields.waterHeating !==
                           WaterHeatingEnum.ElectricResistance
                           ? theme.palette.warning.light
-                          : "inherit",
+                          : theme.palette.success.light,
                     },
                   }}
                 >
@@ -597,19 +629,19 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   watchAllFields.waterHeating !==
                     WaterHeatingEnum.ElectricResistance && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                      ⚡️ Replaced with water heat pump
+                      ⚡️ Replacing with water heat pump
                     </FormHelperText>
                   )}
                 {watchAllFields.waterHeating ===
                   WaterHeatingEnum.ElectricHeatPump && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    🎉 Already the most efficient option!
+                    💚 Already the most efficient option!
                   </FormHelperText>
                 )}
                 {watchAllFields.waterHeating ===
                   WaterHeatingEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    💚 Already electric!
+                    💚 Already electric
                   </FormHelperText>
                 )}
               </FormControl>
@@ -643,7 +675,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                         watchAllFields.cooktop !==
                           CooktopEnum.ElectricResistance
                           ? theme.palette.warning.light
-                          : "inherit",
+                          : theme.palette.success.light,
                     },
                   }}
                 >
@@ -666,17 +698,17 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {watchAllFields.cooktop !== CooktopEnum.ElectricInduction &&
                   watchAllFields.cooktop !== CooktopEnum.ElectricResistance && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                      ⚡️ Replaced with induction
+                      ⚡️ Replacing with induction
                     </FormHelperText>
                   )}
                 {watchAllFields.cooktop === CooktopEnum.ElectricInduction && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    🎉 Already the most efficient option!
+                    💚 Already the most efficient option!
                   </FormHelperText>
                 )}
                 {watchAllFields.cooktop === CooktopEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    💚 Already electric!
+                    💚 Already electric
                   </FormHelperText>
                 )}
               </FormControl>
