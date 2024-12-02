@@ -97,12 +97,6 @@ const ResultBox: React.FC<ResultBoxState> = ({
               </Typography>
             ))}
           </Box>
-          <Typography variant="body2">
-            This shows only the cost of electric alternatives, without comparing
-            the cost of replacing with fossil fuel models as machines break. In
-            reality, the cost of electrification is lower; it is just the
-            difference between electric and fossil fuel counterparts.
-          </Typography>
         </>
       )}
 
