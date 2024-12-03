@@ -386,7 +386,6 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
                       maxHeight: "3.4375rem",
                     }}
                   >
-                    {/* Most likely "Show me how" */}
                     {buttonText}
                   </Typography>
                   <Box

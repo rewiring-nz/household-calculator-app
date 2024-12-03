@@ -1,6 +1,5 @@
 import React from "react";
 import { RecommendationActionEnum } from "src/shared/api/openapi-client";
-// import RecommendationImage from 'src/components/HouseholdSavings/data/RecommendationImage';
 import { StyledRecommendationImage } from "../HouseholdSavings.styles";
 
 export interface RecommendationAction {
