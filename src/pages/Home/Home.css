@@ -3,22 +3,49 @@
   height: 64px;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .Home-logo {
-  max-width: 38vw;
+  /* max-width: 38vw; */
   margin-bottom: 0;
 }
 
-#rewiring-logo {
+#rewiring-logo-container {
   margin: auto 1.5rem auto 0;
 }
 
-#asb-logo {
-  height: 45%;
-  margin: auto 0 auto 1.8rem;
+.rewiring-logo-mobile {
+  max-width: 48vw;
+}
+.rewiring-logo-desktop {
+  max-width: 38vw;
 }
 
+.asb-logo-container {
+  display: flex;
+  align-items: center;
+}
+.asb-logo-container-mobile {
+  flex-direction: column;
+}
+.asb-logo-container-desktop {
+  flex-direction: row;
+}
+
+#asb-logo-label.asb-logo-label-mobile {
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+}
+#asb-logo-label.asb-logo-label-desktop {
+  margin-right: 20px;
+  font-size: 0.9rem;
+}
+
+#asb-logo {
+  height: 20px;
+}
 #Home-logo-keyline {
   border-color: black;
   height: 80%;
