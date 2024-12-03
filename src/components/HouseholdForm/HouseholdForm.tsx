@@ -624,7 +624,9 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                         watchAllFields.waterHeating !==
                           WaterHeatingEnum.ElectricHeatPump &&
                         watchAllFields.waterHeating !==
-                          WaterHeatingEnum.ElectricResistance
+                          WaterHeatingEnum.ElectricResistance &&
+                          watchAllFields.waterHeating !==
+                            WaterHeatingEnum.Solar
                           ? theme.palette.warning.light
                           : theme.palette.success.light,
                     },
