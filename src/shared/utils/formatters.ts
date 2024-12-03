@@ -40,6 +40,9 @@ export const roundToSigFigs = (value: number | undefined, sigFigs?: number) => {
   if (Math.abs(value) < 10) {
     return Number(value.toPrecision(2))
   }
+  if (Math.abs(value) < 100) {
+    return Number(value.toPrecision(3))
+  }
   if (Math.abs(value) < 10000) {
     return Number(value.toPrecision(2))
   }
