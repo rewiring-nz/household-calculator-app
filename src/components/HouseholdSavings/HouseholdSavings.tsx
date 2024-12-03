@@ -30,7 +30,7 @@ import {
   formatSavingsNZD,
   roundToSigFigs,
 } from "src/shared/utils/formatters";
-import { SavingsFrameBox } from "./HouseholdSavings.styles";
+import { NextStepButton, SavingsFrameBox } from "./HouseholdSavings.styles";
 
 export interface SavingsProps {
   results: Savings;
@@ -82,9 +82,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
 
   const [upfrontCostTotal, setUpfrontCostTotal] = useState("0");
   const vehicleCostStr = getVehicleCostStr(numEVsToBuy);
-  const upgradeCostSubtext = getUpgradeCostSubtext(
-    results?.upfrontCost,
-  );
+  const upgradeCostSubtext = getUpgradeCostSubtext(results?.upfrontCost);
 
   useEffect(() => {
     // Round constituent values to nearest $100 first before summing for total
@@ -100,6 +98,8 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
   // --------------------  Next Steps --------------------
   const recommendationKey = results?.recommendation?.action;
   const recommendationURL = results?.recommendation?.url || "";
+  const allGuidesURL =
+    "https://www.rewiring.nz/electrification-guides/get-started";
   const { getDescription, buttonText, imageComponent } = recommendationKey
     ? recommendationActions[recommendationKey]
     : { getDescription: () => "", buttonText: "", imageComponent: "" };
@@ -355,22 +355,11 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
               }}
             >
               {buttonText && (
-                <Button
+                <NextStepButton
                   variant="contained"
                   color="info"
-                  sx={{
-                    textTransform: "initial",
-                    margin: ".7rem 0",
-                    borderRadius: "0.25rem",
-                    boxShadow: "none",
-                    width: "100%",
-                    padding: "0",
-                    boxSizing: "border-box",
-                    "&:hover": {
-                      boxShadow: "none",
-                      backgroundColour: theme.palette.info.dark,
-                    },
-                  }}
+                  theme={theme}
+                  id="next-step-button-action"
                   onClick={() =>
                     window.open(
                       recommendationURL,
@@ -379,58 +368,34 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
                     )
                   }
                 >
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      color: theme.palette.info.contrastText,
-                      maxHeight: "3.4375rem",
-                    }}
-                  >
                     {/* Most likely "Show me how" */}
                     {buttonText}
-                  </Typography>
-                  <Box
-                    sx={{
-                      margin: "0 0.3rem 0 0.2rem",
-                      display: "flex",
-                      alignItems: "center",
+                  <OpenIcon
+                    style={{
+                      marginLeft: "0.3rem",
+                      maxWidth: "15px",
+                      maxHeight: "15px",
                     }}
-                  >
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 512 512"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      {/* eslint-disable-next-line react/no-unknown-property */}
-                      <path
-                        d="M384 224V408C384 413.253 382.965 418.454 380.955 423.307C378.945 428.16 375.999 432.57 372.284 436.284C368.57 439.999 364.16 442.945 359.307 444.955C354.454 446.965 349.253 448 344 448H104C93.3913 448 83.2172 443.786 75.7157 436.284C68.2143 428.783 64 418.609 64 408V168C64 157.391 68.2143 147.217 75.7157 139.716C83.2172 132.214 93.3913 128 104 128H271.48"
-                        stroke="black"
-                        strokeWidth="55"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      {/* eslint-disable-next-line react/no-unknown-property */}
-                      <path
-                        d="M336 64H448V176"
-                        stroke="black"
-                        strokeWidth="55"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      {/* eslint-disable-next-line react/no-unknown-property */}
-                      <path
-                        d="M224 288L440 72"
-                        stroke="black"
-                        strokeWidth="55"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </Box>
-                </Button>
+                  />
+                </NextStepButton>
               )}
+              <NextStepButton
+                variant="outlined"
+                theme={theme}
+                id="next-step-button-all-guides"
+                onClick={() =>
+                  window.open(allGuidesURL, "_blank", "noopener,noreferrer")
+                }
+              >
+                  See all guides
+                <OpenIcon
+                  style={{
+                    marginLeft: "0.3rem",
+                    maxWidth: "15px",
+                    maxHeight: "15px",
+                  }}
+                />
+              </NextStepButton>
             </Grid>
           </Grid>
 
