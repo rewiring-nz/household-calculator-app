@@ -25,6 +25,7 @@ import { VehicleFuelTypeEnum } from "src/shared/api/openapi-client";
 import { SwitchLabel } from "../HouseholdForm.styles";
 import chevronDown from "src/assets/icons/chevron-down.svg";
 import chevronUp from "src/assets/icons/chevron-up.svg";
+import { electrificationStatusMapping } from "../data/householdForm.text";
 
 interface VehicleBoxProps extends VehicleObject {
   index: number;
@@ -66,9 +67,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
     watch,
     formState: { errors },
   } = useFormContext();
-  const [, setSelectedUsageName] = useState<
-    string | undefined
-  >(undefined);
+  const [, setSelectedUsageName] = useState<string | undefined>(undefined);
   const [showDetails, setShowDetails] = useState(false);
 
   const handleUsageTypeChange = (selectedType: UsageType) => {
@@ -81,6 +80,13 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
   const toggleDetails = () => {
     setShowDetails((prev) => !prev);
   };
+
+  const switchToEVText =
+    fuelType === VehicleFuelTypeEnum.Electric
+      ? electrificationStatusMapping.alreadyElectric
+      : watch(`vehicleObjs.${index}.switchToEV`)
+        ? "🔧 Switch to EV"
+        : "Switch to EV";
 
   const handleFuelTypeChange = (
     event: SelectChangeEvent<VehicleFuelTypeEnum>,
@@ -145,7 +151,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
               <Select
                 labelId={`vehicles-fuelType-label-${index}`}
                 inputProps={{
-                  id: `vehicles-fuelType-${index}-input`
+                  id: `vehicles-fuelType-${index}-input`,
                 }}
                 id={`vehicles-fuelType-${index}`}
                 value={field.value || ""}
@@ -256,10 +262,12 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
                 alignItems: "center",
               }}
             >
-              <SwitchLabel className="installSolar-label" theme={theme} htmlFor={`vehicles-switchToEV-${index}-input`}>
-                {watch(`vehicleObjs.${index}.switchToEV`)
-                  ? "🔧 Switch to EV"
-                  : "Switch to EV"}
+              <SwitchLabel
+                className="installSolar-label"
+                theme={theme}
+                htmlFor={`vehicles-switchToEV-${index}-input`}
+              >
+                {switchToEVText}
               </SwitchLabel>
               <Controller
                 // name={`vehicleObjs.${index}.switchToEV`}
@@ -272,7 +280,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
                   <HouseSwitch
                     size="small"
                     inputProps={{
-                      id: `vehicles-switchToEV-${index}-input`
+                      id: `vehicles-switchToEV-${index}-input`,
                     }}
                     theme={theme}
                     disabled={fuelType === "ELECTRIC"}
