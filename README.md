@@ -1,5 +1,6 @@
 # household-calculator-app
-The frontend app for the household savings calculator
+
+The frontend app for the household energy savings calculator.
 
 ## Contributing
 
