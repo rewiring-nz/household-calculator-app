@@ -157,7 +157,7 @@ const Home: React.FC = () => {
             How much could you save by going electric?
           </Typography>
           <Typography variant="subtitle1">
-            Upgrading your fossil fuel appliances and cars can save money and emissions.<br/>Enter your details to see your savings.
+            Upgrading your fossil fuel appliances & vehicles can cut costs and emissions.<br/>Enter your details to see your potential savings.
           </Typography>
 
           {householdData && (
