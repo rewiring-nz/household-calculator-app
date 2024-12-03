@@ -139,18 +139,8 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
             Your Savings
           </Typography>
         )}
-        <Typography
-          variant="subtitle2"
-          sx={{
-            margin: "0 0 1rem 0",
-          }}
-        >
+        <Typography variant="subtitle2">
           By electrifying your household, we estimate you could save:
-        </Typography>
-        <Typography variant="body1">
-          <Link component={RouterLink} to="/methodology">
-            How did we calculate this?
-          </Link>
         </Typography>
       </Box>
 
@@ -268,6 +258,14 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
             </>
           )}
         </ResultBox>
+        <FDivider />
+        <Box sx={{ marginTop: "1.2rem", marginBottom: "1.2rem" }}>
+          <Typography variant="body1">
+            <Link component={RouterLink} to="/methodology">
+              How did we calculate this?
+            </Link>
+          </Typography>
+        </Box>
       </SavingsFrameBox>
 
       <SavingsFrameBox
