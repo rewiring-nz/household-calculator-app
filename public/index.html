@@ -34,7 +34,11 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-CNWK3C9H4L');
+      gtag('config', 'G-CNWK3C9H4L', {
+        anonymize_ip: true,
+        storage: 'none',
+        client_storage: 'none'
+      });
     </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
