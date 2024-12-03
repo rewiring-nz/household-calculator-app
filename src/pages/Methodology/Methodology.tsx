@@ -251,20 +251,35 @@ const Methodology: React.FC = () => {
               costs per region and installer, we recognise that a more detailed
               analysis of household conditions and installation costs per
               appliance and region would be valuable for planning household
-              upgrades.
+              upgrades - we plan to include this analysis in future. In the meantime, you can check out our <Link
+                href="https://www.rewiring.nz/electrification-guides/get-started"
+                target="_blank"
+              >
+                electrification guides
+              </Link> for more information on how to electrify.
             </Typography>
             <Typography variant="body2">
               For vehicles, we provide a general range for replacing fossil fuel
-              vehicles with EVs, based on New Zealand prices for popular
+              vehicles with new EVs, based on New Zealand prices for popular
               vehicles. This estimate excludes the Clean Car Rebate, which ended
-              in 2024.
+              in 2024. It should be noted that buying an EV is a car purchase like any other. You don’t have to buy new; there are plenty of EVs available in the market now. Also, when buying a new car, you would usually take into account the purchase price (what we’ve shown) minus the resale value. So you wouldn’t normally be losing $30k-$70k outright for every EV you buy.
             </Typography>
             <Typography variant="body2">
               The upfront cost of solar installation is estimated at
               $2277.78/kW, based on 2023 data from the Sustainable Energy
               Association of New Zealand and installer surveys. Inverter upgrade
               costs are assumed at $2,500. Battery costs are estimated at
-              $1000/kWh based on similar sources.
+              $1000/kWh based on similar sources. Again, installation costs will vary by region and installer. Our <Link
+                href="https://www.rewiring.nz/electrification-guides/solar"
+                target="_blank"
+              >
+                rooftop solar
+              </Link> and <Link
+                href="https://www.rewiring.nz/electrification-guides/home-batteries"
+                target="_blank"
+              >
+                home battery
+              </Link> electrification guides have more information to help.
             </Typography>
             <Typography variant="h2">Recommendations (Next Steps)</Typography>
             <Typography variant="body2">
