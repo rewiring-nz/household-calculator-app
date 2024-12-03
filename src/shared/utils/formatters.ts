@@ -35,18 +35,18 @@ export const roundToSigFigs = (value: number | undefined, sigFigs?: number) => {
     return 0;
   }
   if (sigFigs !== undefined) {
-    return Number(value.toPrecision(sigFigs))
+    return Number(value.toPrecision(sigFigs));
   }
   if (Math.abs(value) < 10) {
-    return Number(value.toPrecision(2))
+    return Number(value.toPrecision(2));
   }
   if (Math.abs(value) < 100) {
-    return Number(value.toPrecision(3))
+    return Number(value.toPrecision(3));
   }
   if (Math.abs(value) < 10000) {
-    return Number(value.toPrecision(2))
+    return Number(value.toPrecision(2));
   }
-  return Number(value.toPrecision(3))
+  return Number(value.toPrecision(3));
 };
 
 export const formatTonnes = (value: number | undefined): string => {

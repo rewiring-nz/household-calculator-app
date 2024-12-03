@@ -80,17 +80,16 @@ export const vehicleMapping: Record<VehicleFuelTypeEnum, string> = {
   [VehicleFuelTypeEnum.Electric]: "Electric",
 };
 
-
 // -----------------------------------------------------
 
 // -------------------- Statuses --------------------
 
 export const electrificationStatusMapping: Record<string, string> = {
   alreadyElectric: "⚡️ Already electric",
-  alreadyElectricButWillReplace: "🔧 Already electric, but replacing with heat pumps for more efficiency savings",
-  alreadyMostEfficient: "⚡️ Already the most efficient option!"
-}
-
+  alreadyElectricButWillReplace:
+    "🔧 Already electric, but replacing with heat pumps for more efficiency savings",
+  alreadyMostEfficient: "⚡️ Already the most efficient option!",
+};
 
 // -----------------------------------------------------
 

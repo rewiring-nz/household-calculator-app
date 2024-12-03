@@ -42,7 +42,10 @@ import {
 } from "./data/interfaces";
 
 // ----------------- Data -------------------
-import { electrificationStatusMapping, formText } from "./data/householdForm.text";
+import {
+  electrificationStatusMapping,
+  formText,
+} from "./data/householdForm.text";
 
 // ----------------- Icons -------------------
 import questionIcon from "../../assets/icons/question.svg";
@@ -791,7 +794,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                             <FormControlLabel
                               key={option.text}
                               value={option.value}
-                              control={<HouseRadio id={`hasSolar-input-${option.text.toLowerCase()}`} />}
+                              control={
+                                <HouseRadio
+                                  id={`hasSolar-input-${option.text.toLowerCase()}`}
+                                />
+                              }
                               label={option.text}
                             />
                           ),
@@ -1015,7 +1022,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                               <FormControlLabel
                                 key={option.text}
                                 value={option.value}
-                                control={<HouseRadio id={`hasBattery-input-${option.text.toLowerCase()}`} />}
+                                control={
+                                  <HouseRadio
+                                    id={`hasBattery-input-${option.text.toLowerCase()}`}
+                                  />
+                                }
                                 label={option.text}
                               />
                             ),
@@ -1220,7 +1231,10 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   error={!!methods.formState.errors.vehicleObjs}
                 >
                   <LabelBox>
-                    <FormLabel className="mainLabels" htmlFor="numberOfVehicles-input">
+                    <FormLabel
+                      className="mainLabels"
+                      htmlFor="numberOfVehicles-input"
+                    >
                       Number of vehicles
                     </FormLabel>
                     <HouseholdTooltip
@@ -1243,7 +1257,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                         labelId="number-of-vehicles-label"
                         {...field}
                         value={numberOfVehicles}
-                        inputProps={{id: "numberOfVehicles-input"}}
+                        inputProps={{ id: "numberOfVehicles-input" }}
                       >
                         {formText.options.vehicle.amount.map(
                           (option: OptionNumber) => (

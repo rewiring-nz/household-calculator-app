@@ -2,7 +2,6 @@ import { styled } from "@mui/system";
 import { Switch } from "@mui/material";
 import { Theme } from "@mui/material";
 
-
 export const HouseSwitch = styled(Switch)(({ theme }: { theme: Theme }) => ({
   width: 40,
   height: 24,

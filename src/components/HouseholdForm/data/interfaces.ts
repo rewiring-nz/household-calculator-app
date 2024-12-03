@@ -56,7 +56,6 @@ export interface HouseholdFormState {
 
 // ----------------------------------------------
 
-
 interface StringInput {
   options: string[];
   default: string;

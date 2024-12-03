@@ -14,7 +14,7 @@ const palette = {
   },
   warning: {
     main: "#e97840", // '#ff9800'
-    light: "#ffcac0"
+    light: "#ffcac0",
   },
   info: {
     main: "#FFC754",
@@ -35,17 +35,17 @@ const palette = {
   },
   divider: "#d7d5cd",
   action: {
-    active: '#222222',
+    active: "#222222",
     // hover: '#9d46ff',
-    selected: '#222222', //'#6200ea',
+    selected: "#222222", //'#6200ea',
     // disabled: '#9e9e9e',
     disabledBackground: "#CCCCCC",
     focus: "#222222",
     // hoverOpacity: 0.08,
     // disabledOpacity: 0.38,
     // focusOpacity: 0.12,
-  }
-}
+  },
+};
 
 const theme = createTheme({
   typography: {
