@@ -18,7 +18,6 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import "./HouseholdForm.css";
 import { FDivider } from "src/shared/styles/FDivider";
 
 // ----------------- Models & Interfaces -------------------
