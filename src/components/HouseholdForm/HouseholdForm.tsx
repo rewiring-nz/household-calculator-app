@@ -649,7 +649,8 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {watchAllFields.waterHeating !==
                   WaterHeatingEnum.ElectricHeatPump &&
                   watchAllFields.waterHeating !==
-                    WaterHeatingEnum.ElectricResistance && (
+                    WaterHeatingEnum.ElectricResistance &&
+                  watchAllFields.waterHeating !== WaterHeatingEnum.Solar && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
                       🔧 Replacing with electric water heat pump
                     </FormHelperText>
@@ -664,6 +665,11 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   WaterHeatingEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
                     {electrificationStatusMapping.alreadyElectric}
+                  </FormHelperText>
+                )}
+                {watchAllFields.waterHeating === WaterHeatingEnum.Solar && (
+                  <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
+                    🌱 Already zero emissions
                   </FormHelperText>
                 )}
               </FormControl>
