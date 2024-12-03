@@ -1,0 +1,17 @@
+/* TODO: Turn this into a styles.ts file to use theme.palette */
+
+#methodology-content h2 {
+  color: #222222;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+#methodology-content h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+#methodology-content p {
+  max-width: 40rem;
+  margin-bottom: 1.5rem;
+}
