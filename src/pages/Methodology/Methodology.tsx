@@ -82,9 +82,8 @@ const Methodology: React.FC = () => {
         }}
       >
         <Typography variant="h1">How we calculated this result</Typography>
-        <Typography variant="subtitle1">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          varius enim in eros.
+        <Typography variant="subtitle1" sx={{ marginBottom: "1.5rem" }}>
+          Our calculator helps you understand the potential financial and environmental benefits of electrifying your home.
         </Typography>
 
         <Typography
@@ -93,7 +92,7 @@ const Methodology: React.FC = () => {
             margin: "3.1rem 0 0.9rem 0",
           }}
         >
-          Overview
+          Our Approach
         </Typography>
         <Box
           className="paragraphs"
@@ -107,46 +106,68 @@ const Methodology: React.FC = () => {
             },
           }}
         >
-          <Box
-            sx={{
-              maxWidth: "31rem",
-            }}
-          >
+          <Box>
             <MethodParagraph variant="subtitle2">
-              Maecenas turpis tristique mattis mauris diam interdum in. Tortor
-              non ut dignissim rhoncus nam aliquam elementum habitant. Ante
-              morbi lacus tellus et. Nisi ut penatibus et a suspendisse neque
-              nascetur volutpat amet.
+              We've developed a comprehensive model that looks at your entire household energy use, including heating, water heating, cooking, and transportation. Our calculations are based on real-world data from New Zealand government sources, energy pricing, and household energy consumption studies.
             </MethodParagraph>
+
+            <Typography variant="h3" sx={{ marginTop: "1.5rem", marginBottom: "0.5rem" }}>
+              What We Look At
+            </Typography>
             <MethodParagraph variant="subtitle2">
-              Amet faucibus dolor ante mattis. Sit et pulvinar turpis blandit
-              nisl felis semper. Sem ullamcorper tellus orci eu. Imperdiet
-              volutpat ultricies sed facilisi. Sociis neque vitae congue cum
-              ullamcorper
+              Our calculator considers:
+              <ul style={{ paddingLeft: "1.5rem", margin: 0 }}>
+                <li>Energy use for space heating</li>
+                <li>Water heating systems</li>
+                <li>Cooking appliances</li>
+                <li>Vehicle energy consumption</li>
+                <li>Potential solar and battery installations</li>
+              </ul>
             </MethodParagraph>
+
+            <Typography variant="h3" sx={{ marginTop: "1.5rem", marginBottom: "0.5rem" }}>
+              How We Calculate Savings
+            </Typography>
             <MethodParagraph variant="subtitle2">
-              Maecenas turpis tristique mattis mauris diam interdum in. Tortor
-              non ut dignissim rhoncus nam aliquam elementum habitant. Ante
-              morbi lacus tellus et. Nisi ut penatibus et a suspendisse neque
-              nascetur volutpat amet.
+              We compare your current energy setup with an electrified version of your home. This means:
+              <ul style={{ paddingLeft: "1.5rem", margin: 0 }}>
+                <li>Replacing gas or wood heaters with efficient heat pumps</li>
+                <li>Switching to electric water heaters and induction cooktops</li>
+                <li>Calculating potential electric vehicle savings</li>
+              </ul>
             </MethodParagraph>
           </Box>
-          <Box
-            sx={{
-              maxWidth: "31rem",
-            }}
-          >
+
+          <Box>
+            <Typography variant="h3" sx={{ marginBottom: "0.5rem" }}>
+              Key Factors We Consider
+            </Typography>
             <MethodParagraph variant="subtitle2">
-              Amet faucibus dolor ante mattis. Sit et pulvinar turpis blandit
-              nisl felis semper. Sem ullamcorper tellus orci eu. Imperdiet
-              volutpat ultricies sed facilisi. Sociis neque vitae congue cum
-              ullamcorper
+              Our model takes into account:
+              <ul style={{ paddingLeft: "1.5rem", margin: 0 }}>
+                <li>Your specific region's energy needs</li>
+                <li>Number of household occupants</li>
+                <li>Current and projected energy prices</li>
+                <li>Emissions factors for different energy types</li>
+                <li>Installation and replacement costs of appliances</li>
+              </ul>
             </MethodParagraph>
+
+            <Typography variant="h3" sx={{ marginTop: "1.5rem", marginBottom: "0.5rem" }}>
+              Data Sources
+            </Typography>
             <MethodParagraph variant="subtitle2">
-              Maecenas turpis tristique mattis mauris diam interdum in. Tortor
-              non ut dignissim rhoncus nam aliquam elementum habitant. Ante
-              morbi lacus tellus et. Nisi ut penatibus et a suspendisse neque
-              nascetur volutpat amet.
+              We use data from reputable sources including:
+              <ul style={{ paddingLeft: "1.5rem", margin: 0 }}>
+                <li>Ministry for the Environment</li>
+                <li>EECA Energy End Use Database</li>
+                <li>Australian and New Zealand Residential Baseline Study</li>
+                <li>Official New Zealand government statistics</li>
+              </ul>
+            </MethodParagraph>
+
+            <MethodParagraph variant="subtitle2" sx={{ marginTop: "1.5rem", fontStyle: "italic" }}>
+              Note: Actual savings may vary based on individual household characteristics, energy use patterns, and future energy price changes.
             </MethodParagraph>
           </Box>
         </Box>
