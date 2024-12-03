@@ -81,6 +81,13 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
     setShowDetails((prev) => !prev);
   };
 
+  const switchToEVText =
+    fuelType === VehicleFuelTypeEnum.Electric
+      ? electrificationStatusMapping.alreadyElectric
+      : watch(`vehicleObjs.${index}.switchToEV`)
+        ? "🔧 Switch to EV"
+        : "Switch to EV";
+
   const handleFuelTypeChange = (
     event: SelectChangeEvent<VehicleFuelTypeEnum>,
   ) => {
