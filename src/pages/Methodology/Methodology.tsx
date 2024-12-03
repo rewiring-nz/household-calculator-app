@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Box,
-  IconButton,
-  Link,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, IconButton, Link, Typography, useTheme } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { ReactComponent as ArrowBackIcon } from "../../assets/icons/arrow-back.svg";
 import { ReactComponent as CloseIcon } from "../../assets/icons/x-window1.svg";
@@ -113,7 +107,7 @@ const Methodology: React.FC = () => {
               energy consumption studies.
             </Typography>
 
-            <Typography variant="body2" sx={{fontStyle: "italic" }}>
+            <Typography variant="body2" sx={{ fontStyle: "italic" }}>
               Note: Actual savings may vary based on individual household
               characteristics, energy use patterns, and future energy price
               changes.
@@ -246,12 +240,11 @@ const Methodology: React.FC = () => {
           </Box>
 
           <Box>
-
             <Typography variant="h2">Upgrade Costs</Typography>
             <Typography variant="body2">
-              Upgrade costs are the cost to replace your machines with electric alternatives - whether you upgrade them early, or as they reach their end of life.
-
-              These are averages based on over 100 quotes,
+              Upgrade costs are the cost to replace your machines with electric
+              alternatives - whether you upgrade them early, or as they reach
+              their end of life. These are averages based on over 100 quotes,
               comparing mid-range options for typical appliances. Prices include
               both capital and installation costs, sourced from both online and
               direct quotes from installers. Due to variations in installation
@@ -269,9 +262,9 @@ const Methodology: React.FC = () => {
             <Typography variant="body2">
               The upfront cost of solar installation is estimated at
               $2277.78/kW, based on 2023 data from the Sustainable Energy
-              Association of New Zealand and installer surveys. Inverter
-              upgrade costs are assumed at $2,500. Battery costs are
-              estimated at $1000/kWh based on similar sources.
+              Association of New Zealand and installer surveys. Inverter upgrade
+              costs are assumed at $2,500. Battery costs are estimated at
+              $1000/kWh based on similar sources.
             </Typography>
             <Typography variant="h2">Recommendations (Next Steps)</Typography>
             <Typography variant="body2">
@@ -294,35 +287,40 @@ const Methodology: React.FC = () => {
             </Typography>
             <Typography variant="h2">Further reading</Typography>
             <Typography variant="body2">
-              <ul>
-                <li><Link href="https://www.rewiring.nz/electrification-guides/get-started" target="_blank">Explore our electrification guides</Link> for guidance on how to upgrade your household appliances and vehicles</li>
-                <li>
-                  <Link
-                    href="https://github.com/rewiring-nz/household-model/blob/main/METHODOLOGY.md"
-                    target="_blank"
-                  >
-                    Read our detailed methodology
-                  </Link>{" "}
-                  including energy consumption values, prices, and emissions
-                  factors
-                </li>
-                <li>
-                  <Link
-                    href="https://github.com/rewiring-nz/household-model"
-                    target="_blank"
-                  >
-                    See our open-source model on GitHub
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="https://github.com/rewiring-nz/household-calculator-app"
-                    target="_blank"
-                  >
-                    See our open-source app on GitHub
-                  </Link>
-                </li>
-              </ul>
+              🔧&nbsp;
+              <Link
+                href="https://www.rewiring.nz/electrification-guides/get-started"
+                target="_blank"
+              >
+                Explore our electrification guides
+              </Link>{" "}
+              for more information on how to upgrade your household appliances
+              and vehicles
+            </Typography>
+            <Typography variant="body2">
+              🤓&nbsp;
+              <Link
+                href="https://github.com/rewiring-nz/household-model/blob/main/METHODOLOGY.md"
+                target="_blank"
+              >
+                Read our detailed methodology
+              </Link>{" "}
+              including energy consumption values, prices, and emissions factors
+            </Typography>
+            <Typography variant="body2">
+              👩🏻‍💻&nbsp;See our&nbsp;
+              <Link
+                href="https://github.com/rewiring-nz/household-model"
+                target="_blank"
+              >
+                 open-source model
+              </Link>&nbsp;and&nbsp;
+              <Link
+                href="https://github.com/rewiring-nz/household-calculator-app"
+                target="_blank"
+              >
+                open-source app
+              </Link>&nbsp;on GitHub
             </Typography>
           </Box>
         </Box>

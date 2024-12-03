@@ -180,7 +180,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
             <span style={{ fontWeight: "600" }}>
               {formatKgs(results?.emissions?.perYear?.difference)}
             </span>
-            of CO2e a year!
+            of CO<sub>2</sub>e saved every year!
           </Typography>
         </ResultBox>
 
