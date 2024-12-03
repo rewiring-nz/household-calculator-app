@@ -145,7 +145,7 @@ const Methodology: React.FC = () => {
               We derive average household energy use across different appliances
               through the{" "}
               <Link
-                href="https://www.energyrating.gov.au/industry-information/publications/report-2021-residential-baseline-studyaustralia-and-new-zealand-2000-2040"
+                href="https://www.energyrating.gov.au/industry-information/publications/report-2021-residential-baseline-study-australia-and-new-zealand-2000-2040"
                 target="_blank"
               >
                 Australian and New Zealand Residential Baseline Study 2021
