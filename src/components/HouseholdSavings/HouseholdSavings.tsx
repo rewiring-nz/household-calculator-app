@@ -152,7 +152,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
         }}
       >
         <ResultBox
-          label="Energy Bills"
+          label="Energy & Fuel Bills"
           heading={`${formatSavingsNZD(results?.opex?.perWeek?.difference, 0)} saved per week`}
         >
           <Typography variant="body1">

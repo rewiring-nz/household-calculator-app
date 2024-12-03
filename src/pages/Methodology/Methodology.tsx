@@ -10,11 +10,7 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 import { ReactComponent as ArrowBackIcon } from "../../assets/icons/arrow-back.svg";
 import { ReactComponent as CloseIcon } from "../../assets/icons/x-window1.svg";
-
-const MethodParagraph = styled(Typography)(() => ({
-  maxWidth: "40rem",
-  marginBottom: "1.5rem",
-}));
+import "./Methodology.css";
 
 const Methodology: React.FC = () => {
   const theme = useTheme();
@@ -76,6 +72,7 @@ const Methodology: React.FC = () => {
 
       <Box
         className="content"
+        id="methodology-content"
         sx={{
           maxWidth: "30rem",
           padding: "1rem",
@@ -109,22 +106,22 @@ const Methodology: React.FC = () => {
         >
           <Box>
             <Typography variant="h2">Our Approach</Typography>
-            <MethodParagraph>
+            <Typography variant="body2">
               We've developed a model that looks at your entire household energy
               use, including heating, water heating, cooking, other electronics,
               and transportation. Our calculations are based on real-world data
               from New Zealand government sources, energy pricing, and household
               energy consumption studies.
-            </MethodParagraph>
+            </Typography>
 
-            <MethodParagraph sx={{ marginTop: "1.5rem", fontStyle: "italic" }}>
+            <Typography variant="body2" sx={{fontStyle: "italic" }}>
               Note: Actual savings may vary based on individual household
               characteristics, energy use patterns, and future energy price
               changes.
-            </MethodParagraph>
+            </Typography>
 
-            <Typography variant="h2">How We Calculate Savings</Typography>
-            <MethodParagraph>
+            <Typography variant="h2">Cost & Emissions Savings</Typography>
+            <Typography variant="body2">
               We compare your current energy setup with fully electrified
               version of your home. This means:
               <ul style={{ paddingLeft: "1.5rem", margin: 0 }}>
@@ -141,10 +138,10 @@ const Methodology: React.FC = () => {
                   Switching from fossil fuel vehicles to EVs, if you would like
                 </li>
               </ul>
-            </MethodParagraph>
+            </Typography>
 
             <Typography variant="h3">Energy Consumption</Typography>
-            <MethodParagraph>
+            <Typography variant="body2">
               We derive average household energy use across different appliances
               through the{" "}
               <Link
@@ -161,14 +158,11 @@ const Methodology: React.FC = () => {
               laundry, and cooling, a static average daily consumption is used.
               These energy use values are scaled by regional differences in
               heating demand (e.g. Otago requires more house heating than
-              Northland).
-            </MethodParagraph>
-            <MethodParagraph>
-              Energy use is then scaled by household occupancy, using an
+              Northland). They are also scaled by household occupancy, using an
               exponential model to account for nonlinear, diminishing increases
               in energy consumption as household size increases.
-            </MethodParagraph>
-            <MethodParagraph>
+            </Typography>
+            <Typography variant="body2">
               Average vehicle energy use is calculated from the{" "}
               <Link
                 href="https://www.eeca.govt.nz/insights/data-tools/energy-end-use-database/"
@@ -186,20 +180,18 @@ const Methodology: React.FC = () => {
               </Link>
               ), then scale this based on each vehicle's stated usage
               (kilometres driven per year).
-            </MethodParagraph>
-            <MethodParagraph>
+            </Typography>
+            <Typography variant="body2">
               Solar energy generation is modeled based on panel size, location,
               and degradation over 30 years (averaging 93.08% of nameplate
               capacity performance), with regional variations in solar capacity.
               Battery capacity is determined by size, degradation (averaging
               85.22% of nameplate capacity over 15 year lieftime), and
-              round-trip efficiency (95%)
-            </MethodParagraph>
-          </Box>
+              round-trip efficiency (95%).
+            </Typography>
 
-          <Box>
             <Typography variant="h3">Emissions Reduction</Typography>
-            <MethodParagraph>
+            <Typography variant="body2">
               To calculate emissions, we take the energy calculations from each
               machine and multiply these by their emissions factors. We use
               these emissions factors are taken from the Ministry for the
@@ -211,8 +203,8 @@ const Methodology: React.FC = () => {
                 Measuring emissions: A guide for organisations (2023)
               </Link>
               .{" "}
-            </MethodParagraph>
-            <MethodParagraph>
+            </Typography>
+            <Typography variant="body2">
               To calculate emissions savings, we simply take the difference
               between the current and electrified household's total emissions.
               The emissions reductions are a conservative estimate, because the
@@ -220,23 +212,100 @@ const Methodology: React.FC = () => {
               panels (which has zero emissions) from the electricity taken from
               the grid (which still has a small, albeit decreasing, carbon
               footprint as our national grid becomes more renewable).
-            </MethodParagraph>
+            </Typography>
 
-            <Typography variant="h3">Operating Costs (Energy Bill)</Typography>
-            <MethodParagraph>Lorem ipsum</MethodParagraph>
+            <Typography variant="h3">
+              Operating Costs (Energy & Fuel Bill)
+            </Typography>
+            <Typography variant="body2">
+              To calculate how much you would save on your energy and fuel
+              bills, we first determine much of the electricity needs are met by
+              solar, battery storage, or the grid, and how much solar-generated
+              power is left for export. We assume that half of a household's
+              appliance and vehicle electricity needs can be met by generated
+              solar (50% self-consumption). This is a conservative estimate of
+              how much energy consumption can be shifted to daylight hours.
+            </Typography>
+            <Typography variant="body2">
+              Next, we calculate energy costs for each fuel type, including
+              electricity. We price the electricity consumed from the grid at a
+              weighted proportion between regular volume costs and off-peak
+              costs based on the battery's ability to shift grid consumption to
+              off-peak hours. For other energy & fuel types like gas, petrol,
+              and diesel, we simply multiply the energy consumption with the
+              price per kWh. Weekly and yearly savings use 2024 prices, while
+              savings over 15 years consider future price inflation.
+            </Typography>
+            <Typography variant="body2">
+              Fixed costs (like gas, LPG, or grid connections) and Road User
+              Charges are added, and solar export revenue is subtracted to get
+              total operating costs. The difference between current and
+              electrified household's operating costs gives the savings. Vehicle
+              maintenance/servicing costs are not yet included, although they
+              tend to be lower for EVs.
+            </Typography>
+          </Box>
 
-            <Typography variant="h3">Solar & Battery Considerations</Typography>
-            <MethodParagraph>Lorem ipsum</MethodParagraph>
+          <Box>
+
+            <Typography variant="h2">Replacement Costs</Typography>
+            <Typography variant="body2">
+              Replacement costs are the cost to replace your machines with electric alternatives - whether you replace them early, or as they reach their end of life.
+
+              These are averages based on over 100 quotes,
+              comparing mid-range options for typical appliances. Prices include
+              both capital and installation costs, sourced from both online and
+              direct quotes from installers. Due to variations in installation
+              costs per region and installer, we recognise that a more detailed
+              analysis of household conditions and installation costs per
+              appliance and region would be valuable for planning household
+              upgrades.
+            </Typography>
+            <Typography variant="body2">
+              For vehicles, we provide a general range for replacing fossil fuel
+              vehicles with EVs, based on New Zealand prices for popular
+              vehicles. This estimate excludes the Clean Car Rebate, which ended
+              in 2024.
+            </Typography>
+            <Typography variant="body2">
+              The upfront cost of solar installation is estimated at
+              $2277.78/kW, based on 2023 data from the Sustainable Energy
+              Association of New Zealand and installer surveys. Inverter
+              replacement costs are assumed at $2,500. Battery costs are
+              estimated at $1000/kWh based on similar sources.
+            </Typography>
+            <Typography variant="h2">Recommendations (Next Steps)</Typography>
+            <Typography variant="body2">
+              The calculator's recommendation for your next steps currently
+              takes the first item off a prioritised list that your current
+              household does not yet have. The list has been prioritised based
+              on Rewiring's prior knowledge and research of what upgrades
+              typically bring the most savings for a reasonable upfront cost:
+              <ol>
+                <li>Rooftop solar</li>
+                <li>First EV</li>
+                <li>Space heater</li>
+                <li>Water heater</li>
+                <li>Cooktop</li>
+                <li>Battery</li>
+                <li>All other EVs (high savings but expensive upfront cost)</li>
+              </ol>
+              In future, we may improve this recommendation algorithm to take
+              into account machine-specific savings and replacement costs.
+            </Typography>
             <Typography variant="h2">Further reading</Typography>
-            <MethodParagraph>
+            <Typography variant="body2">
               <ul>
+                <li><Link href="https://www.rewiring.nz/electrification-guides/get-started" target="_blank">Explore our electrification guides</Link> for guidance on how to upgrade your household appliances and vehicles</li>
                 <li>
                   <Link
                     href="https://github.com/rewiring-nz/household-model/blob/main/METHODOLOGY.md"
                     target="_blank"
                   >
-                    Read our detailed methodology on GitHub
-                  </Link>
+                    Read our detailed methodology
+                  </Link>{" "}
+                  including energy consumption values, prices, and emissions
+                  factors
                 </li>
                 <li>
                   <Link
@@ -255,7 +324,7 @@ const Methodology: React.FC = () => {
                   </Link>
                 </li>
               </ul>
-            </MethodParagraph>
+            </Typography>
           </Box>
         </Box>
       </Box>
