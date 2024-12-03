@@ -17,7 +17,8 @@ export const formatNZD = (value: number | undefined, decimals = 2) => {
 
 export const formatSavingsNZD = (value: number | undefined, decimals = 2) => {
   if (value === undefined) return "";
-  const formattedValue = value.toFixed(decimals);
+  const roundedValue = roundToSigFigs(value);
+  const formattedValue = roundedValue.toFixed(decimals);
   const absoluteValue = Math.abs(Number(formattedValue)).toLocaleString(
     "en-NZ",
     {
@@ -28,9 +29,22 @@ export const formatSavingsNZD = (value: number | undefined, decimals = 2) => {
   return value <= 0 ? `$${absoluteValue}` : `-$${absoluteValue}`;
 };
 
-export const roundToHundreds = (value: number | undefined) => {
-  return Math.round((value || 0) / 100) * 100
-}
+export const roundToSigFigs = (value: number | undefined, sigFigs?: number) => {
+  /* Rounds to 2sf if below 10,000, 3sf for 10,000s or more */
+  if (value === undefined) {
+    return 0;
+  }
+  if (sigFigs !== undefined) {
+    return Number(value.toPrecision(sigFigs))
+  }
+  if (Math.abs(value) < 10) {
+    return Number(value.toPrecision(2))
+  }
+  if (Math.abs(value) < 10000) {
+    return Number(value.toPrecision(2))
+  }
+  return Number(value.toPrecision(3))
+};
 
 export const formatTonnes = (value: number | undefined): string => {
   if (value === undefined) return "";

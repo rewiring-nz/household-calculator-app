@@ -31,7 +31,7 @@ import {
   calcPercentage,
   formatKgs,
   formatSavingsNZD,
-  roundToHundreds,
+  roundToSigFigs,
 } from "src/shared/utils/formatters";
 import { SavingsFrameBox } from "./HouseholdSavings.styles";
 
@@ -206,23 +206,23 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
           bulletPoints={[
             {
               label: "House heating",
-              value: roundToHundreds(results?.upfrontCost?.spaceHeating),
+              value: roundToSigFigs(results?.upfrontCost?.spaceHeating),
             },
             {
               label: "Water heating",
-              value: roundToHundreds(results?.upfrontCost?.waterHeating),
+              value: roundToSigFigs(results?.upfrontCost?.waterHeating),
             },
             {
               label: "Cooktop",
-              value: roundToHundreds(results?.upfrontCost?.cooktop),
+              value: roundToSigFigs(results?.upfrontCost?.cooktop),
             },
             {
               label: "Solar",
-              value: roundToHundreds(results?.upfrontCost?.solar),
+              value: roundToSigFigs(results?.upfrontCost?.solar),
             },
             {
               label: "Battery",
-              value: roundToHundreds(results?.upfrontCost?.battery),
+              value: roundToSigFigs(results?.upfrontCost?.battery),
             },
           ]}
         >
