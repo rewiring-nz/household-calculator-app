@@ -49,7 +49,7 @@ export const locationMapping: Record<LocationEnum, string> = {
 };
 
 export const spaceHeatingMapping: Record<SpaceHeatingEnum, string> = {
-  [SpaceHeatingEnum.ElectricHeatPump]: "Electric heat pump(s)",
+  [SpaceHeatingEnum.ElectricHeatPump]: "Electric heat pumps",
   [SpaceHeatingEnum.ElectricResistance]:
     "Electric resistive heaters (e.g. oil column, fan, wall)",
   [SpaceHeatingEnum.Wood]: "Wood fire",
@@ -58,11 +58,11 @@ export const spaceHeatingMapping: Record<SpaceHeatingEnum, string> = {
 };
 
 export const waterHeatingMapping: Record<WaterHeatingEnum, string> = {
-  [WaterHeatingEnum.ElectricHeatPump]: "Electric heat pump",
+  [WaterHeatingEnum.ElectricHeatPump]: "Electric water heat pump",
   [WaterHeatingEnum.ElectricResistance]: "Electric resistive",
   [WaterHeatingEnum.Gas]: "Piped/natural gas",
   [WaterHeatingEnum.Lpg]: "Bottled LPG",
-  [WaterHeatingEnum.Solar]: "Solar",
+  [WaterHeatingEnum.Solar]: "Solar thermal",
 };
 
 export const cooktopMapping: Record<CooktopEnum, string> = {
@@ -86,8 +86,8 @@ export const vehicleMapping: Record<VehicleFuelTypeEnum, string> = {
 // -------------------- Statuses --------------------
 
 export const electrificationStatusMapping: Record<string, string> = {
-  alreadyElectric: "⚡️ Already electric!",
-  alreadyElectricButWillReplace: "🔧 Already electric, but will replace with heat pumps for efficiency savings",
+  alreadyElectric: "⚡️ Already electric",
+  alreadyElectricButWillReplace: "🔧 Already electric, but replacing with heat pumps for more efficiency savings",
   alreadyMostEfficient: "⚡️ Already the most efficient option!"
 }
 

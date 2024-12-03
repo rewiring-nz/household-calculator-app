@@ -452,7 +452,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
             <FDivider />
 
             <Typography variant="h3" sx={{ marginBottom: "0.9rem" }}>
-              Your household appliances
+              Current household appliances
             </Typography>
             <FormHelperText sx={{ marginBottom: 0 }}>
               <Box
@@ -468,7 +468,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   verticalAlign: "text-top",
                 }}
               ></Box>
-              fossil fuel machine (committing to 15+ years of emissions)
+              fossil fuel machine (high emissions)
             </FormHelperText>
             <FormHelperText sx={{ marginBottom: "1.5rem" }}>
               <Box
@@ -484,7 +484,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   verticalAlign: "text-top",
                 }}
               ></Box>
-              electric machine (can be zero emissions with solar)
+              electric machine (low or zero emissions)
             </FormHelperText>
 
             <FormSectionFlex
@@ -510,7 +510,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                     className="mainLabels"
                     htmlFor="spaceHeating-input"
                   >
-                    Main heating source
+                    House heating
                   </FormLabel>
                   <HouseholdTooltip
                     title={tooltipText.spaceHeating}
@@ -566,20 +566,19 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   watchAllFields.spaceHeating !==
                     SpaceHeatingEnum.ElectricResistance && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                      🔧 Replacing with heat pumps
+                      🔧 Replacing with electric heat pumps
                     </FormHelperText>
                   )}
                 {watchAllFields.spaceHeating ===
                   SpaceHeatingEnum.ElectricHeatPump && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    ⚡️ Already the most efficient option!
+                    {electrificationStatusMapping.alreadyMostEfficient}
                   </FormHelperText>
                 )}
                 {watchAllFields.spaceHeating ===
                   SpaceHeatingEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    🔧 Already electric, but will replace with heat pumps for
-                    efficiency savings
+                    {electrificationStatusMapping.alreadyElectricButWillReplace}
                   </FormHelperText>
                 )}
               </FormControl>
@@ -649,7 +648,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   watchAllFields.waterHeating !==
                     WaterHeatingEnum.ElectricResistance && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                      🔧 Replacing with water heat pump
+                      🔧 Replacing with electric water heat pump
                     </FormHelperText>
                   )}
                 {watchAllFields.waterHeating ===
@@ -723,12 +722,12 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {watchAllFields.cooktop !== CooktopEnum.ElectricInduction &&
                   watchAllFields.cooktop !== CooktopEnum.ElectricResistance && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                      🔧 Replacing with induction
+                      🔧 Replacing with electric induction
                     </FormHelperText>
                   )}
                 {watchAllFields.cooktop === CooktopEnum.ElectricInduction && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    {electrificationStatusMapping.alreadyElectricButWillReplace}
+                    {electrificationStatusMapping.alreadyMostEfficient}
                   </FormHelperText>
                 )}
                 {watchAllFields.cooktop === CooktopEnum.ElectricResistance && (

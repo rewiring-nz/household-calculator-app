@@ -20,10 +20,7 @@ import ResultBox from "./ResultBox";
 import { ReactComponent as OpenIcon } from "src/assets/icons/open-outline.svg";
 
 // ----------------- Models & Interfaces -------------------
-import {
-  Savings,
-  UpfrontCost,
-} from "../../shared/api/openapi-client";
+import { Savings, UpfrontCost } from "../../shared/api/openapi-client";
 import { electricVehicleURL } from "src/shared/links";
 import { recommendationActions } from "./data/RecommendationActions";
 
