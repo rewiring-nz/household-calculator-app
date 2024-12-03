@@ -42,7 +42,7 @@ import {
 } from "./data/interfaces";
 
 // ----------------- Data -------------------
-import { formText } from "./data/householdForm.text";
+import { electrificationStatusMapping, formText } from "./data/householdForm.text";
 
 // ----------------- Icons -------------------
 import questionIcon from "../../assets/icons/question.svg";
@@ -661,7 +661,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {watchAllFields.waterHeating ===
                   WaterHeatingEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    ⚡️ Already electric
+                    {electrificationStatusMapping.alreadyElectric}
                   </FormHelperText>
                 )}
               </FormControl>
@@ -728,12 +728,12 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   )}
                 {watchAllFields.cooktop === CooktopEnum.ElectricInduction && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    ⚡️ Already the most efficient option!
+                    {electrificationStatusMapping.alreadyElectricButWillReplace}
                   </FormHelperText>
                 )}
                 {watchAllFields.cooktop === CooktopEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    ⚡️ Already electric
+                    {electrificationStatusMapping.alreadyElectric}
                   </FormHelperText>
                 )}
               </FormControl>

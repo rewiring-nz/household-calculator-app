@@ -83,6 +83,17 @@ export const vehicleMapping: Record<VehicleFuelTypeEnum, string> = {
 
 // -----------------------------------------------------
 
+// -------------------- Statuses --------------------
+
+export const electrificationStatusMapping: Record<string, string> = {
+  alreadyElectric: "⚡️ Already electric!",
+  alreadyElectricButWillReplace: "🔧 Already electric, but will replace with heat pumps for efficiency savings",
+  alreadyMostEfficient: "⚡️ Already the most efficient option!"
+}
+
+
+// -----------------------------------------------------
+
 // -------------------- Options --------------------
 
 const locationList: string[] = Object.values(LocationEnum).map(
