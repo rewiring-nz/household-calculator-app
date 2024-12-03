@@ -569,7 +569,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                   watchAllFields.spaceHeating !==
                     SpaceHeatingEnum.ElectricResistance && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                      🔧 Replacing with electric heat pumps
+                      🔧 Upgrading to electric heat pumps
                     </FormHelperText>
                   )}
                 {watchAllFields.spaceHeating ===
@@ -581,7 +581,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {watchAllFields.spaceHeating ===
                   SpaceHeatingEnum.ElectricResistance && (
                   <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                    {electrificationStatusMapping.alreadyElectricButWillReplace}
+                    {electrificationStatusMapping.alreadyElectricButWillUpgrade}
                   </FormHelperText>
                 )}
               </FormControl>
@@ -652,7 +652,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                     WaterHeatingEnum.ElectricResistance &&
                   watchAllFields.waterHeating !== WaterHeatingEnum.Solar && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                      🔧 Replacing with electric water heat pump
+                      🔧 Upgrading to electric water heat pump
                     </FormHelperText>
                   )}
                 {watchAllFields.waterHeating ===
@@ -731,7 +731,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 {watchAllFields.cooktop !== CooktopEnum.ElectricInduction &&
                   watchAllFields.cooktop !== CooktopEnum.ElectricResistance && (
                     <FormHelperText sx={{ marginLeft: 0, marginRight: 0 }}>
-                      🔧 Replacing with electric induction
+                      🔧 Upgrading to electric induction
                     </FormHelperText>
                   )}
                 {watchAllFields.cooktop === CooktopEnum.ElectricInduction && (

@@ -57,7 +57,7 @@ const getVehicleCostStr = (numEVsToBuy: number): string => {
   return vehicleCostStr;
 };
 
-const getReplacementCostSubtext = (upfrontCost?: UpfrontCost) => {
+const getUpgradeCostSubtext = (upfrontCost?: UpfrontCost) => {
   if (!upfrontCost?.battery) {
     if (!upfrontCost?.solar) {
       return "for new appliances";
@@ -82,7 +82,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
 
   const [upfrontCostTotal, setUpfrontCostTotal] = useState("0");
   const vehicleCostStr = getVehicleCostStr(numEVsToBuy);
-  const replacementCostSubtext = getReplacementCostSubtext(
+  const upgradeCostSubtext = getUpgradeCostSubtext(
     results?.upfrontCost,
   );
 
@@ -187,9 +187,9 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
         <FDivider />
 
         <ResultBox
-          label="Replacement Cost"
+          label="Upgrade Cost"
           heading={upfrontCostTotal}
-          subheading={replacementCostSubtext}
+          subheading={upgradeCostSubtext}
           bulletPoints={[
             {
               label: "House heating",

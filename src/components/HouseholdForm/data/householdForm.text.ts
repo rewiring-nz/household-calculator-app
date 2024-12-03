@@ -12,7 +12,6 @@ import {
   Option,
   OptionNumber,
   OptionYesNo,
-  UsageOption,
   VehicleOptions,
 } from "./interfaces";
 
@@ -86,8 +85,8 @@ export const vehicleMapping: Record<VehicleFuelTypeEnum, string> = {
 
 export const electrificationStatusMapping: Record<string, string> = {
   alreadyElectric: "⚡️ Already electric",
-  alreadyElectricButWillReplace:
-    "🔧 Already electric, but replacing with heat pumps for more efficiency savings",
+  alreadyElectricButWillUpgrade:
+    "🔧 Already electric, but upgrading to heat pumps for more efficiency savings",
   alreadyMostEfficient: "⚡️ Already the most efficient option!",
 };
 

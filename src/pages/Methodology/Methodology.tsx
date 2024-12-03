@@ -3,7 +3,6 @@ import {
   Box,
   IconButton,
   Link,
-  styled,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -248,9 +247,9 @@ const Methodology: React.FC = () => {
 
           <Box>
 
-            <Typography variant="h2">Replacement Costs</Typography>
+            <Typography variant="h2">Upgrade Costs</Typography>
             <Typography variant="body2">
-              Replacement costs are the cost to replace your machines with electric alternatives - whether you replace them early, or as they reach their end of life.
+              Upgrade costs are the cost to replace your machines with electric alternatives - whether you upgrade them early, or as they reach their end of life.
 
               These are averages based on over 100 quotes,
               comparing mid-range options for typical appliances. Prices include
@@ -271,7 +270,7 @@ const Methodology: React.FC = () => {
               The upfront cost of solar installation is estimated at
               $2277.78/kW, based on 2023 data from the Sustainable Energy
               Association of New Zealand and installer surveys. Inverter
-              replacement costs are assumed at $2,500. Battery costs are
+              upgrade costs are assumed at $2,500. Battery costs are
               estimated at $1000/kWh based on similar sources.
             </Typography>
             <Typography variant="h2">Recommendations (Next Steps)</Typography>
@@ -291,7 +290,7 @@ const Methodology: React.FC = () => {
                 <li>All other EVs (high savings but expensive upfront cost)</li>
               </ol>
               In future, we may improve this recommendation algorithm to take
-              into account machine-specific savings and replacement costs.
+              into account machine-specific savings and upgrade costs.
             </Typography>
             <Typography variant="h2">Further reading</Typography>
             <Typography variant="body2">
