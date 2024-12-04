@@ -17,24 +17,32 @@ export const StyledRecommendationImage = styled(RecommendationImage)(
 
 export const NextStepButton = styled(Button)(({ theme }: { theme: Theme }) => ({
   textTransform: "initial",
-  margin: ".7rem 0",
-  borderRadius: "0.25rem",
+  fontSize: theme.typography.body1.fontSize,
+  lineHeight: "1.1rem",
+  borderRadius: "8px",
   boxShadow: "none",
   color: theme.palette.info.contrastText,
-  // width: "100%",
-  padding: "0.7rem",
+  width: "100%",
+  padding: "1rem 0.7rem",
   boxSizing: "border-box",
-  "&#next-step-button-action": {
+  "&:hover": {
+    boxShadow: "none",
+  },
+  "&#next-step-button-action.main-action": {
     "&:hover": {
-      boxShadow: "none",
       backgroundColor: theme.palette.info.dark,
     },
   },
-  "&#next-step-button-all-guides": {
+  "&#next-step-button-all-guides.secondary-action": {
     backgroundColor: theme.palette.common.white,
     "&:hover": {
-      boxShadow: "none",
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
+  "&#next-step-button-all-guides.main-action": {
+    // backgroundColor: theme.palette.info.light,
+    "&:hover": {
+      backgroundColor: theme.palette.info.dark,
     },
   },
 }));

@@ -335,68 +335,13 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
                     flexShrink: 0,
                     marginLeft: { md: "1rem" },
                     marginTop: { xs: "1rem", md: 0 },
-                    margin: "1.4rem 0",
+                    margin: "1rem 0",
                   }}
                 >
                   {imageComponent}
                 </Box>
               )}
             </Box>
-
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={12}
-              lg={8}
-              sx={{
-                padding: "0",
-                boxSizing: "border-box",
-              }}
-            >
-              {buttonText && (
-                <NextStepButton
-                  variant="contained"
-                  color="info"
-                  theme={theme}
-                  id="next-step-button-action"
-                  onClick={() =>
-                    window.open(
-                      recommendationURL,
-                      "_blank",
-                      "noopener,noreferrer",
-                    )
-                  }
-                >
-                    {/* Most likely "Show me how" */}
-                    {buttonText}
-                  <OpenIcon
-                    style={{
-                      marginLeft: "0.3rem",
-                      maxWidth: "15px",
-                      maxHeight: "15px",
-                    }}
-                  />
-                </NextStepButton>
-              )}
-              <NextStepButton
-                variant="outlined"
-                theme={theme}
-                id="next-step-button-all-guides"
-                onClick={() =>
-                  window.open(allGuidesURL, "_blank", "noopener,noreferrer")
-                }
-              >
-                  See all guides
-                <OpenIcon
-                  style={{
-                    marginLeft: "0.3rem",
-                    maxWidth: "15px",
-                    maxHeight: "15px",
-                  }}
-                />
-              </NextStepButton>
-            </Grid>
           </Grid>
 
           {isMdUp && (
@@ -412,8 +357,8 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
               <Box
                 className="ImageBox"
                 sx={{
-                  margin: "1.4rem 0",
-                  display: "flex",
+                  margin: "1rem 0",
+                  display: "just",
                   justifyContent: "end",
                 }}
               >
@@ -422,6 +367,64 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
             </Grid>
           )}
         </Grid>
+        <Grid
+              item
+              xs={12}
+              sm={12}
+              md={12}
+              lg={8}
+              sx={{
+                display: "flex",
+                gap: "1rem",
+                marginBottom: "1rem",
+                justifyContent: "space-between",
+              }}
+            >
+              {buttonText && (
+                <NextStepButton
+                  variant="contained"
+                  color="info"
+                  theme={theme}
+                  id="next-step-button-action"
+                  className={buttonText ? "main-action" : "secondary-action"}
+                  onClick={() =>
+                    window.open(
+                      recommendationURL,
+                      "_blank",
+                      "noopener,noreferrer",
+                    )
+                  }
+                >
+                    {buttonText}
+                  <OpenIcon
+                    style={{
+                      marginLeft: "0.3rem",
+                      maxWidth: "15px",
+                      maxHeight: "15px",
+                    }}
+                  />
+                </NextStepButton>
+              )}
+              <NextStepButton
+                variant="contained"
+                color={buttonText ? "secondary": "info"}
+                theme={theme}
+                id="next-step-button-all-guides"
+                className={buttonText ? "secondary-action": "main-action"}
+                onClick={() =>
+                  window.open(allGuidesURL, "_blank", "noopener,noreferrer")
+                }
+              >
+                  See all guides
+                <OpenIcon
+                  style={{
+                    marginLeft: "0.3rem",
+                    maxWidth: "15px",
+                    maxHeight: "15px",
+                  }}
+                />
+              </NextStepButton>
+            </Grid>
 
         <Typography variant="body1">
           Sign me up to the mailing list for updates & toolkits for
