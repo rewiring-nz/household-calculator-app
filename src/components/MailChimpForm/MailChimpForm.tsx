@@ -107,6 +107,7 @@ const MailchimpForm = ({ theme }: { theme: any }) => (
               margin: ".7rem 0",
               color: "info",
               maxHeight: "3.4375rem",
+              borderRadius: "8px",
             }}
           >
             <Typography
