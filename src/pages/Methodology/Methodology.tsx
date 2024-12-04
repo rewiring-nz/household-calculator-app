@@ -119,7 +119,7 @@ const Methodology: React.FC = () => {
               version of your home. This means:
               <ul style={{ paddingLeft: "1.5rem", margin: 0 }}>
                 <li>
-                  Replacing fossil fuel heaters (gas or LPG), wood, or electric
+                  Replacing fossil fuel heaters (gas, LPG, diesel), wood, or electric
                   resistive heaters (like oil columns or fan heaters) with
                   efficient heat pumps for maximum heating savings
                 </li>
@@ -144,7 +144,7 @@ const Methodology: React.FC = () => {
                 Australian and New Zealand Residential Baseline Study 2021
               </Link>{" "}
               (published November 2022). For house heating, energy use varies by
-              fuel type, with wood and gas heaters using the most energy, and
+              fuel type, with wood, diesel, and gas/LPG heaters using the most energy, and
               heat pumps being the most efficient. Water and cooktop energy use
               is also derived from standard efficiency values for gas, electric,
               and heat pump systems. For household appliances like lighting,

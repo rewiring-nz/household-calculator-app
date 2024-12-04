@@ -1,6 +1,6 @@
 # household-calculator-app
 
-The frontend app for the household energy savings calculator.
+The frontend app for the household energy savings calculator. You can check it out live at https://calculate.rewiring.nz/. For more context/info, go to https://www.rewiring.nz/calculator :zap:
 
 ## Get started
 
