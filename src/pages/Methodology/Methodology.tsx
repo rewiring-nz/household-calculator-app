@@ -99,12 +99,14 @@ const Methodology: React.FC = () => {
         >
           <Box>
             <Typography variant="h2">Our Approach</Typography>
+
             <Typography variant="body2">
-              We've developed a model that looks at your entire household energy
-              use, including heating, water heating, cooking, other electronics,
-              and transportation. Our calculations are based on real-world data
-              from New Zealand government sources, energy pricing, and household
-              energy consumption studies.
+              Our model looks at your specific household's entire energy use,
+              including heating, water heating, cooking, other electronics,
+              transportation, and the options of solar and batteries, to
+              calculate your personal savings estimates. Our calculations are
+              based on real-world data from New Zealand government sources,
+              energy pricing, and household energy consumption studies.
             </Typography>
 
             <Typography variant="body2" sx={{ fontStyle: "italic" }}>
@@ -119,9 +121,9 @@ const Methodology: React.FC = () => {
               version of your home. This means:
               <ul style={{ paddingLeft: "1.5rem", margin: 0 }}>
                 <li>
-                  Replacing fossil fuel heaters (gas, LPG, diesel), wood, or electric
-                  resistive heaters (like oil columns or fan heaters) with
-                  efficient heat pumps for maximum heating savings
+                  Replacing fossil fuel heaters (gas, LPG, diesel), wood, or
+                  electric resistive heaters (like oil columns or fan heaters)
+                  with efficient heat pumps for maximum heating savings
                 </li>
                 <li>
                   Switching to electric water heaters and induction cooktops
@@ -144,16 +146,17 @@ const Methodology: React.FC = () => {
                 Australian and New Zealand Residential Baseline Study 2021
               </Link>{" "}
               (published November 2022). For house heating, energy use varies by
-              fuel type, with wood, diesel, and gas/LPG heaters using the most energy, and
-              heat pumps being the most efficient. Water and cooktop energy use
-              is also derived from standard efficiency values for gas, electric,
-              and heat pump systems. For household appliances like lighting,
-              laundry, and cooling, a static average daily consumption is used.
-              These energy use values are scaled by regional differences in
-              heating demand (e.g. Otago requires more house heating than
-              Northland). They are also scaled by household occupancy, using an
-              exponential model to account for nonlinear, diminishing increases
-              in energy consumption as household size increases.
+              fuel type, with wood, diesel, and gas/LPG heaters using the most
+              energy, and heat pumps being the most efficient. Water and cooktop
+              energy use is also derived from standard efficiency values for
+              gas, electric, and heat pump systems. For household appliances
+              like lighting, laundry, and cooling, a static average daily
+              consumption is used. These energy use values are scaled by
+              regional differences in heating demand (e.g. Otago requires more
+              house heating than Northland). They are also scaled by household
+              occupancy, using an exponential model to account for nonlinear,
+              diminishing increases in energy consumption as household size
+              increases.
             </Typography>
             <Typography variant="body2">
               Average vehicle energy use is calculated from the{" "}
@@ -186,8 +189,8 @@ const Methodology: React.FC = () => {
             <Typography variant="h3">Emissions Reduction</Typography>
             <Typography variant="body2">
               To calculate emissions, we take the energy calculations from each
-              machine and multiply these by their emissions factors. We use
-              these emissions factors are taken from the Ministry for the
+              machine and multiply these by their emissions factors. The
+              emissions factors are taken from the Ministry for the
               Environment's{" "}
               <Link
                 href="https://environment.govt.nz/assets/publications/Measuring-Emissions-Guidance_EmissionFactors_Summary_2023_ME1781.pdf"
@@ -231,11 +234,22 @@ const Methodology: React.FC = () => {
             </Typography>
             <Typography variant="body2">
               Fixed costs (like gas, LPG, or grid connections) and Road User
-              Charges are added, and solar export revenue is subtracted to get
-              total operating costs. The difference between current and
-              electrified household's operating costs gives the savings. Vehicle
-              maintenance/servicing costs are not yet included, although they
-              tend to be lower for EVs.
+              Charges are added. Vehicle maintenance/servicing costs are not yet
+              included, although they tend to be lower for EVs. Solar export
+              revenue is then subtracted from the bills to get total operating
+              costs. Learn more about Rewiring's advocacy on fair solar export
+              prices from{" "}
+              <Link
+                href="https://www.rewiring.nz/symmetrical-export-tariffs"
+                target="_blank"
+              >
+                our paper on symmetrical export tariffs
+              </Link>
+              .
+            </Typography>
+            <Typography variant="body2">
+              The difference between current and electrified household's
+              operating costs gives the savings.
             </Typography>
           </Box>
 
@@ -251,35 +265,48 @@ const Methodology: React.FC = () => {
               costs per region and installer, we recognise that a more detailed
               analysis of household conditions and installation costs per
               appliance and region would be valuable for planning household
-              upgrades - we plan to include this analysis in future. In the meantime, you can check out our <Link
+              upgrades - we plan to include this analysis in future. In the
+              meantime, you can check out our{" "}
+              <Link
                 href="https://www.rewiring.nz/electrification-guides/get-started"
                 target="_blank"
               >
                 electrification guides
-              </Link> for more information on how to electrify.
+              </Link>{" "}
+              for more information on how to electrify.
             </Typography>
             <Typography variant="body2">
               For vehicles, we provide a general range for replacing fossil fuel
               vehicles with new EVs, based on New Zealand prices for popular
               vehicles. This estimate excludes the Clean Car Rebate, which ended
-              in 2024. It should be noted that buying an EV is a car purchase like any other. You don’t have to buy new; there are plenty of EVs available in the market now. Also, when buying a new car, you would usually take into account the purchase price (what we’ve shown) minus the resale value. So you wouldn’t normally be losing $30k-$70k outright for every EV you buy.
+              in 2024. It should be noted that buying an EV is a car purchase
+              like any other. You don’t have to buy new; there are plenty of
+              secondhand EVs available in the market now. Also, when buying a
+              new car, you would usually take into account the purchase price
+              (what we’ve shown) minus the resale value. So you wouldn’t
+              normally be losing $30k-$70k outright for every EV you buy.
             </Typography>
             <Typography variant="body2">
               The upfront cost of solar installation is estimated at
               $2277.78/kW, based on 2023 data from the Sustainable Energy
               Association of New Zealand and installer surveys. Inverter upgrade
               costs are assumed at $2,500. Battery costs are estimated at
-              $1000/kWh based on similar sources. Again, installation costs will vary by region and installer. Our <Link
+              $1000/kWh based on similar sources. Again, installation costs will
+              vary by region and installer. Our{" "}
+              <Link
                 href="https://www.rewiring.nz/electrification-guides/solar"
                 target="_blank"
               >
                 rooftop solar
-              </Link> and <Link
+              </Link>{" "}
+              and{" "}
+              <Link
                 href="https://www.rewiring.nz/electrification-guides/home-batteries"
                 target="_blank"
               >
                 home battery
-              </Link> electrification guides have more information to help.
+              </Link>{" "}
+              electrification guides have more information to help.
             </Typography>
             <Typography variant="h2">Recommendations (Next Steps)</Typography>
             <Typography variant="body2">
@@ -301,41 +328,84 @@ const Methodology: React.FC = () => {
               into account machine-specific savings and upgrade costs.
             </Typography>
             <Typography variant="h2">Further reading</Typography>
+            <Typography variant="h3">More information & analysis</Typography>
             <Typography variant="body2">
               🔧&nbsp;
               <Link
                 href="https://www.rewiring.nz/electrification-guides/get-started"
                 target="_blank"
               >
-                Explore our electrification guides
+                Use our electrification guides
               </Link>{" "}
-              for more information on how to upgrade your household appliances
-              and vehicles
+              to get started on upgrading your household appliances and vehicles
             </Typography>
+            <Typography variant="body2">
+              🔎&nbsp;
+              <Link href="https://www.rewiring.nz/explained" target="_blank">
+                Explore our FAQs
+              </Link>{" "}
+              on everything from finance to solar to waste
+            </Typography>
+            <Typography variant="body2">
+              🧑🏽‍🏫&nbsp;
+              <Link
+                href="https://www.rewiring.nz/explained#watt"
+                target="_blank"
+              >
+                Read our deep dive explainers
+              </Link>{" "}
+              on the big questions around efficiency, circular economy, energy
+              use, and more
+            </Typography>
+            <Typography variant="body2">
+              📑{" "}
+              <Link
+                href="https://www.rewiring.nz/electric-homes-report"
+                target="_blank"
+              >
+                Read our Electric Homes report
+              </Link>{" "}
+              or our recent paper on the{" "}
+              <Link href="https://www.rewiring.nz/tomorrow" target="_blank">
+                macroeconomics of rooftop solar & batteries
+              </Link>
+            </Typography>
+            <Typography variant="h3">About this calculator</Typography>
             <Typography variant="body2">
               🤓&nbsp;
               <Link
                 href="https://github.com/rewiring-nz/household-model/blob/main/METHODOLOGY.md"
                 target="_blank"
               >
-                Read our detailed methodology
+                Dive into our detailed methodology
               </Link>{" "}
               including energy consumption values, prices, and emissions factors
             </Typography>
             <Typography variant="body2">
-              👩🏻‍💻&nbsp;See our&nbsp;
+              👩🏻‍💻&nbsp;See our open-source&nbsp;
               <Link
                 href="https://github.com/rewiring-nz/household-model"
                 target="_blank"
               >
-                 open-source model
-              </Link>&nbsp;and&nbsp;
+                Python model
+              </Link>
+              &nbsp;and&nbsp;
               <Link
                 href="https://github.com/rewiring-nz/household-calculator-app"
                 target="_blank"
               >
-                open-source app
-              </Link>&nbsp;on GitHub
+                React app
+              </Link>
+              &nbsp;on GitHub
+            </Typography>
+
+            <Typography variant="body2">
+              This tool was created by{" "}
+              <Link href="https://www.rewiring.nz/" target="_blank">
+                Rewiring Aotearoa
+              </Link>
+              , a nonprofit representing everyday New Zealanders in the energy
+              transition. Whakahiko te ao! (Electrify everything!) ⚡️
             </Typography>
           </Box>
         </Box>
