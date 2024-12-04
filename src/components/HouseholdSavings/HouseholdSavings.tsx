@@ -214,7 +214,7 @@ const HouseholdSavings: React.FC<SavingsProps> = ({
           ]}
         >
           <p>
-            Note that this is the <i>total</i> cost of new electric
+            Note that this is the <i>total</i> cost estimate of new electric
             alternatives. When comparing with savings, you should compare the
             cost <i>difference</i> between new fossil fuel and electric
             alternatives.

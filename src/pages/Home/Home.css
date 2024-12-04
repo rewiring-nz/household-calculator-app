@@ -1,21 +1,53 @@
-.Home {
-    text-align: left;
-    background-color: #FDFAF1;
-  }
+.Home-logos {
+  margin-bottom: 1.2rem;
+  height: 64px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  .Home-logo {
-    max-width: 38vw;
-    margin-bottom: 1.1rem;
-  }
+.Home-logo {
+  /* max-width: 38vw; */
+  margin-bottom: 0;
+}
 
-  .Home-header {
-    background-color: #FDFAF1;
-    min-height: 10vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: black;
-  }
+#rewiring-logo-container {
+  margin: auto 1.5rem auto 0;
+}
 
+.rewiring-logo-mobile {
+  max-width: 48vw;
+}
+.rewiring-logo-desktop {
+  max-width: 38vw;
+}
+
+.asb-logo-container {
+  display: flex;
+  align-items: center;
+}
+.asb-logo-container-mobile {
+  flex-direction: column;
+}
+.asb-logo-container-desktop {
+  flex-direction: row;
+}
+
+#asb-logo-label.asb-logo-label-mobile {
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+}
+#asb-logo-label.asb-logo-label-desktop {
+  margin-right: 20px;
+  font-size: 0.9rem;
+}
+
+#asb-logo {
+  height: 20px;
+}
+#Home-logo-keyline {
+  border-color: black;
+  height: 80%;
+  margin: auto 0;
+}
