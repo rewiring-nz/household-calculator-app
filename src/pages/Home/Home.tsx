@@ -163,6 +163,17 @@ const Home: React.FC = () => {
             Enter your details to see your potential savings.
           </Typography>
 
+          <Typography
+          variant="body2"
+          sx={{
+            fontSize: "0.5rem",
+            lineHeight: "0.5rem",
+            fontStyle: "italic"
+          }}
+          >
+          The legal bit - Rewiring Aotearoa disclaims and excludes all liability for any claim, loss, demand or damages of any kind whatsoever (including for negligence) arising out of or in connection with the use of either this website or the tools, information, content or materials included on this site or on any website we link to.
+          </Typography>
+
           {householdData && (
             <HouseholdForm
               householdData={householdData}
