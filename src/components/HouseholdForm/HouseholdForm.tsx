@@ -18,7 +18,6 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import "./HouseholdForm.css";
 import { FDivider } from "src/shared/styles/FDivider";
 
 // ----------------- Models & Interfaces -------------------
@@ -872,7 +871,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                 >
                   <LabelBox>
                     <FormLabel className="mainLabels" htmlFor="solarSize-input">
-                      What size of solar panel power output?
+                      What size of solar panels?
                     </FormLabel>
                     <HouseholdTooltip
                       title={tooltipText.solarSize}

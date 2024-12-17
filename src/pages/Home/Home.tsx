@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import logo from "../../assets/logos/RewiringAotearoa_logo.svg";
+import rewiringLogo from "../../assets/logos/rewiring_full_logo.svg";
+import asbLogo from "../../assets/logos/asb_logo.svg";
 import { useTheme } from "@mui/material/styles";
 import HouseholdForm from "../../components/HouseholdForm/HouseholdForm";
 import HouseholdSavings from "../../components/HouseholdSavings/HouseholdSavings";
@@ -12,11 +13,12 @@ import {
 } from "src/components/HouseholdForm/data/householdForm.text";
 import MobileSavingsDrawer from "src/components/MobileSavingsDrawer/MobileSavingsDrawer";
 import { useDrawer } from "src/components/MobileSavingsDrawer/DrawerContext";
+import "./Home.css";
 
 const Home: React.FC = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  // const isMobile = true; // for debugging
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { householdData, updateHouseholdData, savingsData, loadingData } =
     useHouseholdData();
@@ -128,19 +130,37 @@ const Home: React.FC = () => {
             },
           }}
         >
-          <Link
-            href="https://rewiring.nz/"
-            aria-label="Go to Rewiring Aotearoa home page"
-          >
-            <img
-              src={logo}
-              className="Home-logo"
-              alt="Rewiring Aotearoa logo"
-              style={{
-                marginBottom: "1.2rem",
-              }}
-            />
-          </Link>
+          <Box className="Home-logos">
+            <Box id="rewiring-logo-container">
+              <Link
+                href="https://rewiring.nz/"
+                aria-label="Go to Rewiring Aotearoa home page"
+              >
+                <img
+                  src={rewiringLogo}
+                  className={`Home-logo ${isMobile ? "rewiring-logo-mobile" : "rewiring-logo-desktop"}`}
+                  alt="Rewiring Aotearoa logo"
+                />
+              </Link>
+            </Box>
+            <Box
+              className={`asb-logo-container ${isMobile ? "asb-logo-container-mobile" : "asb-logo-container-desktop"}`}
+            >
+              <Typography
+                variant="body2"
+                id="asb-logo-label"
+                className={`${isMobile ? "asb-logo-label-mobile" : "asb-logo-label-desktop"}`}
+              >
+                Supported by
+              </Typography>
+              <img
+                src={asbLogo}
+                className={`Home-logo ${isMobile ? "asb-logo-mobile" : "asb-logo-desktop"}`}
+                id="asb-logo"
+                alt="ASB logo"
+              />
+            </Box>
+          </Box>
 
           <Typography
             variant="h1"
@@ -220,7 +240,7 @@ const Home: React.FC = () => {
         {/* -------------------------------------------------- */}
         {/* Home Savings Desktop */}
 
-        {!isMobile && (
+        {!isMobile && !isTablet && (
           <Box
             className="Home-savings"
             sx={{
@@ -257,7 +277,7 @@ const Home: React.FC = () => {
         {/* -------------------------------------------------- */}
 
         {/* Home Savings Mobile */}
-        {isMobile && (
+        {(isMobile || isTablet) && (
           <MobileSavingsDrawer
             appliances={appliances}
             results={savingsData}
