@@ -5,7 +5,6 @@ import MailchimpForm from "../MailChimpForm/MailChimpForm";
 // ----------------- Styles & Material UI -------------------
 import {
   Box,
-  Button,
   Typography,
   useTheme,
   Link,
