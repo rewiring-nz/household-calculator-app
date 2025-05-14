@@ -172,6 +172,17 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
                   <MenuItem
                     key={`fuelType-${option.value}`}
                     value={option.value}
+                    sx={{
+                      "&.Mui-selected": {
+                        backgroundColor: theme.palette.info.light,
+                        "&:hover": {
+                          backgroundColor: theme.palette.info.light,
+                        },
+                      },
+                      "&:hover": {
+                        backgroundColor: theme.palette.info.light,
+                      },
+                    }}
                   >
                     {option.text}
                   </MenuItem>
@@ -386,7 +397,7 @@ const VehicleBox: React.FC<VehicleBoxProps> = ({
           </Box>
         )}
       </Box>
-    </Box>
+    </Box >
   );
 };
 

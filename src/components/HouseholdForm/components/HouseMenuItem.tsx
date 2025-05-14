@@ -8,13 +8,13 @@ const StyledMenuItem = styled(MenuItem)(({ theme }: { theme: Theme }) => ({
   justifyContent: "flex-start",
   minWidth: "3rem",
   "&.Mui-selected": {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.info.light,
     "&:hover": {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.info.light,
     },
   },
   "&:hover": {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.info.light,
   },
 }));
 

@@ -80,7 +80,13 @@ const MailchimpForm = ({ theme }: { theme: any }) => (
             // } as EmailFormFields);
           }}
         >
-          <FormControl>
+          <FormControl
+            sx={{
+              "& .MuiInputBase-root": {
+                backgroundColor: theme.palette.info.light,
+              },
+            }}
+          >
             <TextField
               id="email"
               name="email"
@@ -108,6 +114,7 @@ const MailchimpForm = ({ theme }: { theme: any }) => (
               color: "info",
               maxHeight: "3.4375rem",
               borderRadius: "8px",
+              borderColor: "#000000",
             }}
           >
             <Typography

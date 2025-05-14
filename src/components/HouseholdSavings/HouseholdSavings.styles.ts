@@ -21,7 +21,7 @@ export const NextStepButton = styled(Button)(({ theme }: { theme: Theme }) => ({
   lineHeight: "1.1rem",
   borderRadius: "8px",
   boxShadow: "none",
-  color: theme.palette.info.contrastText,
+  // color: theme.palette.info.contrastText,
   width: "100%",
   padding: "1rem 0.7rem",
   boxSizing: "border-box",
@@ -34,15 +34,15 @@ export const NextStepButton = styled(Button)(({ theme }: { theme: Theme }) => ({
     },
   },
   "&#next-step-button-all-guides.secondary-action": {
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: theme.palette.info.light,
     "&:hover": {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: "#E1D2FA",
     },
   },
-  "&#next-step-button-all-guides.main-action": {
+  // "&#next-step-button-all-guides.main-action": {
     // backgroundColor: theme.palette.info.light,
-    "&:hover": {
-      backgroundColor: theme.palette.info.dark,
-    },
-  },
+    // "&:hover": {
+      // backgroundColor: theme.palette.info.dark,
+    // },
+  // },
 }));
