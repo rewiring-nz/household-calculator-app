@@ -198,7 +198,7 @@ const tooltipText: Record<string, string> = {
   hasSolar:
     "If you have any solar panels in use (whether on roof or ground), select Yes. If you don’t have solar yet, select whether you would like to calculate your savings based on getting solar.",
   solarSize:
-    "The total capacity of your solar panel system. 9 kW is the average in Australia and enough for 2 EVs, 7 kW is enough for 1 EV.",
+    "The total capacity of your solar panel system. The Australian average is 9 kW, enough for 2 EVs; 7 kW is enough for 1 EV. This calculator supports up to 30 kW.",
   hasBattery:
     "If you have a home battery, select Yes. If you don’t have a battery yet, select whether you would like to calculate your savings based on getting one. We currently only include battery calculations if you include solar.",
   batteryCapacity:

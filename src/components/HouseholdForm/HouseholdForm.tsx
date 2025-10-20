@@ -898,14 +898,15 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                           const numericValue = parseFloat(e.target.value);
                           setSolarSize(isNaN(numericValue) ? 0 : numericValue);
                         }}
+                        // Solar sized is limited to 30 kW to stay within the typical household ranges for both single-phase and three-phase
                         onBlur={(e) => {
                           const numericValue = parseFloat(e.target.value);
-                          if (numericValue >= 0 && numericValue <= 1000) {
+                          if (numericValue >= 0 && numericValue <= 30) {
                             setSolarSize(
                               isNaN(numericValue) ? 0 : numericValue,
                             );
-                          } else if (numericValue > 1000) {
-                            setSolarSize(1000);
+                          } else if (numericValue > 30) {
+                            setSolarSize(30);
                           } else {
                             setSolarSize(0);
                           }
@@ -920,12 +921,12 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                         onKeyDown={(e) => {
                           const currentSize = solarSize || 0;
                           if (e.key === "Enter") {
-                            if (currentSize >= 0 && currentSize <= 1000) {
+                            if (currentSize >= 0 && currentSize <= 30) {
                               setSolarSize(
                                 isNaN(currentSize) ? 0 : currentSize,
                               );
-                            } else if (currentSize > 1000) {
-                              setSolarSize(1000);
+                            } else if (currentSize > 30) {
+                              setSolarSize(30);
                             } else {
                               setSolarSize(0);
                             }
@@ -935,7 +936,7 @@ const HouseholdForm: React.FC<HouseholdFormProps> = ({
                             });
                           }
                           if (e.key === "ArrowUp") {
-                            const newValue = Math.min(currentSize + 1, 1000);
+                            const newValue = Math.min(currentSize + 1, 30);
                             setSolarSize(newValue);
                           }
                           if (e.key === "ArrowDown") {
