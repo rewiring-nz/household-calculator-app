@@ -29,7 +29,7 @@ export const locationMapping: Record<LocationEnum, string> = {
   [LocationEnum.Gisborne]: "Gisborne / Tairāwhiti",
   [LocationEnum.HawkesBay]: "Hawke's Bay / Te Matau-a-Māui",
   [LocationEnum.Taranaki]: "Taranaki",
-  [LocationEnum.ManawatuWanganui]: "Manawatu-Wanganui",
+  [LocationEnum.ManawatuWanganui]: "Manawatū-Whanganui",
   [LocationEnum.Wellington]: "Wellington / Te Whanganui a Tara",
   [LocationEnum.Tasman]: "Tasman / Te Tai o Aorere",
   [LocationEnum.Nelson]: "Nelson / Whakatū",
